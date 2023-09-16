@@ -1,0 +1,327 @@
+[
+  {
+    "title": "Lemon Vanilla OG (LVOG)",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/lvog"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/F83C071A-83AB-42B5-B3B8-EEAE11F91843.jpg?v=1694192862",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g"
+    ]
+  },
+  {
+    "title": "Fabled",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/fabled-flow"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_da43ca43-5511-47d5-b5d7-583657ccba9e.jpg?v=1685121761",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Cherry Muffins",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/cherry-muffins"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/CherryMuffinCut-Ps.jpg?v=1674528237",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g"
+    ]
+  },
+  {
+    "title": "Key Lime Pie",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/key"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_144c8edc-aa52-49eb-8f65-20f172f44b4f.jpg?v=1688142473",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g"
+    ]
+  },
+  {
+    "title": "Sour Sex Wax",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/sour-sex-wax"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/20A55C7D-6132-4149-B2CE-84615AFE4F4C.jpg?v=1692978169",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ]
+  },
+  {
+    "title": "MAC 1",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/mac-1"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6999093f-7139-4586-8ae4-3b369c6a9258.jpg?v=1687546903",
+    "variants": [
+      "3.5 g"
+    ]
+  },
+  {
+    "title": "Purple Haze",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/purple-haze"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/IMG-8490.jpg?v=1692382629",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Lemon Cherry Sherbet",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/lemon-cherry-sherbert"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6981f9a9-6764-49d4-ba3c-1663b53de727.jpg?v=1691766699",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ]
+  },
+  {
+    "title": "Blueberry Cough Drops",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/blueberry-cough-drops-1"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_0c50b33c-1bcc-42f9-84b6-b9fdbe7c1f77.jpg?v=1664472165",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g"
+    ]
+  },
+  {
+    "title": "Mystery OZ",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/mystery-og"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_8ad97c8d-d52f-48c0-8a74-a189947cfd04.jpg?v=1685127133",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Bordeaux",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/bordeaux"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image.jpg?v=1631285540",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "14 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Orange Glaze #3",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/orange-glaze"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/Orangeglaze1st.jpg?v=1654195313",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Banana Bread",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/banana-bread"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_a833dcbc-fe82-47a5-95e6-f67ead58b0ef.jpg?v=1685728829",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Colorado Gas Can",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/colorado-gas-can"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_538267ee-ad77-4212-853c-b9aebfc86fbe.jpg?v=1672166192",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Banana OG",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/banana-og"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_7d23206c-3431-4480-bbdc-0c40dd3bff49.jpg?v=1685123663",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Flows Cookies",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/copy-of-alpen-flow-5"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_555df1d9-c820-41f2-95c6-0423ad5593c2.jpg?v=1683904477",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Blueberry Muffin",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/blueberry-muffin"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/BlueberryMuffinPic.jpg?v=1644712152",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  },
+  {
+    "title": "Wild Country #1",
+    "url": {
+      "$": {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://flowgardens.com/products/wild-country"
+      }
+    },
+    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_9beadb4b-b14a-403a-8363-86a492919ee2.jpg?v=1683303470",
+    "variants": [
+      "1 g",
+      "3.5 g",
+      "7 g",
+      "14 g",
+      "28 g",
+      "28 g smalls/minis"
+    ]
+  }
+]
