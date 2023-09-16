@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <div>Updated at: {{ publishDate }}</div>
     <navigation />
     <router-view />
   </div>
@@ -17,6 +18,7 @@ export default {
   },
   data() {
     return {
+      publishDate: JSON.stringify(import.meta.env) // this.getFormattedDate(import.meta.env.VITE_BUILD_TIME)
     };
   },
   async created() {
@@ -44,7 +46,18 @@ export default {
   },
 
   methods: {
-
+    getFormattedDate(timestamp) {
+      const date = new Date(timestamp);
+      const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      };
+      return date.toLocaleString('en-US', options);
+    }
   }
 }
 </script>
@@ -69,6 +82,7 @@ body {
   display: flex;
   place-items: start;
   min-height: 100vh;
+  background-color: #eee;
 }
 
 #app {
@@ -82,6 +96,9 @@ body {
 
 .app {
   margin: 0 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 360px;
 }
 

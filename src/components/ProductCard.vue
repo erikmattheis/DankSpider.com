@@ -2,15 +2,15 @@
   <div class="product-card page" :style="cardStyle" v-if="product.image">
     <a :href="product.url" :style="linkStyle" class="backdrop">
       <div>
-        <img :src="product.image" alt="Product" />
+        <img :src="product.image" :alt="product.title" />
       </div>
     </a>
     <div class="info">
       <h3>{{ product.title }}</h3>
       <p><i>{{ product.vendor }}</i></p>
       <ul>
-        <li v-for="(variant, i) in product.variants" v-bind:key="i">
-          {{ variant }}
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant">
+          <span>{{ variant }}</span>
         </li>
       </ul>
     </div>
@@ -62,6 +62,7 @@ this.linkStyle = {
   methods: {
 
     animateBackgroundY() {
+      /*
       const backdrop = document.querySelector('.backdrop');
 
       if (!backdrop) return;
@@ -80,6 +81,7 @@ this.linkStyle = {
         document.querySelector('.backdrop').style.backgroundPositionY = `${backgroundPosition}px`;
 
       }
+      */
     },
 
   },
@@ -109,15 +111,17 @@ this.linkStyle = {
 .backdrop div {
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(5px);
+  background-color: #fff;
 }
 
 img {
+  transform: rotate(45deg);
   height: 120px;
 }
 
 .info {
-  background-color: #eee;
+  background-color: #ddd;
+  padding: 5px 0 30px;
   width: 100%;
 }
 
@@ -128,17 +132,27 @@ ul {
 }
 
 ul li {
-  display: block;
+  display: inline-block;
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;
-  border-radius: 20px;
-  background-color: #333;
-  color: #ccc;
-  cursor: pointer;
+
+  background-color: #cfcfcf;
+  color: #dfdfdf;
+}
+
+ul li::after {
+  display: block;
+  content: attr(title);
+  font-weight: 700;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
 }
 
 ul li.selected {
+  font-weight: 700;
   background-color: #eee;
   color: #333;
 }

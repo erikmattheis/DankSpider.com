@@ -9,8 +9,7 @@
 <style scoped>
 .nav {
   display: flex;
-  flex-wrap: wrap;
-  margin: 20px 0 0 0;
+  align-items: center;
 }
 
 .nav-item {
@@ -21,7 +20,8 @@
   border-radius: 20px;
   background-color: #333;
   color: #ccc;
-  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .nav-item span {

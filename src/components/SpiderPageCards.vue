@@ -56,16 +56,6 @@ ul li {
   border-radius: 20px;
   background-color: #333;
   color: #eee;
-  cursor: pointer;
-}
-
-ul li.selected {
-  color: #242424;
-  background-color: #eee;
-}
-
-li span {
-  white-space: nowrap;
 }
 
 .horizontal-cards {

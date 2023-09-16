@@ -67,14 +67,14 @@ ul li {
   margin-right: 5px;
   padding: 5px 10px;
   border-radius: 20px;
-  background-color: #333;
+  background-color: #aaa;
   color: #eee;
   cursor: pointer;
 }
 
 ul li.selected {
   color: #242424;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 li span {
