@@ -1,4 +1,7 @@
 function normalizeTitle(title) {
+  if (!title) {
+    return title;
+  }
   title = title?.trim().replace(/\s+/g, ' ');
   title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
   title = title?.replace(/(\s+)/g, ' ');

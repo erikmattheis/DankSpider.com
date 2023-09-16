@@ -1,7 +1,7 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
-const stringsService = require('../services/strings');;
+const stringsService = require('../services/strings');
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
 
@@ -38,7 +38,9 @@ async function getAvailableLeafProducts() {
 
             const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 
-            console.log('contentHtml exists', entry.summary.type);
+            console.log('contentHtml exists', entry.summary._);
+
+            console.log()
 
             const $content = cheerio.load(contentHtml);
 

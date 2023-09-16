@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const flow = require('./vendors/flow.js');
+const wnc = require('./vendors/wnc.js');
 
 function writeFile(products) {
   const jsonContent = JSON.stringify(products, null, 2);
@@ -8,9 +9,16 @@ function writeFile(products) {
 }
 
 async function run() {
-  const products = await flow.getAvailableLeafProducts();
-  console.log('products', products);
+  const flowProducts = await flow.getAvailableLeafProducts();
+  console.log('flow products', flowProducts.length);
+
+  const wncProducts = await wnc.getAvailableLeafProducts();
+  console.log('wnc products', wncProducts.length);
+
+  const products = [...flowProducts, ...wncProducts];
+
   writeFile(products);
+
   console.log(`Data has been written to file for ${products.length} products`);
 }
 
