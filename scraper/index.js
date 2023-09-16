@@ -5,7 +5,7 @@ const wnc = require('./vendors/wnc.js');
 
 function writeFile(products) {
   const jsonContent = JSON.stringify(products, null, 2);
-  fs.writeFileSync('../data/products.json', jsonContent, 'utf8');
+  fs.writeFileSync('../src/assets/data/products.json', jsonContent, 'utf8');
 }
 
 async function run() {

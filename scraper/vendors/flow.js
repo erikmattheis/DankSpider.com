@@ -26,43 +26,40 @@ async function getAvailableLeafProducts() {
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
 
-        if ((productType === 'flower' || productType === 'pre-roll')) {
+        const filteredVariants = variants.filter((variant) => stringsService.variantNameContainsWeightUnitString(variant.title));
 
-          if (variants.some((variant) => stringsService.variantNameContainsWeightUnitString(variant.title))) {
+        if (filteredVariants.length && (productType === 'flower')) {
+          const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
 
-            const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
+          const productTitle = entry.title ? entry.title : '';
 
-            const productTitle = entry.title ? entry.title : '';
+          const productUrl = entry.link?.$?.href || '';
 
-            const productUrl = entry.link || '';
+          const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 
-            const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
+          console.log('contentHtml exists', entry.summary._);
 
-            console.log('contentHtml exists', entry.summary._);
+          const $content = cheerio.load(contentHtml);
 
-            console.log()
+          const firstImage = $content('img').attr('src');
 
-            const $content = cheerio.load(contentHtml);
+          console.log('found :image', firstImage);
 
-            const firstImage = $content('img').attr('src');
+          const productImage = firstImage || '';
 
-            console.log('found :image', firstImage);
+          const product = {
+            title: productTitle,
+            url: productUrl,
+            image: productImage,
+            variants: resolvedVariants,
+            vendor: 'Flow Gardens',
+          };
 
-            const productImage = firstImage || '';
+          products.push(product);
+        }
+        else {
+          console.log('Skipping product type', productType);
 
-            const product = {
-              title: productTitle,
-              url: productUrl,
-              image: productImage,
-              variants: resolvedVariants,
-              vendor: 'Flow Gardens',
-            };
-
-            products.push(product);
-          }
-          else {
-            console.log('Skipping product type', productType);
-          }
         }
       });
     }

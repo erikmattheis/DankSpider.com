@@ -26,9 +26,11 @@ export default {
   created() {
     this.store = useSpiderStore();
     this.store.normalizeVariants(this.store.variants);
+
   },
   computed: {
     normalizedVariants() {
+      console.log('var', this.store.normalizedVariants);
       return this.store.normalizedVariants;
     },
     checkedVariants() {

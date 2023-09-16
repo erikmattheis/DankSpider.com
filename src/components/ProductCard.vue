@@ -41,18 +41,23 @@ export default {
   },
   mounted() {
     this.store = useSpiderStore();
-    window.addEventListener('scroll', this.animateBackgroundY);
-    this.linkStyle = {
-      'background-image': `url(${this.product.image})`,
-      'backdrop-filter': this.backdropFilterValue,
-    };
+
+    /*
+window.addEventListener('scroll', this.animateBackgroundY);
+this.linkStyle = {
+  'background-image': `url(${this.product.image})`,
+  'backdrop-filter': this.backdropFilterValue,
+};
 
     this.cardStyle = {
       'background-image': `url(${this.product.image})`,
     };
+
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.animateBackgroundY);
+  },
+  */
   },
   methods: {
 
@@ -89,6 +94,7 @@ export default {
   margin: 20px;
   padding: 0;
   text-align: center;
+  background-color: #eee;
 }
 
 .backdrop {
@@ -111,6 +117,7 @@ img {
 }
 
 .info {
+  background-color: #eee;
   width: 100%;
 }
 

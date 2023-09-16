@@ -8,7 +8,7 @@ const { JSDOM } = jsdom;
 const stringsService = require('../services/strings');
 
 const products = [];
-const productLinks = [];
+
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
@@ -35,7 +35,7 @@ async function getWNCProductInfo(productInfoUrl) {
 
     console.log('variants', variants);
 
-    const title = $('meta[property="og:title"]').attr('content');
+    const title = $('meta[property="og:title"]').attr('content').replace('THCa ', '');;
     const url = $('meta[property="og:url"]').attr('content');
     const image = $('meta[property="og:image"]').attr('content');
     /*
@@ -82,7 +82,8 @@ async function getWNCProductInfo(productInfoUrl) {
 }
 
 
-async function scrapePage(url, currentPage, productLinks) {
+async function scrapePage(url, currentPage) {
+  const productLinks = [];
   try {
     const response = await axiosRateLimited.get(url);
     const $ = cheerio.load(response.data);
@@ -92,12 +93,13 @@ async function scrapePage(url, currentPage, productLinks) {
     const cards = dom.window.document.querySelectorAll('.card');
     cards.forEach((card) => {
       const anchorElement = card.querySelector('a.card-figure__link');
-      const productTitle = card.querySelector('h3.card-title a').textContent.trim();
+      const productTitle = card.querySelector('h3.card-title a').textContent.trim().replace('THCa ', '');;
+
       console.log('Finding if available: ', productTitle);
 
       const chooseOptionsButton = card.querySelector('a.card-figcaption-button');
-      if (chooseOptionsButton && chooseOptionsButton.textContent.includes('Choose Options')) {
-        console.log('Finding if desired: ', productTitle);
+      if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.textContent.includes('Choose Options')) {
+        console.log('DFinding if desired: ', productTitle);
         console.log('Product title:', productTitle);
         const href = $('a[data-event-type="product-click"]').attr('href');
 
@@ -117,7 +119,7 @@ async function scrapePage(url, currentPage, productLinks) {
     if (nextPageLink) {
       currentPage++;
       console.log(`Scraping page ${currentPage}`);
-      await scrapePage(nextPageLink, currentPage, productLinks);
+      await scrapePage(nextPageLink, currentPage);
     } else {
       console.log('No more WNC pages to scrape.');
       await getWNCProductsInfo(productLinks);
@@ -158,6 +160,11 @@ function isDesiredProduct(productTitle) {
     return false;
   }
   const lowerTitle = productTitle.toLowerCase();
+
+  if (lowerTitle.includes('artisan mix')) {
+    return false;
+  }
+
   return ['living soil', 'indoor', 'greenhouse'].some((keyword) =>
     lowerTitle.includes(keyword)
   );
@@ -171,6 +178,7 @@ async function getWNCProductsInfo(productLinks) {
       console.log('skipping null product');
       continue;
     }
+
     product.vendor = 'WNC';
 
     if (product.variants.length > 0) {
@@ -184,7 +192,7 @@ async function getWNCProductsInfo(productLinks) {
 async function getAvailableLeafProducts() {
 
   //await fetchFlowGardensData();
-  await scrapePage(startUrl, currentPage, productLinks);
+  await scrapePage(startUrl, currentPage);
   //enlightenedAlchemyProducts();
 
   //upstateHempProducts();

@@ -13,7 +13,6 @@ function normalizeTitle(title) {
   // Remove extra spaces, leading/trailing spaces, and convert to lowercase
   title = title?.trim().replace(/\s+/g, ' ');
   title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
-  title = title?.replace(/(\s+)/g, ' ');
   title = title?.replace('SMALLS', 'smalls');
   title = title?.replace('MINIS', 'minis');
   title = title?.replace('Smalls', 'smalls');
@@ -22,6 +21,7 @@ function normalizeTitle(title) {
   title = title?.replace(' (1/4 oz)', '');
   title = title?.replace(' (1/2 oz)', '');
   title = title?.replace(' (1 oz)', '');
+  title = title?.replaceNoCase('(small/minis)', 'smalls/minis');
   return title;
 }
 

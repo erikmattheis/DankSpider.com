@@ -57,6 +57,7 @@ export const useSpiderStore = defineStore('spider', {
           }
         });
       });
+      this.sortProducts('title');
       this.normalizedVariants = variants;
     },
     highlightChecked() {

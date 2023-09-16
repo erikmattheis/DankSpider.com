@@ -2,7 +2,7 @@ function normalizeTitle(title) {
   if (!title) {
     return title;
   }
-  title = title?.trim().replace(/\s+/g, ' ');
+
   title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
   title = title?.replace(/(\s+)/g, ' ');
   title = title?.replace('SMALLS', 'smalls');
@@ -13,6 +13,8 @@ function normalizeTitle(title) {
   title = title?.replace(' (1/4 oz)', '');
   title = title?.replace(' (1/2 oz)', '');
   title = title?.replace(' (1 oz)', '');
+  title = title?.replace('(small/minis)', 'smalls/minis');
+  title = title?.trim().replace(/\s+/g, ' ');
   return title;
 }
 

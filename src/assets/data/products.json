@@ -1,13 +1,7 @@
 [
   {
     "title": "Lemon Vanilla OG (LVOG)",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/lvog"
-      }
-    },
+    "url": "https://flowgardens.com/products/lvog",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/F83C071A-83AB-42B5-B3B8-EEAE11F91843.jpg?v=1694192862",
     "variants": [
       "1 g",
@@ -20,13 +14,7 @@
   },
   {
     "title": "Fabled",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/fabled-flow"
-      }
-    },
+    "url": "https://flowgardens.com/products/fabled-flow",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_da43ca43-5511-47d5-b5d7-583657ccba9e.jpg?v=1685121761",
     "variants": [
       "1 g",
@@ -40,13 +28,7 @@
   },
   {
     "title": "Cherry Muffins",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/cherry-muffins"
-      }
-    },
+    "url": "https://flowgardens.com/products/cherry-muffins",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/CherryMuffinCut-Ps.jpg?v=1674528237",
     "variants": [
       "1 g",
@@ -59,13 +41,7 @@
   },
   {
     "title": "Key Lime Pie",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/key"
-      }
-    },
+    "url": "https://flowgardens.com/products/key",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_144c8edc-aa52-49eb-8f65-20f172f44b4f.jpg?v=1688142473",
     "variants": [
       "1 g",
@@ -78,13 +54,7 @@
   },
   {
     "title": "Sour Sex Wax",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/sour-sex-wax"
-      }
-    },
+    "url": "https://flowgardens.com/products/sour-sex-wax",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/20A55C7D-6132-4149-B2CE-84615AFE4F4C.jpg?v=1692978169",
     "variants": [
       "3.5 g",
@@ -94,13 +64,7 @@
   },
   {
     "title": "MAC 1",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/mac-1"
-      }
-    },
+    "url": "https://flowgardens.com/products/mac-1",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6999093f-7139-4586-8ae4-3b369c6a9258.jpg?v=1687546903",
     "variants": [
       "3.5 g"
@@ -109,13 +73,7 @@
   },
   {
     "title": "Purple Haze",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/purple-haze"
-      }
-    },
+    "url": "https://flowgardens.com/products/purple-haze",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/IMG-8490.jpg?v=1692382629",
     "variants": [
       "1 g",
@@ -129,13 +87,7 @@
   },
   {
     "title": "Lemon Cherry Sherbet",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/lemon-cherry-sherbert"
-      }
-    },
+    "url": "https://flowgardens.com/products/lemon-cherry-sherbert",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6981f9a9-6764-49d4-ba3c-1663b53de727.jpg?v=1691766699",
     "variants": [
       "3.5 g",
@@ -145,13 +97,7 @@
   },
   {
     "title": "Blueberry Cough Drops",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/blueberry-cough-drops-1"
-      }
-    },
+    "url": "https://flowgardens.com/products/blueberry-cough-drops-1",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_0c50b33c-1bcc-42f9-84b6-b9fdbe7c1f77.jpg?v=1664472165",
     "variants": [
       "1 g",
@@ -164,13 +110,7 @@
   },
   {
     "title": "Mystery OZ",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/mystery-og"
-      }
-    },
+    "url": "https://flowgardens.com/products/mystery-og",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_8ad97c8d-d52f-48c0-8a74-a189947cfd04.jpg?v=1685127133",
     "variants": [
       "1 g",
@@ -184,13 +124,7 @@
   },
   {
     "title": "Bordeaux",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/bordeaux"
-      }
-    },
+    "url": "https://flowgardens.com/products/bordeaux",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image.jpg?v=1631285540",
     "variants": [
       "1 g",
@@ -204,13 +138,7 @@
   },
   {
     "title": "Orange Glaze #3",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/orange-glaze"
-      }
-    },
+    "url": "https://flowgardens.com/products/orange-glaze",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/Orangeglaze1st.jpg?v=1654195313",
     "variants": [
       "1 g",
@@ -224,13 +152,7 @@
   },
   {
     "title": "Banana Bread",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/banana-bread"
-      }
-    },
+    "url": "https://flowgardens.com/products/banana-bread",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_a833dcbc-fe82-47a5-95e6-f67ead58b0ef.jpg?v=1685728829",
     "variants": [
       "1 g",
@@ -244,13 +166,7 @@
   },
   {
     "title": "Colorado Gas Can",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/colorado-gas-can"
-      }
-    },
+    "url": "https://flowgardens.com/products/colorado-gas-can",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_538267ee-ad77-4212-853c-b9aebfc86fbe.jpg?v=1672166192",
     "variants": [
       "1 g",
@@ -264,13 +180,7 @@
   },
   {
     "title": "Banana OG",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/banana-og"
-      }
-    },
+    "url": "https://flowgardens.com/products/banana-og",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_7d23206c-3431-4480-bbdc-0c40dd3bff49.jpg?v=1685123663",
     "variants": [
       "1 g",
@@ -284,13 +194,7 @@
   },
   {
     "title": "Flows Cookies",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/copy-of-alpen-flow-5"
-      }
-    },
+    "url": "https://flowgardens.com/products/copy-of-alpen-flow-5",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_555df1d9-c820-41f2-95c6-0423ad5593c2.jpg?v=1683904477",
     "variants": [
       "1 g",
@@ -304,13 +208,7 @@
   },
   {
     "title": "Blueberry Muffin",
-    "url": {
-      "$": {
-        "rel": "alternate",
-        "type": "text/html",
-        "href": "https://flowgardens.com/products/blueberry-muffin"
-      }
-    },
+    "url": "https://flowgardens.com/products/blueberry-muffin",
     "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/BlueberryMuffinPic.jpg?v=1644712152",
     "variants": [
       "1 g",
@@ -323,893 +221,101 @@
     "vendor": "Flow Gardens"
   },
   {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Artisan Mix Pre-Rolls (CBD+THCa)",
-    "url": "https://wnc-cbd.com/products/artisan-mix-pre-rolls-cbd-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/217/images/1395/WNCCBD-PreRoll_1_a2eb7b7b-0fe7-464d-8bac-b34a9324bca9__87580.1682714890.386.513.jpg?c=1",
-    "variants": [
-      "Master Blaster",
-      "Psycho Kitty",
-      "Gorilla Grip",
-      "Single",
-      "5 pack",
-      "5 pack (with Case)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Sour Banana Sherb Bubble Hash Rosin (77.709% THCa)",
-    "url": "https://wnc-cbd.com/products/sour-banana-sherb-bubble-hash-rosin-77-709-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/316/images/2491/Sour_Banana_Sherb_SQ_-_1__89898.1689345705.386.513.jpg?c=1",
-    "variants": [
-      "1 g"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Sour Banana Sherb Bubble Hash Rosin (77.709% THCa)",
-    "url": "https://wnc-cbd.com/products/sour-banana-sherb-bubble-hash-rosin-77-709-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/316/images/2491/Sour_Banana_Sherb_SQ_-_1__89898.1689345705.386.513.jpg?c=1",
-    "variants": [
-      "1 g"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Sour Banana Sherb Bubble Hash Rosin (77.709% THCa)",
-    "url": "https://wnc-cbd.com/products/sour-banana-sherb-bubble-hash-rosin-77-709-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/316/images/2491/Sour_Banana_Sherb_SQ_-_1__89898.1689345705.386.513.jpg?c=1",
-    "variants": [
-      "1 g"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Sour Banana Sherb Bubble Hash Rosin (77.709% THCa)",
-    "url": "https://wnc-cbd.com/products/sour-banana-sherb-bubble-hash-rosin-77-709-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/316/images/2491/Sour_Banana_Sherb_SQ_-_1__89898.1689345705.386.513.jpg?c=1",
-    "variants": [
-      "1 g"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Sour Banana Sherb Bubble Hash Rosin (77.709% THCa)",
-    "url": "https://wnc-cbd.com/products/sour-banana-sherb-bubble-hash-rosin-77-709-thca.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/316/images/2491/Sour_Banana_Sherb_SQ_-_1__89898.1689345705.386.513.jpg?c=1",
-    "variants": [
-      "1 g"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Black Velvet Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-black-velvet-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/114/images/414/BlackVelvetPie-1__88795.1682481211.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Black Velvet Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-black-velvet-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/114/images/414/BlackVelvetPie-1__88795.1682481211.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Black Velvet Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-black-velvet-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/114/images/414/BlackVelvetPie-1__88795.1682481211.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Chem De La Chem Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/245/images/1560/ChemDeLaChem-1__51189.1682953996.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Garlic Cocktail Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-garlic-cocktail-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/298/images/2281/Garlic_Cocktail_-_1__30969.1686776192.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Gorilla Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-gorilla-cookies-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/129/images/635/GorillaCookies-1__04605.1682487350.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Ice Cream Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-ice-cream-cake-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/137/images/3294/Ice_Cream_Cake_-_1__08711.1694615592.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Maui Wowie Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-maui-wowie-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/319/images/2548/Maui_Wowie_-_1__42911.1689624633.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Pineapple Express Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-pineapple-express-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/147/images/887/PineappleExpress-1__63867.1682492994.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Shamrock Shake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/260/images/1696/Shamrock_Shake_-_1__85434.1682970170.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g (small/minis)"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   },
   {
-    "title": "THCa Tangerine Dream Indoor Living Soil",
+    "title": "Tangerine Dream Indoor Living Soil",
     "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
     "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
     "variants": [
       "3.5 g",
       "7 g",
-      "14 g (small/minis)"
+      "14 g smalls/minis"
     ],
     "vendor": "WNC"
   }
