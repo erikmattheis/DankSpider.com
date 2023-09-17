@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <AgeGate />
     <h3>Updated 9/16 2:34 am</h3>
     <navigation />
     <router-view />
@@ -8,12 +9,13 @@
 
 <script>
 import axios from 'axios';
+import AgeGate from './components/AgeGate.vue';
 import Navigation from './components/Navigation.vue';
-
 
 export default {
   name: 'DankSpider',
   components: {
+    AgeGate,
     Navigation,
   },
   data() {
@@ -83,6 +85,7 @@ body {
   place-items: start;
   min-height: 100vh;
   background-color: #eee;
+  color: #333;
 }
 
 #app {
