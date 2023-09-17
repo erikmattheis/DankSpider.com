@@ -136,7 +136,7 @@ ul li {
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;
-
+  border-radius: 20px;
   background-color: #cfcfcf;
   color: #dfdfdf;
 }

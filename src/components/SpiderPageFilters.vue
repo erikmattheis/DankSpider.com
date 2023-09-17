@@ -4,6 +4,7 @@
       <ul>
         <li v-for="(variant, i) in normalizedVariants" :key="i"
           @click="toggleSelected(variant)"
+          class="shadowy-button"
           :class="{ selected: checkedVariants.includes(variant) }">
           {{ variant }}
         </li>
