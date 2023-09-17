@@ -1,7 +1,7 @@
 <template>
   <ul class="nav">
-    <li class="nav-item"><router-link class="shadowy-button" to="/">Home</router-link></li>
-    <li class="nav-item"><router-link class="shadowy-button" to="/news">Products</router-link></li>
+    <li class="nav-item"><router-link class="shadowy-button" to="/"><A>Available</A></router-link></li>
+    <li class="nav-item"><router-link class="shadowy-button" to="/news">THCa vs THC</router-link></li>
     <!--<li class="nav-item"><router-link class="shadowy-button" to="/strains">Strains</router-link></li>-->
   </ul>
 </template>
