@@ -1,8 +1,8 @@
 <template>
   <ul class="nav">
-    <li class="nav-item"><router-link to="/">Home</router-link></li>
-    <li class="nav-item"><router-link to="/news">Products</router-link></li>
-    <li class="nav-item"><router-link to="/strains">Strains</router-link></li>
+    <li class="nav-item"><router-link class="shadowy-button" to="/">Home</router-link></li>
+    <li class="nav-item"><router-link class="shadowy-button" to="/news">Products</router-link></li>
+    <!--<li class="nav-item"><router-link class="shadowy-button" to="/strains">Strains</router-link></li>-->
   </ul>
 </template>
 
@@ -13,13 +13,16 @@
 }
 
 .nav-item {
+
   display: block;
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 4px;
+  /*
   background-color: #333;
   color: #ccc;
+  */
   font-weight: 500;
   font-size: 14px;
 }
@@ -29,7 +32,7 @@
 }
 
 a {
-  color: inherit;
+
   text-decoration: none;
 }
 </style>

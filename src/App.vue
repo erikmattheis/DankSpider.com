@@ -20,7 +20,6 @@ export default {
   },
   data() {
     return {
-      publishDate: JSON.stringify(import.meta.env) // this.getFormattedDate(import.meta.env.VITE_BUILD_TIME)
     };
   },
   async created() {
@@ -107,6 +106,48 @@ body {
 
 h3 {
   color: #0a0;
+}
+
+.shadowy-button {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  color: #999;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 600;
+  justify-content: center;
+  margin: 0;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.shadowy-button:hover,
+.shadowy-button:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.shadowy-button:hover {
+  transform: translateY(-1px);
+}
+
+.shadowy-button:active,
+.shadowy-button.router-link-active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
 }
 
 @media (min-width: 768px) {
