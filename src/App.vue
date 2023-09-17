@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div>Updated at: {{ publishDate }}</div>
+    <h3>Updated 9/16 2:34 am</h3>
     <navigation />
     <router-view />
   </div>
@@ -100,6 +100,10 @@ body {
   flex-direction: column;
   align-items: center;
   width: 360px;
+}
+
+h3 {
+  color: #0a0;
 }
 
 @media (min-width: 768px) {
