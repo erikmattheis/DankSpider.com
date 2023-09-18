@@ -26,6 +26,7 @@ export default {
   },
   created() {
     this.store = useSpiderStore();
+    this.store.sortProducts('title');
     this.store.normalizeVariants(this.store.variants);
 
   },

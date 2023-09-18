@@ -20,16 +20,18 @@ export const useSpiderStore = defineStore('spider', {
       const products = state.products.filter((product) => {
         return product.variants.some((variant) => this.checkedVariants.includes(variant));
       });
+      console.log('after const', products.length);
 
       const emptyProductsCount = Math.max(4 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
-
+      this.sortProducts(products, 'title');
       return [...products, ...emptyProducts];
     },
   },
   actions: {
-    sortProducts(by) {
-      this.products.sort((a, b) => {
+    sortProducts(products, by) {
+      if (!products?.sort) return products;
+      products.sort((a, b) => {
         if (a[by] < b[by]) return -1;
         if (a[by] > b[by]) return 1;
         return 0;
@@ -42,7 +44,7 @@ export const useSpiderStore = defineStore('spider', {
       const smallsRegex = /smalls\b/i;
       const variants = [];
 
-      jsonData.forEach((product) => {
+      this.products.forEach((product) => {
         product.variants.forEach((variant) => {
           if (!variant) return;
           const normalizedVariant = this.normalizeText(variant);
@@ -57,7 +59,7 @@ export const useSpiderStore = defineStore('spider', {
           }
         });
       });
-      this.sortProducts('title');
+
       this.normalizedVariants = variants;
     },
     highlightChecked() {

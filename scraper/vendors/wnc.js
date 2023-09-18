@@ -22,21 +22,22 @@ function addUniqueVariant(variant) {
 
 async function getWNCProductInfo(productInfoUrl) {
   try {
-    console.log('get WNC poduct info');
+    console.log('get WNC product info');
     const response = await axiosRateLimited.get(productInfoUrl);
     const $ = cheerio.load(response.data);
-
-
     const variants = [];
 
     $('span.form-option-variant').each((index, element) => {
       variants.push($(element).text());
     });
 
-    console.log('variants', variants);
+    //console.log('variants', variants);
 
     const title = $('meta[property="og:title"]').attr('content').replace('THCa ', '');;
     const url = $('meta[property="og:url"]').attr('content');
+    console.log('url', url);
+    console.log('productInfoUrl', productInfoUrl);
+
     const image = $('meta[property="og:image"]').attr('content');
     /*
     const scriptText = $('script:contains("var BCData =")').html();
@@ -88,28 +89,24 @@ async function scrapePage(url, currentPage) {
     const response = await axiosRateLimited.get(url);
     const $ = cheerio.load(response.data);
 
+    const cards = $('.card');
 
-    const dom = new JSDOM(response.data);
-    const cards = dom.window.document.querySelectorAll('.card');
-    cards.forEach((card) => {
-      const anchorElement = card.querySelector('a.card-figure__link');
-      const productTitle = card.querySelector('h3.card-title a').textContent.trim().replace('THCa ', '');;
-
+    for (const card of cards) {
+      const anchorElement = $(card).find('a.card-figure__link');
+      const productTitle = $(card).find('h3.card-title a').text().trim();
       console.log('Finding if available: ', productTitle);
 
-      const chooseOptionsButton = card.querySelector('a.card-figcaption-button');
-      if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.textContent.includes('Choose Options')) {
-        console.log('DFinding if desired: ', productTitle);
+      const chooseOptionsButton = $(card).find('a.card-figcaption-button');
+      if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text().includes('Choose Options')) {
+        console.log('Finding if desired: ', productTitle);
         console.log('Product title:', productTitle);
-        const href = $('a[data-event-type="product-click"]').attr('href');
+        const href = anchorElement.attr('href');
 
         console.log('href', href);
 
         productLinks.push(href);
-
       }
-
-    });
+    }
 
     //const productTitle = $(element).find('h3.card-title a[aria-label="Artisan Mix Pre-Rolls (CBD+THCa), Price range from $6.00 to $30.00"]').text();
 
@@ -173,12 +170,13 @@ function isDesiredProduct(productTitle) {
 async function getWNCProductsInfo(productLinks) {
   console.log('Getting product info from WNC')
   for (const productLink of productLinks) {
+    console.log('productLink', productLink);
     const product = await getWNCProductInfo(productLink);
     if (!product) {
       console.log('skipping null product');
       continue;
     }
-
+    console.log('product.title', product.title);
     product.vendor = 'WNC';
 
     if (product.variants.length > 0) {
