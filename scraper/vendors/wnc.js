@@ -191,35 +191,6 @@ async function getAvailableLeafProducts() {
 
   //await fetchFlowGardensData();
   await scrapePage(startUrl, currentPage);
-  //enlightenedAlchemyProducts();
-
-  //upstateHempProducts();
-
-  // prestoHempProducts();
-
-  // sunnysideBotanicalsProducts();
-
-  // sugarTreeHempProducts();
-
-  // artisanHempProducts();
-
-  // hempHopProducts();
-
-  // hempireDirectProducts();
-
-  // hempireStateSmokeProducts();
-
-  // hempireStateSmokeProducts();
-
-  // hempireStateSmokeProducts();
-
-  // industrialHempFarmsProducts();
-
-  //justHempProducts();
-
-  // kushProducts();
-
-  // lulaProducts();
 
   return products;
 

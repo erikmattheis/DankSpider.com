@@ -1,322 +1,40 @@
-[
-  {
-    "title": "Lemon Vanilla OG (LVOG)",
-    "url": "https://flowgardens.com/products/lvog",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/F83C071A-83AB-42B5-B3B8-EEAE11F91843.jpg?v=1694192862",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Fabled",
-    "url": "https://flowgardens.com/products/fabled-flow",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_da43ca43-5511-47d5-b5d7-583657ccba9e.jpg?v=1685121761",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Cherry Muffins",
-    "url": "https://flowgardens.com/products/cherry-muffins",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/CherryMuffinCut-Ps.jpg?v=1674528237",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Key Lime Pie",
-    "url": "https://flowgardens.com/products/key",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_144c8edc-aa52-49eb-8f65-20f172f44b4f.jpg?v=1688142473",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Sour Sex Wax",
-    "url": "https://flowgardens.com/products/sour-sex-wax",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/20A55C7D-6132-4149-B2CE-84615AFE4F4C.jpg?v=1692978169",
-    "variants": [
-      "3.5 g",
-      "7 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "MAC 1",
-    "url": "https://flowgardens.com/products/mac-1",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6999093f-7139-4586-8ae4-3b369c6a9258.jpg?v=1687546903",
-    "variants": [
-      "3.5 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Purple Haze",
-    "url": "https://flowgardens.com/products/purple-haze",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/IMG-8490.jpg?v=1692382629",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Lemon Cherry Sherbet",
-    "url": "https://flowgardens.com/products/lemon-cherry-sherbert",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6981f9a9-6764-49d4-ba3c-1663b53de727.jpg?v=1691766699",
-    "variants": [
-      "3.5 g",
-      "7 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Blueberry Cough Drops",
-    "url": "https://flowgardens.com/products/blueberry-cough-drops-1",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_0c50b33c-1bcc-42f9-84b6-b9fdbe7c1f77.jpg?v=1664472165",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Mystery OZ",
-    "url": "https://flowgardens.com/products/mystery-og",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_8ad97c8d-d52f-48c0-8a74-a189947cfd04.jpg?v=1685127133",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Bordeaux",
-    "url": "https://flowgardens.com/products/bordeaux",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image.jpg?v=1631285540",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Orange Glaze #3",
-    "url": "https://flowgardens.com/products/orange-glaze",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/Orangeglaze1st.jpg?v=1654195313",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Banana Bread",
-    "url": "https://flowgardens.com/products/banana-bread",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_a833dcbc-fe82-47a5-95e6-f67ead58b0ef.jpg?v=1685728829",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Colorado Gas Can",
-    "url": "https://flowgardens.com/products/colorado-gas-can",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_538267ee-ad77-4212-853c-b9aebfc86fbe.jpg?v=1672166192",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Banana OG",
-    "url": "https://flowgardens.com/products/banana-og",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_7d23206c-3431-4480-bbdc-0c40dd3bff49.jpg?v=1685123663",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Flows Cookies",
-    "url": "https://flowgardens.com/products/copy-of-alpen-flow-5",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_555df1d9-c820-41f2-95c6-0423ad5593c2.jpg?v=1683904477",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Blueberry Muffin",
-    "url": "https://flowgardens.com/products/blueberry-muffin",
-    "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/BlueberryMuffinPic.jpg?v=1644712152",
-    "variants": [
-      "1 g",
-      "3.5 g",
-      "7 g",
-      "14 g",
-      "28 g",
-      "28 g smalls/minis"
-    ],
-    "vendor": "Flow Gardens"
-  },
-  {
-    "title": "Tangerine Dream Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Thin Mintz Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-thin-mintz-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/156/images/1022/ThinMintz-1__09198.1682496651.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Trash Panda Indoor Living Soil",
-    "url": "https://wnc-cbd.com/thca-trash-panda-indoor-living-soil/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/157/images/1037/TrashPanda2-1__71377.1682496912.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Twisted Berry Indoor",
-    "url": "https://wnc-cbd.com/thca-twisted-berry-indoor/",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/158/images/1051/TwistedBerry-1__39657.1682498929.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Wedding Cake Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-wedding-cake-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/284/images/2029/Wedding_Cake_-_1__55602.1684243711.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "White Burgundy Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-white-burgundy-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/338/images/3013/White_Burgandy_-_1__68516.1692794000.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "White Tahoe Cookies Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-white-tahoe-cookies-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/300/images/2286/White_Tahoe_Cookies_-_1__74707.1686776465.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "White Truffle Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-white-truffle-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/288/images/2147/White_Truffle_-_1__50660.1685543217.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  },
-  {
-    "title": "Zoap Indoor Living Soil",
-    "url": "https://wnc-cbd.com/products/thca-zoap-indoor-living-soil.html",
-    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/352/images/3088/Zoap_-_1__88603.1693325276.386.513.jpg?c=1",
-    "variants": [
-      "3.5 g",
-      "7 g",
-      "14 g smalls/minis"
-    ],
-    "vendor": "WNC"
-  }
-]
+{
+  "theirId": "11ee438262f00f9cb46bdaac6f0dbeaf",
+  "title": "Oreoz",
+  "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-oreoz/63",
+  "variants": [
+    "14g",
+    "7g"
+  ],
+  "vendor": "Enlighten"
+},
+{
+  "theirId": "11ee437eb1cca5cab30b42ee52ef1835",
+  "title": "Animal Tree",
+  "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-animal-tree/61",
+  "variants": [
+    "14g",
+    "7g"
+  ],
+  "vendor": "Enlighten"
+},
+{
+  "theirId": "11ee32e248c72ef8be05aab72d57f650",
+  "title": "Permanent Marker",
+  "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-permanent-marker/59",
+  "variants": [
+    "14g",
+    "7g"
+  ],
+  "vendor": "Enlighten"
+},
+{
+  "theirId": "11ee16b5b820ebde96d1666d5108d7bd",
+  "title": "Jealousy",
+  "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-jealousy/54",
+  "variants": [
+    "14g",
+    "7g"
+  ],
+  "vendor": "Enlighten"
+}

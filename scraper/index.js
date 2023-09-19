@@ -1,7 +1,12 @@
 const fs = require('fs');
 
-const flow = require('./vendors/flow.js');
-const wnc = require('./vendors/wnc.js');
+// const scraper = require('./services/scraper.js');
+
+//const flow = require('./vendors/flow.js');
+//const wnc = require('./vendors/wnc.js');
+const enlighten = require('./vendors/enlighten.js');
+
+
 
 function writeFile(products) {
   const jsonContent = JSON.stringify(products, null, 2);
@@ -9,17 +14,64 @@ function writeFile(products) {
 }
 
 async function run() {
+
+  /*
   const flowProducts = await flow.getAvailableLeafProducts();
   console.log('flow products', flowProducts.length);
 
   const wncProducts = await wnc.getAvailableLeafProducts();
   console.log('wnc products', wncProducts.length);
 
-  const products = [...flowProducts, ...wncProducts];
+*/
+  const enlightenProducts = await enlighten.getAvailableLeafProducts();
+  console.log('enlighten products', enlightenProducts.length);
 
-  writeFile(products);
+  writeFile(JSON.stringify(enlightenProducts));
 
-  console.log(`Data has been written to file for ${products.length} products`);
+
+
+
+
+
+  //const products = [...flowProducts, ...wncProducts, ...enlightenProducts];
+
+  // const enlightenProducts = await enlighten.getAvailableLeafProducts();
+  //console.log(enlightenProducts);
+  // const products = [];
+
+  // writeFile(enlightenProducts);
+
+  // console.log(`Data has been written to file for ${enlightenProducts.length} products`);
+
+  //upstateHempProducts();
+
+  // prestoHempProducts();
+
+  // sugarTreeHempProducts();
+
+  // artisanHempProducts();
+
+  // hempHopProducts();
+
+  // hempireDirectProducts();
+
+  // hempireStateSmokeProducts();
+
+  // hempireStateSmokeProducts();
+
+  // hempireStateSmokeProducts();
+
+  // industrialHempFarmsProducts();
+
+  //justHempProducts();
+
+  // kushProducts();
+
+  // lulaProducts();
+
+
+
+
 }
 
 run();
