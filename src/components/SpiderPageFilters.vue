@@ -7,7 +7,7 @@
         <font-awesome-icon :icon="['fas', 'chevron-down']" v-if="!isExpanded" />
         <font-awesome-icon :icon="['fas', 'chevron-up']" v-else />
       </div>
-      <div class="expanding-nav-content" v-if="isExpanded">
+      <div class="expanding-nav-content">
         <form>
           <ul>
             <li v-for="(variant, i) in normalizedVariants" :key="i"
@@ -61,13 +61,13 @@ export default {
 .spider-page {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
 
 ul {
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
 }
@@ -93,6 +93,13 @@ li span {
   white-space: nowrap;
 }
 
+.horizontal-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -20px;
+  margin-right: -20px;
+}
 
 .label {
   font-variant: small-caps;
@@ -102,13 +109,13 @@ li span {
 .expanding-nav {
   position: relative;
   overflow: hidden;
-  transition: height 0.3s ease-in-out;
-  height: 50px;
+  transition: max-height 0.3s ease-in-out;
+  max-height: 35px;
   /* set the initial height of the drawer */
 }
 
 .expanding-nav.expanded {
-  height: 200px;
+  max-height: 1000px;
   /* set the expanded height of the drawer */
 }
 
