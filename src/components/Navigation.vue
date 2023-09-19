@@ -14,6 +14,7 @@
 }
 
 .nav-item {
+  display: inline-flex;
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;

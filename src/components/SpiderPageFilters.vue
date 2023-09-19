@@ -93,13 +93,6 @@ li span {
   white-space: nowrap;
 }
 
-.horizontal-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: -20px;
-  margin-right: -20px;
-}
 
 .label {
   font-variant: small-caps;

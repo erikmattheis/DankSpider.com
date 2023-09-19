@@ -1,5 +1,6 @@
 <template>
   <div class="product-card page" :style="cardStyle" v-if="product.image">
+    <img src="https://placehold.co/80" class="corner" width="80" height="80" />
     <a :href="product.url" :style="linkStyle" class="backdrop">
       <div>
         <img :src="product.image" :alt="product.title" />
@@ -41,54 +42,19 @@ export default {
   },
   mounted() {
     this.store = useSpiderStore();
-
-    /*
-window.addEventListener('scroll', this.animateBackgroundY);
-this.linkStyle = {
-  'background-image': `url(${this.product.image})`,
-  'backdrop-filter': this.backdropFilterValue,
-};
-
-    this.cardStyle = {
-      'background-image': `url(${this.product.image})`,
-    };
-
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.animateBackgroundY);
-  },
-  */
   },
   methods: {
-
-    animateBackgroundY() {
-      /*
-      const backdrop = document.querySelector('.backdrop');
-
-      if (!backdrop) return;
-
-      const elementHeight = backdrop.height;
-
-      const windowHeight = window.innerHeight;
-      if (document.querySelector('.backdrop')) {
-        const elementPosition = window.scrollY + backdrop.top;
-      }
-
-      if (elementPosition < windowHeight && elementPosition > 0) {
-        const percentScrolled = (elementPosition / windowHeight) * 100;
-        const percentScrolledReverse = 100 - percentScrolled;
-        const backgroundPosition = (percentScrolledReverse * elementHeight) / 100;
-        document.querySelector('.backdrop').style.backgroundPositionY = `${backgroundPosition}px`;
-
-      }
-      */
-    },
 
   },
 };
 </script>
 
 <style scoped>
+.card-container {
+  position: relative;
+
+}
+
 .product-card {
   width: 330px;
   height: 310px;
@@ -96,22 +62,29 @@ this.linkStyle = {
   margin: 20px;
   padding: 0;
   text-align: center;
-  background-color: #eee;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card .corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
 }
 
 .backdrop {
   display: block;
   height: 120px;
-  background-size: 300%;
-  background-position: center center;
-  background-blend-mode: multiply;
+  background-color: #fff;
   overflow: hidden;
 }
 
 .backdrop div {
   width: 100%;
   height: 100%;
-  background-color: #fff;
+
 }
 
 img {
