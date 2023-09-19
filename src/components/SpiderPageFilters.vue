@@ -3,10 +3,11 @@
     <div class="expanding-nav" :class="{ 'expanded': isExpanded }">
       <div class="expanding-nav-header" @click="isExpanded = !isExpanded">
         <span class="sr-only">Filters</span>
+        <span class="label">filters</span>
         <font-awesome-icon :icon="['fas', 'chevron-down']" v-if="!isExpanded" />
         <font-awesome-icon :icon="['fas', 'chevron-up']" v-else />
       </div>
-      <div class="expanding-nav-content">
+      <div class="expanding-nav-content" v-if="isExpanded">
         <form>
           <ul>
             <li v-for="(variant, i) in normalizedVariants" :key="i"
@@ -42,7 +43,6 @@ export default {
   },
   computed: {
     normalizedVariants() {
-      console.log('var', this.store.normalizedVariants);
       return this.store.normalizedVariants;
     },
     checkedVariants() {
@@ -61,13 +61,13 @@ export default {
 .spider-page {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
 
 ul {
   display: flex;
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
 }
@@ -93,14 +93,11 @@ li span {
   white-space: nowrap;
 }
 
-.horizontal-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: -20px;
-  margin-right: -20px;
-}
 
+.label {
+  font-variant: small-caps;
+  margin-right: 0.5rem;
+}
 
 .expanding-nav {
   position: relative;
@@ -122,14 +119,11 @@ li span {
   padding: 10px;
   background-color: #eee;
   cursor: pointer;
+  justify-content: flex-end;
 }
 
 .expanding-nav-header i {
   transition: transform 0.3s ease-in-out;
-}
-
-.expanding-nav.expanded .expanding-nav-header i {
-  transform: rotate(180deg);
 }
 
 .expanding-nav-content {

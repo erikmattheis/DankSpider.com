@@ -10,11 +10,10 @@
 .nav {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-item {
-
-  display: block;
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;
@@ -32,7 +31,6 @@
 }
 
 a {
-
   text-decoration: none;
 }
 </style>
