@@ -1,6 +1,7 @@
 <template>
   <div class="product-card page" :style="cardStyle" v-if="product.image">
-    <img src="https://placehold.co/80" class="corner" width="80" height="80" />
+    <img src="/corner.jpg" class="corner" width="80" height="80" />
+    <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url" :style="linkStyle" class="backdrop">
       <div>
         <img :src="product.image" :alt="product.title" />
@@ -68,10 +69,27 @@ export default {
 
 .product-card .corner {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 80px;
+  top: -60px;
+  right: -60px;
+  width: 120px;
+  height: 120px;
+}
+
+.corner-text {
+  position: absolute;
+  z-index: 100;
+  top: -25px;
+  right: -25px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  transform: rotate(45deg);
 }
 
 .backdrop {
@@ -84,7 +102,6 @@ export default {
 .backdrop div {
   width: 100%;
   height: 100%;
-
 }
 
 img {

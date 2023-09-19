@@ -22,7 +22,6 @@ async function getAvailableLeafProducts() {
       const entries = parsedData.feed.entry;
 
       entries.forEach((entry) => {
-        console.log("entry['s: type']", entry['s:type'])
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
 
@@ -52,7 +51,7 @@ async function getAvailableLeafProducts() {
             url: productUrl,
             image: productImage,
             variants: resolvedVariants,
-            vendor: 'Flow Gardens',
+            vendor: 'Flow',
           };
 
           products.push(product);
