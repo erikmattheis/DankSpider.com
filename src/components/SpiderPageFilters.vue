@@ -1,14 +1,13 @@
 <template>
-  <div class="spider-page">isExpanded:{{ isExpanded }}
+  <div class="spider-page">
     <div class="expanding-nav" :class="{ 'expanded': isExpanded }">
       <div class="expanding-nav-header" @click="isExpanded = !isExpanded">
-        <span>Filters</span>
-        <i class="fa fa-chevron-down"></i>
+        <span class="sr-only">Filters</span>
+        <font-awesome-icon :icon="['fas', 'chevron-down']" v-if="!isExpanded" />
+        <font-awesome-icon :icon="['fas', 'chevron-up']" v-else />
       </div>
       <div class="expanding-nav-content">
         <form>
-          <!-- form elements go here -->
-
           <ul>
             <li v-for="(variant, i) in normalizedVariants" :key="i"
               @click="toggleSelected(variant)"
