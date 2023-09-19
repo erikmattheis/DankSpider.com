@@ -1,7 +1,7 @@
 
 require('dotenv').config();
 const rateLimit = require('axios-rate-limit');
-const axios = require('axios');
+const axios = require('../services/rateLimitedAxios');
 const axiosRateLimited = rateLimit(axios.create(), { maxRPS: 2 });
 const fs = require('fs');
 const xml2js = require('xml2js');

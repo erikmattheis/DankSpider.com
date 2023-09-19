@@ -2,7 +2,18 @@ function normalizeTitle(title) {
   if (!title) {
     return title;
   }
-
+  if (title === '14g') {
+    return '14 g';
+  }
+  if (title === '7g') {
+    return '7 g';
+  }
+  if (title === '3.5g') {
+    return '3.5 g';
+  }
+  if (title === '1g') {
+    return '1 g';
+  }
   title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
   title = title?.replace(/(\s+)/g, ' ');
   title = title?.replace('SMALLS', 'smalls');

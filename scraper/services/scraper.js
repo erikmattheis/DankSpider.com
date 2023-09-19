@@ -1,5 +1,5 @@
 
-const axios = require('axios');
+const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 
 async function scrape({ url, linkSelector, titleSelector, imageSelector, variantSelector }) {
