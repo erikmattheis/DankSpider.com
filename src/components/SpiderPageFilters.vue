@@ -1,15 +1,25 @@
 <template>
-  <div class="spider-page page">
-    <form>
-      <ul>
-        <li v-for="(variant, i) in normalizedVariants" :key="i"
-          @click="toggleSelected(variant)"
-          class="shadowy-button"
-          :class="{ selected: checkedVariants.includes(variant) }">
-          {{ variant }}
-        </li>
-      </ul>
-    </form>
+  <div class="spider-page">isExpanded:{{ isExpanded }}
+    <div class="expanding-nav" :class="{ 'expanded': isExpanded }">
+      <div class="expanding-nav-header" @click="isExpanded = !isExpanded">
+        <span>Filters</span>
+        <i class="fa fa-chevron-down"></i>
+      </div>
+      <div class="expanding-nav-content">
+        <form>
+          <!-- form elements go here -->
+
+          <ul>
+            <li v-for="(variant, i) in normalizedVariants" :key="i"
+              @click="toggleSelected(variant)"
+              class="shadowy-button"
+              :class="{ selected: checkedVariants.includes(variant) }">
+              {{ variant }}
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,6 +32,7 @@ export default {
     return {
       variants: [],
       store: null,
+      isExpanded: false,
     };
   },
   created() {
@@ -89,5 +100,41 @@ li span {
   justify-content: center;
   margin-left: -20px;
   margin-right: -20px;
+}
+
+
+.expanding-nav {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  height: 50px;
+  /* set the initial height of the drawer */
+}
+
+.expanding-nav.expanded {
+  height: 200px;
+  /* set the expanded height of the drawer */
+}
+
+.expanding-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.expanding-nav-header i {
+  transition: transform 0.3s ease-in-out;
+}
+
+.expanding-nav.expanded .expanding-nav-header i {
+  transform: rotate(180deg);
+}
+
+.expanding-nav-content {
+  padding: 10px;
+  background-color: #fff;
 }
 </style>

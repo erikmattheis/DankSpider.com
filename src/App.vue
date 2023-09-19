@@ -7,7 +7,22 @@
   </div>
 </template>
 
+
+
 <script>
+
+/*
+fix highlighted size
+add price
+mailing list
+deploy
+add sorting
+more vendors
+mobile navigation
+more google events
+add dynamic updated date
+*/
+
 import axios from 'axios';
 import AgeGate from './components/AgeGate.vue';
 import Navigation from './components/Navigation.vue';

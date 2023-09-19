@@ -4,7 +4,8 @@ import jsonData from './assets/data/products.json';
 export const useSpiderStore = defineStore('spider', {
   id: 'spider',
   state: () => ({
-    products: jsonData,
+    products: jsonData.products,
+    updatedAt: jsonData.updatedAt,
     variants: [],
     normalizedVariants: [],
     checkedVariants: [],
@@ -16,11 +17,10 @@ export const useSpiderStore = defineStore('spider', {
   }),
   getters: {
     filteredProducts(state) {
-
+      if (!state.products?.filter) return state.products;
       const products = state.products.filter((product) => {
         return product.variants.some((variant) => this.checkedVariants.includes(variant));
       });
-      console.log('after const', products.length);
 
       const emptyProductsCount = Math.max(4 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
@@ -43,7 +43,7 @@ export const useSpiderStore = defineStore('spider', {
     normalizeVariants() {
       const smallsRegex = /smalls\b/i;
       const variants = [];
-
+      if (!this.products.forEach) return;
       this.products.forEach((product) => {
         product.variants.forEach((variant) => {
           if (!variant) return;

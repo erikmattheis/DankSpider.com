@@ -1,6 +1,4 @@
-const rateLimit = require('axios-rate-limit');
 const axios = require('../services/rateLimitedAxios');
-const axiosRateLimited = rateLimit(axios.create(), { maxRPS: 2 });
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
 const jsdom = require('jsdom');
@@ -23,7 +21,7 @@ function addUniqueVariant(variant) {
 async function getWNCProductInfo(productInfoUrl) {
   try {
     console.log('get WNC product info');
-    const response = await axiosRateLimited.get(productInfoUrl);
+    const response = await axios.get(productInfoUrl);
     const $ = cheerio.load(response.data);
     const variants = [];
 
@@ -86,7 +84,7 @@ async function getWNCProductInfo(productInfoUrl) {
 async function scrapePage(url, currentPage) {
   const productLinks = [];
   try {
-    const response = await axiosRateLimited.get(url);
+    const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
     const cards = $('.card');

@@ -8,7 +8,7 @@ const enlighten = require('./vendors/enlighten.js');
 
 function writeFile(products) {
   const data = {
-    createdAt: new Date(),
+    updatedAt: new Date(),
     products,
   }
   const jsonContent = JSON.stringify(data, null, 2);
@@ -16,20 +16,19 @@ function writeFile(products) {
 }
 
 async function run() {
-  /*
-    const flowProducts = await flow.getAvailableLeafProducts();
-    console.log('flow products', flowProducts.length);
 
-    const wncProducts = await wnc.getAvailableLeafProducts();
-    console.log('wnc products', wncProducts.length);
+  const flowProducts = await flow.getAvailableLeafProducts();
+  console.log('flow products', flowProducts.length);
 
+  const wncProducts = await wnc.getAvailableLeafProducts();
+  console.log('wnc products', wncProducts.length);
 
-    const enlightenProducts = await enlighten.getAvailableLeafProducts();
-    console.log('enlighten products', enlightenProducts);
+  const enlightenProducts = await enlighten.getAvailableLeafProducts();
+  console.log('enlighten products', enlightenProducts);
 
-    const final = [...enlightenProducts, ...flowProducts, ...wncProducts];
-  */
-  const final = [1, 2, 3];
+  const final = [...enlightenProducts, ...flowProducts, ...wncProducts];
+
+  // const final = [1, 2, 3];
   writeFile(final, null, 2);
 
 
