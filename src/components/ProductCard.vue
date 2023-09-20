@@ -43,18 +43,21 @@ export default {
   },
   mounted() {
     this.store = useSpiderStore();
-    this.setAnimationDuration();
+    s
+    this.setAnimationValues();
   },
   computed: {
     randomRotation() {
-      return Math.floor(Math.random() * 11) - 5;
+      return
     },
   },
   methods: {
-    setAnimationDuration() {
+    setAnimationValues() {
       const beauty = this.$el.querySelector('.beauty');
-      const duration = Math.floor(Math.random() * 2000) + 1000;
+      const duration = Math.floor(Math.random() * 20000) + 1000;
       beauty.style.setProperty('--duration', `${duration}ms`);
+      const rotation = Math.floor(Math.random() * 11) - 6;
+      beauty.style.setProperty('--rotation', `${rotation}deg`);
     },
   },
 };
@@ -131,9 +134,10 @@ export default {
   height: 100%;
 }
 
-img {
+.corner,
+.beauty {
   transform: rotate(45deg);
-  height: 120px;
+  height: 100px;
 }
 
 .info {
