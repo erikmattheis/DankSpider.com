@@ -9,7 +9,6 @@
     </a>
     <div class="info">
       <h3>{{ product.title }}</h3>
-      <p><i>{{ product.vendor }}</i></p>
       <ul>
         <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name">
           <span>{{ variant }}</span>
@@ -54,9 +53,9 @@ export default {
     setAnimationValues() {
       const beauty = this.$el.querySelector('.beauty');
       const duration = Math.floor(Math.random() * 20000) + 1000;
-      beauty.style.setProperty('--duration', `${duration}ms`);
-      const rotation = Math.floor(Math.random() * 11) - 6;
-      beauty.style.setProperty('--rotation', `${rotation}deg`);
+      beauty?.style.setProperty('--duration', `${duration}ms`);
+      const rotation = 45 + Math.floor(Math.random() * 31) - 13;
+      beauty?.style.setProperty('--rotation', `${rotation}deg`);
     },
   },
 };
@@ -82,7 +81,6 @@ export default {
 
 .card-container {
   position: relative;
-
 }
 
 .product-card {

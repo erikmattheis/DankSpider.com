@@ -2,6 +2,24 @@ function normalizeTitle(title) {
   if (!title) {
     return title;
   }
+  if (title === 'Sugar leaf trim - 28 grams') {
+    return '28 g';
+  }
+  if (title === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
+    return '28 g';
+  }
+  if (title === 'Dry Sift 1g') {
+    return '1 g';
+  }
+  if (title === '14 grams') {
+    return '14 g';
+  }
+  if (title === '7 grams') {
+    return '7 g';
+  }
+  if (title === '3.5 grams') {
+    return '3.5 g';
+  }
   if (title === '14g') {
     return '14 g';
   }

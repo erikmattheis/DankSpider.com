@@ -5,6 +5,7 @@ const fs = require('fs');
 const flow = require('./vendors/flow.js');
 const wnc = require('./vendors/wnc.js');
 const enlighten = require('./vendors/enlighten.js');
+const topcola = require('./vendors/topcola.js');
 
 function writeFile(products) {
   const data = {
@@ -26,8 +27,11 @@ async function run() {
   const enlightenProducts = await enlighten.getAvailableLeafProducts();
   console.log('enlighten products', enlightenProducts);
 
-  const final = [...enlightenProducts, ...flowProducts, ...wncProducts];
+  const topcolaProducts = await topcola.getAvailableLeafProducts();
+  console.log('top cola products', topcolaProducts);
 
+  const final = [...enlightenProducts, ...flowProducts, ...wncProducts];
+  //const final = [...topcolaProducts];
   // const final = [1, 2, 3];
   writeFile(final, null, 2);
 
