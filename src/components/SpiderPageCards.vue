@@ -1,7 +1,9 @@
 <template>
   <div class="spider-page page">
-    <div class="horizontal-cards"><!-- filteredProducts.length: {{ filteredProducts.length }} -->
-      <ProductCard v-for="(product, i) in filteredProducts" :key="i" :product="product" />
+    <div class="horizontal-cards">
+      <template v-for="(product, i) in filteredProducts" :key="i">
+        <ProductCard :product="product" />
+      </template>
     </div>
   </div>
 </template>
@@ -26,6 +28,7 @@ export default {
   },
   computed: {
     filteredProducts() {
+      console.log('SpiderPageCards filteredProducts', this.store.filteredProducts);
       return this.store.filteredProducts;
     },
   }

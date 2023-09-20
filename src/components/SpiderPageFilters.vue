@@ -2,8 +2,7 @@
   <div class="spider-page">
     <div class="expanding-nav" :class="{ 'expanded': isExpanded }">
       <div class="expanding-nav-header" @click="isExpanded = !isExpanded">
-        <span class="sr-only">Filters</span>
-        <span class="label">filters</span>
+        <span class="label">Filters</span>
         <font-awesome-icon :icon="['fas', 'chevron-down']" v-if="!isExpanded" />
         <font-awesome-icon :icon="['fas', 'chevron-up']" v-else />
       </div>
@@ -32,14 +31,13 @@ export default {
     return {
       variants: [],
       store: null,
-      isExpanded: false,
+      isExpanded: true,
     };
   },
   created() {
     this.store = useSpiderStore();
     this.store.sortProducts('title');
     this.store.normalizeVariants(this.store.variants);
-
   },
   computed: {
     normalizedVariants() {
@@ -70,6 +68,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 ul li {
@@ -128,6 +128,5 @@ li span {
 
 .expanding-nav-content {
   padding: 10px;
-  background-color: #fff;
 }
 </style>

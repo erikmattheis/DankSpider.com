@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card page" :style="cardStyle" v-if="product.image">
+  <div class="product-card shadowy page" :style="cardStyle" v-if="product.image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url" :style="linkStyle" class="backdrop">
@@ -11,7 +11,7 @@
       <h3>{{ product.title }}</h3>
       <p><i>{{ product.vendor }}</i></p>
       <ul>
-        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant">
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name">
           <span>{{ variant }}</span>
         </li>
       </ul>
@@ -119,6 +119,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
+  list-style-type: none;
+  padding-left: 10px;
 }
 
 ul li {

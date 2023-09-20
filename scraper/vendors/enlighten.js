@@ -28,12 +28,10 @@ async function addVariants(products) {
       const url = `https://cdn5.editmysite.com/app/store/api/v28/editor/users/132525192/sites/370639016370754120/store-locations/11eaa54990da063a860a0cc47a2ae3c4/products/${product.theirId}/skus`;
       const response = await axios.get(url);
       const $ = cheerio.load(response.data);
-      //console.log('product', product);
-
-      //console.log('response', response.data.data);
 
       for (const variant of response.data.data) {
-        product.variants.push(variant.name);
+        const name = strings.normalizeTitle(variant.name);
+        product.variants.push(name);
       }
 
       return product;

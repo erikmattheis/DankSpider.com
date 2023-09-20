@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-09-19T19:33:35.435Z",
+  "updatedAt": "2023-09-20T03:16:01.207Z",
   "products": [
     {
       "theirId": "11ee438262f00f9cb46bdaac6f0dbeaf",
@@ -7,8 +7,8 @@
       "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-oreoz/63",
       "image": "https://132525192.cdn6.editmysite.com/uploads/1/3/2/5/132525192/s370639016370754120_p63_i2_w5209.jpeg?width=2560",
       "variants": [
-        "14g",
-        "7g"
+        "14 g",
+        "7 g"
       ],
       "vendor": "Enlighten"
     },
@@ -18,8 +18,8 @@
       "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-animal-tree/61",
       "image": "https://132525192.cdn6.editmysite.com/uploads/1/3/2/5/132525192/s370639016370754120_p61_i3_w5209.jpeg?width=2560",
       "variants": [
-        "14g",
-        "7g"
+        "14 g",
+        "7 g"
       ],
       "vendor": "Enlighten"
     },
@@ -29,8 +29,8 @@
       "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-permanent-marker/59",
       "image": "https://132525192.cdn6.editmysite.com/uploads/1/3/2/5/132525192/s370639016370754120_p59_i1_w4320.png?width=2560",
       "variants": [
-        "14g",
-        "7g"
+        "14 g",
+        "7 g"
       ],
       "vendor": "Enlighten"
     },
@@ -40,8 +40,8 @@
       "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-jealousy/54",
       "image": "https://132525192.cdn6.editmysite.com/uploads/1/3/2/5/132525192/s370639016370754120_p54_i1_w4321.png?width=2560",
       "variants": [
-        "14g",
-        "7g"
+        "14 g",
+        "7 g"
       ],
       "vendor": "Enlighten"
     },
@@ -56,7 +56,7 @@
         "14 g",
         "28 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Fabled",
@@ -70,7 +70,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Cherry Muffins",
@@ -83,7 +83,7 @@
         "14 g",
         "28 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Key Lime Pie",
@@ -96,7 +96,7 @@
         "14 g",
         "28 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Sour Sex Wax",
@@ -106,7 +106,7 @@
         "3.5 g",
         "7 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "MAC 1",
@@ -115,7 +115,7 @@
       "variants": [
         "3.5 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Purple Haze",
@@ -129,7 +129,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Lemon Cherry Sherbet",
@@ -139,7 +139,7 @@
         "3.5 g",
         "7 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Blueberry Cough Drops",
@@ -152,7 +152,7 @@
         "14 g",
         "28 g"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Mystery OZ",
@@ -166,7 +166,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Bordeaux",
@@ -180,7 +180,7 @@
         "28 g",
         "14 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Orange Glaze #3",
@@ -194,7 +194,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Banana Bread",
@@ -208,7 +208,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Colorado Gas Can",
@@ -222,7 +222,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Banana OG",
@@ -236,7 +236,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Flows Cookies",
@@ -250,7 +250,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Blueberry Muffin",
@@ -264,7 +264,7 @@
         "28 g",
         "28 g smalls/minis"
       ],
-      "vendor": "Flow Gardens"
+      "vendor": "Flow"
     },
     {
       "title": "Tangerine Dream Indoor Living Soil",

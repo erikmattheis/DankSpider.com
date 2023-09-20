@@ -17,15 +17,17 @@ export const useSpiderStore = defineStore('spider', {
   }),
   getters: {
     filteredProducts(state) {
+      console.log('state.products', state.products.length);
       if (!state.products?.filter) return state.products;
       const products = state.products.filter((product) => {
         return product.variants.some((variant) => this.checkedVariants.includes(variant));
       });
 
-      const emptyProductsCount = Math.max(4 - products.length, 0);
+      const emptyProductsCount = Math.max(3 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
-      this.sortProducts(products, 'title');
-      return [...products, ...emptyProducts];
+      console.log('emptyProducts', emptyProducts);
+      const sorted = this.sortProducts(products, 'title');
+      return [...sorted, ...emptyProducts];
     },
   },
   actions: {
@@ -36,6 +38,7 @@ export const useSpiderStore = defineStore('spider', {
         if (a[by] > b[by]) return 1;
         return 0;
       });
+      return products;
     },
     normalizeText(title) {
       return title.toLowerCase().replace(/[^\w]+/g, '');
@@ -63,11 +66,14 @@ export const useSpiderStore = defineStore('spider', {
       this.normalizedVariants = variants;
     },
     highlightChecked() {
-
-      document.querySelectorAll('li').forEach((element) => {
-        if (this.checkedVariants.find((member) => element.textContent === member)) {
+      document.querySelectorAll('.variant-name').forEach((element) => {
+        console.log('element.textContent', element.textContent);
+        const match = this.checkedVariants.some((member) => element.textContent === member);
+        if (match) {
+          console.log('match!!!!');
           element.classList.add('selected');
         } else {
+
           element.classList.remove('selected');
         }
       });
