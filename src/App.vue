@@ -42,22 +42,6 @@ export default {
   },
   async created() {
     this.store = useSpiderStore();
-    if (false) {
-      try {
-
-        const result = await axios.post('/.netlify/functions/build', {
-
-        });
-
-        console.log('result building products', result);
-
-      }
-
-      catch (error) {
-        console.log('error building products', error);
-      }
-    }
-
   },
 
   computed: {

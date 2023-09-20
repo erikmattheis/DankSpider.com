@@ -1,10 +1,10 @@
 <template>
   <div class="spider-page page">
-    <div class="horizontal-cards"> filteredProducts.length: {{ filteredProducts.length }}
+    <div class="horizontal-cards">
       <template v-if="filteredProducts.length === 0">
         <p>No products found</p>
       </template>
-      <template v-for="(filter, i) in filteredProducts" :key="i">
+      <template v-for="(product, i) in filteredProducts" :key="i">
         <ProductCard :product="product" />
       </template>
     </div>

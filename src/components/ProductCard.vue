@@ -43,7 +43,6 @@ export default {
   },
   mounted() {
     this.store = useSpiderStore();
-    s
     this.setAnimationValues();
   },
   computed: {
