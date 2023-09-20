@@ -3,8 +3,8 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url" :style="linkStyle" class="backdrop">
-      <div>
-        <img :src="product.image" :alt="product.title" />
+      <div class="beauty-wrapper">
+        <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
       </div>
     </a>
     <div class="info">
@@ -43,14 +43,41 @@ export default {
   },
   mounted() {
     this.store = useSpiderStore();
+    this.setAnimationDuration();
+  },
+  computed: {
+    randomRotation() {
+      return Math.floor(Math.random() * 11) - 5;
+    },
   },
   methods: {
-
+    setAnimationDuration() {
+      const beauty = this.$el.querySelector('.beauty');
+      const duration = Math.floor(Math.random() * 2000) + 1000;
+      beauty.style.setProperty('--duration', `${duration}ms`);
+    },
   },
 };
 </script>
 
 <style scoped>
+.beauty-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.beauty {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center;
+}
+
+.pendulum {
+  animation: pendulum var(--duration) ease-in-out infinite;
+}
+
 .card-container {
   position: relative;
 
@@ -168,5 +195,19 @@ h3 {
 
 p {
   margin-top: 5px;
+}
+
+@keyframes pendulum {
+  0% {
+    transform: rotate(45deg);
+  }
+
+  50% {
+    transform: rotate(var(--rotation));
+  }
+
+  100% {
+    transform: rotate(45deg);
+  }
 }
 </style>
