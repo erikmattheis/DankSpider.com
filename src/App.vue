@@ -2,6 +2,7 @@
   <div class="app">
     <AgeGate />
     <h3 class="band"><span>Updated {{ updatedAt }}</span></h3>
+    <MailList />
     <TimeBackground />
     <router-view />
   </div>
@@ -15,7 +16,7 @@
 fix highlighted size
 add price
 mailing list
-deploy
+deployx
 add sorting
 more vendors
 mobile navigation
@@ -23,9 +24,10 @@ more google events
 add dynamic updated date
 */
 
-import axios from 'axios';
+
 import { useSpiderStore } from './store';
 import AgeGate from './components/AgeGate.vue';
+import MailList from './components/MailList.vue';
 import TimeBackground from './components/TimeBackground.vue';
 
 
@@ -33,6 +35,7 @@ export default {
   name: 'DankSpider',
   components: {
     AgeGate,
+    MailList,
     TimeBackground
   },
   data() {
