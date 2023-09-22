@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-09-22T21:49:29.198Z",
+  "updatedAt": "2023-09-20T07:51:38.038Z",
   "products": [
     {
       "theirId": "11ee438262f00f9cb46bdaac6f0dbeaf",
@@ -24,6 +24,17 @@
       "vendor": "Enlighten"
     },
     {
+      "theirId": "11ee32e248c72ef8be05aab72d57f650",
+      "title": "Permanent Marker",
+      "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-permanent-marker/59",
+      "image": "https://132525192.cdn6.editmysite.com/uploads/1/3/2/5/132525192/s370639016370754120_p59_i1_w4320.png?width=2560",
+      "variants": [
+        "14 g",
+        "7 g"
+      ],
+      "vendor": "Enlighten"
+    },
+    {
       "theirId": "11ee16b5b820ebde96d1666d5108d7bd",
       "title": "Jealousy",
       "url": "https://www.enlightenhempco.com/product/high-thca-hemp-flower-jealousy/54",
@@ -33,15 +44,6 @@
         "7 g"
       ],
       "vendor": "Enlighten"
-    },
-    {
-      "title": "RS-11",
-      "url": "https://flowgardens.com/products/rs-11",
-      "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/DSC06750.jpg?v=1695412809",
-      "variants": [
-        "3.5 g"
-      ],
-      "vendor": "Flow"
     },
     {
       "title": "Lemon Vanilla OG (LVOG)",
@@ -102,8 +104,7 @@
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/20A55C7D-6132-4149-B2CE-84615AFE4F4C.jpg?v=1692978169",
       "variants": [
         "3.5 g",
-        "7 g",
-        "14 g smalls/minis"
+        "7 g"
       ],
       "vendor": "Flow"
     },
@@ -250,6 +251,108 @@
         "28 g smalls/minis"
       ],
       "vendor": "Flow"
+    },
+    {
+      "title": "Blueberry Muffin",
+      "url": "https://flowgardens.com/products/blueberry-muffin",
+      "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/BlueberryMuffinPic.jpg?v=1644712152",
+      "variants": [
+        "1 g",
+        "3.5 g",
+        "7 g",
+        "14 g",
+        "28 g",
+        "28 g smalls/minis"
+      ],
+      "vendor": "Flow"
+    },
+    {
+      "title": "Tangerine Dream Indoor Living Soil",
+      "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/155/images/2060/Tangerine_Dream_-_1__60081.1684329167.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Thin Mintz Indoor Living Soil",
+      "url": "https://wnc-cbd.com/thca-thin-mintz-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/156/images/1022/ThinMintz-1__09198.1682496651.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Trash Panda Indoor Living Soil",
+      "url": "https://wnc-cbd.com/thca-trash-panda-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/157/images/1037/TrashPanda2-1__71377.1682496912.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Twisted Berry Indoor",
+      "url": "https://wnc-cbd.com/thca-twisted-berry-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/158/images/1051/TwistedBerry-1__39657.1682498929.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Wedding Cake Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-wedding-cake-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/284/images/2029/Wedding_Cake_-_1__55602.1684243711.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "White Burgundy Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-white-burgundy-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/338/images/3013/White_Burgandy_-_1__68516.1692794000.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "White Tahoe Cookies Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-white-tahoe-cookies-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/300/images/2286/White_Tahoe_Cookies_-_1__74707.1686776465.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "White Truffle Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-white-truffle-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/288/images/2147/White_Truffle_-_1__50660.1685543217.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
     },
     {
       "title": "Zoap Indoor Living Soil",

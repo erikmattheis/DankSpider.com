@@ -2,7 +2,7 @@
   <div class="product-card shadowy page" :style="cardStyle" v-if="product.image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
-    <a :href="product.url" :style="linkStyle" class="backdrop">
+    <a :href="product.url" class="backdrop">
       <div class="beauty-wrapper">
         <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
       </div>
@@ -35,8 +35,6 @@ export default {
   data() {
     return {
       backdropFilterValue: 'blur(5px)',
-      linkStyle: {},
-      cardStyle: {},
       store: {},
     };
   },

@@ -69,9 +69,6 @@ export const useSpiderStore = defineStore('spider', {
     normalizeVariants() {
       const variants = [];
 
-      console.log(this.normalizedVariants.length)
-      console.log(this.checkedVariants.length)
-
       // Iterate over each product
       this.products.forEach((product) => {
         // Iterate over each variant of the product
@@ -80,21 +77,20 @@ export const useSpiderStore = defineStore('spider', {
           const normalizedVariant = this.normalizeText(variant);
 
           // Add the variant and its normalized counterpart to the arrays
-          if (!this.normalizedVariants.includes(variant)) {
+          if (!this.variants.includes(variant)) {
+            variants.push(variant);
+            this.checkedVariants.push(variant);
 
-            this.normalizedVariants.push(normalizedVariant);
-            this.checkedVariants.push(normalizedVariant);
-
-            console.log('this.normalizedVariants[0]', this.normalizedVariants[0]);
-            console.log('variants[0]', variants[0]);
+            console.log('this.checkedVariants', this.checkedVariants);
             console.log('----------')
             //throw new Error('stop')
           }
+          return normalizedVariant;
         });
       });
 
 
-      this.normalizedVariants = variants;
+      this.normalizedVariants = [...variants];
 
       // Highlight the checked variants
       this.highlightChecked();
