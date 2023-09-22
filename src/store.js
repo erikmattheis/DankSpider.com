@@ -77,19 +77,15 @@ export const useSpiderStore = defineStore('spider', {
           const normalizedVariant = this.normalizeText(variant);
 
           // Add the variant and its normalized counterpart to the arrays
-          if (!this.variants.includes(variant)) {
+          if (!variants.includes(variant)) {
+            console.log('variant', variant, ' is not yet in ', variants);
             variants.push(variant);
-            this.checkedVariants.push(variant);
-
-            console.log('this.checkedVariants', this.checkedVariants);
-            console.log('----------')
             //throw new Error('stop')
           }
-          return normalizedVariant;
         });
       });
 
-
+      this.checkedVariants = [...variants];
       this.normalizedVariants = [...variants];
 
       // Highlight the checked variants

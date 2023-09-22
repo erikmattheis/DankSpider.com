@@ -12,11 +12,10 @@
   */-->
   <div class="app">
     <AgeGate />
-    <div class="content">
-      <Navigation />
-      <BigLogo />
-      <router-view />
-    </div>
+
+    <BigLogo />
+    <router-view />
+    <Navigation />
   </div>
 </template>
 
@@ -59,11 +58,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
   align-items: stretch;
   width: 100%;
 }

@@ -30,7 +30,7 @@ async function run() {
   const topcolaProducts = await topcola.getAvailableLeafProducts();
   console.log('top cola products', topcolaProducts);
 
-  const final = [...enlightenProducts, ...flowProducts, ...wncProducts];
+  const final = [...enlightenProducts, ...flowProducts, ...wncProducts, ...topcolaProducts];
   //const final = [...topcolaProducts];
   // const final = [1, 2, 3];
   writeFile(final, null, 2);

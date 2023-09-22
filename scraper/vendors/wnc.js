@@ -20,7 +20,7 @@ function addUniqueVariant(variant) {
 
 async function getWNCProductInfo(productInfoUrl) {
   try {
-    console.log('get WNC product info');
+    console.log('Building WNC product');
     const response = await axios.get(productInfoUrl);
     const $ = cheerio.load(response.data);
     const variants = [];
@@ -29,7 +29,7 @@ async function getWNCProductInfo(productInfoUrl) {
       variants.push($(element).text());
     });
 
-    //console.log('variants', variants);
+    console.log('variants', variants);
 
     const title = $('meta[property="og:title"]').attr('content').replace('THCa ', '');;
     const url = $('meta[property="og:url"]').attr('content');
@@ -37,37 +37,7 @@ async function getWNCProductInfo(productInfoUrl) {
     console.log('productInfoUrl', productInfoUrl);
 
     const image = $('meta[property="og:image"]').attr('content');
-    /*
-    const scriptText = $('script:contains("var BCData =")').html();
 
-    //console.log('Found BCData', scriptText);
-
-    if (scriptText) {
-      const jsonMatch = /{[^]*};?/.exec(scriptText);
-      let jsonData = jsonMatch[0];
-
-      if (jsonData.endsWith(';')) {
-        jsonData = jsonData.slice(0, -1);
-      }
-
-      const productData = JSON.parse(jsonData);
-
-      const inStock = productData?.product_attributes?.available_variant_values;
-
-      if (inStock.length) {
-        console.log('inStock', inStock.length);
-
-
-    const variants = inStock.map((variant) => {
-      console.log('variant', variant)
-      const normalizedTitle = stringsService.normalizeTitle(variant);
-      console.log('normalizedTitle', normalizedTitle);
-
-      addUniqueVariant(normalizedTitle);
-
-      return normalizedTitle;
-    });
-*/
     return {
       title,
       url,
@@ -80,9 +50,9 @@ async function getWNCProductInfo(productInfoUrl) {
   }
 }
 
-
+const productLinks = [];
 async function scrapePage(url, currentPage) {
-  const productLinks = [];
+
   try {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
@@ -96,7 +66,7 @@ async function scrapePage(url, currentPage) {
 
       const chooseOptionsButton = $(card).find('a.card-figcaption-button');
       if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text().includes('Choose Options')) {
-        console.log('Finding if desired: ', productTitle);
+
         console.log('Product title:', productTitle);
         const href = anchorElement.attr('href');
 
@@ -106,49 +76,20 @@ async function scrapePage(url, currentPage) {
       }
     }
 
-    //const productTitle = $(element).find('h3.card-title a[aria-label="Artisan Mix Pre-Rolls (CBD+THCa), Price range from $6.00 to $30.00"]').text();
-
-
-
     const nextPageLink = $('.pagination-item--next a').attr('href');
-    if (nextPageLink) {
+    if (nextPageLink && currentPage < 3) {
       currentPage++;
       console.log(`Scraping page ${currentPage}`);
       await scrapePage(nextPageLink, currentPage);
     } else {
-      console.log('No more WNC pages to scrape.');
+      console.log('No more WNC pages to scrape.', productLinks);
+
       await getWNCProductsInfo(productLinks);
     }
   } catch (error) {
     console.log(`Error scraping page: ${error.message}`);
   }
 }
-
-/*
-        $('.product').each((_, element) => {
-          console.log('element', $(element).html());
-          process.exit();
-          const anchorElement = $(element).find('a[data-event-type="product-click"]');
-
-          // console.log('anchorElement.length', element);
-
-          if (anchorElement.text() == 'Choose Options') {
-            const productTitle = $(anchorElement).find('h3.card-title a').text();
-            const productTitle = $(anchorElement).find('h3.card-title a').text();
-            console.log('Finding if desired: ', productTitle);
-            if (isDesiredProduct(productTitle)) {
-              console.log('isDesired');
-
-              const href = $('a[data-event-type="product-click"]').attr('href');
-
-              console.log('href', href);
-              if (productTitle) {
-                productLinks.push(href);
-              }
-            }
-          }
-        });
-    */
 
 function isDesiredProduct(productTitle) {
   if (!productTitle) {
@@ -166,34 +107,38 @@ function isDesiredProduct(productTitle) {
 }
 
 async function getWNCProductsInfo(productLinks) {
-  console.log('Getting product info from WNC')
+  console.log('Getting this many products from WNC', productLinks.length)
+
   for (const productLink of productLinks) {
-    console.log('productLink', productLink);
     const product = await getWNCProductInfo(productLink);
     if (!product) {
       console.log('skipping null product');
       continue;
     }
-    console.log('product.title', product.title);
+    console.log('Found product.title', product.title, ' with ', product.variants.length, ' variants');
     product.vendor = 'WNC';
 
     if (product.variants.length > 0) {
       product.variants = product.variants.map((variant) => stringsService.normalizeTitle(variant));
+      console.log('ADDING', product.title, ' variants: ', product.variants.length)
       products.push(product);
+
+    }
+    else {
+      console.log('product has no variants', product);
     }
   }
-  console.log('Done');
+
+  console.log('Done and products length is ', products.length);
 }
 
 async function getAvailableLeafProducts() {
 
-  //await fetchFlowGardensData();
   await scrapePage(startUrl, currentPage);
 
   return products;
 
 }
-
 
 module.exports = {
   getAvailableLeafProducts

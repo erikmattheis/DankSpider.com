@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-09-22T21:49:29.198Z",
+  "updatedAt": "2023-09-22T22:54:08.151Z",
   "products": [
     {
       "theirId": "11ee438262f00f9cb46bdaac6f0dbeaf",
@@ -252,15 +252,81 @@
       "vendor": "Flow"
     },
     {
-      "title": "Zoap Indoor Living Soil",
-      "url": "https://wnc-cbd.com/products/thca-zoap-indoor-living-soil.html",
-      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/352/images/3088/Zoap_-_1__88603.1693325276.386.513.jpg?c=1",
+      "title": "Alien Apple Kush Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-alien-apple-kush-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/312/images/2452/Alien_Apple_Kush_-_1__91421.1689092161.386.513.jpg?c=1",
       "variants": [
         "3.5 g",
         "7 g",
         "14 g smalls/minis"
       ],
       "vendor": "WNC"
+    },
+    {
+      "title": "Alpha Runtz Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-alpha-runtz-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/358/images/3183/Alpha_Runtz_-_1__46009.1693930862.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Black Cherry Gelato Indoor Hydro",
+      "url": "https://wnc-cbd.com/products/thca-black-cherry-gelato-indoor-hydro.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/313/images/2467/Black_Cherry_Gelato_-_1__71273.1689100125.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Blue Unicorn Indoor",
+      "url": "https://wnc-cbd.com/thca-blue-unicorn-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/116/images/3208/Blue_Unicorn_-_1__99546.1693938120.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Bruce Banner Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-bruce-banner-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/274/images/1989/Bruce_Banner_-_1__56615.1683908910.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Cantaloupe (Indoor)",
+      "url": "https://topcolatn.com/products/cantaloupe",
+      "image": "https://cdn.shopify.com/s/files/1/0337/5729/8819/files/FullSizeRender_87b360ed-f9d0-450c-8d84-d0961f95ce88.jpg?v=1693768283",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g",
+        "28 g",
+        "1 g"
+      ],
+      "vendor": "Flow"
+    },
+    {
+      "title": "T1 Sugar leaf/Shake Mix",
+      "url": "https://topcolatn.com/products/t1-mixed-trim-sugar-leaf",
+      "image": "https://cdn.shopify.com/s/files/1/0337/5729/8819/files/image_13d3bd30-d6f3-4c4f-a5f9-9a04f432cafc.heic?v=1685723584",
+      "variants": [
+        "28 g"
+      ],
+      "vendor": "Flow"
     }
   ]
 }

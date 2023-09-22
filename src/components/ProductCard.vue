@@ -87,7 +87,6 @@ export default {
 
 .corner-text {
   position: absolute;
-  z-index: 100;
   top: -25px;
   right: -25px;
   width: 120px;
