@@ -1,8 +1,8 @@
 <template>
   <div class="spider-page2 page">
     <div class="stats">
-      {{ numVarians }} variant{{ numVariants === 1 ? '' : 's' }} of {{ numProducts }} product{{ numProducts === 1 ? '' :
-        's' }} from {{ numVandors }} vendor{{ numVendors === 1 ? '' : 's' }}
+      {{ numProducts }} product{{ numProducts === 1 ? '' :
+        's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
     </div>
     <div class="horizontal-cards">
       <template v-if="filteredProducts.length === 0">
@@ -37,8 +37,8 @@ export default {
     filteredProducts() {
       return this.store.filteredProducts;
     },
-    numVariants() {
-      return this.store.numVariants;
+    numProducts() {
+      return this.store.numProducts;
     },
     numVendors() {
       return this.store.numVendors;
@@ -48,8 +48,6 @@ export default {
 </script>
 
 <style scoped>
-.spider-page {}
-
 .horizontal-cards {
   display: flex;
   flex-wrap: wrap;

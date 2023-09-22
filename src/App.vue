@@ -12,7 +12,6 @@
   */-->
   <div class="app">
     <AgeGate />
-    <h3 class="band"><span>Updated {{ updatedAt }}</span></h3>
     <div class="content">
       <Navigation />
       <BigLogo />
@@ -22,7 +21,6 @@
 </template>
 
 <script>
-import { useSpiderStore } from './store';
 import AgeGate from './components/AgeGate.vue';
 import Navigation from './components/Navigation.vue';
 import BigLogo from './components/BigLogo.vue';
@@ -39,30 +37,6 @@ export default {
       store: null
     };
   },
-  async created() {
-    this.store = useSpiderStore();
-  },
-
-  computed: {
-    updatedAt() {
-      return this.getFormattedDate(this.store.updatedAt);
-    },
-  },
-
-  methods: {
-    getFormattedDate(timestamp) {
-      const date = new Date(timestamp);
-      const options = {
-        weekday: 'long',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-      };
-      return date.toLocaleString('en-US', options);
-    }
-  }
 }
 </script>
 
@@ -85,16 +59,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-h3.band {
-  background-color: #003a00;
-  color: #eee;
-  font-weight: 700;
-  margin-top: 0;
-  padding: 5px;
-  width: 100vw;
-  position: absolute;
 }
 
 .content {

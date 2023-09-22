@@ -1,11 +1,13 @@
 <template>
   <div class="nav">
-    <Menu />
-    <MailList />
+    <Menu class="left" />
+    <h3 class="center band"><span>Updated {{ updatedString }}</span></h3>
+    <MailList class="right" />
   </div>
 </template>
 
 <script>
+import { useSpiderStore } from '../store';
 import Menu from './Menu.vue';
 import MailList from './MailList.vue';
 
@@ -14,13 +16,43 @@ export default {
   components: {
     MailList,
   },
+  data() {
+    return {
+      store: {},
+    };
+  },
+  async created() {
+    this.store = useSpiderStore();
+  },
+  computed: {
+    updatedString() {
+      return this.store.updatedString;
+    },
+  },
 };
 
 </script>
 
 <style scoped>
 .nav {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-green);
+  color: #eee;
+  font-weight: 700;
+  margin-top: 0;
+  padding: 5px;
+  width: 100vw;
 }
 </style>

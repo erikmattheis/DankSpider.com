@@ -29,25 +29,29 @@ export const useSpiderStore = defineStore('spider', {
       const sorted = this.sortProducts(products, 'title');
       return [...sorted, ...emptyProducts];
     },
-    numVariants(state) {
-      return state.filteredProducts.reduce((total, obj) => {
-        return total + obj.variants.length;
-      }, 0);
-    },
     numProducts(state) {
-      console.log('state.filteredProducts', state.filteredProducts.length)
       return state.filteredProducts.length;
     },
     numVendors(state) {
       const uniqueVendors = new Set();
       state.filteredProducts.forEach((product) => {
-        product.variants.forEach((variant) => {
-          uniqueVendors.add(variant);
-        });
+        uniqueVendors.add(product.vendor);
       });
       return uniqueVendors.size;
     },
-
+    updatedString(state) {
+      const date = new Date(jsonData.updatedAt);
+      const options = {
+        weekday: 'long',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      };
+      console.log(date)
+      return date.toLocaleString('en-US', options);
+    }
   },
   actions: {
     sortProducts(products, by) {
@@ -63,32 +67,43 @@ export const useSpiderStore = defineStore('spider', {
       return title.toLowerCase().replace(/[^\w]+/g, '');
     },
     normalizeVariants() {
-      const smallsRegex = /smalls\b/i;
       const variants = [];
-      if (!this.products.forEach) return;
+
+      console.log(this.normalizedVariants.length)
+      console.log(this.checkedVariants.length)
+
+      // Iterate over each product
       this.products.forEach((product) => {
+        // Iterate over each variant of the product
         product.variants.forEach((variant) => {
           if (!variant) return;
           const normalizedVariant = this.normalizeText(variant);
 
-          if (!variants.includes(variant)) {
+          // Add the variant and its normalized counterpart to the arrays
+          if (!this.normalizedVariants.includes(variant)) {
 
-            variants.push(variant);
             this.normalizedVariants.push(normalizedVariant);
-            if (smallsRegex.test(variant)) {
-              this.checkedVariants.push(variant);
-            }
+            this.checkedVariants.push(normalizedVariant);
+
+            console.log('this.normalizedVariants[0]', this.normalizedVariants[0]);
+            console.log('variants[0]', variants[0]);
+            console.log('----------')
+            //throw new Error('stop')
           }
         });
       });
 
+
       this.normalizedVariants = variants;
+
+      // Highlight the checked variants
+      this.highlightChecked();
     },
     highlightChecked() {
+      console.log('highlightChecked');
       document.querySelectorAll('.variant-name').forEach((element) => {
         const match = this.checkedVariants.some((member) => element.textContent === member);
         if (match) {
-          console.log('match!!!!');
           element.classList.add('selected');
         } else {
           element.classList.remove('selected');

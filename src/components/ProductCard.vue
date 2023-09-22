@@ -34,10 +34,6 @@ export default {
   },
   data() {
     return {
-      backdropFilterValue: 'blur(5px)',
-      linkStyle: {},
-      cardStyle: {},
-      store: {},
     };
   },
   mounted() {
@@ -52,7 +48,7 @@ export default {
   methods: {
     setAnimationValues() {
       const beauty = this.$el.querySelector('.beauty');
-      const duration = Math.floor(Math.random() * 20000) + 1000;
+      const duration = Math.floor(Math.random() * 5000) + 10000;
       beauty?.style.setProperty('--duration', `${duration}ms`);
       const rotation = 45 + Math.floor(Math.random() * 31) - 13;
       beauty?.style.setProperty('--rotation', `${rotation}deg`);
@@ -72,11 +68,11 @@ export default {
 
 .product-card {
   width: 330px;
-  height: 310px;
+  min-height: 305px;
   display: inline-block;
   margin: 20px;
-  padding: 0;
   text-align: center;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }
@@ -108,26 +104,27 @@ export default {
 
 .backdrop {
   display: block;
-  height: 120px;
+  min-height: 120px;
   background-color: #fff;
   overflow: hidden;
 }
 
-.backdrop div {
-  width: 100%;
-  height: 100%;
-}
-
-.corner,
-.beauty {
+.corner {
   transform: rotate(45deg);
   height: 100px;
+}
+
+.beauty {
+  transform: rotate(45deg);
+  height: 170px;
 }
 
 .info {
   background-color: #ddd;
   padding: 5px 0 30px;
   width: 100%;
+
+  min-height: 149px;
 }
 
 ul {
@@ -178,7 +175,7 @@ i {
 }
 
 h3 {
-  margin-bottom: 0px;
+  margin-bottom: 12px;
 }
 
 p {
