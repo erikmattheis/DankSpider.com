@@ -112,13 +112,6 @@ export default {
 </script>
 
 <style scoped>
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  font-family: sans-serif;
-}
-
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -126,6 +119,7 @@ export default {
   align-items: center;
   flex: 1;
   padding: 1rem;
+  height: 100vh;
 }
 
 .nav-item {

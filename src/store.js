@@ -29,6 +29,25 @@ export const useSpiderStore = defineStore('spider', {
       const sorted = this.sortProducts(products, 'title');
       return [...sorted, ...emptyProducts];
     },
+    numVariants(state) {
+      return state.filteredProducts.reduce((total, obj) => {
+        return total + obj.variants.length;
+      }, 0);
+    },
+    numProducts(state) {
+      console.log('state.filteredProducts', state.filteredProducts.length)
+      return state.filteredProducts.length;
+    },
+    numVendors(state) {
+      const uniqueVendors = new Set();
+      state.filteredProducts.forEach((product) => {
+        product.variants.forEach((variant) => {
+          uniqueVendors.add(variant);
+        });
+      });
+      return uniqueVendors.size;
+    },
+
   },
   actions: {
     sortProducts(products, by) {
@@ -67,13 +86,11 @@ export const useSpiderStore = defineStore('spider', {
     },
     highlightChecked() {
       document.querySelectorAll('.variant-name').forEach((element) => {
-        console.log('element.textContent', element.textContent);
         const match = this.checkedVariants.some((member) => element.textContent === member);
         if (match) {
           console.log('match!!!!');
           element.classList.add('selected');
         } else {
-
           element.classList.remove('selected');
         }
       });

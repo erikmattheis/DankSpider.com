@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div class="account" v-if="!expanded">
-      <div @click="toggleExpanded">
+  <div class="expanding-nav" :class="{ 'expanded': expanded }">
+    <div class="expanding-nav-header account">
+      <a href="#" @click="toggleExpanded()">
         <font-awesome-icon :icon="['fas', 'user']" />
-      </div>
+      </a>
     </div>
-    <div v-else>
+    <form>
       <input type="email" v-model="email" :disabled="disabled" />
-      <button @click="addEmail">Join Beta</button>
-      {{ emails }}
-    </div>
+      <button @click="addEmail"></button>
+    </form>
   </div>
 </template>
 
@@ -38,6 +37,7 @@ export default {
       emails: [],
       disabled: false,
       expanded: false,
+      isEpanded: false
     };
   },
   methods: {
@@ -47,9 +47,9 @@ export default {
       push(emailRef, email);
       this.disabled = true;
     },
-  },
-  toggleExpanded() {
-    this.expanded = !this.expanded;
+    toggleExpanded() {
+      this.expanded = !this.expanded;
+    },
   },
   mounted() {
 
@@ -57,4 +57,65 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.label {
+  font-variant: small-caps;
+  margin-right: 0.5rem;
+}
+
+.expanding-nav {
+  position: relative;
+  overflow: hidden;
+  transition: max-height 3s linear;
+  height: 35px;
+  transform: translateZ(0)
+    /* set the initial height of the drawer */
+}
+
+.expanding-nav.expanded {
+  height: min-content;
+  /* set the expanded height of the drawer */
+}
+
+.expanding-nav-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.expanding-nav-content {
+  padding: 10px;
+}
+
+form {
+  /* This bit sets up the horizontal layout */
+  display: flex;
+  flex-direction: row;
+
+  /* This bit draws the box around it */
+  border: 1px solid grey;
+
+  /* I've used padding so you can see the edges of the elements. */
+  padding: 10px;
+}
+
+input {
+  /* Tell the input to use all the available space */
+  flex-grow: 2;
+  /* And hide the input's outline, so the form looks like the outline */
+  border: none;
+}
+
+:focus:not(:focus-visible) {
+  outline: none !important
+}
+
+button {
+  /* Just a little styling to make it pretty */
+  border: 1px solid blue;
+  background: blue;
+  color: white;
+}
+</style>

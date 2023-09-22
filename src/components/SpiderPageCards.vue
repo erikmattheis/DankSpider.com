@@ -1,5 +1,9 @@
 <template>
-  <div class="spider-page page">
+  <div class="spider-page2 page">
+    <div class="stats">
+      {{ numVarians }} variant{{ numVariants === 1 ? '' : 's' }} of {{ numProducts }} product{{ numProducts === 1 ? '' :
+        's' }} from {{ numVandors }} vendor{{ numVendors === 1 ? '' : 's' }}
+    </div>
     <div class="horizontal-cards">
       <template v-if="filteredProducts.length === 0">
         <p>No products found</p>
@@ -31,38 +35,20 @@ export default {
   },
   computed: {
     filteredProducts() {
-      console.log('SpiderPageCards filteredProducts', this.store.filteredProducts);
       return this.store.filteredProducts;
+    },
+    numVariants() {
+      return this.store.numVariants;
+    },
+    numVendors() {
+      return this.store.numVendors;
     },
   }
 }
 </script>
 
 <style scoped>
-.spider-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-}
-
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-}
-
-ul li {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 10px;
-  margin-right: 5px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background-color: #333;
-  color: #eee;
-}
+.spider-page {}
 
 .horizontal-cards {
   display: flex;

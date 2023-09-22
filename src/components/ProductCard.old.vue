@@ -3,9 +3,9 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url" :style="linkStyle" class="backdrop">
-
-      <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
-
+      <div class="beauty-wrapper">
+        <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
+      </div>
     </a>
     <div class="info">
       <h3>{{ product.title }}</h3>
@@ -62,12 +62,22 @@ export default {
 </script>
 
 <style scoped>
-.pendulum {
-  animation: pendulum var(--duration) ease-in-out infinite;
+.beauty-wrapper {
+  position: relative;
+  height: 120px;
 }
 
-.card-container {
-  position: relative;
+.beauty {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.pendulum {
+  animation: pendulum var(--duration) ease-in-out infinite;
 }
 
 .product-card {
@@ -109,7 +119,6 @@ export default {
 .backdrop {
   display: block;
   height: 120px;
-  background-color: #fff;
   overflow: hidden;
 }
 
@@ -118,10 +127,8 @@ export default {
   height: 100%;
 }
 
-.corner,
-.beauty {
+.corner {
   transform: rotate(45deg);
-  height: 100px;
 }
 
 .info {
@@ -185,9 +192,10 @@ p {
   margin-top: 5px;
 }
 
+
 @keyframes pendulum {
   0% {
-    transform: rotate(45deg);
+    transform: rotate(0);
   }
 
   50% {
@@ -195,7 +203,7 @@ p {
   }
 
   100% {
-    transform: rotate(45deg);
+    transform: rotate(0);
   }
 }
 </style>
