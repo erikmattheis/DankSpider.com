@@ -10,7 +10,7 @@ const topcola = require('./vendors/topcola.js');
 function writeFile(products) {
   const data = {
     updatedAt: new Date(),
-    products,
+    products: products,
   }
   const jsonContent = JSON.stringify(data, null, 2);
   fs.writeFileSync('../src/assets/data/products.json', jsonContent, 'utf8');

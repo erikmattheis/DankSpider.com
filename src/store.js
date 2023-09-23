@@ -4,6 +4,7 @@ import jsonData from './assets/data/products.json';
 export const useSpiderStore = defineStore('spider', {
   id: 'spider',
   state: () => ({
+    queryString: '?utm_source=shockingelk%40gmail.com&utm_medium=directory',
     products: jsonData.products,
     updatedAt: jsonData.updatedAt,
     variants: [],
@@ -30,13 +31,15 @@ export const useSpiderStore = defineStore('spider', {
       return [...sorted, ...emptyProducts];
     },
     numProducts(state) {
-      return state.filteredProducts.length;
+      return state.filteredProducts.filter((product) => product.name !== 'empty').length;
     },
     numVendors(state) {
       const uniqueVendors = new Set();
       state.filteredProducts.forEach((product) => {
+        if (product.name === 'empty') return;
         uniqueVendors.add(product.vendor);
       });
+      console.log('products', state.filteredProducts)
       return uniqueVendors.size;
     },
     updatedString(state) {

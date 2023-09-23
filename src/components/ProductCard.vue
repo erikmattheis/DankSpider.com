@@ -2,7 +2,7 @@
   <div class="product-card shadowy page" v-if="product.image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
-    <a :href="product.url" class="backdrop">
+    <a :href="product.url + queryString" class="backdrop">
 
       <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
 
@@ -34,15 +34,20 @@ export default {
   },
   data() {
     return {
+      store: null,
+
     };
   },
-  mounted() {
+  created() {
     this.store = useSpiderStore();
+
+  },
+  mounted() {
     this.setAnimationValues();
   },
   computed: {
-    randomRotation() {
-      return
+    queryString() {
+      return this.store.queryString;
     },
   },
   methods: {

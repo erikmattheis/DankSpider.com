@@ -27,9 +27,12 @@ async function scrape({ url, linkSelector, titleSelector, imageSelector, variant
       console.log('products', products.length)
       const title = product$('p.w-product-title').text().trim();
       console.log('title', title)
+      const queryString = '?utm_source=shockingelk%40gmail.com&utm_medium=directory';
+      const campaignLink = ${ link } + ${ queryString };
+      console.log('cl', campaignLink)
       const image = product$(imageSelector).attr('src');
       const variants = product$(variantSelector).map((i, el) => product$(el).text().trim()).get();
-      products.push({ title, url: link, image, variants });
+      products.push({ title, url: campaignLink, image, variants });
     }
 
     return products;
