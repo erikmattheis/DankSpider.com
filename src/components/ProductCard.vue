@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card shadowy page" :style="cardStyle" v-if="product.image">
+  <div class="product-card shadowy page" v-if="product.image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url" class="backdrop">

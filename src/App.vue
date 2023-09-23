@@ -1,4 +1,4 @@
-<template>
+
   <!--
   fix highlighted size
   add price
@@ -10,6 +10,7 @@
   more google events
   add dynamic updated date
   */-->
+<template>
   <div class="app">
     <AgeGate />
     <BigLogo />
