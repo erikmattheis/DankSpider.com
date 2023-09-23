@@ -4,14 +4,15 @@
       <li v-for="(variant, i) in normalizedVariants" :key="i"
         @click="toggleSelected(variant)"
         class="shadowy-button"
-        :class="{ selected: checkedVariants.includes(variant) }">
+        :class="{ selected: checkedVariants.includes(variant) }"
+        :title="variant">
         {{ variant }}
       </li>
-      <li v-if="checkedVariants.length > 0" @click="store.clearSelectedSizeFilters()" class="shadowy-button">Select None
+      <li v-if="checkedVariants.length > 0" @click="store.clearSelectedSizeFilters()" class="shadowy-button none"
+        title="Select None">Select None
       </li>
-      <li v-else @click="store.selectSizeFilters()" class="shadowy-button">Select None</li>
-
-
+      <li v-else @click="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">Select All
+      </li>
     </ul>
   </form>
 </template>
@@ -55,7 +56,8 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin: 20px 0;
+  margin-bottom: 20px;
+  background-color: #fff;
 }
 
 ul {
@@ -68,7 +70,7 @@ ul {
 
 ul li {
   display: block;
-  font-weight: 500;
+  font-weight: 300;
   margin-bottom: 10px;
   margin-right: 5px;
   padding: 5px 10px;
@@ -78,12 +80,34 @@ ul li {
   cursor: pointer;
 }
 
+ul li.shadowy-button {
+  font-weight: 400;
+}
+
+ul li.shadowy-button.selected,
 ul li.selected {
   color: #242424;
+  font-weight: 600;
   background-color: #fff;
 }
 
 li span {
   white-space: nowrap;
+}
+
+ul li::after {
+  display: block;
+  content: attr(title);
+  font-weight: 700;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+ul li.all,
+ul li.none {
+  font-weight: 500;
+  text-align: center;
 }
 </style>

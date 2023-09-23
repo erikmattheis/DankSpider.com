@@ -28,9 +28,10 @@ export default {
 
 .spider-page-filters {
   position: sticky;
-  top: 72px;
-  height: calc(100vh - 72px);
+  top: 54px;
+  padding-top: 21px;
   overflow-y: auto;
+  z-index: 1;
 }
 
 .spider-page-cards {
