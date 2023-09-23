@@ -15,6 +15,7 @@ export default {
   name: 'Navigation',
   components: {
     MailList,
+    Menu
   },
   data() {
     return {

@@ -7,6 +7,11 @@
         :class="{ selected: checkedVariants.includes(variant) }">
         {{ variant }}
       </li>
+      <li v-if="checkedVariants.length > 0" @click="store.clearSelectedSizeFilters()" class="shadowy-button">Select None
+      </li>
+      <li v-else @click="store.selectAllSizeFilters()" class="shadowy-button selected">Select All</li>
+
+
     </ul>
   </form>
 </template>

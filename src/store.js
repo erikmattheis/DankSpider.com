@@ -54,6 +54,14 @@ export const useSpiderStore = defineStore('spider', {
     }
   },
   actions: {
+    clearSelectedSizeFilters() {
+      this.checkedVariants = [];
+      this.highlightChecked();
+    },
+    selectAllSizeFilters() {
+      this.checkedVariants = [...this.normalizedVariants];
+      this.highlightChecked();
+    },
     sortProducts(products, by) {
       if (!products?.sort) return products;
       products.sort((a, b) => {
