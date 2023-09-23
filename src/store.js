@@ -93,11 +93,20 @@ export const useSpiderStore = defineStore('spider', {
         });
       });
 
+      variants.sort(this.sortByParseFloat);
+
       this.checkedVariants = [...variants];
       this.normalizedVariants = [...variants];
 
       // Highlight the checked variants
       this.highlightChecked();
+    },
+    sortByParseFloat(a, b) {
+      const aNumber = parseFloat(a);
+      const bNumber = parseFloat(b);
+      if (aNumber < bNumber) return -1;
+      if (aNumber > bNumber) return 1;
+      return 0;
     },
     highlightChecked() {
       console.log('highlightChecked');

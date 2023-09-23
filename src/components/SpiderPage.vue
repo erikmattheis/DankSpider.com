@@ -31,7 +31,6 @@ export default {
   top: 72px;
   height: calc(100vh - 72px);
   overflow-y: auto;
-  z-index: 1;
 }
 
 .spider-page-cards {
