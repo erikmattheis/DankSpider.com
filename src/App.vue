@@ -12,7 +12,6 @@
   */-->
   <div class="app">
     <AgeGate />
-
     <BigLogo />
     <router-view />
     <Navigation />
