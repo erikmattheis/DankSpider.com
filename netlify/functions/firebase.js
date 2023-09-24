@@ -1,9 +1,11 @@
+
+
 const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, push, onValue } = require('firebase/database');
 const axios = require('../../scraper/services/rateLimitedAxios');
-console.log('second chr in key', process.env.FIREBASE_API_KEY?.charAt(1));
+
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyDP3FyaOxZL8VSyKaJYI_WddOsShv2jd5I",
   authDomain: "dankspider-75eb9.firebaseapp.com",
   databaseURL: "https://dankspider-75eb9-default-rtdb.firebaseio.com",
   projectId: "dankspider-75eb9",
@@ -25,17 +27,7 @@ exports.handler = async function (event, context) {
 
     const emailRef = ref(db, 'emails');
     const email = JSON.parse(event.body).email;
-    push(emailRef, email, (error) => {
-      if (error) {
-        console.error(error);
-        return { statusCode: 500, body: 'An error occurred' };
-      } else {
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ response: 'Email added' })
-        };
-      }
-    });
+    await push(emailRef, email);
 
     return {
       statusCode: 200,
@@ -48,10 +40,10 @@ exports.handler = async function (event, context) {
 
   }
 
-
-
-
-
 }
+
+
+
+
 
 
