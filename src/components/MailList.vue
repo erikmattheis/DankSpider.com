@@ -6,7 +6,7 @@
     <div class="modal" v-if="expanded">
       <div class="modal-backdrop" @click="toggleExpanded()" />
       <div class="modal-content">
-        <form @submit.prevent="addEmail">
+        <form @submit.prevent>
           <p>Tell me when we add new features.</p>
           <input @keydown.enter.prevent type="email" v-model="email" :disabled="disabled" />
           <button @click="addEmail">Sign Up for Updates</button>
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async addEmail() {
-      const response = await fetch('/.netlify/functions/build', {
+      const response = await fetch('/.netlify/functions/firebase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
