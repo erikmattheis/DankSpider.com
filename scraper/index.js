@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-// const scraper = require('./services/scraper.js');
-
 const flow = require('./vendors/flow.js');
 const wnc = require('./vendors/wnc.js');
 const enlighten = require('./vendors/enlighten.js');
