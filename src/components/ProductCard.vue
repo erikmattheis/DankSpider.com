@@ -2,7 +2,7 @@
   <div class="product-card shadowy page" v-if="product.image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
-    <a :href="product.url + queryString" class="backdrop">
+    <a :href="product.url + queryString" class="backdrop" target="_blank">
 
       <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
 
@@ -10,7 +10,8 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name">
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name"
+          :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
       </ul>

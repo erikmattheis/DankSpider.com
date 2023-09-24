@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faChevronDown,
   faChevronUp,
-  faUser
+  faUser,
+  faBars
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add([faChevronDown, faChevronUp, faUser]);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ message }}</h1>
+    <h1>{{ message }} <font-awesome-icon :icon="['fas', 'bars']" /></h1>
   </div>
 </template>
 

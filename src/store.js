@@ -27,8 +27,8 @@ export const useSpiderStore = defineStore('spider', {
       const emptyProductsCount = Math.max(3 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
       console.log('emptyProducts', emptyProducts);
-      const sorted = this.sortProducts(products, 'title');
-      return [...sorted, ...emptyProducts];
+      products.sort(this.sortProducts('name'));
+      return [...products, ...emptyProducts];
     },
     numProducts(state) {
       return state.filteredProducts.filter((product) => product.name !== 'empty').length;
@@ -52,27 +52,31 @@ export const useSpiderStore = defineStore('spider', {
         minute: 'numeric',
         hour12: true
       };
-      console.log(date)
+
       return date.toLocaleString('en-US', options);
-    }
+    },
+    variantClasses(state) {
+      const classes = {};
+      state.checkedVariants.forEach((variant) => {
+        classes[variant] = 'selected';
+      });
+      return classes;
+    },
   },
   actions: {
     clearSelectedSizeFilters() {
       this.checkedVariants = [];
-      this.highlightChecked();
     },
     selectAllSizeFilters() {
       this.checkedVariants = [...this.normalizedVariants];
-      this.highlightChecked();
     },
-    sortProducts(products, by) {
-      if (!products?.sort) return products;
-      products.sort((a, b) => {
+    sortProducts(by) {
+      if (!this.products?.sort) return this.products;
+      this.products.sort((a, b) => {
         if (a[by] < b[by]) return -1;
         if (a[by] > b[by]) return 1;
         return 0;
       });
-      return products;
     },
     normalizeText(title) {
       return title.toLowerCase().replace(/[^\w]+/g, '');
@@ -100,9 +104,7 @@ export const useSpiderStore = defineStore('spider', {
 
       this.checkedVariants = [...variants];
       this.normalizedVariants = [...variants];
-
-      // Highlight the checked variants
-      this.highlightChecked();
+      console.log('checkedVariants.kength', this.checkedVariants.length);
     },
     sortByParseFloat(a, b) {
       const aNumber = parseFloat(a);
@@ -111,24 +113,12 @@ export const useSpiderStore = defineStore('spider', {
       if (aNumber > bNumber) return 1;
       return 0;
     },
-    highlightChecked() {
-      console.log('highlightChecked');
-      document.querySelectorAll('.variant-name').forEach((element) => {
-        const match = this.checkedVariants.some((member) => element.textContent === member);
-        if (match) {
-          element.classList.add('selected');
-        } else {
-          element.classList.remove('selected');
-        }
-      });
-    },
     toggleSelected(variant) {
       if (this.checkedVariants.find((element) => element === variant)) {
         this.checkedVariants.splice(this.checkedVariants.indexOf(variant), 1);
       } else {
         this.checkedVariants.push(variant);
       }
-      this.highlightChecked()
     },
   },
 });
