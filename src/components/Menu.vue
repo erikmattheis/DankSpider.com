@@ -1,16 +1,8 @@
 <template>
-  <div><font-awesome-icon :icon="['fas', 'chevron-down']" />
-    <div class="expanding-nav" :class="{ 'expanded': isExpanded }">
-      <div class="expanding-nav-header">
-        <a href="#" @click="toggleExpanded()">
-          <font-awesome-icon :icon="['fas', 'fa-bars']" />
-        </a>
-      </div>
-      <form>
-        <input type="email" v-model="email" :disabled="disabled" />
-        <button @click="addEmail"></button>
-      </form>
-    </div>
+  <div>
+    <a href="#" @click="toggleExpanded()">
+      <font-awesome-icon :icon="['fas', 'fa-bars']" />
+    </a>
   </div>
 </template>
 
@@ -35,4 +27,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a {
+  font-size: 2rem;
+  color: #eee;
+  text-decoration: none;
+  margin-left: 40px;
+}
+</style>

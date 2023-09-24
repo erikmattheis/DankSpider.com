@@ -1,8 +1,7 @@
 
 require('dotenv').config();
 const rateLimit = require('axios-rate-limit');
-const axios = require('../services/rateLimitedAxios');
-const axiosRateLimited = rateLimit(axios.create(), { maxRPS: 2 });
+const axios = require('../../scraper/services/rateLimitedAxios');
 const fs = require('fs');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
@@ -85,7 +84,7 @@ async function fetchFlowGardensData() {
               url: productUrl,
               image: productImage,
               variants: resolvedVariants,
-              vendor: 'FLO';
+              vendor: 'FLO'
             };
 
             products.push(product);
@@ -109,7 +108,7 @@ const uniqueVariants = [];
 
 async function getWNCProductInfo(productInfoUrl) {
   try {
-    const response = await axiosRateLimited.get(productInfoUrl);
+    const response = await axios.get(productInfoUrl);
     const $ = cheerio.load(response.data);
     const scriptText = $('script:contains("var BCData =")').html();
 
@@ -152,7 +151,7 @@ async function getWNCProductInfo(productInfoUrl) {
 
 async function scrapePage(url, currentPage, productLinks) {
   try {
-    const response = await axiosRateLimited.get(url);
+    const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
     $('.product').each((_, element) => {
@@ -212,6 +211,11 @@ exports.handler = async function (event, context) {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ response: 'hello world' })
+  };
+  /*
   const { body } = JSON.parse(event);
 
   await fetchFlowGardensData();
@@ -226,8 +230,10 @@ exports.handler = async function (event, context) {
     statusCode: 200,
     body: JSON.stringify({ response: `Processed ${products?.length} products.` })
   };
+
 } catch (error) {
   console.error(error);
   return { statusCode: 500, body: 'An error occurred' };
+    */
 }
-};
+

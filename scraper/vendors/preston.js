@@ -1,8 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
 const stringsService = require('../services/strings');
 
 const products = [];

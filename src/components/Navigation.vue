@@ -43,17 +43,22 @@ export default {
   right: 0;
   display: flex;
   justify-content: space-between;
+  background-color: var(--dark-green);
+  color: #eee;
+  z-index: 100;
 }
 
 .band {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--dark-green);
-  color: #eee;
   font-weight: 700;
   margin-top: 0;
   padding: 5px;
   width: 100vw;
+}
+
+h3 {
+  margin-bottom: 0;
 }
 </style>

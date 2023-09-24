@@ -36,5 +36,6 @@ export default {
 
 .spider-page-cards {
   flex: 1;
+  z-index: 0;
 }
 </style>
