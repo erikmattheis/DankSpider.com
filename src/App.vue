@@ -1,14 +1,11 @@
 
   <!--
-  fix highlighted size
+
   add price
-  mailing list
-  deploy
   add sorting
   more vendors
   mobile navigation
-  more google events
-  add dynamic updated date
+
   */-->
 <template>
   <div class="app">

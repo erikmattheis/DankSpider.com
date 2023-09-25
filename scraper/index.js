@@ -38,7 +38,6 @@ async function run() {
 
   //upstateHempProducts();
 
-  // prestoHempProducts();
 
   // sugarTreeHempProducts();
 

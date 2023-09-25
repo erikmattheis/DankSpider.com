@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-09-24T19:18:39.213Z",
+  "updatedAt": "2023-09-25T20:59:41.590Z",
   "products": [
     {
       "theirId": "11ee599bc9cbe2ca9ef69a3f54634ecd",
@@ -321,6 +321,17 @@
       "title": "Bruce Banner Indoor Living Soil",
       "url": "https://wnc-cbd.com/products/thca-bruce-banner-indoor-living-soil.html",
       "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/274/images/1989/Bruce_Banner_-_1__56615.1683908910.386.513.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "Cali Raisin Indoor Living Soil",
+      "url": "https://wnc-cbd.com/thca-cali-raisin-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/118/images/3290/Cali_Raisin_NEW_-_1__11631.1694615366.386.513.jpg?c=1",
       "variants": [
         "3.5 g",
         "7 g",

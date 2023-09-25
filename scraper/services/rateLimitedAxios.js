@@ -1,3 +1,6 @@
+// Parsing error: require() of ES Module /Users/erikmattheis/Desktop/Dropbox/DankSpider.com/node_modules/eslint-scope/lib/definition.js from /Users/erikmattheis/Desktop/Dropbox/DankSpider.com/node_modules/babel-eslint/lib/require-from-eslint.js not supported.
+// Instead change the require of definition.js in /Users/erikmattheis/Desktop/Dropbox/DankSpider.com/node_modules/babel-eslint/lib/require-from-eslint.js to a dynamic import() which is available in all CommonJS modules.
+
 const axios = require('axios');
 const rateLimit = require('axios-rate-limit');
 
