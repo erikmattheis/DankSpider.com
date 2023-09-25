@@ -8,8 +8,11 @@ export const useSpiderStore = defineStore('spider', {
     products: jsonData.products,
     updatedAt: jsonData.updatedAt,
     variants: [],
+    vendors: [],
+    checkedVendors: [],
     normalizedVariants: [],
     checkedVariants: [],
+    checkedVendors: [],
     emptyProduct: {
       name: 'empty',
       image: '',
@@ -21,7 +24,7 @@ export const useSpiderStore = defineStore('spider', {
       console.log('state.products', state.products.length);
       if (!state.products?.filter) return state.products;
       const products = state.products.filter((product) => {
-        return product.variants.some((variant) => this.checkedVariants.includes(variant));
+        return this.checkedVendors.includes(product.vendor) && product.variants.some((variant) => this.checkedVariants.includes(variant));
       });
 
       const emptyProductsCount = Math.max(3 - products.length, 0);
@@ -39,7 +42,6 @@ export const useSpiderStore = defineStore('spider', {
         if (product.name === 'empty') return;
         uniqueVendors.add(product.vendor);
       });
-      console.log('products', state.filteredProducts)
       return uniqueVendors.size;
     },
     updatedString(state) {
@@ -83,6 +85,7 @@ export const useSpiderStore = defineStore('spider', {
     },
     normalizeVariants() {
       const variants = [];
+      const vendors = [];
 
       // Iterate over each product
       this.products.forEach((product) => {
@@ -95,10 +98,17 @@ export const useSpiderStore = defineStore('spider', {
           if (!variants.includes(variant)) {
             console.log('variant', variant, ' is not yet in ', variants);
             variants.push(variant);
-            //throw new Error('stop')
+          }
+          if (!vendors.includes(product.vendor)) {
+            console.log('vendors', vendors, ' is not yet in ', vendors);
+            vendors.push(product.vendor);
           }
         });
       });
+
+      vendors.sort();
+      this.vendors = [...vendors];
+      this.checkedVendors = [...vendors];
 
       variants.sort(this.sortByParseFloat);
 
@@ -120,5 +130,11 @@ export const useSpiderStore = defineStore('spider', {
         this.checkedVariants.push(variant);
       }
     },
-  },
+    toggleSelectedVendor(vendor) {
+      if (this.checkedVendors.find((element) => element === vendor)) {
+        this.checkedVendors.splice(this.checkedVendors.indexOf(vendor), 1);
+      } else
+        this.checkedVendors.push(vendor);
+    }
+  }
 });

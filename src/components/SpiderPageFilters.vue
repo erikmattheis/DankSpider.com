@@ -1,6 +1,15 @@
 <template>
   <form class="search-filters page">
     <ul>
+      <li v-for="(vendor, i) in vendors" :key="i"
+        @click="toggleSelectedVendor(vendor)"
+        class="shadowy-button"
+        :class="{ selected: checkedVendors.includes(vendor) }"
+        :title="vendor">
+        {{ vendor }}
+      </li>
+    </ul>
+    <ul>
       <li v-for="(variant, i) in normalizedVariants" :key="i"
         @click="toggleSelected(variant)"
         class="shadowy-button"
@@ -25,17 +34,13 @@ export default {
   name: 'SpiderPageFilters',
   data() {
     return {
-      variants: [],
       store: null,
-      isExpanded: true,
     };
   },
   created() {
 
     this.store = useSpiderStore();
-    this.store.sortProducts('title');
     this.store.normalizeVariants(this.store.variants);
-
 
   },
   computed: {
@@ -44,11 +49,20 @@ export default {
     },
     checkedVariants() {
       return this.store.checkedVariants;
-    }
+    },
+    vendors() {
+      return this.store.vendors;
+    },
+    checkedVendors() {
+      return this.store.checkedVendors;
+    },
   },
   methods: {
     toggleSelected(variant) {
       this.store.toggleSelected(variant);
+    },
+    toggleSelectedVendor(vendor) {
+      this.store.toggleSelectedVendor(vendor);
     },
   },
 };
