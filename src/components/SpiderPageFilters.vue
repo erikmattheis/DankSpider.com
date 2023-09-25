@@ -8,10 +8,11 @@
         :title="variant">
         {{ variant }}
       </li>
-      <li v-if="checkedVariants.length > 0" @click="store.clearSelectedSizeFilters()" class="shadowy-button none"
+      <li v-if="checkedVariants.length > 0" @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button none"
         title="Select None">Select None
       </li>
-      <li v-else @click="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">Select All
+      <li v-else @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
+        Select All
       </li>
     </ul>
   </form>
