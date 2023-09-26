@@ -72,11 +72,16 @@ export const useSpiderStore = defineStore('spider', {
     selectAllSizeFilters() {
       this.checkedVariants = [...this.normalizedVariants];
     },
-    sortProducts(by) {
-
-      if (a[by] < b[by]) return -1;
-      if (a[by] > b[by]) return 1;
-      return 0;
+    sortProducts(property) {
+      var sortOrder = 1;
+      if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+      }
+      return function (a, b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+      }
 
     },
     normalizeText(title) {
