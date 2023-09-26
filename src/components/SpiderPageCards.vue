@@ -9,7 +9,7 @@
         <p>No products found</p>
       </template>
       <template v-for="(product, i) in filteredProducts" :key="i">
-        <ProductCard :ref="`card${i}`" :loadImage="loadCard(i)" :product="product" />
+        <ProductCard :ref="`card${i}`" :loadImage="loadCards[i]" :product="product" />
       </template>
     </div>
   </div>
