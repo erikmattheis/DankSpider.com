@@ -24,6 +24,7 @@ async function getAvailableLeafProducts() {
         title: $(entry).children('title').first().text(),
         url: $(entry).children('link').first().attr('href'),
         image: imgSrc,
+        variants: [],
         vendor: 'Flow',
       }
       console.log('------------------------')
@@ -73,14 +74,15 @@ async function addDetails(products) {
   return result;
 }
 
-async function init() {
+async function getAvailableVariants() {
   const products = await getAvailableLeafProducts();
   const result = await addDetails(products);
   console.log('result', result)
   return result;
 }
 
-init();
+
+/*
 
 async function getAvailableVariants(products) {
   const response = await axios.get(atomFeedUrl);
@@ -102,7 +104,7 @@ async function getAvailableVariants(products) {
   products.push(product);
 
 }
-
+*/
 
 /*
 else {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2023-09-25T22:07:47.259Z",
+  "updatedAt": "2023-09-26T08:25:46.132Z",
   "products": [
     {
       "theirId": "11ee599bc9cbe2ca9ef69a3f54634ecd",
@@ -60,238 +60,189 @@
       "title": "RS-11",
       "url": "https://flowgardens.com/products/rs-11",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/DSC06750.jpg?v=1695412809",
-      "variants": [
-        "3.5 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Lemon Vanilla OG (LVOG)",
       "url": "https://flowgardens.com/products/lvog",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/F83C071A-83AB-42B5-B3B8-EEAE11F91843.jpg?v=1694192862",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Fabled",
       "url": "https://flowgardens.com/products/fabled-flow",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_da43ca43-5511-47d5-b5d7-583657ccba9e.jpg?v=1685121761",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
+      "vendor": "Flow"
+    },
+    {
+      "title": "Sugar Leaf 1 Pound",
+      "url": "https://flowgardens.com/products/sugar-leaf-1-pound",
+      "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/sugarleaf_958195d4-9ba4-4608-89e3-a9c7ffc0fd11.jpg?v=1674848915",
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Cherry Muffins",
       "url": "https://flowgardens.com/products/cherry-muffins",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/CherryMuffinCut-Ps.jpg?v=1674528237",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Key Lime Pie",
       "url": "https://flowgardens.com/products/key",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_144c8edc-aa52-49eb-8f65-20f172f44b4f.jpg?v=1688142473",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Sour Sex Wax",
       "url": "https://flowgardens.com/products/sour-sex-wax",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/20A55C7D-6132-4149-B2CE-84615AFE4F4C.jpg?v=1692978169",
-      "variants": [
-        "3.5 g",
-        "7 g",
-        "14 g smalls/minis"
-      ],
+      "variants": [],
+      "vendor": "Flow"
+    },
+    {
+      "title": "Type 1 Sampler",
+      "url": "https://flowgardens.com/products/type-1-sampler",
+      "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/4buds.jpg?v=1692977255",
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "MAC 1",
       "url": "https://flowgardens.com/products/mac-1",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6999093f-7139-4586-8ae4-3b369c6a9258.jpg?v=1687546903",
-      "variants": [
-        "3.5 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Purple Haze",
       "url": "https://flowgardens.com/products/purple-haze",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/IMG-8490.jpg?v=1692382629",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Lemon Cherry Sherbet",
       "url": "https://flowgardens.com/products/lemon-cherry-sherbert",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_6981f9a9-6764-49d4-ba3c-1663b53de727.jpg?v=1691766699",
-      "variants": [
-        "3.5 g",
-        "7 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Blueberry Cough Drops",
       "url": "https://flowgardens.com/products/blueberry-cough-drops-1",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_0c50b33c-1bcc-42f9-84b6-b9fdbe7c1f77.jpg?v=1664472165",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Mystery OZ",
       "url": "https://flowgardens.com/products/mystery-og",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_8ad97c8d-d52f-48c0-8a74-a189947cfd04.jpg?v=1685127133",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Bordeaux",
       "url": "https://flowgardens.com/products/bordeaux",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image.jpg?v=1631285540",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "14 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Orange Glaze #3",
       "url": "https://flowgardens.com/products/orange-glaze",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/Orangeglaze1st.jpg?v=1654195313",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Banana Bread",
       "url": "https://flowgardens.com/products/banana-bread",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_a833dcbc-fe82-47a5-95e6-f67ead58b0ef.jpg?v=1685728829",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Colorado Gas Can",
       "url": "https://flowgardens.com/products/colorado-gas-can",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/products/image_538267ee-ad77-4212-853c-b9aebfc86fbe.jpg?v=1672166192",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Banana OG",
       "url": "https://flowgardens.com/products/banana-og",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_7d23206c-3431-4480-bbdc-0c40dd3bff49.jpg?v=1685123663",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
       "title": "Flows Cookies",
       "url": "https://flowgardens.com/products/copy-of-alpen-flow-5",
       "image": "https://cdn.shopify.com/s/files/1/0545/7631/6599/files/image_555df1d9-c820-41f2-95c6-0423ad5593c2.jpg?v=1683904477",
-      "variants": [
-        "1 g",
-        "3.5 g",
-        "7 g",
-        "14 g",
-        "28 g",
-        "28 g smalls/minis"
-      ],
+      "variants": [],
       "vendor": "Flow"
     },
     {
-      "title": "Alien Apple Kush Indoor Living Soil",
+      "title": "THCa Alien Apple Kush Indoor Living Soil",
       "url": "https://wnc-cbd.com/products/thca-alien-apple-kush-indoor-living-soil.html",
-      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/312/images/2452/Alien_Apple_Kush_-_1__91421.1689092161.386.513.jpg?c=1",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/312/2452/Alien_Apple_Kush_-_1__91421.1689092161.jpg?c=1",
       "variants": [
         "3.5 g",
-        "7 g",
-        "14 g smalls/minis"
+        "7 g"
       ],
       "vendor": "WNC"
     },
     {
-      "title": "Alpha Runtz Indoor Living Soil",
+      "title": "THCa Alpha Runtz Indoor Living Soil",
       "url": "https://wnc-cbd.com/products/thca-alpha-runtz-indoor-living-soil.html",
-      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/products/358/images/3183/Alpha_Runtz_-_1__46009.1693930862.386.513.jpg?c=1",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/358/3183/Alpha_Runtz_-_1__46009.1693930862.jpg?c=1",
       "variants": [
         "3.5 g",
-        "7 g",
-        "14 g smalls/minis"
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "THCa Black Cherry Gelato Indoor Hydro",
+      "url": "https://wnc-cbd.com/products/thca-black-cherry-gelato-indoor-hydro.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/313/2467/Black_Cherry_Gelato_-_1__71273.1689100125.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "THCa Blue Unicorn Indoor",
+      "url": "https://wnc-cbd.com/thca-blue-unicorn-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/116/3208/Blue_Unicorn_-_1__99546.1693938120.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "THCa Bruce Banner Indoor Living Soil",
+      "url": "https://wnc-cbd.com/products/thca-bruce-banner-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/274/1989/Bruce_Banner_-_1__56615.1683908910.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": "THCa Cali Raisin Indoor Living Soil",
+      "url": "https://wnc-cbd.com/thca-cali-raisin-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/118/3290/Cali_Raisin_NEW_-_1__11631.1694615366.jpg?c=1",
+      "variants": [
+        "3.5 g"
       ],
       "vendor": "WNC"
     },
@@ -306,7 +257,7 @@
         "28 g",
         "1 g"
       ],
-      "vendor": "Flow"
+      "vendor": "Top Cola"
     },
     {
       "title": "T1 Sugar leaf/Shake Mix",
@@ -315,7 +266,7 @@
       "variants": [
         "28 g"
       ],
-      "vendor": "Flow"
+      "vendor": "Top Cola"
     }
   ]
 }

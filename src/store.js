@@ -90,6 +90,13 @@ export const useSpiderStore = defineStore('spider', {
       // Iterate over each product
       this.products.forEach((product) => {
         // Iterate over each variant of the product
+        if (!product.variants || product.variants.length === 0) {
+          console.log('skipping', product.url)
+          return;
+        }
+        else {
+          console.log('product.variants', product.variants.length)
+        }
         product.variants.forEach((variant) => {
           if (!variant) return;
           const normalizedVariant = this.normalizeText(variant);

@@ -1,9 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const stringsService = require('../services/strings');
-
-
-const products = [];
+const { faHourglass } = require('@fortawesome/free-solid-svg-icons');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
@@ -16,41 +14,47 @@ function addUniqueVariant(variant) {
   }
 }
 
-async function getWNCProductInfo(productInfoUrl) {
+async function getProduct(url) {
   try {
     console.log('Building WNC product');
-    const response = await axios.get(productInfoUrl);
+    const response = await axios.get(url);
     const $ = cheerio.load(response.data);
+
     const variants = [];
 
-    $('span.form-option-variant:not(.unavailable)').each((index, element) => {
-      console.log('vatiant html', $(element).html())
-      variants.push($(element).text());
+    // Extract available variant values from BCData object
+    const bcDataScript = $('script:contains("var BCData")').html();
+    const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
+    const availableVariantValues = bcData.product_attributes.available_variant_values;
+
+    // Filter variants by available variant values
+    $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((index, element) => {
+      const variantValue = $(element).attr('for').split('_').pop();
+      if (availableVariantValues.includes(parseInt(variantValue))) {
+        variants.push($(element).text().trim());
+      }
     });
+    console.log('variants', variants)
 
-    console.log('variants', variants);
-
-    const title = $('meta[property="og:title"]').attr('content').replace('THCa ', '');;
-    const url = $('meta[property="og:url"]').attr('content');
-    console.log('url', url);
-    console.log('productInfoUrl', productInfoUrl);
-
-    const image = $('meta[property="og:image"]').attr('content');
-
+    const title = $('h1.productView-title').text().trim();
+    const image = $('figure.productView-image img').attr('src');
+    console.log('image', image)
     return {
       title,
       url,
       image,
       variants,
+      vendor: 'WNC',
     }
+
   }
   catch (error) {
-    throw new Error(`Error getting WNC product info: ${error.message}`);
+    console.log(`Error getting product info: ${error.message}`);
   }
 }
+// getProduct('https://wnc-cbd.com/products/thca-black-cherry-gelato-indoor-hydro.html');
 
-const productLinks = [];
-async function scrapePage(url, currentPage) {
+async function scrapePage(url, currentPage, productLinks) {
 
   try {
     const response = await axios.get(url);
@@ -79,15 +83,17 @@ async function scrapePage(url, currentPage) {
     if (nextPageLink && currentPage < 3) {
       currentPage++;
       console.log(`Scraping page ${currentPage}`);
-      await scrapePage(nextPageLink, currentPage);
+      await scrapePage(nextPageLink, currentPage, productLinks);
     } else {
       console.log('No more WNC pages to scrape.', productLinks);
 
-      await getWNCProductsInfo(productLinks);
+
     }
   } catch (error) {
     console.log(`Error scraping page: ${error.message}`);
   }
+
+  return productLinks;
 }
 
 function isDesiredProduct(productTitle) {
@@ -107,9 +113,9 @@ function isDesiredProduct(productTitle) {
 
 async function getWNCProductsInfo(productLinks) {
   console.log('Getting this many products from WNC', productLinks.length)
-
+  const products = [];
   for (const productLink of productLinks) {
-    const product = await getWNCProductInfo(productLink);
+    const product = await getProduct(productLink);
     if (!product) {
       console.log('skipping null product');
       continue;
@@ -133,12 +139,14 @@ async function getWNCProductsInfo(productLinks) {
       console.log('product has no variants', product);
     }
   }
+  return products;
 }
-getWNCProductInfo('https://wnc-cbd.com/products/thca-black-cherry-gelato-indoor-hydro.html');
+
 async function getAvailableLeafProducts() {
 
-  await scrapePage(startUrl, currentPage);
-
+  const productLinks = await scrapePage(startUrl, currentPage, []);
+  console.log('productLinks', productLinks)
+  const products = await getWNCProductsInfo(productLinks);
   return products;
 
 }
