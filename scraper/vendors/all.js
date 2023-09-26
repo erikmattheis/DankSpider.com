@@ -1,3 +1,5 @@
+wnc.js -
+
 const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
@@ -24,7 +26,7 @@ async function getWNCProductInfo(productInfoUrl) {
     const $ = cheerio.load(response.data);
     const variants = [];
 
-    $('span.form-option-variant:not(.unavailable)').each((index, element) => {
+    $('span.form-option-variant').each((index, element) => {
       console.log('vatiant html', $(element).html())
       variants.push($(element).text());
     });
@@ -147,3 +149,101 @@ async function getAvailableLeafProducts() {
 module.exports = {
   getAvailableLeafProducts
 }
+
+  ../ services / strings.js -
+
+  function normalizeTitle(title) {
+    if (!title) {
+      return title;
+    }
+    if (title === 'Sugar leaf trim - 28 grams') {
+      return '28 g';
+    }
+    if (title === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
+      return '28 g';
+    }
+    if (title === 'Dry Sift 1g') {
+      return '1 g';
+    }
+    if (title === '14 grams') {
+      return '14 g';
+    }
+    if (title === '7 grams') {
+      return '7 g';
+    }
+    if (title === '3.5 grams') {
+      return '3.5 g';
+    }
+    if (title === '14g') {
+      return '14 g';
+    }
+    if (title === '7g') {
+      return '7 g';
+    }
+    if (title === '3.5g') {
+      return '3.5 g';
+    }
+    if (title === '1g') {
+      return '1 g';
+    }
+    title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
+    title = title?.replace(/(\s+)/g, ' ');
+    title = title?.replace('SMALLS', 'smalls');
+    title = title?.replace('MINIS', 'minis');
+    title = title?.replace('Smalls', 'smalls');
+    title = title?.replace('Minis', 'minis');
+    title = title?.replace(' (1/8 oz)', '');
+    title = title?.replace(' (1/4 oz)', '');
+    title = title?.replace(' (1/2 oz)', '');
+    title = title?.replace(' (1 oz)', '');
+    title = title?.replace('(small/minis)', 'smalls/minis');
+    title = title?.trim().replace(/\s+/g, ' ');
+    return title;
+  }
+
+const regexMatchingPossibleWeightString = /\d\s(oz|g)/i;
+
+function variantNameContainsWeightUnitString(variantName) {
+
+  return regexMatchingPossibleWeightString.test(variantName);
+
+}
+
+function printPathToKey(obj, keyString, path = []) {
+  for (const [key, value] of Object.entries(obj)) {
+    const currentPath = [...path, key];
+    if (key === keyString) {
+      console.info(currentPath.join('.'));
+    } else if (typeof value === 'object') {
+      printPathToKey(value, keyString, currentPath);
+    }
+  }
+}
+
+module.exports = {
+  normalizeTitle,
+  variantNameContainsWeightUnitString,
+  printPathToKey
+}
+
+package.json -
+
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "Scraper for DankSpider.com",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "default": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "axios-rate-limit": "^1.3.0",
+    "cheerio": "^1.0.0-rc.12",
+    "xml2js": "^0.6.2"
+  }
+}
+

@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async addEmail() {
-      const response = await fetch('/.netlify/functions/firebase', {
+      const response = await fetch('/.netlify/functions/email-signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ const { getDatabase, ref, push, onValue } = require('firebase/database');
 const axios = require('../../scraper/services/rateLimitedAxios');
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDP3FyaOxZL8VSyKaJYI_WddOsShv2jd5I",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "dankspider-75eb9.firebaseapp.com",
   databaseURL: "https://dankspider-75eb9-default-rtdb.firebaseio.com",
   projectId: "dankspider-75eb9",

@@ -10,67 +10,106 @@ const productLinks = [];
 let currentPage = 1;
 
 async function getAvailableLeafProducts() {
-  try {
-    const response = await axios.get(atomFeedUrl);
-    const xmlData = response.data;
+  const response = await axios.get(atomFeedUrl);
+  const $ = cheerio.load(response.data, { xmlMode: true });
+  const products = [];
 
-    // Parse the XML data
-    const parser = new xml2js.Parser({ explicitArray: false });
-    const parsedData = await parser.parseStringPromise(xmlData);
+  $('entry').each((index, entry) => {
+    const productType = $(entry).find('s\\:type').text();
 
-    if (parsedData.feed && parsedData.feed.entry) {
-      const entries = parsedData.feed.entry;
-
-      entries.forEach((entry) => {
-        const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
-        const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
-
-        const filteredVariants = variants.filter((variant) => stringsService.variantNameContainsWeightUnitString(variant.title));
-
-        if (filteredVariants.length && (productType === 'flower')) {
-          const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
-
-          const productTitle = entry.title ? entry.title : '';
-
-          const productUrl = entry.link?.$?.href || '';
-
-          const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
-
-          console.log('contentHtml exists', entry.summary._);
-
-          const $content = cheerio.load(contentHtml);
-
-          const firstImage = $content('img').attr('src');
-
-          console.log('found :image', firstImage);
-
-          const productImage = firstImage || '';
-
-          const product = {
-            title: productTitle,
-            url: productUrl,
-            image: productImage,
-            variants: resolvedVariants,
-            vendor: 'Flow',
-          };
-
-          products.push(product);
-        }
-        else {
-          console.log('Skipping product type', productType);
-
-        }
-      });
+    if (productType === 'Flower') {
+      const product = {
+        title: $(entry).children('title').first().text(),
+        url: $(entry).children('link').first().attr('href'),
+        image: $(entry).find('image').first().text(),
+        variants: [],
+        vendor: 'Flow',
+      }
+      products.push(product);
     }
+  });
 
-    console.log('Data has been extracted from flow');
-    return products;
-  } catch (error) {
-    console.error(`Error fetching Flow Gardens data: ${error}`);
-    throw new Error(`Error fetching Flow Gardens data: ${error}`);
-  }
+  return products;
 }
 
+async function addVariants(product) {
+  const result = { ...product };
+
+  const response = await axios.get(product.url);
+  const $ = cheerio.load(response.data);
+  const variants = [];
+  const variantObjs = [];
+
+  $('input[name=Weight]:not(.unavailable)').each((index, element) => {
+    const variant = {
+      title: $(element).find('.form-option-variant').text(),
+      price: $(element).next('label').find('.form-option-variant').data('price'),
+      available: !$(element).hasClass('unavailable')
+    };
+    variants.push(variant.title);
+    variantObjs.push(variant);
+  });
+
+  result.variants = variants;
+  result.variantObjs = variantObjs;
+
+  return result;
+}
+
+async function addDetails(products) {
+  const result = [];
+  for (const product of products) {
+    const productWithVariants = await addVariants(product);
+    result.push(productWithVariants);
+  }
+  return result;
+}
+
+async function init() {
+  const products = await getAvailableLeafProducts();
+  const result = await addDetails(products);
+  console.log('result', result)
+  return result;
+}
+
+init();
+
+async function getAvailableVariants(products) {
+  const response = await axios.get(atomFeedUrl);
+  const $ = cheerio.load(response.data);
+
+  const variants = $('input[name=Weight]:not(.unavailable)').text();
+
+
+  variants.each((index, element) => {
+    console.log('variant html', $(element).html())
+    variants.push($(element).text());
+  });
+  const filteredVariants = variants.filter((variant) => stringsService.variantNameContainsWeightUnitString(variant.title));
+
+
+  const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
+
+
+  products.push(product);
+
+}
+
+
+/*
+else {
+console.log('Skipping product type', productType);
+
+}
+*/
+
+/*
+
+console.log('Data has been extracted from flow');
+return products;
+
+}
+*/
 module.exports = {
   getAvailableLeafProducts
 }

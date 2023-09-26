@@ -8,6 +8,6 @@
     "no-debugger": "off"
   },
   "parserOptions": {
-    "parser": "babel-eslint"
+    "parser": "vue-eslint-parser"
   }
 }
