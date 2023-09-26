@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+const preston = require('./vendors/preston.js');
 const flow = require('./vendors/flow.js');
 const wnc = require('./vendors/wnc.js');
 const enlighten = require('./vendors/enlighten.js');
@@ -11,10 +12,13 @@ function writeFile(products) {
     products: products,
   }
   const jsonContent = JSON.stringify(data, null, 2);
-  fs.writeFileSync('../src/assets/data/products.json', jsonContent, 'utf8');
+  fs.writeFileSync('../src/assets/data/productsxxx.json', jsonContent, 'utf8');
 }
 
 async function run() {
+
+  const prestonProducts = await preston.getAvailableLeafProducts();
+  console.log('preston products', prestonProducts.length);
 
   const flowProducts = await flow.getAvailableLeafProducts();
   console.log('flow products', flowProducts.length);
@@ -28,7 +32,7 @@ async function run() {
   const topcolaProducts = await topcola.getAvailableLeafProducts();
   console.log('top cola products', topcolaProducts);
 
-  const final = [...enlightenProducts, ...flowProducts, ...wncProducts, ...topcolaProducts];
+  const final = [...prestonProducts, ...enlightenProducts, ...flowProducts, ...wncProducts, ...topcolaProducts];
   //const final = [...topcolaProducts];
   // const final = [1, 2, 3];
   writeFile(final, null, 2);

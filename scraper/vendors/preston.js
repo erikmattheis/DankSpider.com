@@ -27,13 +27,15 @@ function getImageSrc(html) {
 
 async function getPrestonProductInfo(product) {
   try {
-    console.log('get Preston product info');
+    console.log('get Preston product info', product);
     const response = await axios.get(product.url);
     const $ = cheerio.load(response.data);
     const select = $('.sizes-dropdown .size-dropdown-link');
 
     const variants = select.map((i, el) => $(el).text()).get();
-    const image = getImageSrc(html);
+    const image = getImageSrc(response.data);
+    console.log('image', image)
+
     return {
       variants, image
     }
@@ -56,39 +58,28 @@ async function scrapePage(url, currentPage) {
     const cards = $('.w-dyn-item');
 
     for (const card of cards) {
-      console.log('Card HTML:', $(card).html());
 
-      const productPicWrap = $(card).find('div.product-pic-wrap');
-
-      console.log('Product Pic Wrap HTML:', productPicWrap);
-
-      const productPicWrap2 = $(card).find('div.product-pic-wrap').attr('src');
-
-      console.log('Product Pic Wrap HTML2:', productPicWrap2);
-
-
-      throw new Error('stop');
 
       const title = $(card).find('div.product-name').text().trim();
 
       if (isDesiredProduct(title)) {
-        const url = $(card).attribs['href'];
-
+        const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
+        const image = $(card).find('img.main-product-image').attr('src');
+        console.log('image', image)
         console.log('Available: ', title);
         console.log('url', url);
 
-        productLinks.push({ title, url });
+
+        productLinks.push({ title, url, image });
       }
     }
 
-    await getPrestonProductsInfo(productLinks);
+    return productLinks;
 
   } catch (error) {
     console.log(`Error scraping page: ${error.message}`);
   }
 }
-
-scrapePage(startUrl, currentPage)
 
 function isDesiredProduct(productTitle) {
   if (!productTitle) {
@@ -124,16 +115,21 @@ async function getPrestonProductsInfo(products) {
   console.log('products', products);
   const finalProducts = [];
   for (const product of products) {
-    //console.log('product', product)
-    const variants = await getPrestonProductInfo(product.url);
-    if (!variants) {
+    console.log('product', product)
+    if (!product?.url) {
       continue;
     }
-    console.log('product.title', product.title);
+    console.log('product.url', product.url)
+    const info = await getPrestonProductInfo(product);
+    if (!info.variants || info.variants.length === 0) {
+      continue;
+    }
+    console.log('product', product);
     product.vendor = 'Preston';
-    const size = parseFloat(variants[0].trim());
+    product.variants = info.variants.map((variant) => parseFloat(variant.trim()) + ' g');
+
+    const size = parseFloat(product.variants[0].trim());
     if (size) {
-      product.variants = variants.map((variant) => parseFloat(variants[0].trim()) + ' g');
 
       finalProducts.push(product);
     }
@@ -154,12 +150,12 @@ async function getPrestonProductsInfo(products) {
 async function getAvailableLeafProducts() {
 
   //await fetchFlowGardensData();
-  await scrapePage(startUrl, currentPage);
+  const products = await scrapePage(startUrl, currentPage);
+  const finalProducts = await getPrestonProductsInfo(products);
 
-  return products;
+  return finalProducts;
 
 }
-
 
 module.exports = {
   getAvailableLeafProducts
