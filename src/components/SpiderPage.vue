@@ -28,7 +28,7 @@ export default {
 
 .spider-page-filters {
   position: sticky;
-  top: 54px;
+  top: 48px;
   padding-top: 21px;
   overflow-y: auto;
   z-index: 1;

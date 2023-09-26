@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const stringsService = require('../services/strings');
+const strings = require('../services/strings');
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
 
@@ -20,6 +20,7 @@ async function getProducts() {
       const image$ = cheerio.load($(entry).html());
       console.log('image html', image$.html())
       const imgSrc = image$('img').attr('src');
+
       const product = {
         title: $(entry).children('title').first().text(),
         url: $(entry).children('link').first().attr('href'),
@@ -53,7 +54,7 @@ async function addVariants(product) {
   const labels = $('label.variant__button-label:not(.disabled)');
 
   console.log('labels', labels.length)
-  result.variants = labels.map((index, el) => $(el).text()).get();
+  result.variants = labels.map((index, el) => strings.normalizeTitle($(el).text())).get();
   //result.variants = labels.map((el) => $(el).text()).get();
   console.log('result.variants', result.variants);
   /*

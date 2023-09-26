@@ -90,7 +90,7 @@ export const useSpiderStore = defineStore('spider', {
       // Iterate over each product
       this.products.forEach((product) => {
         // Iterate over each variant of the product
-        if (!product.variants || product.variants.length === 0) {
+        if (!product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
           console.log('skipping', product.url)
           return;
         }
