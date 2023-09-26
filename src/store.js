@@ -30,7 +30,7 @@ export const useSpiderStore = defineStore('spider', {
       const emptyProductsCount = Math.max(3 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
       console.log('emptyProducts', emptyProducts);
-      products.sort(this.sortProducts('name'));
+      products.sort(this.sortProducts('title'));
       return [...products, ...emptyProducts];
     },
     numProducts(state) {
@@ -73,12 +73,11 @@ export const useSpiderStore = defineStore('spider', {
       this.checkedVariants = [...this.normalizedVariants];
     },
     sortProducts(by) {
-      if (!this.products?.sort) return this.products;
-      this.products.sort((a, b) => {
-        if (a[by] < b[by]) return -1;
-        if (a[by] > b[by]) return 1;
-        return 0;
-      });
+
+      if (a[by] < b[by]) return -1;
+      if (a[by] > b[by]) return 1;
+      return 0;
+
     },
     normalizeText(title) {
       return title.toLowerCase().replace(/[^\w]+/g, '');
