@@ -8,7 +8,7 @@ const products = [];
 const productLinks = [];
 let currentPage = 1;
 
-async function getAvailableLeafProducts() {
+async function getProducts() {
   const response = await axios.get(atomFeedUrl);
   const $ = cheerio.load(response.data, { xmlMode: true });
   const products = [];
@@ -51,8 +51,11 @@ async function addVariants(product) {
   //$('input[name=Weight]:not(.unavailable)').each((index, element) => {
 
   const labels = $('label.variant__button-label:not(.disabled)');
-  result.variants = labels.map((i, el) => $(el).text()).get();
 
+  console.log('labels', labels.length)
+  result.variants = labels.map((index, el) => $(el).text()).get();
+  //result.variants = labels.map((el) => $(el).text()).get();
+  console.log('result.variants', result.variants);
   /*
       const variant = {
         title: $(element).find('.variant__button-label:not(.disabled)').text(),
@@ -68,58 +71,26 @@ async function addVariants(product) {
 async function addDetails(products) {
   const result = [];
   for (const product of products) {
+    const variants = []; variants
     const productWithVariants = await addVariants(product);
-    result.push(productWithVariants);
+    if (productWithVariants.variants.length > 0) {
+      result.push(productWithVariants);
+    }
   }
   return result;
 }
 
-async function getAvailableVariants() {
-  const products = await getAvailableLeafProducts();
+async function getAvailableLeafProducts() {
+  const products = await getProducts();
   const result = await addDetails(products);
   console.log('result', result)
   return result;
 }
 
-
-/*
-
-async function getAvailableVariants(products) {
-  const response = await axios.get(atomFeedUrl);
-  const $ = cheerio.load(response.data);
-
-  const variants = $('input[name=Weight]:not(.unavailable)').text();
+getAvailableLeafProducts()
 
 
-  variants.each((index, element) => {
-    console.log('variant html', $(element).html())
-    variants.push($(element).text());
-  });
-  const filteredVariants = variants.filter((variant) => stringsService.variantNameContainsWeightUnitString(variant.title));
 
-
-  const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
-
-
-  products.push(product);
-
-}
-*/
-
-/*
-else {
-console.log('Skipping product type', productType);
-
-}
-*/
-
-/*
-
-console.log('Data has been extracted from flow');
-return products;
-
-}
-*/
 module.exports = {
   getAvailableLeafProducts
 }
