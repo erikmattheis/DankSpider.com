@@ -1,6 +1,10 @@
 
   <!--
-
+0. Analytics
+1. Lazy images
+2. Email
+3. More vendors
+4. Better filter UI
   add price
   add sorting
   more vendors

@@ -12,7 +12,7 @@ function writeFile(products) {
     products: products,
   }
   const jsonContent = JSON.stringify(data, null, 2);
-  fs.writeFileSync('../src/assets/data/productsxxx.json', jsonContent, 'utf8');
+  fs.writeFileSync('../src/assets/data/products.json', jsonContent, 'utf8');
 }
 
 async function run() {

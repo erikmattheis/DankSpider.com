@@ -4,7 +4,8 @@
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
-      <img class="beauty" :src="product.image" :alt="product.title" :class="{ 'pendulum': true }" />
+      <img class="beauty pendulum" v-if="loadImage" :src="product.image" :alt="product.title"
+        :class="{ 'pendulum': true }" />
 
     </a>
     <div class="info">

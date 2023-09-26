@@ -28,7 +28,6 @@ app.use(VueGtag, {
     appName: 'DankSpider',
     pageTrackerScreenviewEnabled: true,
     id: "G-1R8ZDWL3XJ",
-    /* id: "G-6VS0E4L3NDD", */
   },
 }, router);
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <a href="#" @click="toggleExpanded()">
-      <font-awesome-icon :icon="['fas', 'bars']" />
+      <!--<font-awesome-icon :icon="['fas', 'bars']" />-->
     </a>
   </div>
 </template>
