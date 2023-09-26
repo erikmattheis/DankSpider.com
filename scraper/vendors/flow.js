@@ -1,5 +1,4 @@
 const axios = require('../services/rateLimitedAxios');
-const xml2js = require('xml2js');
 const cheerio = require('cheerio');
 const stringsService = require('../services/strings');
 
@@ -18,13 +17,21 @@ async function getAvailableLeafProducts() {
     const productType = $(entry).find('s\\:type').text();
 
     if (productType === 'Flower') {
+      const image$ = cheerio.load($(entry).html());
+      console.log('image html', image$.html())
+      const imgSrc = image$('img').attr('src');
       const product = {
         title: $(entry).children('title').first().text(),
         url: $(entry).children('link').first().attr('href'),
-        image: $(entry).find('image').first().text(),
-        variants: [],
+        image: imgSrc,
         vendor: 'Flow',
       }
+      console.log('------------------------')
+      console.log($(entry).html())
+      console.log('------------------------')
+      console.log('product.url', product.url);
+      console.log('product.image', product.image);
+      // throw new Error('stop')
       products.push(product);
     }
   });
@@ -40,18 +47,19 @@ async function addVariants(product) {
   const variants = [];
   const variantObjs = [];
 
-  $('input[name=Weight]:not(.unavailable)').each((index, element) => {
-    const variant = {
-      title: $(element).find('.form-option-variant').text(),
-      price: $(element).next('label').find('.form-option-variant').data('price'),
-      available: !$(element).hasClass('unavailable')
-    };
-    variants.push(variant.title);
-    variantObjs.push(variant);
-  });
+  //$('input[name=Weight]:not(.unavailable)').each((index, element) => {
 
-  result.variants = variants;
-  result.variantObjs = variantObjs;
+  const labels = $('label.variant__button-label:not(.disabled)');
+  result.variants = labels.map((i, el) => $(el).text()).get();
+
+  /*
+      const variant = {
+        title: $(element).find('.variant__button-label:not(.disabled)').text(),
+        price: $(element).next('label').find('.form-option-variant').data('price'),
+        available: !$(element).hasClass('unavailable')
+      };
+      */
+  //});
 
   return result;
 }

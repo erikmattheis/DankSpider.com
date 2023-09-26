@@ -5,7 +5,7 @@ const agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHT
 
 const rateLimitedAxios = rateLimit(axios.create({ headers: { 'User-Agent': agent } }), {
   maxRequests: 1,
-  perMilliseconds: 3100,
+  perMilliseconds: 810,
 });
 
 module.exports = rateLimitedAxios;

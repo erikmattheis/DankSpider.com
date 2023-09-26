@@ -52,7 +52,7 @@ async function getAvailableLeafProducts() {
             url: productUrl,
             image: productImage,
             variants: resolvedVariants,
-            vendor: 'Flow',
+            vendor: 'Top Cola',
           };
 
           products.push(product);
@@ -64,11 +64,11 @@ async function getAvailableLeafProducts() {
       });
     }
 
-    console.log('Data has been extracted from flow');
+    console.log('Data has been extracted from top cola');
     return products;
   } catch (error) {
-    console.error(`Error fetching Flow Gardens data: ${error}`);
-    throw new Error(`Error fetching Flow Gardens data: ${error}`);
+    console.error(`Error fetching Top Cola Gardens data: ${error}`);
+    throw new Error(`Error fetching Top Cola Gardens data: ${error}`);
   }
 }
 

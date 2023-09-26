@@ -7,6 +7,9 @@
   "scripts": {
     "default": "node index.js"
   },
+  "exports": {
+    "./lib/api/traversing": "./lib/api/traversing.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
