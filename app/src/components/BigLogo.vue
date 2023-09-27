@@ -109,6 +109,6 @@ export default {
 
 <style scoped>
 div {
-  margin: 80px auto;
+  margin: 80px 0;
 }
 </style>

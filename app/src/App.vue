@@ -1,8 +1,8 @@
 
   <!--
 0. Analytics X
-1. Lazy images
-2. Email
+1. Lazy images X
+2. Email X
 3. More vendors
 4. Better filter UI
   add price
@@ -44,22 +44,26 @@ export default {
 body {
   margin: 0;
   display: flex;
-  place-items: start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   background-color: #eee;
   color: #333;
 }
 
 #app {
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app {
-  margin: 0 2px;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
 }
 
@@ -110,14 +114,13 @@ body {
   transform: translateY(0);
 }
 
-
 .page {
   margin: 0 auto;
 }
 
 .app,
 .page {
-  width: 360px;
+  width: 100%;
 }
 
 

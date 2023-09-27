@@ -13,12 +13,3 @@
 
   --dark-green: #003a00;
 }
-
-body {
-  margin: 0;
-  display: flex;
-}
-
-#app {
-  margin: 0 auto;
-}

@@ -90,10 +90,9 @@ export default {
 }
 
 .product-card {
-  width: 330px;
+
   min-height: 305px;
   display: inline-block;
-  margin: 20px;
   text-align: center;
   padding: 0;
   position: relative;
@@ -106,6 +105,14 @@ export default {
   right: -60px;
   width: 120px;
   height: 120px;
+}
+
+
+@media (min-width: 768px) {
+  .product-card {
+    margin: 20px;
+    width: 330px;
+  }
 }
 
 .corner-text {

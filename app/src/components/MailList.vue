@@ -13,7 +13,7 @@
             <button @click="addEmail">Email me</button>
           </div>
         </form>
-        <div v-else class="container">
+        <div v-else class="container-column">
           <p>Thanks for signing up!</p>
 
           <button @click="toggleExpanded()">Close</button>
@@ -99,6 +99,12 @@ button {
 }
 
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-column {
   display: flex;
   flex-direction: column;
   align-items: center;
