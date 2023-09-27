@@ -6,17 +6,25 @@
     <div class="modal" v-if="expanded">
       <div class="modal-backdrop" @click="toggleExpanded()" />
       <div class="modal-content">
-        <form @submit.prevent>
-          <p>Tell me when we add new features.</p>
-          <input @keydown.enter.prevent type="email" v-model="email" :disabled="disabled" />
-          <button @click="addEmail">Sign Up for Updates</button>
+        <form @submit.prevent v-if="!successMessage">
+          <p>Tell me when new features are added.</p>
+          <div class="container">
+            <input @keydown.enter.prevent type="email" v-model="email" :disabled="disabled" />
+            <button @click="addEmail">Email me</button>
+          </div>
         </form>
+        <div v-else class="container">
+          <p>Thanks for signing up!</p>
+
+          <button @click="toggleExpanded()">Close</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'MailList',
   data() {
@@ -25,19 +33,19 @@ export default {
       emails: [],
       disabled: false,
       expanded: false,
+      successMessage: false,
     };
   },
   methods: {
     async addEmail() {
-      const response = await fetch('/.netlify/functions/email-signup', {
-        method: 'POST',
+      const response = await axios.post('/.netlify/functions/email-signup', {
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email: this.email }),
       });
-      const data = await response.json();
-      console.log('response', data);
+
+      this.successMessage = await response.data.response;
     },
     toggleExpanded() {
       this.expanded = !this.expanded;
@@ -90,8 +98,20 @@ button {
   padding: 5px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 input {
+  flex: 1;
   border-right: 0;
+}
+
+button {
+  white-space: nowrap;
 }
 
 :focus:not(:focus-visible) {

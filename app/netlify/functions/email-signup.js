@@ -2,7 +2,7 @@
 
 const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, push, onValue } = require('firebase/database');
-const axios = require('../../scraper/services/rateLimitedAxios');
+const axios = require('../../src/services/rateLimitedAxios');
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
