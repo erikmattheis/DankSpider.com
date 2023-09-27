@@ -54,12 +54,13 @@ export default {
           this.observer.unobserve(this.$refs.image);
         }
         console.log('loadImage', this.loadImage)
-      })
-    })
-    console.log('this.$refs.image', this.$refs.image)
+      }), {
+        rootMargin: '500px',
+      }
+    });
+
     this.observer.observe(this.$refs.image)
     this.setAnimationValues();
-
 
   },
   computed: {
