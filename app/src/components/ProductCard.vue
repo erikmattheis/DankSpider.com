@@ -108,12 +108,19 @@ export default {
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .product-card {
     margin: 20px;
-    width: 330px;
+    width: 340px;
   }
 }
+
+@media (min-width: 1200px) {
+  .product-card {
+    width: 333px;
+  }
+}
+
 
 .corner-text {
   position: absolute;

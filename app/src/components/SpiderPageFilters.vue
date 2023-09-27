@@ -75,6 +75,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
+
   background-color: #fff;
 }
 
@@ -83,11 +84,10 @@ ul {
   flex-wrap: wrap;
   margin: 0;
   list-style-type: none;
-  padding-left: 0;
 }
 
 ul li {
-  display: block;
+  display: inline-block;
   font-weight: 300;
   margin-bottom: 10px;
   margin-right: 5px;
@@ -96,6 +96,7 @@ ul li {
   background-color: #aaa;
   color: #eee;
   cursor: pointer;
+
 }
 
 ul li.shadowy-button {

@@ -49,7 +49,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-left: -20px;
-  margin-right: -20px;
+
+}
+
+@media (min-width: 768px) {
+  .horizontal-cards {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 }
 </style>

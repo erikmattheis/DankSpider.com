@@ -68,7 +68,6 @@ body {
 }
 
 .shadowy {
-  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.015) 0 1px 3px 0;
 }
