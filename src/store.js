@@ -21,7 +21,7 @@ export const useSpiderStore = defineStore('spider', {
   }),
   getters: {
     filteredProducts(state) {
-      console.log('state.products', state.products.length);
+
       if (!state.products?.filter) return state.products;
       const products = state.products.filter((product) => {
         return this.checkedVendors.includes(product.vendor) && product.variants.some((variant) => this.checkedVariants.includes(variant));
@@ -29,7 +29,7 @@ export const useSpiderStore = defineStore('spider', {
 
       const emptyProductsCount = Math.max(3 - products.length, 0);
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
-      console.log('emptyProducts', emptyProducts);
+
       products.sort(this.sortProducts('title'));
       return [...products, ...emptyProducts];
     },
@@ -95,23 +95,19 @@ export const useSpiderStore = defineStore('spider', {
       this.products.forEach((product) => {
         // Iterate over each variant of the product
         if (!product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
-          console.log('skipping', product.url)
           return;
         }
-        else {
-          console.log('product.variants', product.variants.length)
-        }
+
         product.variants.forEach((variant) => {
           if (!variant) return;
           const normalizedVariant = this.normalizeText(variant);
 
           // Add the variant and its normalized counterpart to the arrays
           if (!variants.includes(variant)) {
-            console.log('variant', variant, ' is not yet in ', variants);
             variants.push(variant);
           }
+
           if (!vendors.includes(product.vendor)) {
-            console.log('vendors', vendors, ' is not yet in ', vendors);
             vendors.push(product.vendor);
           }
         });
@@ -125,7 +121,6 @@ export const useSpiderStore = defineStore('spider', {
 
       this.checkedVariants = [...variants];
       this.normalizedVariants = [...variants];
-      console.log('checkedVariants.kength', this.checkedVariants.length);
     },
     sortByParseFloat(a, b) {
       const aNumber = parseFloat(a);

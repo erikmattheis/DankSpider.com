@@ -1,12 +1,11 @@
 <template>
-  <div class="product-card shadowy page" v-if="product.image">
+  <div class="product-card shadowy page" ref="image">
     <img src="/corner.jpg" class="corner" width="80" height="80" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url + queryString" class="backdrop" target="_blank">
-
-      <img class="beauty pendulum" v-if="loadImage" :src="product.image" :alt="product.title"
-        :class="{ 'pendulum': true }" />
-
+      <template v-if="loadImage">
+        <img ref="beauty" class="beauty pendulum" :src="product.image" :alt="product.title" />
+      </template>
     </a>
     <div class="info">
       <h3>{{ product.title }}</h3>
@@ -18,7 +17,7 @@
       </ul>
     </div>
   </div>
-  <div class="product-card" v-else>
+  <div class="product-card" v-if="!product.image">
 
     <div class="info">
       <h2 class="empty">EMPTY</h2>
@@ -37,15 +36,31 @@ export default {
   data() {
     return {
       store: null,
-
+      observer: null,
+      loadImage: false,
     };
   },
   created() {
     this.store = useSpiderStore();
-
   },
   mounted() {
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        this.loadImage = entry.isIntersecting;
+        console.log('loaded!');
+
+
+        if (this.loadImage) {
+          this.observer.unobserve(this.$refs.image);
+        }
+        console.log('loadImage', this.loadImage)
+      })
+    })
+    console.log('this.$refs.image', this.$refs.image)
+    this.observer.observe(this.$refs.image)
     this.setAnimationValues();
+
+
   },
   computed: {
     queryString() {
@@ -54,7 +69,7 @@ export default {
   },
   methods: {
     setAnimationValues() {
-      const beauty = this.$el.querySelector('.beauty');
+      const beauty = this.$refs.beauty;
       const duration = Math.floor(Math.random() * 5000) + 10000;
       beauty?.style.setProperty('--duration', `${duration}ms`);
       const rotation = 45 + Math.floor(Math.random() * 31) - 13;

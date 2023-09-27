@@ -5,11 +5,8 @@
         's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
     </div>
     <div class="horizontal-cards">
-      <template v-if="filteredProducts.length === 0">
-        <p>No products found</p>
-      </template>
       <template v-for="(product, i) in filteredProducts" :key="i">
-        <ProductCard :ref="`card${i}`" :loadImage="loadCards[i]" :product="product" />
+        <ProductCard :product="product" />
       </template>
     </div>
   </div>
@@ -27,8 +24,7 @@ export default {
   },
   data() {
     return {
-      store: null,
-      observer: null,
+      store: null
     }
   },
   created() {
