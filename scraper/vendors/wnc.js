@@ -1,7 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const stringsService = require('../services/strings');
-const { faHourglass } = require('@fortawesome/free-solid-svg-icons');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
