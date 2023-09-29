@@ -7,7 +7,6 @@
 4. Better filter UI
   add price
   add sorting
-  more vendors
   mobile navigation
 
   */-->
