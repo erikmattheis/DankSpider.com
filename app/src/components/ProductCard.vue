@@ -4,7 +4,8 @@
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
-      <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty" class="beauty pendulum"
+      <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty"
+        class="beauty pendulum"
         :src="product.image"
         :alt="product.title" />
 
@@ -39,7 +40,7 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name"
+        <li v-for="(   variant, i   ) in    product.variants   " v-bind:key="i" :title="variant" class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
@@ -68,6 +69,7 @@ export default {
       observer: null,
       loadImage: false,
       imageLoaded: false,
+      position: 0,
     };
   },
   created() {
@@ -77,13 +79,10 @@ export default {
     this.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         this.loadImage = entry.isIntersecting;
-        console.log('loaded!');
-
 
         if (this.loadImage) {
           this.observer.unobserve(this.$refs.image);
         }
-        console.log('loadImage', this.loadImage)
       }), {
         rootMargin: '500px',
       }
@@ -92,6 +91,10 @@ export default {
     this.observer.observe(this.$refs.image)
     this.setAnimationValues();
 
+    window.addEventListener('scroll', this.onScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onScroll);
   },
   computed: {
     queryString() {
@@ -110,6 +113,7 @@ export default {
       beauty?.style.setProperty('--rotation', `${rotation}deg`);
     },
   },
+
 };
 </script>
 
@@ -140,7 +144,6 @@ export default {
   height: 120px;
 }
 
-
 @media (min-width: 900px) {
   .product-card {
     margin: 20px;
@@ -153,7 +156,6 @@ export default {
     width: 333px;
   }
 }
-
 
 .corner-text {
   position: absolute;

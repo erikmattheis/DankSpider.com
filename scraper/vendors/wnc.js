@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const stringsService = require('../services/strings');
+const strings = require('../services/strings');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
@@ -35,7 +35,7 @@ async function getProduct(url) {
     });
     console.log('variants', variants)
 
-    const title = $('h1.productView-title').text().trim();
+    const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
     const image = $('figure.productView-image img').attr('src');
     console.log('image', image)
     return {
@@ -129,7 +129,7 @@ async function getWNCProductsInfo(productLinks) {
 
 
 
-      product.variants = product.variants.map((variant) => stringsService.normalizeTitle(variant));
+      product.variants = product.variants.map((variant) => strings.normalizeVariantTitle(variant));
       console.log('ADDING', product.title, ' variants: ', product.variants.length)
       products.push(product);
 
@@ -148,6 +148,11 @@ async function getAvailableLeafProducts() {
   const products = await getWNCProductsInfo(productLinks);
   return products;
 
+}
+
+if (require.main === module) {
+  console.log('This script is being executed directly by Node.js');
+  getAvailableLeafProducts();
 }
 
 module.exports = {

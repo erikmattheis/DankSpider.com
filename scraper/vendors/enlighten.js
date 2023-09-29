@@ -7,11 +7,19 @@ async function getAvailableLeafProducts() {
   const response = await axios.get(url);
   const products = [];
   for (const product of response.data.data) {
+    let image = "";
+    let i = 0;
+    while (!(image.includes(".jpg") || image.includes(".jpeg")) && i < response.data.data[i].images.data.length) {
+      image = response.data.data[i].images.data[0].urls["640"];
+      i = i + 1;
+    }
+    console.log('image!!!!!!!!!!!!!!!', image)
+
     products.push({
       theirId: product.id,
-      title: product.name.split(' - ')[1],
+      title: strings.normalizeProductTitle(product.name.split(' - ')[1]),
       url: `https://www.enlightenhempco.com/${product.site_link}`,
-      image: product.images.data[0].absolute_url,
+      image: image,
       variants: [],
       vendor: 'Enlighten'
     });
@@ -30,7 +38,7 @@ async function addVariants(products) {
       const $ = cheerio.load(response.data);
 
       for (const variant of response.data.data) {
-        const name = strings.normalizeTitle(variant.name);
+        const name = strings.normalizeVariantTitle(variant.name);
         product.variants.push(name);
       }
 
@@ -40,6 +48,11 @@ async function addVariants(products) {
     }
   });
   return Promise.all(result);
+}
+
+if (require.main === module) {
+  console.log('This script is being executed directly by Node.js');
+  getAvailableLeafProducts();
 }
 
 module.exports = { getAvailableLeafProducts };

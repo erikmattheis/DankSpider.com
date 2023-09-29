@@ -1,7 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
-const stringsService = require('../services/strings');
+const strings = require('../services/strings');
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 
@@ -26,12 +26,12 @@ async function getAvailableLeafProducts() {
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
 
-        const filteredVariants = variants.filter((variant) => stringsService.variantNameContainsWeightUnitString(variant.title));
+        const filteredVariants = variants.filter((variant) => strings.variantNameContainsWeightUnitString(variant.title));
 
         if (filteredVariants.length && (productType === 'flower')) {
-          const resolvedVariants = variants.map((variant) => stringsService.normalizeTitle(variant.title));
+          const resolvedVariants = variants.map((variant) => strings.normalizeVariantTitle(variant.title));
 
-          const productTitle = entry.title ? entry.title : '';
+          const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
 
           const productUrl = entry.link?.$?.href || '';
 
@@ -70,6 +70,11 @@ async function getAvailableLeafProducts() {
     console.error(`Error fetching Top Cola Gardens data: ${error}`);
     throw new Error(`Error fetching Top Cola Gardens data: ${error}`);
   }
+}
+
+if (require.main === module) {
+  console.log('This script is being executed directly by Node.js');
+  getAvailableLeafProducts();
 }
 
 module.exports = {

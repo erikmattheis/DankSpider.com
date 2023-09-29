@@ -16,6 +16,7 @@
     <BigLogo />
     <router-view />
     <Navigation />
+
   </div>
 </template>
 
@@ -33,9 +34,10 @@ export default {
   },
   data() {
     return {
-      store: null
+      store: null,
+      position: 0,
     };
-  },
+  }
 }
 </script>
 

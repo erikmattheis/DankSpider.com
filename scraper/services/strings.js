@@ -1,4 +1,13 @@
-function normalizeTitle(title) {
+function normalizeProductTitle(title) {
+  replaceString = title;
+  const find = ["(Indoor)", "(Greenhouse)", "THCa", "Hydro", "Indoor", "Living Soil", "Hemp", "  "];
+  for (var i = 0; i < find.length; i++) {
+    replaceString = replaceString.replace(find[i], " ");
+  }
+  return replaceString;
+}
+
+function normalizeVariantTitle(title) {
   if (!title) {
     return title;
   }
@@ -67,7 +76,8 @@ function printPathToKey(obj, keyString, path = []) {
 }
 
 module.exports = {
-  normalizeTitle,
+  normalizeProductTitle,
+  normalizeVariantTitle,
   variantNameContainsWeightUnitString,
   printPathToKey
 }

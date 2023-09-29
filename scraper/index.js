@@ -37,7 +37,6 @@ async function run() {
   // const final = [1, 2, 3];
   writeFile(final, null, 2);
 
-
   console.log(`Data has been written to file for ${final.length} products`);
 
   //upstateHempProducts();
