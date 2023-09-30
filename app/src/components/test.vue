@@ -1,22 +1,9 @@
 <template>
-  <div>
-    <h1>{{ message }} <font-awesome-icon :icon="['fas', 'bars']" /></h1>
+  <div class="grid-container">
+    <div v-for="(item, index) in items" :key="index" class="grid-item"
+      :class="{ selected: selectedItem === item }" @click="selectItem(item)">
+      {{ item }}
+    </div>
   </div>
 </template>
-
-<script>
-import { createPinia } from 'pinia';
-
-const pinia = createPinia();
-
-pinia.state.message = 'Hello, Pinia!';
-
-export default {
-  name: 'pinia-text',
-  data() {
-    return {
-      message: pinia.state.message,
-    };
-  },
-};
-</script>
+<script></script>

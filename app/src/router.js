@@ -63,8 +63,8 @@ const router = createRouter({
       component: THCAPage,
     },
     {
-      path: '/pinia',
-      name: 'pinia-test',
+      path: '/test',
+      name: 'test',
       component: test,
     },
     {
