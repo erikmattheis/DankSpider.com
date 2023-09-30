@@ -5,6 +5,7 @@ const flow = require('./vendors/flow.js');
 const wnc = require('./vendors/wnc.js');
 const enlighten = require('./vendors/enlighten.js');
 const topcola = require('./vendors/topcola.js');
+const arete = require('./vendors/arete.js');
 
 function writeFile(products) {
   const data = {
@@ -16,6 +17,9 @@ function writeFile(products) {
 }
 
 async function run() {
+
+  const areteProducts = await arete.getAvailableLeafProducts();
+  console.log('artete products', areteProducts.length);
 
   const prestonProducts = await preston.getAvailableLeafProducts();
   console.log('preston products', prestonProducts.length);
@@ -32,9 +36,8 @@ async function run() {
   const topcolaProducts = await topcola.getAvailableLeafProducts();
   console.log('top cola products', topcolaProducts);
 
-  const final = [...prestonProducts, ...enlightenProducts, ...flowProducts, ...wncProducts, ...topcolaProducts];
-  //const final = [...topcolaProducts];
-  // const final = [1, 2, 3];
+  const final = [...areteProducts, ...prestonProducts, ...enlightenProducts, ...flowProducts, ...wncProducts, ...topcolaProducts];
+
   writeFile(final, null, 2);
 
   console.log(`Data has been written to file for ${final.length} products`);

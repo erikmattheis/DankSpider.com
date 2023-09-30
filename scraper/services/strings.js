@@ -1,6 +1,6 @@
 function normalizeProductTitle(title) {
   replaceString = title;
-  const find = ["(Indoor)", "(Greenhouse)", "THCa", "Hydro", "Indoor", "Living Soil", "Hemp", "  "];
+  const find = ["Hemp Flower", "(Indoor)", "(Greenhouse)", "High THCa", "THCa", "Hydro", "Indoor", "Living Soil", "Hemp", "  "];
   for (var i = 0; i < find.length; i++) {
     replaceString = replaceString.replace(find[i], " ");
   }
@@ -10,6 +10,12 @@ function normalizeProductTitle(title) {
 function normalizeVariantTitle(title) {
   if (!title) {
     return title;
+  }
+  if (title === '1oz') {
+    return '28 g';
+  }
+  if (title === 'Half oz') {
+    return '14 g';
   }
   if (title === 'Sugar leaf trim - 28 grams') {
     return '28 g';
