@@ -1,9 +1,5 @@
 <template>
-  <div class="spider-page2 page">
-    <div class="stats">
-      {{ numProducts }} product{{ numProducts === 1 ? '' :
-        's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
-    </div>
+  <div class="page">
     <div class="horizontal-cards">
       <template v-for="(product, i) in filteredProducts" :key="i">
         <ProductCard :product="product" />
@@ -33,13 +29,7 @@ export default {
   computed: {
     filteredProducts() {
       return this.store.filteredProducts;
-    },
-    numProducts() {
-      return this.store.numProducts;
-    },
-    numVendors() {
-      return this.store.numVendors;
-    },
+    }
   }
 }
 </script>

@@ -1,29 +1,63 @@
 <template>
   <form class="search-filters page">
-    <ul>
-      <li v-for="(vendor, i) in vendors" :key="i"
-        @click="toggleSelectedVendor(vendor)"
-        class="shadowy-button"
-        :class="{ selected: checkedVendors.includes(vendor) }"
-        :title="vendor">
-        {{ vendor }}
-      </li>
-    </ul>
-    <ul>
-      <li v-for="(variant, i) in normalizedVariants" :key="i"
-        @click="toggleSelected(variant)"
-        class="shadowy-button"
-        :class="{ selected: checkedVariants.includes(variant) }"
-        :title="variant">
-        {{ variant }}
-      </li>
-      <li v-if="checkedVariants.length > 0" @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button none"
-        title="Select None">Select None
-      </li>
-      <li v-else @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
-        Select All
-      </li>
-    </ul>
+    <div class="container">
+      <ul>
+        <li class="small shadowy-button spacer">.</li>
+        <li v-for="(vendor, i) in unselectedVendors" :key="i"
+          @click="toggleSelectedVendor(vendor)"
+          class="small shadowy-button"
+          :title="vendor">
+          {{ vendor }}
+        </li>
+      </ul>
+      <ul>
+        <li class="shadowy-button selected spacer">.</li>
+        <li v-for="(vendor, i) in selectedVendors" :key="i"
+          @click="toggleSelectedVendor(vendor)"
+          class="shadowy-button selected"
+          :title="vendor">
+          {{ vendor }}
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <ul>
+        <li class="small shadowy-button spacer">.</li>
+        <li v-for="(variant, i) in unselectedVariants" :key="i"
+          @click="toggleSelected(variant)"
+          class="small shadowy-button"
+          :title="variant">
+          {{ variant }}
+        </li>
+        <!--
+        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
+          Select All
+        </li>
+      -->
+      </ul>
+      <ul>
+        <li class="spacer">.</li>
+        <li v-for="(variant, i) in selectedVariants" :key="i"
+          @click="toggleSelected(variant)"
+          class="shadowy-button selected"
+          :class="{ selected: checkedVariants.includes(variant) }"
+          :title="variant">
+          {{ variant }}
+        </li>
+        <!--
+        <li v-if="checkedVariants.length > 0" @click.prevent="store.clearSelectedSizeFilters()"
+          class="shadowy-button none"
+          title="Select None">Select None
+        </li>
+      -->
+      </ul>
+    </div>
+    <div class="container slim">
+      <div class="stats">
+        {{ numProducts }} product{{ numProducts === 1 ? '' :
+          's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
+      </div>
+    </div>
   </form>
 </template>
 
@@ -56,6 +90,26 @@ export default {
     checkedVendors() {
       return this.store.checkedVendors;
     },
+    selectedVendors() {
+      return this.vendors.filter(vendor => this.checkedVendors.includes(vendor));
+    },
+    unselectedVendors() {
+      return this.vendors.filter(vendor => !this.checkedVendors.includes(vendor));
+    },
+    selectedVariants() {
+      return this.normalizedVariants.filter(variant => this.checkedVariants.includes(variant));
+    },
+    unselectedVariants() {
+      return this.normalizedVariants.filter(variant => !this.checkedVariants.includes(variant));
+    },
+
+
+    numProducts() {
+      return this.store.numProducts;
+    },
+    numVendors() {
+      return this.store.numVendors;
+    },
   },
   methods: {
     toggleSelected(variant) {
@@ -65,10 +119,34 @@ export default {
       this.store.toggleSelectedVendor(vendor);
     },
   },
+
 };
 </script>
 
 <style scoped>
+.spacer {
+  opacity: 0;
+  cursor: default;
+}
+
+.small {
+  font-size: 0.6em;
+}
+
+.container.slim {
+  margin-bottom: 3px;
+  margin-left: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
 .search-filters {
   display: flex;
   flex-direction: column;
@@ -84,19 +162,20 @@ ul {
   flex-wrap: wrap;
   margin: 0;
   list-style-type: none;
+  padding-left: 0;
 }
 
 ul li {
   display: inline-block;
   font-weight: 300;
   margin-bottom: 10px;
-  margin-right: 5px;
+  margin-left: 10px;
+  margin-right: 0px;
   padding: 5px 10px;
   border-radius: 20px;
   background-color: #aaa;
   color: #eee;
   cursor: pointer;
-
 }
 
 ul li.shadowy-button {
@@ -108,6 +187,8 @@ ul li.selected {
   color: #242424;
   font-weight: 600;
   background-color: #fff;
+  margin-left: 0px;
+  margin-right: 10px;
 }
 
 li span {

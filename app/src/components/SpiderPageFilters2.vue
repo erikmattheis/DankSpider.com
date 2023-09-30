@@ -6,17 +6,17 @@
         <ul>
           <li v-for="(vendor, i) in unselectedVendors" :key="i"
             @click="toggleSelectedVendor(vendor)"
-            :class="['shadowy-button', { selected: checkedVendors.includes(vendor) }]">
+            class="shadowy-button selected">
             {{ vendor }}
           </li>
         </ul>
       </div>
       <div>
-        <h3>Selected Vendor</h3>
+        <h3>Selected Vendor {{ selectedVendors.length }}</h3>
         <ul>
           <li v-for="(vendor, i) in selectedVendors" :key="i"
             @click="toggleSelectedVendor(vendor)"
-            :class="['shadowy-button', { selected: checkedVendors.includes(vendor) }]">
+            class="small shadowy-button">
             {{ vendor }}
           </li>
         </ul>
@@ -28,7 +28,7 @@
         <ul>
           <li v-for="(variant, i) in unselectedVariants" :key="i"
             @click="toggleSelected(variant)"
-            :class="['shadowy-button', { selected: checkedVariants.includes(variant) }]">
+            class="small shadowy-button">
             {{ variant }}
           </li>
         </ul>
@@ -36,9 +36,9 @@
       <div>
         <h3>Selected Variant</h3>
         <ul>
-          <li v-for="(variant, i) in selectedVariants" :key="i"
+          <li v-for="(variant, i) in   selectedVariants  " :key="i"
             @click="toggleSelected(variant)"
-            :class="['shadowy-button', { selected: checkedVariants.includes(variant) }]">
+            :class="shadowy - button selected">
             {{ variant }}
           </li>
         </ul>

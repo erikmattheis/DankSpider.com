@@ -16,7 +16,6 @@
     <BigLogo />
     <router-view />
     <Navigation />
-
   </div>
 </template>
 
