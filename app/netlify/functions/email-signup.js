@@ -18,7 +18,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+const { Firestore } = require('@google-cloud/firestore');
+
 exports.handler = async function (event, context) {
+
+  const firestore = new Firestore();
+
+  async function createCollection() {
+    const collectionRef = firestore.collection('emails');
+    await collectionRef.doc('email').set({ email: 'gozz@gozz.com' });
+  }
+
+  async function testCollectionExists() {
+    const collections = await firestore.listCollections();
+    const collectionExists = collections.some((collection) => collection.id === 'emails');
+    if (collectionExists) {
+      console.log('Collection already exists');
+    } else {
+      console.log('Collection does not exist');
+      await createCollection();
+    }
+  }
+
+  await testCollectionExists();
+
 
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };

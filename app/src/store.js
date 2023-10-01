@@ -129,7 +129,8 @@ export const useSpiderStore = defineStore('spider', {
       if (aNumber > bNumber) return 1;
       return 0;
     },
-    toggleSelected(variant) {
+    toggleSelectedVariant(variant) {
+      console.log(variant)
       if (this.checkedVariants.find((element) => element === variant)) {
         this.checkedVariants.splice(this.checkedVariants.indexOf(variant), 1);
       } else {

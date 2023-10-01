@@ -1,0 +1,18 @@
+{
+  "updatedAt": "2023-09-30T11:52:52.647Z",
+  "products": [
+    {
+      "title": "Cantaloupe ",
+      "url": "https://topcolatn.com/products/cantaloupe",
+      "image": "https://cdn.shopify.com/s/files/1/0337/5729/8819/files/FullSizeRender_87b360ed-f9d0-450c-8d84-d0961f95ce88.jpg?v=1693768283",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g",
+        "28 g",
+        "1 g"
+      ],
+      "vendor": "Top Cola"
+    }
+  ]
+}

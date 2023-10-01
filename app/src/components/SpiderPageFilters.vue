@@ -24,7 +24,7 @@
       <ul>
         <li class="small shadowy-button spacer">.</li>
         <li v-for="(variant, i) in unselectedVariants" :key="i"
-          @click="toggleSelected(variant)"
+          @click="toggleSelectedVariant(variant)"
           class="small shadowy-button"
           :title="variant">
           {{ variant }}
@@ -38,7 +38,7 @@
       <ul>
         <li class="spacer">.</li>
         <li v-for="(variant, i) in selectedVariants" :key="i"
-          @click="toggleSelected(variant)"
+          @click="toggleSelectedVariant(variant)"
           class="shadowy-button selected"
           :class="{ selected: checkedVariants.includes(variant) }"
           :title="variant">
@@ -77,6 +77,37 @@ export default {
     this.store.normalizeVariants(this.store.variants);
 
   },
+
+  mounted() {
+    const queryParams = new URLSearchParams(window.location.search);
+    console.log('checkedVariants1', queryParams.get('checkedVariants'))
+    const checkedVariants = decodeURIComponent(queryParams.get('checkedVariants'));
+    console.log('checkedVariants2', checkedVariants)
+    for (const [key, value] of queryParams) {
+      if (key === 'checkedVariants') {
+        const checked = value.split(',');
+        for (const variant of checked) {
+          this.toggleSelectedVariant(variant);
+          console.log('variants', variant);
+        }
+      }
+      if (key === 'checkedVendors') {
+        const checked = value.split(',');
+        for (const vendor of checked) {
+          this.toggleSelectedVendor(vendor);
+        }
+      }
+
+    }
+
+    if (checkedVariants) {
+      this.store.checkedVariants = checkedVariants.split(',');
+    }
+
+    this.store = useSpiderStore();
+    this.store.normalizeVariants(this.store.variants);
+
+  },
   computed: {
     normalizedVariants() {
       return this.store.normalizedVariants;
@@ -102,8 +133,6 @@ export default {
     unselectedVariants() {
       return this.normalizedVariants.filter(variant => !this.checkedVariants.includes(variant));
     },
-
-
     numProducts() {
       return this.store.numProducts;
     },
@@ -112,8 +141,13 @@ export default {
     },
   },
   methods: {
-    toggleSelected(variant) {
-      this.store.toggleSelected(variant);
+    toggleSelectedVariant(variant) {
+      this.store.toggleSelectedVariant(decodeURIComponent(variant));
+      const checkedVariants = this.store.checkedVariants.join(',');
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set('checkedVariants', encodeURIComponent(checkedVariants));
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+      window.history.pushState({}, '', newUrl);
     },
     toggleSelectedVendor(vendor) {
       this.store.toggleSelectedVendor(vendor);

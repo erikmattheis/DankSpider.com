@@ -27,7 +27,7 @@
         <h3>Variant</h3>
         <ul>
           <li v-for="(variant, i) in unselectedVariants" :key="i"
-            @click="toggleSelected(variant)"
+            @click="toggleSelectedVariant(variant)"
             class="small shadowy-button">
             {{ variant }}
           </li>
@@ -36,8 +36,8 @@
       <div>
         <h3>Selected Variant</h3>
         <ul>
-          <li v-for="(variant, i) in   selectedVariants  " :key="i"
-            @click="toggleSelected(variant)"
+          <li v-for="(variant, i) in    selectedVariants   " :key="i"
+            @click="toggleSelectedVariant(variant)"
             :class="shadowy - button selected">
             {{ variant }}
           </li>
@@ -79,9 +79,9 @@ export default {
     },
   },
   methods: {
-    toggleSelected(variant) {
+    toggleSelectedVariant(variant) {
       const store = useSpiderStore();
-      store.toggleSelected(variant);
+      store.toggleSelectedVariant(variant);
     },
     toggleSelectedVendor(vendor) {
       const store = useSpiderStore();

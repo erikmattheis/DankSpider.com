@@ -1,0 +1,715 @@
+{
+  "updatedAt": "2023-09-30T11:52:45.582Z",
+  "products": [
+    {
+      "title": " Alien Apple Kush    ",
+      "url": "https://wnc-cbd.com/products/thca-alien-apple-kush-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/312/2452/Alien_Apple_Kush_-_1__91421.1689092161.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Alpha Runtz    ",
+      "url": "https://wnc-cbd.com/products/thca-alpha-runtz-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/358/3183/Alpha_Runtz_-_1__46009.1693930862.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Black Cherry Gelato    ",
+      "url": "https://wnc-cbd.com/products/thca-black-cherry-gelato-indoor-hydro.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/313/2467/Black_Cherry_Gelato_-_1__71273.1689100125.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Blue Unicorn  ",
+      "url": "https://wnc-cbd.com/thca-blue-unicorn-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/116/3208/Blue_Unicorn_-_1__99546.1693938120.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Bruce Banner    ",
+      "url": "https://wnc-cbd.com/products/thca-bruce-banner-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/274/1989/Bruce_Banner_-_1__56615.1683908910.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Cali Raisin    ",
+      "url": "https://wnc-cbd.com/thca-cali-raisin-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/118/3290/Cali_Raisin_NEW_-_1__11631.1694615366.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Cap Junkies    ",
+      "url": "https://wnc-cbd.com/products/thca-cap-junkies-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/334/3017/Cap_Junky_-_1__44568.1692794192.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Chem De La Chem    ",
+      "url": "https://wnc-cbd.com/products/thca-chem-de-la-chem-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/245/1560/ChemDeLaChem-1__51189.1682953996.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Chemdawg    ",
+      "url": "https://wnc-cbd.com/products/thca-chemdawg-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/273/1986/Chem_Dawg_-_1__37463.1683908127.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Coffee Creamer    ",
+      "url": "https://wnc-cbd.com/products/thca-coffee-creamer-indoor-hydro.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/246/1569/CoffeeCreamer-1__10516.1682954306.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Cookie Mintz  ",
+      "url": "https://wnc-cbd.com/thca-cookie-mintz-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/120/506/CookieMint-1__67774.1682483778.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Dutch Cake    ",
+      "url": "https://wnc-cbd.com/products/thca-dutch-cake-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/271/1860/Duten__Cake_-_1__38796.1683229785.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Garlic Martini    ",
+      "url": "https://wnc-cbd.com/thca-garlic-martini-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/125/576/GarlicMartini-1__81163.1682485708.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Gary Payton    ",
+      "url": "https://wnc-cbd.com/products/thca-gary-payton-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/329/2806/Gary_Payton_-_1__40601.1691616132.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Gas Face    ",
+      "url": "https://wnc-cbd.com/products/thca-gas-face-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/294/2279/Gas_Face_-_1__84188.1686776083.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Gasteroids    ",
+      "url": "https://wnc-cbd.com/products/thca-gasteroids-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/335/3021/Gasteroid_-_1__51752.1692794380.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Gelato    ",
+      "url": "https://wnc-cbd.com/thca-gelato-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/126/3202/Gelato_35_-_1__31955.1693937113.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Georgia Pie    ",
+      "url": "https://wnc-cbd.com/thca-georgia-pie-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/127/605/GeorgiaPie-1__06019.1682486438.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " GG #4    ",
+      "url": "https://wnc-cbd.com/products/thca-gg-4-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/247/3349/GG4_-_1__71866.1695138329.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " GMO    ",
+      "url": "https://wnc-cbd.com/thca-gmo-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/128/620/GMO-1__93527.1682486684.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Godfather OG    ",
+      "url": "https://wnc-cbd.com/products/thca-godfather-og-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/280/2012/God_Father_-_1__03461.1684241658.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Granddaddy Purple  ",
+      "url": "https://wnc-cbd.com/thca-granddaddy-purple-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/130/3075/Trop_Cherry_-_1_1__85260.1693315590.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Grape Ape  ",
+      "url": "https://wnc-cbd.com/thca-grape-ape-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/131/664/GrapeApe-1__87077.1682487991.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Guava Gelato Breath    ",
+      "url": "https://wnc-cbd.com/thca-guava-gelato-breath-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/133/692/GuavaGelatoBreath-1__12909.1682488499.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Gush Mintz    ",
+      "url": "https://wnc-cbd.com/products/thca-gush-mintz-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/263/1737/Gush_Mintz_-_1__92812.1683036171.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Han Solo  ",
+      "url": "https://wnc-cbd.com/thca-han-solo-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/134/3286/Han_Solo_-_1_1__14306.1694617161.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Hard Cider    ",
+      "url": "https://wnc-cbd.com/products/thca-hard-cider-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/250/1620/HardCider-1__07182.1682955654.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Jack Frost    ",
+      "url": "https://wnc-cbd.com/products/thca-jack-frost-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/277/2003/Jack_Frost_-_1__11246.1684240472.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Karma 20/20    ",
+      "url": "https://wnc-cbd.com/products/thca-karma-20-20-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/267/1803/Karma_20_20_-_1__13640.1683224189.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " King Louis Xiii    ",
+      "url": "https://wnc-cbd.com/thca-king-louis-xlll-indoor-living-soil",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/138/753/KingLouis_2-1__85513.1682796723.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Kush Mintz    ",
+      "url": "https://wnc-cbd.com/products/thca-kush-mintz-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/308/2392/Kush_Mintz_-_1__37550.1689086594.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " LA Gas Face    ",
+      "url": "https://wnc-cbd.com/products/thca-la-gas-face-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/309/2407/Gas_Face_-_1_1__53874.1689087842.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " LA Sunrise    ",
+      "url": "https://wnc-cbd.com/products/thca-la-sunrise-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/266/1789/LA_Sunrise_-_1__30819.1683222033.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Lemon Cherry Gelato    ",
+      "url": "https://wnc-cbd.com/thca-lemon-cherry-gelato-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/139/770/LemonCherryGelato-1__57827.1682490559.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Lemon Drop  ",
+      "url": "https://wnc-cbd.com/thca-lemon-drop-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/140/784/LemonDrop-1__67114.1682490793.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Magic Knight    ",
+      "url": "https://wnc-cbd.com/products/thca-magic-knight-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/269/1833/Magic_Knight_-_1__46591.1683226576.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Milk    ",
+      "url": "https://wnc-cbd.com/products/thca-milk-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/304/2338/Milk_-_1__22022.1688676787.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Moon Berry  ",
+      "url": "https://wnc-cbd.com/thca-moon-berry-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/143/826/MoonBerry-1__34253.1682491619.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Moon Rocks    ",
+      "url": "https://wnc-cbd.com/thca-moon-rocks-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/144/842/MoonRocks-1__32543.1682491894.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Olympus Mons Greenhouse (3.828%)",
+      "url": "https://wnc-cbd.com/products/thca-olympus-mons-greenhouse-3-828.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/331/2835/Olympus_Mon_-_1__93005.1691701010.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Orange Creamsicle  ",
+      "url": "https://wnc-cbd.com/24.341",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/272/1875/Orange_Creamsicle_-_1__66723.1683231020.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Orange Crush    ",
+      "url": "https://wnc-cbd.com/products/thca-orange-crush-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/364/3280/Orange_Crush_-_1__94519.1694541926.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Pablo's Revenge    ",
+      "url": "https://wnc-cbd.com/thca-pablos-revenge-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/145/858/PablosRevenge-1__86915.1682492563.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Pineapple Pez    ",
+      "url": "https://wnc-cbd.com/products/thca-pineapple-pez-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/292/2183/Pineapple_Pez_-_1__54376.1685971018.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Platinum Zkittlez    ",
+      "url": "https://wnc-cbd.com/thca-platinum-zkittlez-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/148/902/PlatinumZkittles3-1__02538.1682493222.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Pressure Drop    ",
+      "url": "https://wnc-cbd.com/products/thca-pressure-drop-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/361/3237/Pressure_Drop_-_1__74885.1694529505.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Purple Candy Gas    ",
+      "url": "https://wnc-cbd.com/products/thca-purple-candy-gas-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/327/2776/Purple_Candy_Gas_-_1__15150.1691526411.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Purple Galaxy    ",
+      "url": "https://wnc-cbd.com/products/thca-purple-galaxy-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/310/2422/Purple_Galaxy_-_1__14556.1689089032.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Purple Haze    ",
+      "url": "https://wnc-cbd.com/products/thca-purple-haze-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/318/2533/Purple_Haze_-_1__02330.1689619792.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Purple Ice    ",
+      "url": "https://wnc-cbd.com/products/thca-purple-ice-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/362/3250/Purple_Ice_-_1__85279.1694530265.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Purple Moon Dog    ",
+      "url": "https://wnc-cbd.com/products/thca-purple-moon-dog-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/337/3019/Purple_Moon_Dog_-_1__19804.1692794280.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Red Velvet Runts    ",
+      "url": "https://wnc-cbd.com/products/thca-red-velvet-runts-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/341/3007/Red_Velvet_Runtz_-_1__62948.1692793731.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Royal Octane    ",
+      "url": "https://wnc-cbd.com/products/thca-royal-octane-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/347/3005/Royal_Octane_-_1__32800.1692813984.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Royal Skywalker OG    ",
+      "url": "https://wnc-cbd.com/thca-royal-skywalker-og-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/149/919/RoyalSkywalker-1__95729.1682493515.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Sex Panther  ",
+      "url": "https://wnc-cbd.com/products/thca-sex-panther-indoor.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/322/2592/Sex_Panther_-_1_1__94182.1689968249.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Shamrock Shake    ",
+      "url": "https://wnc-cbd.com/products/thca-shamrock-shake-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/260/1696/Shamrock_Shake_-_1__85434.1682970170.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Sherb Cake    ",
+      "url": "https://wnc-cbd.com/thca-sherb-cake-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/150/933/SherbCake-1__89896.1682493780.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Slurricane    ",
+      "url": "https://wnc-cbd.com/products/thca-slurricane-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/265/1771/Slurricane_2_-_1__22379.1683136628.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Sour Garlic Cookies    ",
+      "url": "https://wnc-cbd.com/products/thca-sour-garlic-cookies-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/301/2298/Sour_Garlic_Cookies_-_1__23218.1687264378.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g",
+        "14 g smalls/minis"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Sourdough Cookies    ",
+      "url": "https://wnc-cbd.com/products/thca-sourdough-cookies-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/339/3011/Sour_Dough_Cookies_-_1__29586.1692793920.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Stank Breath    ",
+      "url": "https://wnc-cbd.com/thca-stank-breath-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/152/963/StankBreath-1__74218.1682495303.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Star OG    ",
+      "url": "https://wnc-cbd.com/thca-star-og-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/153/977/StarOG-1__90847.1682495535.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Super Boof    ",
+      "url": "https://wnc-cbd.com/thca-super-boof-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/154/992/SuperBoof-1__89446.1682495761.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Super Cheese Diesel    ",
+      "url": "https://wnc-cbd.com/products/thca-super-cheese-diesel-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/340/3009/Super_Cheese_Diesel_-_1__21131.1692793813.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Tacky Glue    ",
+      "url": "https://wnc-cbd.com/products/thca-tacky-glue-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/353/3103/Tacky_Glue_-_1__50384.1693333492.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Tangerine Dream    ",
+      "url": "https://wnc-cbd.com/thca-tangerine-dream-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/155/2060/Tangerine_Dream_-_1__60081.1684329167.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Thin Mintz    ",
+      "url": "https://wnc-cbd.com/thca-thin-mintz-indoor-living-soil/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/156/1022/ThinMintz-1__09198.1682496651.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Twisted Berry  ",
+      "url": "https://wnc-cbd.com/thca-twisted-berry-indoor/",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/158/1051/TwistedBerry-1__39657.1682498929.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Wedding Cake    ",
+      "url": "https://wnc-cbd.com/products/thca-wedding-cake-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/284/2029/Wedding_Cake_-_1__55602.1684243711.jpg?c=1",
+      "variants": [
+        "3.5 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " White Burgundy    ",
+      "url": "https://wnc-cbd.com/products/thca-white-burgundy-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/338/3013/White_Burgandy_-_1__68516.1692794000.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " White Tahoe Cookies    ",
+      "url": "https://wnc-cbd.com/products/thca-white-tahoe-cookies-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/300/2286/White_Tahoe_Cookies_-_1__74707.1686776465.jpg?c=1",
+      "variants": [
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " White Truffle    ",
+      "url": "https://wnc-cbd.com/products/thca-white-truffle-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/288/2147/White_Truffle_-_1__50660.1685543217.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    },
+    {
+      "title": " Zoap    ",
+      "url": "https://wnc-cbd.com/products/thca-zoap-indoor-living-soil.html",
+      "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/352/3088/Zoap_-_1__88603.1693325276.jpg?c=1",
+      "variants": [
+        "3.5 g",
+        "7 g"
+      ],
+      "vendor": "WNC"
+    }
+  ]
+}
