@@ -151,14 +151,13 @@ async function getProductsByTitle(substring) {
   return products;
 }
 
-saveVendor({ name: 'WNC2', url: 'https://wnc-cbd.com/', products: [{ title: 'test title', url: 'https://cnn.com', image: 'test.jpg', variants: ['test', 'test again'] }] });
-
 module.exports = {
   saveVendor,
   updateVendor,
   getVendor,
   getVendors,
   getVendorProducts,
+  saveProducts,
   getAllProducts,
   getProductsByTitle
 };
