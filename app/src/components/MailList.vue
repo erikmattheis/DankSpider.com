@@ -39,10 +39,7 @@ export default {
   methods: {
     async addEmail() {
       const response = await axios.post('/.netlify/functions/email-signup', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: this.email }),
+        email: this.email
       });
 
       this.successMessage = await response.data.response;
