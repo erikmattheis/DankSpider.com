@@ -19,4 +19,4 @@ const image = cv.imdecode(imageBuffer);
 // Extract data from image
 const data = extractDataFromImage(image);
 
-console.log(data);
+//console.log(data);

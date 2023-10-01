@@ -9,6 +9,7 @@ function parseSingleProduct(html) {
   const $ = cheerio.load(html);
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim());
+  console.log('Arete: ', title);
   const variants = [];
 
   const variationsData = $('form.variations_form').attr('data-product_variations');
@@ -58,7 +59,6 @@ async function getProducts(feedUrl) {
     const image = more.image;
     const title = more.title;
 
-
     const product = {
       title,
       url,
@@ -75,6 +75,7 @@ async function getProducts(feedUrl) {
 }
 
 async function getAvailableLeafProducts() {
+  console.log('Getting Arete products');
   const products = await getProducts(feedUrl);
   return products;
 }

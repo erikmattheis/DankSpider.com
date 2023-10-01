@@ -4,12 +4,13 @@
     <div class="age-gate-container">
       <img src="/apple-touch-icon.png" alt="DankSpider.com" />
       <p>Are you 21 or older?</p>
-      <div class="age-gate-buttons">
-        <button @click="setAgeGate(true)" class="enter yes" role="button"><span class="text">YES</span><span>Let Me
-            In</span></button>
-        <button @click="exitApp()" class="enter no" role="button"><span class="text">NO</span><span>Get Me
-            Out</span></button>
-      </div>
+      <ul>
+        <li @click="setAgeGate(true)" class="enter shadowy-button yes" role="button"><span
+            class="text">YES</span><span>Let Me In</span>
+        </li>
+        <li @click="exitApp()" class="enter shadowy-button no" role="button"><span class="text">NO</span><span>Get
+            Me Out</span></li>
+      </ul>
     </div>
   </div>
   <div v-else>
@@ -65,7 +66,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .age-gate-container {
@@ -83,82 +84,61 @@ export default {
   margin-top: 20px;
 }
 
-/* CSS */
-.enter {
-  position: relative;
-  overflow: hidden;
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
   display: inline-block;
-  padding: 5px;
-  text-decoration: none;
+  font-weight: 300;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 0px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #aaa;
+  color: #eee;
   cursor: pointer;
-  background: #fff;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 10em;
-  height: 3em;
+}
+
+ul li.shadowy-button {
+  font-weight: 400;
+}
+
+ul li.shadowy-button.selected,
+ul li.selected {
+  color: #242424;
+  font-weight: 600;
+  background-color: #fff;
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+li span {
+  white-space: nowrap;
+}
+
+ul li::after {
+  display: block;
+  content: attr(title);
+  font-weight: 700;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
 }
 
 .yes {
-  border: 1px solid #66b046;
-  color: #66b046;
-}
-
-.enter.yes::after {
   background-color: #66b046;
+  color: #fff;
 }
 
 .no {
-  border: 1px solid #ac3a3a;
-  color: #ac3a3a;
-}
-
-.enter.no::after {
   background-color: #ac3a3a;
+  color: #fff;
 }
-
-.enter span:first-child {
-  position: relative;
-  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 10;
-}
-
-.enter span:last-child {
-  color: white;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 100;
-  opacity: 0;
-  top: 50%;
-  left: 50%;
-  transform: translateY(225%) translateX(-50%);
-  height: 14px;
-  line-height: 13px;
-}
-
-.enter:after {
-  content: "";
-  position: absolute;
-  bottom: -50%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  transform-origin: bottom center;
-  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  transform: skewY(9.3deg) scaleY(0);
-  z-index: 50;
-}
-
-.enter:hover:after {
-  transform-origin: bottom center;
-  transform: skewY(9.3deg) scaleY(2);
-}
-
-.enter:hover span:last-child {
-  transform: translateX(-50%) translateY(-100%);
-  opacity: 1;
-  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
-}</style>
+</style>

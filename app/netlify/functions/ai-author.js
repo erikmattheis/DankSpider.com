@@ -46,9 +46,6 @@ async function getOpenAIArticle() {
     logitBias,
     logprobs,
   });
-  console.log('gptResponse', gptResponse);
-
-
 
 }
 

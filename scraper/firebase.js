@@ -24,7 +24,6 @@ async function saveVendor(vendor) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${vendor.name} vendor and their products`);
 }
 
 async function saveProducts(products) {
@@ -43,7 +42,7 @@ async function saveProducts(products) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${products.length} products`);
+  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 async function updateVendor(vendor) {
@@ -68,7 +67,6 @@ async function updateVendor(vendor) {
 
   await batch.commit();
 
-  console.log(`Data has been updated in Firebase for ${vendor.name} vendor and their products`);
 }
 
 async function getVendor(name) {
@@ -76,7 +74,6 @@ async function getVendor(name) {
   const snapshot = await vendorRef.get();
 
   if (!snapshot.exists) {
-    console.log(`Vendor ${name} does not exist`);
     return null;
   }
 
@@ -119,17 +116,28 @@ async function getVendorProducts(vendorName) {
   return products;
 }
 
+const { performance } = require('perf_hooks');
+
 async function getAllProducts() {
-  const productsRef = db.collection('products');
+  const startTime = performance.now();
+
+  const productsRef = db.collection('products').orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
 
   const products = [];
+  const uniqueUrls = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-
+    if (uniqueUrls.has(product.url)) {
+      return;
+    }
+    uniqueUrls.add(product.url);
     products.push(product);
   });
+
+  const endTime = performance.now();
+  console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
 }

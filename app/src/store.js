@@ -31,6 +31,7 @@ export const useSpiderStore = defineStore('spider', {
       const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
 
       products.sort(this.sortProducts('title'));
+
       return [...products, ...emptyProducts];
     },
     numProducts(state) {
@@ -89,11 +90,9 @@ export const useSpiderStore = defineStore('spider', {
     },
     normalizeVariants() {
       const variants = [];
-      const vendors = [];
 
-      // Iterate over each product
       this.products.forEach((product) => {
-        // Iterate over each variant of the product
+
         if (!product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
           return;
         }
@@ -102,10 +101,30 @@ export const useSpiderStore = defineStore('spider', {
           if (!variant) return;
           const normalizedVariant = this.normalizeText(variant);
 
-          // Add the variant and its normalized counterpart to the arrays
           if (!variants.includes(variant)) {
             variants.push(variant);
           }
+
+        });
+      });
+
+      variants.sort(this.sortByParseFloat);
+
+      this.checkedVariants = [...variants];
+      this.normalizedVariants = [...variants];
+    },
+    normalizeVendors() {
+
+      const vendors = [];
+
+      this.products.forEach((product) => {
+
+        if (!product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
+          return;
+        }
+
+        product.variants.forEach((variant) => {
+          if (!variant) return;
 
           if (!vendors.includes(product.vendor)) {
             vendors.push(product.vendor);
@@ -116,11 +135,6 @@ export const useSpiderStore = defineStore('spider', {
       vendors.sort();
       this.vendors = [...vendors];
       this.checkedVendors = [...vendors];
-
-      variants.sort(this.sortByParseFloat);
-
-      this.checkedVariants = [...variants];
-      this.normalizedVariants = [...variants];
     },
     sortByParseFloat(a, b) {
       const aNumber = parseFloat(a);
@@ -130,7 +144,6 @@ export const useSpiderStore = defineStore('spider', {
       return 0;
     },
     toggleSelectedVariant(variant) {
-      console.log(variant)
       if (this.checkedVariants.find((element) => element === variant)) {
         this.checkedVariants.splice(this.checkedVariants.indexOf(variant), 1);
       } else {

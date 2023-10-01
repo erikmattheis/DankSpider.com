@@ -72,10 +72,9 @@ export default {
     };
   },
   created() {
-
     this.store = useSpiderStore();
     this.store.normalizeVariants(this.store.variants);
-
+    this.store.normalizeVendors(this.store.variants);
   },
 
   mounted() {

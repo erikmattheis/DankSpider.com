@@ -4,7 +4,6 @@ import NewsPage from './components/NewsPage.vue';
 import StrainsPage from './components/StrainsPage.vue';
 import StrainPage from './components/StrainPage.vue';
 import THCAPage from './components/THCAPage.vue';
-import NavPreview from './components/NavPreview.vue';
 import test from './components/test.vue';
 
 const router = createRouter({
@@ -66,11 +65,6 @@ const router = createRouter({
       path: '/test',
       name: 'test',
       component: test,
-    },
-    {
-      path: '/nav-preview',
-      name: 'NavPreview',
-      component: NavPreview,
     },
   ],
 });

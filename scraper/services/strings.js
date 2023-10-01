@@ -74,7 +74,7 @@ function printPathToKey(obj, keyString, path = []) {
   for (const [key, value] of Object.entries(obj)) {
     const currentPath = [...path, key];
     if (key === keyString) {
-      console.info(currentPath.join('.'));
+      //console.info(currentPath.join('.'));
     } else if (typeof value === 'object') {
       printPathToKey(value, keyString, currentPath);
     }

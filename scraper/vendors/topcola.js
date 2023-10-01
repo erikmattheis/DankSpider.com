@@ -10,6 +10,8 @@ const productLinks = [];
 let currentPage = 1;
 
 async function getAvailableLeafProducts() {
+
+  console.log('Getting Top Cola products');
   try {
     const response = await axios.get(atomFeedUrl);
     const xmlData = response.data;
@@ -29,21 +31,20 @@ async function getAvailableLeafProducts() {
         const filteredVariants = variants.filter((variant) => strings.variantNameContainsWeightUnitString(variant.title));
 
         if (filteredVariants.length && (productType === 'flower')) {
+
           const resolvedVariants = variants.map((variant) => strings.normalizeVariantTitle(variant.title));
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
+
+          console.log('Top Cola: ', productTitle);
 
           const productUrl = entry.link?.$?.href || '';
 
           const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 
-          console.log('contentHtml exists', entry.summary._);
-
           const $content = cheerio.load(contentHtml);
 
           const firstImage = $content('img').attr('src');
-
-          console.log('found :image', firstImage);
 
           const productImage = firstImage || '';
 
@@ -57,18 +58,12 @@ async function getAvailableLeafProducts() {
 
           products.push(product);
         }
-        else {
-          console.log('Skipping product type', productType);
-
-        }
       });
     }
-
-    console.log('Data has been extracted from top cola');
     return products;
   } catch (error) {
-    console.error(`Error fetching Top Cola Gardens data: ${error}`);
-    throw new Error(`Error fetching Top Cola Gardens data: ${error}`);
+    console.error(`Error fetching Top Cola data: ${error}`);
+    throw new Error(`Error fetching Top Cola data: ${error}`);
   }
 }
 
