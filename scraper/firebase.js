@@ -127,10 +127,7 @@ async function getAllProducts() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    product.vendor = {
-      name: doc.data().vendor.name,
-      url: doc.data().vendor.url,
-    };
+
     products.push(product);
   });
 
