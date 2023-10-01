@@ -5,7 +5,7 @@ const { getDatabase, ref, push, onValue } = require('firebase/database');
 const axios = require('../../src/services/rateLimitedAxios');
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: 'AIzaSyAnLSt5ak-zMs39-vXKryrSga68kPMtmTk',
   authDomain: "dankspider-75eb9.firebaseapp.com",
   databaseURL: "https://dankspider-75eb9-default-rtdb.firebaseio.com",
   projectId: "dankspider-75eb9",
