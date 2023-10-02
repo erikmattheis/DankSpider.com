@@ -1,7 +1,7 @@
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 
-const serviceAccount = require('../../../serviceAccountKey.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!getApps().length) {
   initializeApp({
@@ -9,7 +9,6 @@ if (!getApps().length) {
     appName: 'DankSpider'
   });
 }
-
 
 const db = getFirestore()
 
