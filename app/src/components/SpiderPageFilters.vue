@@ -76,7 +76,6 @@ export default {
     this.store.normalizeVariants(this.store.variants);
     this.store.normalizeVendors(this.store.variants);
   },
-
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
 
@@ -125,21 +124,16 @@ export default {
       return this.store.numVendors;
     },
   },
-  watch: {
-    '$route.params.sizes'(newValue, oldValue) {
-      this.checkedVariants = sizes;
-    }
-  },
   methods: {
     toggleSelectedVariant(variant) {
       this.store.toggleSelectedVariant(decodeURIComponent(variant));
       const sizes = this.checkedVariants.join(',');
-      this.$router.push({ path: '', query: { sizes } });
+      this.$router.push({ path: '', query: { sizes: sizes, vendors: this.checkedVendors } });
     },
     toggleSelectedVendor(vendor) {
       this.store.toggleSelectedVendor(decodeURIComponent(vendor));
       const vendors = this.checkedVendors.join(',');
-      this.$router.push({ path: '', query: { vendors } });
+      this.$router.push({ path: '', query: { sizes: this.checkedVariants, vendors: vendors } });
     },
   }
 };
@@ -165,7 +159,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   width: 100%;
 }
 

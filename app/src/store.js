@@ -70,8 +70,15 @@ export const useSpiderStore = defineStore('spider', {
     clearSelectedSizeFilters() {
       this.checkedVariants = [];
     },
+    resetFilters() {
+      this.selectAllSizeFilters();
+      this.selectAllVendorFilters();
+    },
     selectAllSizeFilters() {
       this.checkedVariants = [...this.normalizedVariants];
+    },
+    selectAllVendorFilters() {
+      this.checkedVendors = [...this.vendors];
     },
     sortProducts(property) {
       var sortOrder = 1;
