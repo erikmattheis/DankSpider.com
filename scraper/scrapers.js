@@ -8,8 +8,10 @@ const topcola = require('./vendors/topcola.js');
 const arete = require('./vendors/arete.js');
 
 const fs = require('fs');
+const wasError = false;
 
 function logErrorToFile(str) {
+  wasError = true;
   if (process.env.NODE_ENV === 'development') {
     fs.appendFileSync('errors.txt', str + '\n\n\n');
   }
@@ -76,7 +78,7 @@ async function run() {
 
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts();
-    console.log('enlighten products', enlightenProducts);
+    console.log('enlighten products', enlightenProducts.length);
     await saveProducts(enlightenProducts, 'enlighten');
   } catch (error) {
     console.error(error);
@@ -86,15 +88,15 @@ async function run() {
 
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts();
-    console.log('top cola products', topcolaProducts);
+    console.log('top cola products', topcolaProducts.length);
     await saveProducts(topcolaProducts, 'topcola');
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
     logErrorToFile(error);
 
-    console.log(`Data has been written to Firebase for all vendors`);
   }
+  console.log(`Data has been written to Firebase for all vendors.`);
 }
 
 module.exports = {

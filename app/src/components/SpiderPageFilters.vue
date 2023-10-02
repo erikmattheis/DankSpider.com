@@ -79,32 +79,18 @@ export default {
 
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
-    console.log('checkedVariants1', queryParams.get('checkedVariants'))
-    const checkedVariants = decodeURIComponent(queryParams.get('checkedVariants'));
-    console.log('checkedVariants2', checkedVariants)
+
     for (const [key, value] of queryParams) {
-      if (key === 'checkedVariants') {
-        const checked = value.split(',');
-        for (const variant of checked) {
-          this.toggleSelectedVariant(variant);
-          console.log('variants', variant);
-        }
+      if (key === 'sizes') {
+        const checked = decodeURIComponent(value).split(',');
+        this.store.checkedVariants = checked;
       }
-      if (key === 'checkedVendors') {
-        const checked = value.split(',');
-        for (const vendor of checked) {
-          this.toggleSelectedVendor(vendor);
-        }
+      if (key === 'vendors') {
+        const checked = decodeURIComponent(value).split(',');
+        this.store.checkedVendors = checked;
       }
 
     }
-
-    if (checkedVariants) {
-      this.store.checkedVariants = checkedVariants.split(',');
-    }
-
-    this.store = useSpiderStore();
-    this.store.normalizeVariants(this.store.variants);
 
   },
   computed: {
@@ -139,20 +125,23 @@ export default {
       return this.store.numVendors;
     },
   },
+  watch: {
+    '$route.params.sizes'(newValue, oldValue) {
+      this.checkedVariants = sizes;
+    }
+  },
   methods: {
     toggleSelectedVariant(variant) {
       this.store.toggleSelectedVariant(decodeURIComponent(variant));
-      const checkedVariants = this.store.checkedVariants.join(',');
-      const queryParams = new URLSearchParams(window.location.search);
-      queryParams.set('checkedVariants', encodeURIComponent(checkedVariants));
-      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
-      window.history.pushState({}, '', newUrl);
+      const sizes = this.checkedVariants.join(',');
+      this.$router.push({ path: '', query: { sizes } });
     },
     toggleSelectedVendor(vendor) {
-      this.store.toggleSelectedVendor(vendor);
+      this.store.toggleSelectedVendor(decodeURIComponent(vendor));
+      const vendors = this.checkedVendors.join(',');
+      this.$router.push({ path: '', query: { vendors } });
     },
-  },
-
+  }
 };
 </script>
 

@@ -54,6 +54,8 @@ async function getProduct(url) {
 
 async function scrapePage(url, currentPage, productLinks) {
 
+  console.log('Getting page ${currentPage} WNC products');
+
   try {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
@@ -123,8 +125,6 @@ async function getWNCProductsInfo(productLinks) {
 }
 
 async function getAvailableLeafProducts() {
-
-  console.log('Getting WNC products');
 
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
