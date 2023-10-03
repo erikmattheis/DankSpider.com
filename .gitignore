@@ -1,6 +1,7 @@
 # IMPORTANT
 .serviceAccountKey.json
 serviceAccountKey.json
+.env
 
 # Logs
 logs

@@ -1,62 +1,111 @@
-
-
-const axios = require('axios');
+const axios = require('./rateLimitedAxios.js');
 const Tesseract = require('tesseract.js');
 const OpenAI = require('openai');
 const cheerio = require('cheerio');
+const fs = require('fs');
+const path = require('path');
+
+const admin = require('firebase-admin');
 
 const { getProductsByVendor, getProductsWithAssay, getProductsWithoutAssay, saveProducts } = require('../firebase.js');
 
 async function run() {
-  const count = await getProductsByVendor('WNC');
-  const products = await getProductsWithoutAssay('WNC');
-  console.log('products', products);
-  throw new Error('stop');
+  const products = await getProductsByVendor('WNC', 10);
 
-  const wncProducts = products.filter(product => product.vendor === 'WNC');
+  if (process.env.NODE_ENV !== 'production') {
+    //fs.writeFileSync('./products.json', JSON.stringify(products, null, 2));
+  }
 
-  const withImages = wncProducts.map(async product => {
-    console.log('product.url', product.url)
+  const withImages = [];
+
+  for (const product of products) {
+    console.log('product.url', product.url);
 
     const images = await getProductImages(product.url);
-    console.log('with images.length', images.length)
-    return { ...product, images };
-  });
 
-  const bestImages = withImages.map(async product => {
-    if (!product.images) return product;
-    const images = product.images.filter((image) => { image.toLowercase().includes('terpenes') || product.toLowercase().includes('potency') });
-    console.log('best images.length', images.length)
-    return { ...product, images };
-  });
+    console.log('found images', images.length);
 
-  const withODRedImages = await bestImages.map(async product => {
-    if (!product.images) return product;
-    const images = product.images.map(async image => {
+    withImages.push({ ...product, images });
+  }
+
+  const bestImages = [];
+
+  for (const product of withImages) {
+    if (!product.image.length) {
+      continue;
+    }
+    const images = [...product.images];
+    product.images.forEach((image, i) => {
+      console.log('image -', image)
+      if (image.toLowerCase().includes('terp') || image.toLowerCase().includes('pot')) {
+        const member = images.splice(i, 1)[0];
+        console.log('member', member)
+        images.unshift(member);
+      }
+    });
+
+    console.log('best images.length', images.length);
+
+    bestImages.push({ ...product, images });
+  }
+
+  const withODRedImages = [];
+
+  for (const product of bestImages) {
+    if (!product.images.length) {
+      continue;
+    }
+
+    const images = [];
+
+    for (const image of product.images) {
+      console.log('image is', image)
       const lines = await extractTextFromImage(image);
-      console.log('ocred images.length', images.length)
-      return { image, lines };
-    });
-    return { ...product, lines };
-  })
+      if (lines.length > 10) {
+        console.log('YESSSS!!!!', lines.length);
+        images.push({ image, lines });
+        if (images.length > 1) {
+          break;
+        }
+      }
+      else {
+        console.log('No', images.length);
+      }
+    }
 
+    withODRedImages.push({ ...product, images });
+  }
 
-  const withActualArray = await withODRedImages.map(async product => {
-    if (!product.images) return product;
-    const images = product.images.map(async image => {
-      const assay = await JSON.parse(toCleanArray(image.lines.join('\n')));
-      console.log('lines of chemicals:', assay.length);
-      return { image, result };
-    });
-    return { ...product, assay };
-  })
+  const withActualArray = [];
+
+  for (const product of withODRedImages) {
+    if (!product.images.length) {
+      continue;
+    }
+
+    const images = [];
+
+    for (const image of product.images) {
+      console.log(JSON.stringify(image, null, 2))
+      const linesString = image.lines?.join('\n');
+      if (!linesString) {
+        continue;
+      }
+      console.log('linesString', linesString)
+      const assay = await toCleanArray(linesString);
+      console.log('lines of chemicals:', assay);
+
+      if (assay) {
+        images.push({ image, assay });
+      }
+    }
+
+    withActualArray.push({ ...product, images });
+  }
+
+  console.log('withActualArray', withActualArray[0]);
+
   await saveProducts(withActualArray);
-  /*
-  const lines = await extractTextFromImage(imageUrl);
-  console.log('lines:', lines.join('\n'))
-  const result = await toCleanArray(lines.join('\n'));
-  console.log('result:', result);
-  */
 }
 
 run();
@@ -65,7 +114,7 @@ async function getProductImages(url) {
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);
   const images = $('a.productView-thumbnail-link');
-  const imageUrls = images.map((index, el) => $(el).attr('src')).get();
+  const imageUrls = images.map((index, el) => $(el).attr('href')).get();
   return imageUrls;
 }
 
@@ -74,23 +123,21 @@ function nameContains(imageNames, str) {
 }
 
 async function getImageData(imageUrl) {
+  if (!imageUrl) {
+    return null;
+  }
   const result = await axios.get(imageUrl, { responseType: 'arraybuffer' });
   const imageData = Buffer.from(result.data, 'binary');
   return imageData;
 }
 
 async function extractTextFromImage(imageUrl) {
-
+  console.log('extractTextFromImage', imageUrl)
   const imageBuffer = await getImageData(imageUrl);
-
   const { data: { text } } = await Tesseract.recognize(imageBuffer);
-
   const lines = text.split('\n').filter(line => line.trim() !== '');
-
   return lines;
 }
-
-
 
 const terpenes = [
   'Bisabolol',
@@ -117,13 +164,18 @@ const terpenes = [
   'Terpinolene'
 ];
 
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config();
+}
+
+console.log(process.env.OPENAI_API_KEY);
 
 const openai = new OpenAI({
-  apiKey: process.env["OPENAI_API_KEY"]
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 async function toCleanArray(input) {
-
   const model = "gpt-3.5-turbo";
   const temp = 0.5;
   const tokens = 400;
@@ -132,7 +184,7 @@ async function toCleanArray(input) {
     const completion = await openai.chat.completions.create({
       model: model,
       messages: [
-        { role: "system", content: "Take ocr of list of weights of Bisabolol, Humulene, Pinene, α-Terpinene, Cineole, β-Caryophyllene, Myrcene, Borneol, Camphene, Carene, Caryophyllene, Citral, Dihydrocarveol, Fenchone, γ-Terpinene, Limonene, Linalool, Menthol, Neroldol, Ocimene, Pulegone, Terpinolene. Output array should use correct names and percent by weight: [{name:'terpene',pct:0.1}] " },
+        { role: "system", content: "A valid JSON object from poor OCR text. May only contain numbers and the words Bisabolol, Humulene, Pinene, α-Terpinene, Cineole, β-Caryophyllene, Myrcene, Borneol, Camphene, Carene, Caryophyllene, Citral, Dihydrocarveol, Fenchone, γ-Terpinene, Limonene, Linalool, Menthol, Neroldol, Ocimene, Pulegone, Terpinolene. Output should use correct names and percent by weight." },
         { role: "user", content: input },
       ],
       temperature: temp,
@@ -143,15 +195,14 @@ async function toCleanArray(input) {
       n: 1,
       stop: "",
     });
-    const response = completion;
-    // Show the response
+    console.log('completion', completion)
+    const response = JSON.stringify(completion.choices[0].message.content).replace(/\\n/g, '\n').replace(/\/g/, '\n');
+    console.log('response', response)
     console.log("==++==++==++==++==++====++==++==++==++==++==");
-    //console.log(response.choices[0].message);
     console.log('keys', Object.keys(response));
     console.log("==++==++==++==++==++====++==++==++==++==++==");
 
     return response.data;
-
   }
   catch (err) {
     console.log('err:', err);
@@ -161,7 +212,6 @@ async function toCleanArray(input) {
     }
   }
 }
-
 
 module.exports = {
   run,

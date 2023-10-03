@@ -1,0 +1,45 @@
+[
+  {
+    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/308/2392/Kush_Mintz_-_1__37550.1689086594.jpg?c=1",
+    "vendor": "WNC",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ],
+    "title": " Kush Mintz    ",
+    "url": "https://wnc-cbd.com/products/thca-kush-mintz-indoor-living-soil.html",
+    "timestamp": {
+      "_seconds": 1696228235,
+      "_nanoseconds": 976000000
+    }
+  },
+  {
+    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/340/3009/Super_Cheese_Diesel_-_1__21131.1692793813.jpg?c=1",
+    "vendor": "WNC",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ],
+    "title": " Super Cheese Diesel    ",
+    "batchId": "424acc17-6eda-4ffa-9371-18790e41ee8e",
+    "url": "https://wnc-cbd.com/products/thca-super-cheese-diesel-indoor-living-soil.html",
+    "timestamp": {
+      "_seconds": 1696312668,
+      "_nanoseconds": 254000000
+    }
+  },
+  {
+    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/334/3017/Cap_Junky_-_1__44568.1692794192.jpg?c=1",
+    "vendor": "WNC",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ],
+    "title": " Cap Junkies    ",
+    "url": "https://wnc-cbd.com/products/thca-cap-junkies-indoor-living-soil.html",
+    "timestamp": {
+      "_seconds": 1696177239,
+      "_nanoseconds": 731000000
+    }
+  }
+]

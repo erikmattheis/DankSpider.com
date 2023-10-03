@@ -28,18 +28,25 @@ async function saveVendor(vendor) {
 
 async function saveProducts(products, batchId) {
   const batch = db.batch();
-  const productsRef = db.collection('products');
+  const productsRef = db.collection('productsWithAssay');
 
   const timestamp = admin.firestore.Timestamp.now();
 
   products.forEach(product => {
     const docRef = productsRef.doc();
-
-    batch.set(docRef, {
-      ...product,
-      batchId,
-      timestamp,
-    });
+    if (batchId) {
+      batch.set(docRef, {
+        ...product,
+        batchId,
+        timestamp,
+      });
+    }
+    else {
+      batch.set(docRef, {
+        ...product,
+        timestamp,
+      });
+    }
   });
 
   await batch.commit();
@@ -203,12 +210,17 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
   await Promise.all(products);
 }
 
-async function getProductsByVendor(vendor) {
-  const productsRef = db.collection('products');
+async function getProductsByVendor(vendor, limit) {
+  const productsRef = db.collection('productArchive');
+  let snapshot;
+  if (limit) {
+    snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();
+  }
+  else {
+    snapshot = await productsRef.where('vendor', '==', vendor).get();
+  }
 
-  const snapshot = await productsRef.where('vendor', '==', vendor).get();
-
-  console.log(`Goat ${snapshot.size} ${vendor}`)
+  console.log(`Got ${snapshot.size} ${vendor}`)
   const products = [];
 
   snapshot.forEach(doc => {
