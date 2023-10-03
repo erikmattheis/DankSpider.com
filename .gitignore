@@ -3,6 +3,10 @@
 serviceAccountKey.json
 .env
 
+# Tesseract
+*.traineddata
+*.user-words
+
 # Logs
 logs
 *.log
