@@ -11,6 +11,9 @@ function normalizeVariantTitle(title) {
   if (!title) {
     return title;
   }
+  if (title === '28 grams') {
+    return '28 g';
+  }
   if (title === '1oz') {
     return '28 g';
   }

@@ -7,13 +7,13 @@ const configWNC = {
   tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
 };
 
-async function run() {
+async function run(url) {
 
   const worker = await createWorker();
 
   console.log('got worker')
 
-  const result = await worker.recognize('https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/313/2469/Indoor_-_THCa_Black_Cherry_Gelato_Terpenes__76784.1689100186.jpg?c=1', configWNC);
+  const result = await worker.recognize(url, configWNC);
 
   console.log('recognized text', Object.keys(result.data));
 
