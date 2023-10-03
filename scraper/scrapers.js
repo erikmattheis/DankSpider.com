@@ -1,4 +1,5 @@
 const { saveProducts } = require('./firebase.js');
+const admin = require('firebase-admin');
 
 const preston = require('./vendors/preston.js');
 const flow = require('./vendors/flow.js');
@@ -8,7 +9,7 @@ const topcola = require('./vendors/topcola.js');
 const arete = require('./vendors/arete.js');
 
 const fs = require('fs');
-const wasError = false;
+let wasError = false;
 
 function logErrorToFile(str) {
   wasError = true;
@@ -34,12 +35,12 @@ async function sendErrorEmail(error) {
   }
 }
 
-async function run() {
+async function run(uuid) {
 
   try {
     const areteProducts = await arete.getAvailableLeafProducts();
     console.log('artete products', areteProducts.length);
-    await saveProducts(areteProducts, 'arete');
+    await saveProducts(areteProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
@@ -49,7 +50,7 @@ async function run() {
   try {
     const prestonProducts = await preston.getAvailableLeafProducts();
     console.log('preston products', prestonProducts.length);
-    await saveProducts(prestonProducts, 'preston');
+    await saveProducts(prestonProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
@@ -59,7 +60,7 @@ async function run() {
   try {
     const flowProducts = await flow.getAvailableLeafProducts();
     console.log('flow products', flowProducts.length);
-    await saveProducts(flowProducts, 'flow');
+    await saveProducts(flowProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
@@ -69,7 +70,7 @@ async function run() {
   try {
     const wncProducts = await wnc.getAvailableLeafProducts();
     console.log('wnc products', wncProducts.length);
-    await saveProducts(wncProducts, 'wnc');
+    await saveProducts(wncProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
@@ -79,7 +80,7 @@ async function run() {
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts();
     console.log('enlighten products', enlightenProducts.length);
-    await saveProducts(enlightenProducts, 'enlighten');
+    await saveProducts(enlightenProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
@@ -89,7 +90,7 @@ async function run() {
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts();
     console.log('top cola products', topcolaProducts.length);
-    await saveProducts(topcolaProducts, 'topcola');
+    await saveProducts(topcolaProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);

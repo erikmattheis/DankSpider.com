@@ -2,6 +2,8 @@ const { performance } = require('perf_hooks');
 const fs = require('fs');
 const { getAllProducts } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
+const { v4: uuidv4 } = require('uuid');
+
 
 async function makeProductsFile() {
   const products = await getAllProducts();
@@ -11,7 +13,8 @@ async function makeProductsFile() {
 
 async function run() {
   const startTime = performance.now();
-  await scrapers.run();
+  const uuid = uuidv4();
+  await scrapers.run(uuid);
   const endTime = performance.now();
 
   console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);

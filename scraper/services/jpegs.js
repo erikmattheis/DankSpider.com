@@ -3,6 +3,75 @@
 const axios = require('axios');
 const Tesseract = require('tesseract.js');
 const OpenAI = require('openai');
+const cheerio = require('cheerio');
+
+const { getProductsByVendor, getProductsWithAssay, getProductsWithoutAssay, saveProducts } = require('../firebase.js');
+
+async function run() {
+  const count = await getProductsByVendor('WNC');
+  const products = await getProductsWithoutAssay('WNC');
+  console.log('products', products);
+  throw new Error('stop');
+
+  const wncProducts = products.filter(product => product.vendor === 'WNC');
+
+  const withImages = wncProducts.map(async product => {
+    console.log('product.url', product.url)
+
+    const images = await getProductImages(product.url);
+    console.log('with images.length', images.length)
+    return { ...product, images };
+  });
+
+  const bestImages = withImages.map(async product => {
+    if (!product.images) return product;
+    const images = product.images.filter((image) => { image.toLowercase().includes('terpenes') || product.toLowercase().includes('potency') });
+    console.log('best images.length', images.length)
+    return { ...product, images };
+  });
+
+  const withODRedImages = await bestImages.map(async product => {
+    if (!product.images) return product;
+    const images = product.images.map(async image => {
+      const lines = await extractTextFromImage(image);
+      console.log('ocred images.length', images.length)
+      return { image, lines };
+    });
+    return { ...product, lines };
+  })
+
+
+  const withActualArray = await withODRedImages.map(async product => {
+    if (!product.images) return product;
+    const images = product.images.map(async image => {
+      const assay = await JSON.parse(toCleanArray(image.lines.join('\n')));
+      console.log('lines of chemicals:', assay.length);
+      return { image, result };
+    });
+    return { ...product, assay };
+  })
+  await saveProducts(withActualArray);
+  /*
+  const lines = await extractTextFromImage(imageUrl);
+  console.log('lines:', lines.join('\n'))
+  const result = await toCleanArray(lines.join('\n'));
+  console.log('result:', result);
+  */
+}
+
+run();
+
+async function getProductImages(url) {
+  const response = await axios.get(url);
+  const $ = cheerio.load(response.data);
+  const images = $('a.productView-thumbnail-link');
+  const imageUrls = images.map((index, el) => $(el).attr('src')).get();
+  return imageUrls;
+}
+
+function nameContains(imageNames, str) {
+  return name.toLowerCase().includes(str.toLowerCase());
+}
 
 async function getImageData(imageUrl) {
   const result = await axios.get(imageUrl, { responseType: 'arraybuffer' });
@@ -11,7 +80,6 @@ async function getImageData(imageUrl) {
 }
 
 async function extractTextFromImage(imageUrl) {
-
 
   const imageBuffer = await getImageData(imageUrl);
 
@@ -22,15 +90,7 @@ async function extractTextFromImage(imageUrl) {
   return lines;
 }
 
-async function run() {
-  const imageUrl = 'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/119/489/Indoor-CarmelAppleGelato2__02349.1682483466.jpg?c=1';
-  const lines = await extractTextFromImage(imageUrl);
-  console.log('lines:', lines.join('\n'))
-  const result = await toCleanArray(lines.join('\n'));
-  console.log('result:', result);
-}
 
-run();
 
 const terpenes = [
   'Bisabolol',
@@ -86,8 +146,8 @@ async function toCleanArray(input) {
     const response = completion;
     // Show the response
     console.log("==++==++==++==++==++====++==++==++==++==++==");
-    console.log(response.choices[0].message);
-    console.log(Object.keys(response));
+    //console.log(response.choices[0].message);
+    console.log('keys', Object.keys(response));
     console.log("==++==++==++==++==++====++==++==++==++==++==");
 
     return response.data;

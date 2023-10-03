@@ -26,7 +26,7 @@ async function saveVendor(vendor) {
 
 }
 
-async function saveProducts(products) {
+async function saveProducts(products, batchId) {
   const batch = db.batch();
   const productsRef = db.collection('products');
 
@@ -34,8 +34,10 @@ async function saveProducts(products) {
 
   products.forEach(product => {
     const docRef = productsRef.doc();
+
     batch.set(docRef, {
       ...product,
+      batchId,
       timestamp,
     });
   });
@@ -156,6 +158,68 @@ async function getProductsByTitle(substring) {
   return products;
 }
 
+async function getProductsWithoutAssay(vendor) {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.where('vendor', '==', vendor).orderBy('assay').get();
+  console.log(`Got ${snapshot.size} ${vendor} products without assays`)
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+async function getProductsWithAssay(vendor) {
+  const productsRef = db.collection('products');
+  let snapshot;
+  if (vendor) {
+    snapshot = await productsRef.where('vendor', '==', vendor).where('assay', '!=', null).get();
+  }
+  else {
+    snapshot = await productsRef.where('assay', '!=', null).get();
+  }
+  console.log(`Got ${snapshot.size} ${vendor} products with assays`)
+  const products = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data()
+    products.push(product);
+  });
+
+  return products;
+}
+
+async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
+
+  const products = [];
+  const uniqueTitles = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (uniqueTitles.has(product.title)) {
+      products.push(doc.ref.delete());
+    }
+    uniqueTitles.add(product.title);
+  });
+
+  await Promise.all(products);
+}
+
+async function getProductsByVendor(vendor) {
+  const productsRef = db.collection('products');
+
+  const snapshot = await productsRef.where('vendor', '==', vendor).get();
+
+  console.log(`Goat ${snapshot.size} ${vendor}`)
+  const products = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data()
+    products.push(product);
+  });
+
+  return products;
+
+}
+
 module.exports = {
   saveVendor,
   updateVendor,
@@ -164,5 +228,8 @@ module.exports = {
   getVendorProducts,
   saveProducts,
   getAllProducts,
-  getProductsByTitle
+  getProductsByTitle,
+  getProductsWithAssay,
+  getProductsWithoutAssay,
+  getProductsByVendor
 };

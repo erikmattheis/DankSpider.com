@@ -1,6 +1,6 @@
 <template>
   <div class="product-card shadowy page" ref="image">
-    <img src="/corner.jpg" class="corner" width="80" height="80" />
+    <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
