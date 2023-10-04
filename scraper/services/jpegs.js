@@ -11,7 +11,7 @@ const admin = require('firebase-admin');
 const { getProductsByVendor, getProductsWithAssay, getProductsWithoutAssay, saveProducts } = require('../firebase.js');
 
 async function run() {
-  const products = await getProductsByVendor('WNC', 10);
+  const products = await getProductsByVendor('WNC', 2);
 
   if (process.env.NODE_ENV !== 'production') {
     //fs.writeFileSync('./products.json', JSON.stringify(products, null, 2));
@@ -66,15 +66,16 @@ async function run() {
         images.push({ image, terpenes });
       }
       else {
-        console.log('No terpenes', lines);
+        console.log('No terpenes');
       }
 
       if (images.length === 2) {
         break;
       }
     }
-    if (product.images.length) {
+    if (images.length) {
       withOCRedImages.push({ ...product, images });
+      console.log('withOCRedImages.`', withOCRedImages[withOCRedImages.length - 1])
     }
   }
 

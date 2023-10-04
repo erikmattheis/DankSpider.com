@@ -14,18 +14,6 @@ if (!getApps().length) {
 
 const db = getFirestore();
 
-async function saveVendor(vendor) {
-  const vendorRef = db.collection('vendors').doc(vendor.name);
-  await vendorRef.set(vendor);
-
-  const batch = db.batch();
-
-  const timestamp = admin.firestore.Timestamp.now();
-
-  await batch.commit();
-
-}
-
 async function saveProducts(products, batchId) {
   const batch = db.batch();
   const productsRef = db.collection('productsWithAssay');
@@ -173,13 +161,13 @@ async function getProductsWithoutAssay(vendor) {
 }
 
 async function getProductsWithAssay(vendor) {
-  const productsRef = db.collection('products');
+  const productsRef = db.collection('productsWithAssay');
   let snapshot;
   if (vendor) {
-    snapshot = await productsRef.where('vendor', '==', vendor).where('assay', '!=', null).get();
+    snapshot = await productsRef.where('vendor', '==', vendor).get();
   }
   else {
-    snapshot = await productsRef.where('assay', '!=', null).get();
+    snapshot = await productsRef.get();
   }
   console.log(`Got ${snapshot.size} ${vendor} products with assays`)
   const products = [];
@@ -216,7 +204,7 @@ async function init() {
 
 // init();
 async function getProductsByVendor(vendor, limit) {
-  const productsRef = db.collection('productArchive');
+  const productsRef = db.collection('products');
   let snapshot;
   if (limit) {
     snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();
@@ -238,7 +226,6 @@ async function getProductsByVendor(vendor, limit) {
 }
 
 module.exports = {
-  saveVendor,
   updateVendor,
   getVendor,
   getVendors,
