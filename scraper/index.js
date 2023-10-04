@@ -4,7 +4,6 @@ const { getAllProducts } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
-
 async function makeProductsFile() {
   const products = await getAllProducts();
   const updatedAt = new Date().toISOString();

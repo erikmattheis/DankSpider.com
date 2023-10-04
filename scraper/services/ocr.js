@@ -7,7 +7,7 @@ const configWNC = {
   tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
 };
 
-async function run(url) {
+async function recognize(url) {
 
   const worker = await createWorker();
 
@@ -15,13 +15,7 @@ async function run(url) {
 
   const result = await worker.recognize(url, configWNC);
 
-  console.log('recognized text', Object.keys(result.data));
-
   console.log('result', result.data.text);
-
-  console.log('recognized text', Object.keys(result.data));
-
-  console.log('result', result.data.text)
 
   const textArray = result.data.text.split('\n');
 
@@ -33,15 +27,23 @@ async function run(url) {
 
     split = split.map(member => member.trim());
 
+    const name = normalizeName(split[0]);
+
     if (parseInt(split[1])) {
-      terpenes.push({ name: split[0], pct: split[1] });
+      terpenes.push({ name: split[0], pct: parseInt(split[1]) });
     }
 
   }
 
   await worker.terminate();
-  console.log('terpenes', terpenes);
+  console.log(terpenes);
   return terpenes;
 }
 
-run();
+function normalizeName(name) {
+  return name;
+}
+
+module.exports = {
+  recognize
+};

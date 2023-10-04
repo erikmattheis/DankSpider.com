@@ -209,7 +209,12 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
 
   await Promise.all(products);
 }
+async function init() {
+  await deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors();
 
+}
+
+// init();
 async function getProductsByVendor(vendor, limit) {
   const productsRef = db.collection('productArchive');
   let snapshot;
