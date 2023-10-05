@@ -14,9 +14,25 @@ if (!getApps().length) {
 
 const db = getFirestore();
 
+async function getUniqueTerpenes() {
+  const productsRef = db.collection('productsWithAssay');
+  const snapshot = await productsRef.get();
+
+  const terpenes = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    product.images?.forEach(image => {
+      image.terpenes.forEach(terpene => terpenes.add(terpene.name));
+    });
+  });
+
+  return Array.from(terpenes);
+}
+
 async function saveProducts(products, batchId) {
   const batch = db.batch();
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
 
   const timestamp = admin.firestore.Timestamp.now();
 
@@ -42,77 +58,6 @@ async function saveProducts(products, batchId) {
   console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
-async function updateVendor(vendor) {
-  const vendorRef = db.collection('vendors').doc(vendor.name);
-  await vendorRef.update(vendor);
-
-  const batch = db.batch();
-
-  const timestamp = admin.firestore.Timestamp.now();
-
-  const snapshot = await vendorRef.collection('products').get();
-
-  snapshot.forEach(doc => {
-    batch.update(doc.ref, {
-      vendor: {
-        name: vendor.name,
-        url: vendor.url,
-      },
-      timestamp,
-    });
-  });
-
-  await batch.commit();
-
-}
-
-async function getVendor(name) {
-  const vendorRef = db.collection('vendors').doc(name);
-  const snapshot = await vendorRef.get();
-
-  if (!snapshot.exists) {
-    return null;
-  }
-
-  const vendor = snapshot.data();
-  vendor.products = await getVendorProducts(name);
-
-  return vendor;
-}
-
-async function getVendors() {
-  const vendorsRef = db.collection('vendors');
-  const snapshot = await vendorsRef.get();
-
-  const vendors = [];
-
-  snapshot.forEach(doc => {
-    const vendor = doc.data();
-    vendor.products = [];
-    vendors.push(vendor);
-  });
-
-  return vendors;
-}
-
-async function getVendorProducts(vendorName) {
-  const productsRef = db.collection('vendors').doc(vendorName).collection('products');
-  const snapshot = await productsRef.get();
-
-  const products = [];
-
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    product.vendor = {
-      name: vendorName,
-      url: doc.ref.parent.parent.id,
-    };
-    products.push(product);
-  });
-
-  return products;
-}
-
 const { performance } = require('perf_hooks');
 
 async function getAllProducts() {
@@ -134,6 +79,7 @@ async function getAllProducts() {
   });
 
   const endTime = performance.now();
+
   console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
@@ -143,33 +89,6 @@ async function getProductsByTitle(substring) {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.where('title', '>=', substring).where('title', '<=', substring + '\uf8ff').get();
 
-  const products = [];
-
-  snapshot.forEach(doc => {
-    const product = doc.data()
-    products.push(product);
-  });
-
-  return products;
-}
-
-async function getProductsWithoutAssay(vendor) {
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.where('vendor', '==', vendor).orderBy('assay').get();
-  console.log(`Got ${snapshot.size} ${vendor} products without assays`)
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-}
-
-async function getProductsWithAssay(vendor) {
-  const productsRef = db.collection('productsWithAssay');
-  let snapshot;
-  if (vendor) {
-    snapshot = await productsRef.where('vendor', '==', vendor).get();
-  }
-  else {
-    snapshot = await productsRef.get();
-  }
-  console.log(`Got ${snapshot.size} ${vendor} products with assays`)
   const products = [];
 
   snapshot.forEach(doc => {
@@ -197,12 +116,7 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
 
   await Promise.all(products);
 }
-async function init() {
-  await deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors();
 
-}
-
-// init();
 async function getProductsByVendor(vendor, limit) {
   const productsRef = db.collection('products');
   let snapshot;
@@ -226,14 +140,8 @@ async function getProductsByVendor(vendor, limit) {
 }
 
 module.exports = {
-  updateVendor,
-  getVendor,
-  getVendors,
-  getVendorProducts,
   saveProducts,
   getAllProducts,
   getProductsByTitle,
-  getProductsWithAssay,
-  getProductsWithoutAssay,
   getProductsByVendor
 };

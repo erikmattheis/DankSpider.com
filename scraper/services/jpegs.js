@@ -4,18 +4,16 @@ const OpenAI = require('openai');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
-const { recognize } = require('./ocr.js');
-
 const admin = require('firebase-admin');
+
+const { recognize } = require('./ocr.js');
 
 const { getProductsByVendor, getProductsWithAssay, getProductsWithoutAssay, saveProducts } = require('../firebase.js');
 
 async function run() {
-  const products = await getProductsByVendor('WNC', 2);
+  const products = await getProductsByVendor('WNC', 3);
 
-  if (process.env.NODE_ENV !== 'production') {
-    //fs.writeFileSync('./products.json', JSON.stringify(products, null, 2));
-  }
+  console.log('products.length', products.length);
 
   const withImages = [];
 
@@ -39,7 +37,7 @@ async function run() {
     product.images.forEach((image, i) => {
       if (image.toLowerCase().includes('terp') || image.toLowerCase().includes('pot')) {
         const member = images.splice(i, 1)[0];
-        console.log('member', member)
+        console.log('moving to front:', member)
         images.unshift(member);
       }
     });
@@ -51,38 +49,45 @@ async function run() {
 
   const withOCRedImages = [];
 
-  for (const product of bestImages) {
-    if (!product.images.length) {
+  for (const images of bestImages) {
+    if (!images.length) {
       continue;
     }
 
-    const images = [];
+    const imagesWithText = [];
 
     for (const image of product.images) {
 
       const terpenes = await recognize(image);
+      console.log('terpenes', terpenes)
+      if (terpenes === 'STOP') {
+        break;
+      }
 
       if (terpenes.length) {
-        images.push({ image, terpenes });
+        withOCRedImages.push({ ...product, terpenes });
       }
       else {
         console.log('No terpenes');
       }
-
-      if (images.length === 2) {
+      // we have the terpene and cannabinoid images or the the presence of 'Bellieveau' means it's a legal document
+      console.log('terpenes.length', terpenes.length)
+      if (withOCRedImages.length === 2) {
         break;
       }
     }
-    if (images.length) {
-      withOCRedImages.push({ ...product, images });
-      console.log('withOCRedImages.`', withOCRedImages[withOCRedImages.length - 1])
+
+    if (withOCRedImages.length) {
+
+      console.log('withOCRedImages`', withOCRedImages.length)
+
+
+      await saveProducts(withOCRedImages);
+
     }
+
+    console.log('Done with');
   }
-
-
-  await saveProducts(withOCRedImages);
-
-  console.log('Done', withOCRedImages.length);
 }
 
 run();

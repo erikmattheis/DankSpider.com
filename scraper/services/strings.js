@@ -73,6 +73,25 @@ function variantNameContainsWeightUnitString(variantName) {
 
 }
 
+function normalizeTerpene(terpene) {
+  const spellings = {
+    'aPinene': 'Pinene',
+    '18Cineole': 'Cineole',
+    'BCaryophyllene': 'Caryophyllene',
+    'aHumulene': 'Humulene',
+    'aBisabolol': 'Bisabolol',
+    'BMyrcene': 'Myrcene',
+    'aTerpinene': 'Terpinene',
+    'CaryophylleneOxide': 'Caryophyllene Oxide',
+    'BCaryophyliene': 'Caryophyllene',
+    'Bormwol': 'Borneol',
+  }
+  if (spellings[terpene]) {
+    return spellings[terpene];
+  }
+  return terpene;
+}
+
 function printPathToKey(obj, keyString, path = []) {
   for (const [key, value] of Object.entries(obj)) {
     const currentPath = [...path, key];
@@ -85,6 +104,7 @@ function printPathToKey(obj, keyString, path = []) {
 }
 
 module.exports = {
+  normalizeTerpene,
   normalizeProductTitle,
   normalizeVariantTitle,
   variantNameContainsWeightUnitString,

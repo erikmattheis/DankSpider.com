@@ -1,5 +1,6 @@
 const { createWorker } = require('tesseract.js');
 const path = require('path');
+const { normalizeTerpene } = require('./strings.js');
 
 const configWNC = {
   lang: 'eng',
@@ -15,7 +16,12 @@ async function recognize(url) {
 
   const result = await worker.recognize(url, configWNC);
 
-  console.log('result', result.data.text);
+  //console.log('result', result.data.text);
+
+  if (!result.data.text.includes('Bellieveau')) {
+    await worker.terminate();
+    return 'STOP';
+  }
 
   const textArray = result.data.text.split('\n');
 
@@ -36,7 +42,7 @@ async function recognize(url) {
   }
 
   await worker.terminate();
-  console.log(terpenes);
+  //console.log(terpenes);
   return terpenes;
 }
 

@@ -5,8 +5,8 @@ const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
 async function makeProductsFile() {
-  //const products = await getAllProducts();
-  const products = await getProductsWithAssay('WNC');
+
+  const products = await getAllProducts();
   for (const product of products) {
     if (product.images) {
       console.log(product.images)

@@ -4,9 +4,8 @@
     <div class="corner-text">{{ product.vendor }}</div>
 
     <table v-if="product.images && product.images[0] && product.images[0].terpenes">
-      <tr v-for="terpene in product.images[0].terpenes">
-        <td>{{ terpene.name }}</td>
-        <td>{{ (terpene.pct / 1000).toFixed(2) }}</td>
+      <tr v-for="terpene in   product.images[0].terpenes  ">
+        <td>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</td>
       </tr>
     </table>
 
@@ -48,7 +47,8 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(   variant, i   ) in    product.variants   " v-bind:key="i" :title="variant" class="variant-name"
+        <li v-for="(     variant, i     ) in      product.variants     " v-bind:key="i" :title="variant"
+          class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
