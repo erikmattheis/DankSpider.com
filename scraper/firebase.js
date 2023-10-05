@@ -15,7 +15,7 @@ if (!getApps().length) {
 const db = getFirestore();
 
 async function getUniqueTerpenes() {
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('productsWithAssay2');
   const snapshot = await productsRef.get();
 
   const terpenes = new Set();
@@ -30,9 +30,15 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
-async function saveProducts(products, batchId) {
+async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
-  const productsRef = db.collection('products');
+  let productsRef;
+  if (useDev) {
+    productsRef = db.collection('productsWithAssay2');
+  }
+  else {
+    productsRef = db.collection('products');
+  }
 
   const timestamp = admin.firestore.Timestamp.now();
 
@@ -120,8 +126,7 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
 async function getProductsByVendor(vendor, limit, useDev) {
   let productRef;
   if (useDev) {
-    console.log('Using dev products')
-    productsRef = db.collection('productsWithAssay');
+    productsRef = db.collection('productsWithAssay2');
   }
   else {
     productsRef = db.collection('products');
@@ -135,7 +140,7 @@ async function getProductsByVendor(vendor, limit, useDev) {
     snapshot = await productsRef.where('vendor', '==', vendor).get();
   }
 
-  console.log(`Got ${snapshot.size} ${vendor}`)
+  console.log(`Got ${snapshot.size} products from ${vendor}`)
   const products = [];
 
   snapshot.forEach(doc => {

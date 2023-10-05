@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getProductsWithAssay, getAllProducts, getProductsByVendor } = require('./firebase.js');
+const { getProductsWithAssay2, getAllProducts, getProductsByVendor } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
@@ -18,21 +18,24 @@ async function makeProductsFile(vendor, limit) {
   else {
     products = await getAllProducts();
   }
-
-  for (const product of products) {
-    if (product.images) {
-      console.log(product.images)
+  /*
+    for (const product of products) {
+      if (product.images) {
+        console.log(product.images)
+      }
+      if (product.lines) {
+        console.log(product.lines)
+      }
     }
-    if (product.lines) {
-      console.log(product.lines)
-    }
-  }
+    */
   const updatedAt = new Date().toISOString();
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: products, updatedAt: updatedAt }));
 }
+
 async function init() {
   await makeProductsFile('WNC', 30, true);
 }
+
 init();
 
 async function run() {

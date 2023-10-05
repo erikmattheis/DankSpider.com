@@ -2,7 +2,7 @@
   <div class="product-card shadowy page" ref="image">
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
-    {{ JSON.stringify(product.images) }}
+    {{ JSON.stringify(product.assays) }}
     <table v-if="product.images && product.images[0] && product.images[0].terpenes">
       <tr v-for="terpene in product[1]?.terpenes  ">
         <td>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</td>
