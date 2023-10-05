@@ -117,8 +117,16 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
   await Promise.all(products);
 }
 
-async function getProductsByVendor(vendor, limit) {
-  const productsRef = db.collection('products');
+async function getProductsByVendor(vendor, limit, useDev) {
+  let productRef;
+  if (useDev) {
+    console.log('Using dev products')
+    productsRef = db.collection('productsWithAssay');
+  }
+  else {
+    productsRef = db.collection('products');
+  }
+
   let snapshot;
   if (limit) {
     snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();

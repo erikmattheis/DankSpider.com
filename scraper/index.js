@@ -4,9 +4,21 @@ const { getProductsWithAssay, getAllProducts, getProductsByVendor } = require('.
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
-async function makeProductsFile() {
+async function makeProductsFile(vendor, limit) {
 
-  const products = await getAllProducts();
+  let products;
+
+  if (0 === 0) {
+    const useDevCollection = true;
+    products = await getProductsByVendor(vendor, limit, useDevCollection);
+  }
+  else if (vendor) {
+    products = await getProductsByVendor(vendor, limit);
+  }
+  else {
+    products = await getAllProducts();
+  }
+
   for (const product of products) {
     if (product.images) {
       console.log(product.images)
@@ -19,10 +31,9 @@ async function makeProductsFile() {
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: products, updatedAt: updatedAt }));
 }
 async function init() {
-  await makeProductsFile();
-  throw new Error('stop');
+  await makeProductsFile('WNC', 30, true);
 }
-//init();
+init();
 
 async function run() {
   const startTime = performance.now();
@@ -38,6 +49,6 @@ async function run() {
 
 }
 
-run();
+//run();
 
 
