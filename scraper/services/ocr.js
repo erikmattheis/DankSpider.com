@@ -5,30 +5,31 @@ const { normalizeTerpene } = require('./strings.js');
 const configWNCTitle = {
   lang: 'eng',
   rectangle: { top: 292, left: 70, width: 118, height: 151 },
-  tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
 }
 
 const configWNCTerpenes = {
   lang: 'eng',
   rectangle: { top: 318, left: 10, width: 507, height: 497 },
-  tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
 };
 
 const configWNCCannabinoids = {
   lang: 'eng',
   rectangle: { top: 439, left: 75, width: 483, height: 330 },
-  tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
 };
 
 async function recognize(url) {
 
   const worker = await createWorker();
 
-  console.log('got worker')
+  console.log('')
 
   const title = await worker.recognize(url, configWNCTitle);
+  console.log(JSON.stringify(title));
 
-  if (title.data.text.toLowerCase().includes('bellieveau')) {
+  if (1 === 1 || title.data.text.toLowerCase().includes('bellieveau')) {
     // reached legal stuff, npthing else will ever follow
 
     await worker.terminate();

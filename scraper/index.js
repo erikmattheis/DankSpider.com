@@ -8,7 +8,7 @@ async function makeProductsFile(vendor, limit) {
 
   let products;
 
-  if (0 === 0) {
+  if (0 === 1) {
     const useDevCollection = true;
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
@@ -36,7 +36,7 @@ async function init() {
   await makeProductsFile('WNC', 30, true);
 }
 
-init();
+//init();
 
 async function run() {
   const startTime = performance.now();
@@ -52,6 +52,6 @@ async function run() {
 
 }
 
-//run();
+run();
 
 
