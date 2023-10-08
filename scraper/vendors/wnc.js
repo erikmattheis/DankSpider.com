@@ -35,7 +35,7 @@ async function getProduct(url) {
     });
 
     const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
-    console.log('WNC: ', title);
+    // console.log('WNC: ', title);
 
     const image = $('figure.productView-image img').attr('src');
     return {
@@ -54,7 +54,7 @@ async function getProduct(url) {
 
 async function scrapePage(url, currentPage, productLinks) {
 
-  console.log('Getting page ${currentPage} WNC products');
+  // console.log('Getting page ${currentPage} WNC products');
 
   try {
     const response = await axios.get(url);
@@ -134,7 +134,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  console.log('This script is being executed directly by Node.js');
+  // console.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

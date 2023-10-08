@@ -9,7 +9,7 @@ function parseSingleProduct(html) {
   const $ = cheerio.load(html);
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim());
-  console.log('Arete: ', title);
+  // console.log('Arete: ', title);
   const variants = [];
 
   const variationsData = $('form.variations_form').attr('data-product_variations');
@@ -75,13 +75,13 @@ async function getProducts(feedUrl) {
 }
 
 async function getAvailableLeafProducts() {
-  console.log('Getting Arete products');
+  // console.log('Getting Arete products');
   const products = await getProducts(feedUrl);
   return products;
 }
 
 if (require.main === module) {
-  console.log('This script is being executed directly by Node.js');
+  // console.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

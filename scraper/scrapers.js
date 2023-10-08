@@ -29,7 +29,7 @@ async function sendErrorEmail(error) {
       .firestore()
       .collection('mail')
       .add(message);
-    console.log('Email sent successfully');
+    // console.log('Email sent successfully');
   } catch (err) {
     console.error('Error sending email:', err);
   }
@@ -39,7 +39,7 @@ async function run(uuid) {
 
   try {
     const areteProducts = await arete.getAvailableLeafProducts();
-    console.log('artete products', areteProducts.length);
+    // console.log('artete products', areteProducts.length);
     await saveProducts(areteProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -49,7 +49,7 @@ async function run(uuid) {
 
   try {
     const prestonProducts = await preston.getAvailableLeafProducts();
-    console.log('preston products', prestonProducts.length);
+    // console.log('preston products', prestonProducts.length);
     await saveProducts(prestonProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -59,7 +59,7 @@ async function run(uuid) {
 
   try {
     const flowProducts = await flow.getAvailableLeafProducts();
-    console.log('flow products', flowProducts.length);
+    // console.log('flow products', flowProducts.length);
     await saveProducts(flowProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -69,7 +69,7 @@ async function run(uuid) {
 
   try {
     const wncProducts = await wnc.getAvailableLeafProducts();
-    console.log('wnc products', wncProducts.length);
+    // console.log('wnc products', wncProducts.length);
     await saveProducts(wncProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -79,7 +79,7 @@ async function run(uuid) {
 
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts();
-    console.log('enlighten products', enlightenProducts.length);
+    // console.log('enlighten products', enlightenProducts.length);
     await saveProducts(enlightenProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -89,7 +89,7 @@ async function run(uuid) {
 
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts();
-    console.log('top cola products', topcolaProducts.length);
+    // console.log('top cola products', topcolaProducts.length);
     await saveProducts(topcolaProducts, uuid);
   } catch (error) {
     console.error(error);
@@ -97,7 +97,7 @@ async function run(uuid) {
     logErrorToFile(error);
 
   }
-  console.log(`Data has been written to Firebase for all vendors.`);
+  // console.log(`Data has been written to Firebase for all vendors.`);
 }
 
 module.exports = {

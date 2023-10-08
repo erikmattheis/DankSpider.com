@@ -8,20 +8,26 @@ const admin = require('firebase-admin');
 
 const { recognize } = require('./ocr.js');
 
-const { getProductsByVendor, getProductsWithAssay2, getProductsWithoutAssay2, saveProducts } = require('../firebase.js');
+const { getProductsByVendor, getProductsWithAssay2, saveProducts } = require('../firebase.js');
+const { AxiosHeaders } = require('axios');
+const { log } = require('console');
 
 async function run() {
-  const products = await getProductsByVendor('WNC', 3);
+  const products = await getProductsByVendor('WNC', 7);
 
-  console.log('products.length', products.length);
+  // console.log('products.length', products.length);
 
   const withImages = [];
 
   for (const product of products) {
 
+    if (product.title.includes('Pineapple')) {
+      // continue
+    }
+
     const images = await getProductImages(product.url);
 
-    console.log('found images', images.length);
+    // console.log('found images', images.length);
 
     if (images.length) {
       withImages.push({ ...product, images });
@@ -33,14 +39,13 @@ async function run() {
   for (const product of withImages) {
     const images = [...product.images];
     product.images.forEach((image, i) => {
-      if (image.toLowerCase().includes('terpe') || image.toLowerCase().includes('poten')) {
+      if (image.toLowerCase().includes('terp') || image.toLowerCase().includes('poten')) {
         const member = images.splice(i, 1)[0];
-        console.log('moving to front:', member)
         images.unshift(member);
       }
     });
 
-    console.log('best images.length', images.length);
+    // console.log('best images.length', images.length);
 
     bestImages.push({ ...product, images });
   }
@@ -55,19 +60,34 @@ async function run() {
 
       const assay = await recognize(image);
 
-      if (assay === 'STOP') {
-        break;
+      if (!assay) {
+        console, log('image rejected', image);
       }
 
-      else if (assay) {
+      // console.log('------------------------');
+      // console.log(assay);
+
+      if (assay === 'STOP') {
+        // console.log('wont finbe finding more assays')
+        break;
+      }
+      if (assay?.terpenes?.length) {
+        console.log('terpenes has length')
         assays.push({
           image: image,
-          assay,
+          terpenes: assay.terpenes,
+        });
+      }
+      else if (assay?.cannabinoids?.length) {
+        console.log('cannabinoids has length')
+        assays.push({
+          image: image,
+          cannabinoids: assay.cannabinoids,
         });
       }
 
       if (assays.length === 2) {
-        console.log('found terpenes and cannabinoids');
+        // console.log('found terpenes and cannabinoids');
         break;
       }
 
@@ -75,7 +95,6 @@ async function run() {
 
     if (assays.length) {
       withOCRedImages.push({ ...product, assays: assays });
-      console.log('assays`', assays.length)
     }
 
   }

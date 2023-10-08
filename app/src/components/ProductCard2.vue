@@ -2,12 +2,18 @@
   <div class="product-card shadowy page" ref="image">
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
-    {{ JSON.stringify(product.assays) }}
-    <table v-if="product.images && product.images[0] && product.images[0].terpenes">
-      <tr v-for="terpene in product[1]?.terpenes  ">
-        <td>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</td>
-      </tr>
-    </table>
+
+    <div v-for="substsance in product.assays">
+
+      <ul v-for="cannabinoid in substsance.assay.cannabinoids">
+        <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
+      </ul>
+      <ul v-for="terpene in product.assays.terpenes">
+        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>-->
+
+      </ul>
+
+    </div>
 
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
@@ -223,7 +229,7 @@ ul li {
   padding: 5px 10px;
   border-radius: 20px;
   background-color: #cfcfcf;
-  color: #dfdfdf;
+  color: #333;
 }
 
 ul li::after {

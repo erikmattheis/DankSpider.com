@@ -61,7 +61,7 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');
@@ -86,7 +86,7 @@ async function getAllProducts() {
 
   const endTime = performance.now();
 
-  console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
 }
@@ -140,7 +140,7 @@ async function getProductsByVendor(vendor, limit, useDev) {
     snapshot = await productsRef.where('vendor', '==', vendor).get();
   }
 
-  console.log(`Got ${snapshot.size} products from ${vendor}`)
+  // console.log(`Got ${snapshot.size} products from ${vendor}`)
   const products = [];
 
   snapshot.forEach(doc => {

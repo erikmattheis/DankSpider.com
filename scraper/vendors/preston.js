@@ -19,7 +19,7 @@ function getImageSrc(html) {
 
 async function getPrestonProductInfo(product) {
   try {
-    console.log('Preston: ', product.title);
+    // console.log('Preston: ', product.title);
     const response = await axios.get(product.url);
 
     if (response.status < 400) {
@@ -124,7 +124,7 @@ async function getPrestonProductsInfo(products) {
 
 async function getAvailableLeafProducts() {
 
-  console.log('Getting Preston products');
+  // console.log('Getting Preston products');
 
   const products = await scrapePage(startUrl, currentPage);
 
@@ -135,7 +135,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  console.log('This script is being executed directly by Node.js');
+  // console.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

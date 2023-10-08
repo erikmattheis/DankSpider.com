@@ -215,7 +215,7 @@ ul li {
   padding: 5px 10px;
   border-radius: 20px;
   background-color: #cfcfcf;
-  color: #dfdfdf;
+  color: #333;
 }
 
 ul li::after {

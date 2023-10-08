@@ -1,102 +1,208 @@
-const { createWorker } = require('tesseract.js');
+const axios = require('./rateLimitedAxios.js');
+const spellings = require('spellchecker');
+const fs = require('fs');
+const gm = require('gm').subClass({ imageMagick: true });
+const { createWorker, OEM, PSM } = require('tesseract.js');
 const path = require('path');
-const { normalizeTerpene } = require('./strings.js');
+const { normalizeTerpene, normalizeCannabinoid } = require('./strings.js');
 
-const configWNCTitle = {
-  lang: 'eng',
+const badImages = [];
+
+const configWNCTerpenesTitle = {
   rectangle: { top: 292, left: 70, width: 118, height: 151 },
-  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+}
+
+const configWNCCannabinoidsTitle = {
+  rectangle: { top: 492, left: 71, width: 130, height: 76 },
+  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCTerpenes = {
-  lang: 'eng',
   rectangle: { top: 318, left: 10, width: 507, height: 497 },
-  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
-};
+  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+}
 
 const configWNCCannabinoids = {
-  lang: 'eng',
-  rectangle: { top: 439, left: 75, width: 483, height: 330 },
-  tessedit_char_whitelist: '\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
-};
+  rectangle: { top: 600, left: 80, width: 700, height: 420 },
+  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+}
+
+const jpgNameFromUrl = (url) => {
+  const split = url.split('/');
+  const last = split[split.length - 1];
+  const split2 = last.split('?');
+  return split2[0];
+}
+
+async function gmToBuffer(data) {
+  try {
+    const chunks = [];
+    const stream = data.stream();
+    stream.on('data', (chunk) => { chunks.push(chunk) });
+    return await new Promise((resolve, reject) => {
+      stream.on('end', () => { resolve(Buffer.concat(chunks)) });
+      stream.on('error', (err) => { reject(err) });
+    });
+  } catch (error) {
+    console.error(`Failed to convert image to buffer: ${error}`);
+    return null;
+  }
+}
+
+const getAndProcessJpg = async (url, isDev) => {
+  try {
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    // console.log('getAndProcessJpg', response.data);
+    if (response.status !== 200) {
+      console.log(`Failed to download image 1 server response: ${Object.keys(response.data)}`);
+      return { name: null, data: null };
+    }
+
+    const contentType = response.headers['content-type'];
+    if (contentType !== 'image/jpeg') {
+      console.log(`Invalid content type: ${contentType}`);
+      return { name: null, data: null };
+    }
+
+    const jpgName = jpgNameFromUrl(url);
+    const gmResponse = gm(response.data, jpgName);
+    const jpgBuffer = await gmToBuffer(gmResponse);
+    // console.log(Object.keys(image));
+    return jpgBuffer;
+    /*
+    if (buffer.noProfile) {
+      if (image.length !== response.data.byteLength) {
+        console.log('image length error', image.length, response.data.byteLength, jpgName);
+      } else {
+        // console.log('resolving', buffer);
+        return buffer;
+      }
+    });
+    */
+  }
+  catch (error) {
+    console.log('error', error);
+    console.error(`Failed to process image 2`);
+
+    // console.log('image', image)
+    return null;
+  }
+}
 
 async function recognize(url) {
-
-  const worker = await createWorker();
-
-  console.log('')
-
-  const title = await worker.recognize(url, configWNCTitle);
-  console.log(JSON.stringify(title));
-
-  if (1 === 1 || title.data.text.toLowerCase().includes('bellieveau')) {
-    // reached legal stuff, npthing else will ever follow
-
-    await worker.terminate();
-    return 'STOP';
+  console.log('url', url)
+  if (url.includes('Pineapple') || url.includes('CBD-Diamond') || url.includes('BagsGroupSho')) {
+    console.log('pineapple')
+    //return null;
   }
+  const worker = await createWorker({
+    errorHandler: e => console.log(e),
+  });
 
-  if (title.data.text.toLowerCase().includes('terpenes')) {
-    console.log('TERPENES');
-    const result = await worker.recognize(url, configWNCTerpenes);
+  await worker.loadLanguage('eng');
+  await worker.loadLanguage('grc');
+  await worker.initialize('eng+grc');
+  await worker.setParameters({
+    tessedit_pageseg_mode: 4,
+    tessedit_rejection_debug: 1,
+  });
 
-    const textArray = result.data.text.split('\n');
+  const isDev = process.env.NODE_ENV !== 'production';
+
+  try {
+    const jpgBuffer = await getAndProcessJpg(url, isDev);
+    if (!jpgBuffer) {
+      console.log('skipping', jpgBuffer, url);
+      badImages.push(url);
+      await worker.terminate();
+      return null;
+    }
+
+    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
 
     const terpenes = [];
 
-    for (const text of textArray) {
+    const cannabinoids = [];
 
-      let split = [];
-      let name = '';
+    let text = title.data.text;
 
-      if (text.includes('07503000')) {
+    if (text.toLowerCase().includes('terpenes')) {
 
-        split = text.split('07503000');
+      // console.log('----- terpenes -----');
 
-        split = split.map(member => member.trim());
+      const result = await worker.recognize(jpgBuffer, configWNCTerpenes);
 
-        const name = normalizeName(split[0]);
+      text = result.data.text;
 
-        if (parseInt(split[1])) {
-          terpenes.push({ name, pct: parseInt(split[1]) });
+      const textArray = text.split('\n');
+
+      // console.log('textArray', textArray.length)
+
+      for (const text of textArray) {
+
+        let split = [];
+
+        let name = '';
+
+        if (text.includes('0750 3000')) {
+
+          split = text.split('0750 3000');
+
+          split = split.map(member => member.trim());
+
+          const name = normalizeTerpene(split[0]);
+
+          if (parseInt(split[1])) {
+            terpenes.push({ name, pct: parseInt(split[1]) });
+          }
         }
       }
+      await worker.terminate();
+      return {
+        terpenes
+      }
     }
-    await worker.terminate();
-    return {
-      terpenes
-    }
-  }
 
-  const cannabinoids = [];
-  if (title.data.text.toLowerCase().includes('thc')) {
-    console.log('THC');
-    const result = await worker.recognize(url, configWNCCannabinoids);
+    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
 
-    const textArray = result.data.text.split('\n');
+    if (title.data.text.toLowerCase().includes('cannabinoids')) {
 
-    for (const text of textArray) {
+      // console.log('----- cannabinoids -----');
 
-      let split = [];
-      let name = '';
+      const file = await getAndProcessJpg(url, true);
 
-      if (!text.includes('bbbbbx087xbb')) {
+      // console.log('file', file)
 
-        split = text.split('07503000');
+      const result = await worker.recognize(file);
+      // console.log(result.data.text)
+      const textArray = result.data.text.split('\n');
 
-        split = split.map(member => member.trim());
+      for (const text of textArray) {
 
-        //const name = normalizeName(split[0]);
         cannabinoids.push({
-          name: text, pct: parseInt(split[1])
+          name: text, pct: parseInt(text)
         });
 
       }
+
+      await worker.terminate();
+      return {
+        cannabinoids
+      }
     }
+    /*
+      if (title.data.text.toLowerCase().includes('bellieveau')) {
+        // reached legal stuff, npthing else will ever follow
+
+        await worker.terminate();
+        return 'STOP';
+      }
+    */
     await worker.terminate();
-    return {
-      cannabinoids
-    }
+  } catch (error) {
+    console.error(`Failed to recognize image: ${error} `);
+    return null;
   }
 }
 

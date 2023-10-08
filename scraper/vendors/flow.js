@@ -19,7 +19,7 @@ async function getProducts() {
       const image$ = cheerio.load($(entry).html());
       const title = strings.normalizeProductTitle($(entry).children('title').first().text());
 
-      console.log('Flow: ', title);
+      // console.log('Flow: ', title);
       const product = {
         title: title,
         url: $(entry).children('link').first().attr('href'),
@@ -79,14 +79,14 @@ async function addDetails(products) {
 }
 
 async function getAvailableLeafProducts() {
-  console.log('Getting Flow products');
+  // console.log('Getting Flow products');
   const products = await getProducts();
   const result = await addDetails(products);
   return result;
 }
 
 if (require.main === module) {
-  console.log('This script is being executed directly by Node.js');
+  // console.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

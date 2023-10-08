@@ -11,7 +11,7 @@ let currentPage = 1;
 
 async function getAvailableLeafProducts() {
 
-  console.log('Getting Top Cola products');
+  // console.log('Getting Top Cola products');
   try {
     const response = await axios.get(atomFeedUrl);
     const xmlData = response.data;
@@ -36,7 +36,7 @@ async function getAvailableLeafProducts() {
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
 
-          console.log('Top Cola: ', productTitle);
+          // console.log('Top Cola: ', productTitle);
 
           const productUrl = entry.link?.$?.href || '';
 
@@ -68,7 +68,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  console.log('This script is being executed directly by Node.js');
+  // console.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 
