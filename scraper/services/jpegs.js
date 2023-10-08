@@ -13,7 +13,7 @@ const { AxiosHeaders } = require('axios');
 const { log } = require('console');
 
 async function run() {
-  const products = await getProductsByVendor('WNC', 7);
+  const products = await getProductsByVendor('WNC', 2);
 
   // console.log('products.length', products.length);
 

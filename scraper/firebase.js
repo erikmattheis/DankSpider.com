@@ -30,6 +30,41 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
+async function getUniqueCannabinoids() {
+  const productsRef = db.collection('productsWithAssay2');
+  const snapshot = await productsRef.get();
+
+  const cannabinoids = new Set();
+  const terpenes = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (!product.assays) {
+      return;
+    }
+    for (const assay of product?.assays) {
+
+      if (assay.cannabinoids) {
+        assay.cannabinoids.forEach(line => cannabinoids?.add(line.name));
+      }
+      else if (assay.terpenes) {
+        assay.terpenes.forEach(line => terpenes?.add(line.name));
+      }
+      const c = Array.from(cannabinoids);
+      const t = Array.from(terpenes);
+      console.log(c);
+      return { c, t }
+    }
+
+  });
+}
+
+(async () => {
+  const result = await getUniqueCannabinoids();
+  console.log(JSON.stringify(result, null, 2));
+}
+)();
+
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
