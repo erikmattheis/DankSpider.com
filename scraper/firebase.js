@@ -32,7 +32,11 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
+
+
 async function getUniqueCannabinoids() {
+
+  console.log('getUniqueCannabinoids');
   const productsRef = db.collection('productsWithAssay2');
   const snapshot = await productsRef.get();
 
@@ -52,21 +56,23 @@ async function getUniqueCannabinoids() {
       else if (assay.terpenes) {
         assay.terpenes.forEach(line => terpenes?.add(line.name));
       }
-      const c = Array.from(cannabinoids);
-      const t = Array.from(terpenes);
-      console.log(c);
-      return { c, t }
+
     }
 
   });
+  const c = Array.from(cannabinoids);
+  const t = Array.from(terpenes);
+  console.log('c', c.length);
+  console.log('t', t.length);
+  return { cannabinoids: c, terpenes: t }
 }
-/*
+
 (async () => {
   const result = await getUniqueCannabinoids();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-*/
+
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;

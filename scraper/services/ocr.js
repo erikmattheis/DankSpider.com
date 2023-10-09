@@ -40,6 +40,7 @@ async function gmToBuffer(data) {
     const chunks = [];
     const stream = data.stream();
     stream.on('data', (chunk) => { chunks.push(chunk) });
+
     return await new Promise((resolve, reject) => {
       stream.on('end', () => { resolve(Buffer.concat(chunks)) });
       stream.on('error', (err) => { reject(err) });
@@ -53,9 +54,9 @@ async function gmToBuffer(data) {
 const getAndProcessJpg = async (url, isDev) => {
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
-    console.log('getAndProcessJpg', response.data);
+
     if (response.status !== 200) {
-      console.log(`Failed to download image 1 server response: ${Object.keys(response.data)}`);
+      console.log(`Failed to download image 1`);
       return { name: null, data: null };
     }
 
@@ -67,11 +68,12 @@ const getAndProcessJpg = async (url, isDev) => {
 
     const jpgName = jpgNameFromUrl(url);
     console.log('jpgName', jpgName);
-    const gmResponse = gm(response.data, jpgName).density(300, 300).quality(100).setFormat('jpg');
+    const gmResponse = await gm(response.data, jpgName).density(300, 300).quality(100).setFormat('jpg');
 
-    console.log('gmResponse', Object.keys(gmResponse));
+    //sconsole.log('gmResponse', Object.keys(gmResponse));
     const jpgBuffer = await gmToBuffer(gmResponse);
     console.log('buffer length', jpgBuffer?.length);
+    //return response.data;
     return jpgBuffer;
     /*
     if (buffer.noProfile) {
@@ -92,7 +94,7 @@ const getAndProcessJpg = async (url, isDev) => {
     return null;
   }
 }
-let first = 0;
+
 async function recognize(url) {
 
   console.log('url', url)
@@ -101,17 +103,17 @@ async function recognize(url) {
     return null;
   }
 
-
-  first = first + 1;
-  if (first > 2) {
-    console.log('skipping', first, url);
-    return null;
-  }
-
   const worker = await createWorker("eng", 1, {
-    errorHandler: m => console.log(m)
+    preserve_interword_spaces: 1,
+    user_patterns_file: 'eng.user-patterns',
   });
+  await worker.loadLanguage('eng');
 
+  await worker.initialize();
+  await worker.setParameters({
+    tessedit_pageseg_mode: 4,
+    tessedit_rejection_debug: 1,
+  });
 
   const isDev = process.env.NODE_ENV !== 'production';
   console.log('recognizing', url)
@@ -119,16 +121,16 @@ async function recognize(url) {
   try {
     const jpgBuffer = await getAndProcessJpg(url, isDev);
     if (!jpgBuffer) {
-      console.log('skipping', jpgBuffer, url);
+      console.log('skipping', url);
       badImages.push(url);
       await worker.terminate();
       return null;
     }
-
+    fs.writeFileSync('image.jpg', jpgBuffer);
     const base64Data = jpgBuffer.toString('base64');
     const decodedBuffer = Buffer.from(base64Data, 'base64');
-    let title = await worker.recognize(decodedBuffer, configWNCTerpenesTitle);
-    console.log('title', title.data.text)
+    let title = await worker.recognize('image.jpg', configWNCTerpenesTitle);
+    // console.log('title', title.data.text)
     const terpenes = [];
 
     const cannabinoids = [];

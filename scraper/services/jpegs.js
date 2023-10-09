@@ -14,7 +14,7 @@ const { log } = require('console');
 
 async function run() {
 
-  const products = await getProductsByVendor('WNC', 4);
+  const products = await getProductsByVendor('WNC', 9);
 
   // console.log('products.length', products.length);
 
@@ -38,15 +38,14 @@ async function run() {
   const bestImages = [];
 
   for (const product of withImages) {
-    const images = [...product.images];
+    const images = [];
     product.images.forEach((image, i) => {
-      if (image.toLowerCase().includes('terp') || image.toLowerCase().includes('poten')) {
-        const member = images.splice(i, 1)[0];
-        images.unshift(member);
+      if (image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency')) {
+        images.push(image);
       }
     });
 
-    // console.log('best images.length', images.length);
+    console.log('best images.length', images.length);
 
     bestImages.push({ ...product, images });
   }
@@ -58,11 +57,11 @@ async function run() {
     const assays = [];
 
     for (const image of product.images) {
-
+      console.log('IMAGE')
       const assay = await recognize(image);
 
       if (!assay) {
-        console, log('image rejected', image);
+        console.log('image rejected', image);
       }
       console.log('GOT ASSAY')
       // console.log('------------------------');
