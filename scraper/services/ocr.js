@@ -10,7 +10,7 @@ const badImages = [];
 
 const configWNCTerpenesTitle = {
   rectangle: { top: 292, left: 70, width: 118, height: 151 },
-  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCCannabinoidsTitle = {
@@ -53,7 +53,7 @@ async function gmToBuffer(data) {
 const getAndProcessJpg = async (url, isDev) => {
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
-    // console.log('getAndProcessJpg', response.data);
+    console.log('getAndProcessJpg', response.data);
     if (response.status !== 200) {
       console.log(`Failed to download image 1 server response: ${Object.keys(response.data)}`);
       return { name: null, data: null };
@@ -66,9 +66,12 @@ const getAndProcessJpg = async (url, isDev) => {
     }
 
     const jpgName = jpgNameFromUrl(url);
-    const gmResponse = gm(response.data, jpgName);
+    console.log('jpgName', jpgName);
+    const gmResponse = gm(response.data, jpgName).density(300, 300).quality(100).setFormat('jpg');
+
+    console.log('gmResponse', Object.keys(gmResponse));
     const jpgBuffer = await gmToBuffer(gmResponse);
-    // console.log(Object.keys(image));
+    console.log('buffer length', jpgBuffer?.length);
     return jpgBuffer;
     /*
     if (buffer.noProfile) {
@@ -89,26 +92,29 @@ const getAndProcessJpg = async (url, isDev) => {
     return null;
   }
 }
-
+let first = 0;
 async function recognize(url) {
+
   console.log('url', url)
   if (url.includes('Pineapple') || url.includes('CBD-Diamond') || url.includes('BagsGroupSho')) {
     console.log('pineapple')
-    //return null;
+    return null;
   }
-  const worker = await createWorker({
-    errorHandler: e => console.log(e),
+
+
+  first = first + 1;
+  if (first > 2) {
+    console.log('skipping', first, url);
+    return null;
+  }
+
+  const worker = await createWorker("eng", 1, {
+    errorHandler: m => console.log(m)
   });
 
-  await worker.loadLanguage('eng');
-  await worker.loadLanguage('grc');
-  await worker.initialize('eng+grc');
-  await worker.setParameters({
-    tessedit_pageseg_mode: 4,
-    tessedit_rejection_debug: 1,
-  });
 
   const isDev = process.env.NODE_ENV !== 'production';
+  console.log('recognizing', url)
 
   try {
     const jpgBuffer = await getAndProcessJpg(url, isDev);
@@ -119,8 +125,10 @@ async function recognize(url) {
       return null;
     }
 
-    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
-
+    const base64Data = jpgBuffer.toString('base64');
+    const decodedBuffer = Buffer.from(base64Data, 'base64');
+    let title = await worker.recognize(decodedBuffer, configWNCTerpenesTitle);
+    console.log('title', title.data.text)
     const terpenes = [];
 
     const cannabinoids = [];
@@ -174,7 +182,7 @@ async function recognize(url) {
 
       // console.log('file', file)
 
-      const result = await worker.recognize(file);
+      const result = await worker.recognize(file, configWNCCannabinoids);
       // console.log(result.data.text)
       const textArray = result.data.text.split('\n');
 

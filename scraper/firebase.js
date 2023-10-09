@@ -5,6 +5,8 @@ const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/
 
 const serviceAccount = require('../serviceAccountKey.json');
 
+const { makeFirebaseSafeId } = require('./services/strings.js');
+
 if (!getApps().length) {
   initializeApp({
     credential: cert(serviceAccount),
@@ -58,13 +60,13 @@ async function getUniqueCannabinoids() {
 
   });
 }
-
+/*
 (async () => {
   const result = await getUniqueCannabinoids();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-
+*/
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -76,9 +78,11 @@ async function saveProducts(products, batchId, useDev) {
   }
 
   const timestamp = admin.firestore.Timestamp.now();
+  const idPrefix = batchId || timestamp.toDate().toISOString();
 
-  products.forEach(product => {
-    const docRef = productsRef.doc();
+  for (product of products) {
+    const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
+    const docRef = productsRef.doc(id);
     if (batchId) {
       batch.set(docRef, {
         ...product,
@@ -92,7 +96,7 @@ async function saveProducts(products, batchId, useDev) {
         timestamp,
       });
     }
-  });
+  };
 
   await batch.commit();
 

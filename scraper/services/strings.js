@@ -1,8 +1,10 @@
 function normalizeProductTitle(title) {
-  replaceString = title;
+  let replaceString = title;
   const find = ["Hemp Flower", "(Indoor)", "(Greenhouse)", "High THCa", "THCa", "Hydro", "Indoor", "Living Soil", "Hemp", "  "];
   for (var i = 0; i < find.length; i++) {
     replaceString = replaceString.replace(find[i], " ");
+    replaceString = replaceString.replace(/\s+/g, " ");
+    replaceString = replaceString.trim();
   }
   return replaceString;
 }
@@ -62,6 +64,7 @@ function normalizeVariantTitle(title) {
   title = title?.replace(' (1 oz)', '');
   title = title?.replace('(small/minis)', 'smalls/minis');
   title = title?.trim().replace(/\s+/g, ' ');
+
   return title;
 }
 
@@ -103,10 +106,29 @@ function printPathToKey(obj, keyString, path = []) {
   }
 }
 
+async function collectionIdExists(id, collectionRef) {
+  const snapshot = await collectionRef.where('id', '==', id).get();
+  return !snapshot.empty;
+}
+
+async function makeFirebaseSafeId(prefix, product, collectionRef) {
+
+  let n = 0;
+  let id = '';
+  let idExists = true;
+  while (idExists) {
+    id = `${prefix}-${product.title}-${product.vendor}-${n}`;
+    idExists = await collectionIdExists(id, collectionRef);
+    n = n + 1;
+  }
+  return id.replace(/[^\w-]+/g, '_');
+}
+
 module.exports = {
   normalizeTerpene,
   normalizeProductTitle,
   normalizeVariantTitle,
   variantNameContainsWeightUnitString,
-  printPathToKey
+  printPathToKey,
+  makeFirebaseSafeId
 }

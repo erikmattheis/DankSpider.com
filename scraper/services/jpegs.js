@@ -13,7 +13,8 @@ const { AxiosHeaders } = require('axios');
 const { log } = require('console');
 
 async function run() {
-  const products = await getProductsByVendor('WNC', 2);
+
+  const products = await getProductsByVendor('WNC', 4);
 
   // console.log('products.length', products.length);
 
@@ -22,12 +23,12 @@ async function run() {
   for (const product of products) {
 
     if (product.title.includes('Pineapple')) {
-      // continue
+      continue
     }
 
     const images = await getProductImages(product.url);
 
-    // console.log('found images', images.length);
+    console.log('found images', images.length);
 
     if (images.length) {
       withImages.push({ ...product, images });
@@ -63,7 +64,7 @@ async function run() {
       if (!assay) {
         console, log('image rejected', image);
       }
-
+      console.log('GOT ASSAY')
       // console.log('------------------------');
       // console.log(assay);
 
@@ -93,13 +94,15 @@ async function run() {
 
     }
 
+    await saveProducts([{ ...product, assays: assays }], 'terpenes-0', true);
+
     if (assays.length) {
       withOCRedImages.push({ ...product, assays: assays });
     }
 
   }
-  console.log(`Saving ${withOCRedImages.length} products to Firebase`);
-  await saveProducts(withOCRedImages, 'terpenes', true);
+  console.log(`Saved ${withOCRedImages.length} products to Firebase`);
+
 }
 
 run();
