@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getProductsWithAssay2, getAllProducts, getProductsByVendor } = require('./firebase.js');
+const { getProductsWithAssay2, getAllProducts, getProductsByVendor, deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
@@ -8,7 +8,7 @@ async function makeProductsFile(vendor, limit) {
 
   let products;
 
-  if (0 === 0) {
+  if (0 === 1) {
     const useDevCollection = true;
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
@@ -23,7 +23,9 @@ async function makeProductsFile(vendor, limit) {
 }
 
 async function init() {
-  await makeProductsFile('WNC', 30, true);
+  const uuid = uuidv4();
+  await scrapers.run(uuid);
+  await makeProductsFile();
 }
 
 init();
@@ -34,10 +36,10 @@ async function run() {
   await scrapers.run(uuid);
   const endTime = performance.now();
 
-  // console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+  console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
-  makeProductsFile();
-
+  await deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors();
+  await makeProductsFile();
 
 }
 

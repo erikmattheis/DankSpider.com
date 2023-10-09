@@ -34,9 +34,9 @@ async function getUniqueTerpenes() {
 
 
 
-async function getUniqueCannabinoids() {
+async function getUniqueChemicals() {
 
-  console.log('getUniqueCannabinoids');
+  console.log('getUniqueChemicals');
   const productsRef = db.collection('productsWithAssay2');
   const snapshot = await productsRef.get();
 
@@ -66,13 +66,13 @@ async function getUniqueCannabinoids() {
   console.log('t', t.length);
   return { cannabinoids: c, terpenes: t }
 }
-
+/*
 (async () => {
-  const result = await getUniqueCannabinoids();
+  const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-
+*/
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -168,6 +168,13 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
   await Promise.all(products);
 }
 
+/*
+(async () => {
+  await deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors();
+  console.log('deleted any duplicate');
+})();
+*/
+
 async function getProductsByVendor(vendor, limit, useDev) {
   let productRef;
   if (useDev) {
@@ -201,5 +208,7 @@ module.exports = {
   saveProducts,
   getAllProducts,
   getProductsByTitle,
-  getProductsByVendor
+  getProductsByVendor,
+  deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors
+
 };

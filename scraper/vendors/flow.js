@@ -18,7 +18,9 @@ async function getProducts() {
     if (productType === 'Flower') {
       const image$ = cheerio.load($(entry).html());
       const title = strings.normalizeProductTitle($(entry).children('title').first().text());
-
+      if (title.toLowerCase().includes('sugar leaf')) {
+        return;
+      }
       // console.log('Flow: ', title);
       const product = {
         title: title,
