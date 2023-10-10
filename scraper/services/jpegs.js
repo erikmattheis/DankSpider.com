@@ -11,20 +11,17 @@ const { recognize } = require('./ocr.js');
 const { getProductsByVendor, getProductsWithAssay2, saveProducts } = require('../firebase.js');
 const { AxiosHeaders } = require('axios');
 const { log } = require('console');
+const { deleteApp } = require('firebase-admin/app');
 
 async function run() {
 
-  const products = await getProductsByVendor('WNC', 9);
+  const products = await getProductsByVendor('WNC', 8);
 
   // console.log('products.length', products.length);
 
   const withImages = [];
 
   for (const product of products) {
-
-    if (product.title.includes('Pineapple')) {
-      continue
-    }
 
     const images = await getProductImages(product.url);
 
@@ -52,6 +49,8 @@ async function run() {
 
   const withOCRedImages = [];
 
+  deleteAllDocumentsInCollection('productsWithAssay2');
+
   for (const product of bestImages) {
 
     const assays = [];
@@ -64,9 +63,7 @@ async function run() {
         console.log('image rejected', image);
       }
       console.log('GOT ASSAY')
-      // console.log('------------------------');
-      // console.log(assay);
-
+      console.log('assay', assay)
       if (assay === 'STOP') {
         // console.log('wont finbe finding more assays')
         break;
@@ -90,19 +87,29 @@ async function run() {
         // console.log('found terpenes and cannabinoids');
         break;
       }
-
     }
-
-    await saveProducts([{ ...product, assays: assays }], 'terpenes-0', true);
-
     if (assays.length) {
+
       withOCRedImages.push({ ...product, assays: assays });
+      await saveProducts([{ ...product, assays: assays }], 'chem01', true);
+
     }
+
+    console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
   }
-  console.log(`Saved ${withOCRedImages.length} products to Firebase`);
-
 }
+
+async function deleteAllDocumentsInCollection(collectionPath) {
+  const snapshot = await admin.firestore().collection(collectionPath).get();
+  const batch = admin.firestore().batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+}
+
+
 
 run();
 
@@ -124,5 +131,5 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
-  run,
+  run
 }

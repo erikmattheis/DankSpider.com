@@ -9,23 +9,34 @@ const { normalizeTerpene, normalizeCannabinoid } = require('./strings.js');
 const badImages = [];
 
 const configWNCTerpenesTitle = {
-  rectangle: { top: 292, left: 70, width: 118, height: 151 },
+  rectangle: { top: 1397, left: 292, width: 365, height: 119 },
   // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCCannabinoidsTitle = {
-  rectangle: { top: 492, left: 71, width: 130, height: 76 },
-  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  rectangle: { top: 2100, left: 301, width: 485, height: 94 },
+  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
+/*
+'ambigs_debug_level'
+'user_words_suffix'
+'user_patterns_suffix'
+'user_patterns_suffix',
+'load_system_dawg',
+ 'load_freq_dawg',
+ 'load_unambig_dawg','load_punc_dawg', 'load_number_dawg', 'load_bigram_dawg',
+'tessedit_ocr_engine_mode', 'tessedit_init_config_only', 'language_model_ngram_on', 'language_model_use_sigmoidal_certainty'];
+*/
+
 const configWNCTerpenes = {
-  rectangle: { top: 318, left: 10, width: 507, height: 497 },
-  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  rectangle: { top: 1768, left: 341, width: 1939, height: 1273 },
+  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 600, left: 80, width: 700, height: 420 },
-  tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  rectangle: { top: 2506, left: 571, width: 2470, height: 1503 },
+  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const jpgNameFromUrl = (url) => {
@@ -68,7 +79,7 @@ const getAndProcessJpg = async (url, isDev) => {
 
     const jpgName = jpgNameFromUrl(url);
     console.log('jpgName', jpgName);
-    const gmResponse = await gm(response.data, jpgName).density(300, 300).quality(100).setFormat('jpg');
+    const gmResponse = await gm(response.data, jpgName).resize(4000); //quality(100).setFormat('jpg')
 
     //sconsole.log('gmResponse', Object.keys(gmResponse));
     const jpgBuffer = await gmToBuffer(gmResponse);
@@ -98,18 +109,24 @@ const getAndProcessJpg = async (url, isDev) => {
 async function recognize(url) {
 
   console.log('url', url)
-  if (url.includes('Pineapple') || url.includes('CBD-Diamond') || url.includes('BagsGroupSho')) {
+  if (url.includes('Pineapple') ||
+    url.includes('CBD-Diamond') ||
+    url.includes('BagsGroupSho')) {
     console.log('pineapple')
     return null;
   }
 
   const worker = await createWorker("eng", 1, {
-    preserve_interword_spaces: 1,
-    user_patterns_file: 'eng.user-patterns',
+    user_patterns_file: './tessdata/eng.user-patterns',
+    tessdata: './tessdata',
+    userPatterns: './tessdata/eng.user-patterns',
+    tessedit_write_images: true,
   });
+
   await worker.loadLanguage('eng');
 
   await worker.initialize();
+
   await worker.setParameters({
     tessedit_pageseg_mode: 4,
     tessedit_rejection_debug: 1,
@@ -130,7 +147,7 @@ async function recognize(url) {
     const base64Data = jpgBuffer.toString('base64');
     const decodedBuffer = Buffer.from(base64Data, 'base64');
     let title = await worker.recognize('image.jpg', configWNCTerpenesTitle);
-    // console.log('title', title.data.text)
+    console.log('title', title.data.text)
     const terpenes = [];
 
     const cannabinoids = [];
@@ -139,7 +156,7 @@ async function recognize(url) {
 
     if (text.toLowerCase().includes('terpenes')) {
 
-      // console.log('----- terpenes -----');
+      console.log('----- terpenes -----');
 
       const result = await worker.recognize(jpgBuffer, configWNCTerpenes);
 
@@ -153,46 +170,70 @@ async function recognize(url) {
 
         let split = [];
 
-        let name = '';
+        if (text.includes('0.750 3.000')) {
 
-        if (text.includes('0750 3000')) {
+          split = text.split('0.750 3.000');
 
-          split = text.split('0750 3000');
+        }
 
-          split = split.map(member => member.trim());
+        else if (text.includes('3.000 3.000')) {
 
-          const name = normalizeTerpene(split[0]);
+          split = text.split('3.000 3.000');
 
-          if (parseInt(split[1])) {
-            terpenes.push({ name, pct: parseInt(split[1]) });
-          }
+        }
+
+        split = split.map(member => member.trim());
+
+        const name = normalizeTerpene(split[0]);
+
+        if (parseInt(split[1])) {
+          terpenes.push({ name, pct: parseInt(split[1]) });
         }
       }
+
       await worker.terminate();
       return {
         terpenes
       }
     }
 
-    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
 
+
+    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
+    console.log('title', title.data.text)
     if (title.data.text.toLowerCase().includes('cannabinoids')) {
 
-      // console.log('----- cannabinoids -----');
+      console.log('----- cannabinoids -----');
 
       const file = await getAndProcessJpg(url, true);
 
       // console.log('file', file)
 
       const result = await worker.recognize(file, configWNCCannabinoids);
-      // console.log(result.data.text)
+      // console.log(result.data.text
       const textArray = result.data.text.split('\n');
 
       for (const text of textArray) {
-
+        const split = text.split(' ');
         cannabinoids.push({
-          name: text, pct: parseInt(text)
+          name: split[0], pct: parseInt(split[3])
         });
+
+        const textArray = result.data.text.split('\n');
+
+        const chemicalNameRegex = /*\s?\d*/g; // Regular expression to match chemical names
+
+        for (const text of textArray) {
+          const matches = text.match(chemicalNameRegex);
+          if (matches) {
+            for (const match of matches) {
+              const name = match.trim();
+              if (name.length > 0) {
+                cannabinoids.push({ name });
+              }
+            }
+          }
+        }
 
       }
 

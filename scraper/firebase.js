@@ -2,10 +2,9 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-
-const serviceAccount = require('../serviceAccountKey.json');
-
 const { makeFirebaseSafeId } = require('./services/strings.js');
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!getApps().length) {
   initializeApp({
@@ -66,13 +65,13 @@ async function getUniqueChemicals() {
   console.log('t', t.length);
   return { cannabinoids: c, terpenes: t }
 }
-/*
+
 (async () => {
   const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-*/
+
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -82,6 +81,8 @@ async function saveProducts(products, batchId, useDev) {
   else {
     productsRef = db.collection('products');
   }
+
+  const archiveRef = db.collection('productsArchive');
 
   const timestamp = admin.firestore.Timestamp.now();
   const idPrefix = batchId || timestamp.toDate().toISOString();
@@ -131,7 +132,7 @@ async function getAllProducts() {
 
   const endTime = performance.now();
 
-  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+  console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
 }
@@ -150,8 +151,9 @@ async function getProductsByTitle(substring) {
   return products;
 }
 
-async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
+async function cleanProductsCollections() {
   const productsRef = db.collection('products');
+
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
   const products = [];
@@ -160,6 +162,8 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
   snapshot.forEach(doc => {
     const product = doc.data();
     if (uniqueTitles.has(product.title)) {
+      const archiveDoc = archiveRef.doc(doc.id);
+      products.push(archiveDoc.set(product));
       products.push(doc.ref.delete());
     }
     uniqueTitles.add(product.title);
@@ -167,10 +171,9 @@ async function deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors() {
 
   await Promise.all(products);
 }
-
 /*
 (async () => {
-  await deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors();
+  await cleanProductsCollections();
   console.log('deleted any duplicate');
 })();
 */
@@ -204,11 +207,52 @@ async function getProductsByVendor(vendor, limit, useDev) {
 
 }
 
+async function getNextBatchNumber() {
+  const batchesRef = db.collection('batches');
+  const batchesSnapshot = await batchesRef.orderBy('batchNumber', 'desc').limit(1).get();
+  let nextBatchNumber = 1;
+  if (!batchesSnapshot.empty) {
+    const lastBatch = batchesSnapshot.docs[0].data();
+    nextBatchNumber = lastBatch.batchNumber + 1;
+  }
+
+  return nextBatchNumber;
+}
+
+async function newBatch() {
+
+  const batchRef = batchesRef.doc();
+  const batchNumber = getNextBatchNumber();
+
+  const startTime = new Date();
+  const endTime = new Date();
+  const duration = endTime - startTime;
+  const numDocuments = products.length;
+  saveBatchRecord(batchNumber, startTime, endTime, duration, numDocuments);
+}
+
+async function saveBatchRecord(batchNumber, startTime, endTime, duration, numDocuments) {
+  const batchRef = db.collection('batches').doc();
+  const batchData = {
+    batchNumber,
+    startTime,
+    endTime,
+    duration,
+    numDocuments,
+  };
+
+  await batchRef.set(batchData);
+}
+
+
 module.exports = {
   saveProducts,
   getAllProducts,
   getProductsByTitle,
   getProductsByVendor,
-  deleteAllButMostRecentDocumentsWithMatchingTitlesAndVendors
+  cleanProductsCollections,
+  getNextBatchNumber,
+  saveBatchRecord,
+  getUniqueChemicals
 
 };
