@@ -4,6 +4,9 @@ const { getApps, initializeApp, applicationDefault, cert } = require('firebase-a
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const { makeFirebaseSafeId } = require('./services/strings.js');
 
+const dotEnv = require('dotenv');
+dotEnv.config();
+
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!getApps().length) {
@@ -31,8 +34,17 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
-
-
+function makeCannabinoidObj(str) {
+  const firstWord = line.split(' ')[0];
+  const secondWord = line.split(' ')[1]
+  if (secondWord === 'Acid') {
+    spellings.add(`${firstWord} Acid`);
+  } else {
+    spellings.add(firstWord);
+  }
+  const pct = lastPart === 'ND' ? 0 : parseFloat(lastPart);
+  return { name, pct };
+}
 async function getUniqueChemicals() {
 
   console.log('getUniqueChemicals');
@@ -65,13 +77,13 @@ async function getUniqueChemicals() {
   console.log('t', t.length);
   return { cannabinoids: c, terpenes: t }
 }
-
+/*
 (async () => {
   const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-
+*/
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -153,6 +165,7 @@ async function getProductsByTitle(substring) {
 
 async function cleanProductsCollections() {
   const productsRef = db.collection('products');
+  const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
@@ -171,12 +184,14 @@ async function cleanProductsCollections() {
 
   await Promise.all(products);
 }
-/*
-(async () => {
-  await cleanProductsCollections();
-  console.log('deleted any duplicate');
-})();
-*/
+
+if (require.main === module) {
+  // console.log('This script is being executed directly by Node.js');
+  (async () => {
+    await cleanProductsCollections();
+    console.log('deleted any duplicate');
+  })();
+}
 
 async function getProductsByVendor(vendor, limit, useDev) {
   let productRef;

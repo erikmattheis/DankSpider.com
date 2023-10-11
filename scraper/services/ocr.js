@@ -3,19 +3,20 @@ const spellings = require('spellchecker');
 const fs = require('fs');
 const gm = require('gm').subClass({ imageMagick: true });
 const { createWorker, OEM, PSM } = require('tesseract.js');
+
+// reinitialize = function(langs = 'eng', oem, config, jobId)
+// load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res)
 const path = require('path');
-const { normalizeTerpene, normalizeCannabinoid } = require('./strings.js');
+const { normalizeTerpene, normalizeCannabinoid, lineToOutput } = require('./strings.js');
 
 const badImages = [];
 
 const configWNCTerpenesTitle = {
   rectangle: { top: 1397, left: 292, width: 365, height: 119 },
-  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCCannabinoidsTitle = {
   rectangle: { top: 2100, left: 301, width: 485, height: 94 },
-  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 /*
@@ -31,12 +32,10 @@ const configWNCCannabinoidsTitle = {
 
 const configWNCTerpenes = {
   rectangle: { top: 1768, left: 341, width: 1939, height: 1273 },
-  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const configWNCCannabinoids = {
   rectangle: { top: 2506, left: 571, width: 2470, height: 1503 },
-  // tessedit_char_whitelist: '\ - ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
 
 const jpgNameFromUrl = (url) => {
@@ -81,21 +80,10 @@ const getAndProcessJpg = async (url, isDev) => {
     console.log('jpgName', jpgName);
     const gmResponse = await gm(response.data, jpgName).resize(4000); //quality(100).setFormat('jpg')
 
-    //sconsole.log('gmResponse', Object.keys(gmResponse));
     const jpgBuffer = await gmToBuffer(gmResponse);
-    console.log('buffer length', jpgBuffer?.length);
-    //return response.data;
+
     return jpgBuffer;
-    /*
-    if (buffer.noProfile) {
-      if (image.length !== response.data.byteLength) {
-        console.log('image length error', image.length, response.data.byteLength, jpgName);
-      } else {
-        // console.log('resolving', buffer);
-        return buffer;
-      }
-    });
-    */
+
   }
   catch (error) {
     console.log('error', error);
@@ -109,27 +97,76 @@ const getAndProcessJpg = async (url, isDev) => {
 async function recognize(url) {
 
   console.log('url', url)
+  /*
   if (url.includes('Pineapple') ||
     url.includes('CBD-Diamond') ||
     url.includes('BagsGroupSho')) {
     console.log('pineapple')
     return null;
   }
-
-  const worker = await createWorker("eng", 1, {
-    user_patterns_file: './tessdata/eng.user-patterns',
-    tessdata: './tessdata',
-    userPatterns: './tessdata/eng.user-patterns',
-    tessedit_write_images: true,
+*/
+  const worker = await createWorker({
+    oem: OEM.DEFAULT,
+    cachePath: path.join(__dirname, '../tessdata'),
+    errorHandler: (err) => { console.error(err); }
   });
 
   await worker.loadLanguage('eng');
 
   await worker.initialize();
 
+  const userPatterns = `
+  Δ-8-Tetrahydrocannabinol (Δ-8 THC)
+  Δ-9-Tetrahydrocannabinol (Δ-9 THC)
+  Δ-9-Tetrahydrocannabinic Acid (Δ-9 THC-A)
+  Δ-9-Tetrahydrocannabiphorol (Δ-9 THCP)
+  Δ-9-Tetrahydrocannabivarin (Δ-9 THCV)
+  Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)
+  R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)
+  S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)
+  9S Hexahydrocannabinol (9R-HHC)
+  9S Hexahydrocannabinol (9S-HHC)
+  Tetrahydrocannabinol Acetate (THCO)
+  Cannabidivarin (CBDV)
+  Cannabidivarintic Acid (CBDVA)
+  Cannabidiol (CBD)
+  Cannabidiolic Acid (CBDA)
+  Cannabigerol (CBG)
+  Cannabigerolic Acid (CBGA)
+  Cannabinol (CBN)
+  Cannabinolic Acid (CBNA)
+  Cannabichrome (CBC)
+  Cannabichromenic Acid (CBCA)
+  Bisabolol
+  Humulene
+  Pinene
+  α-Terpinene
+  Cineole
+  β-Caryophyllene
+  Myrcene
+  Borneol
+  Camphene
+  Carene
+  Caryophyllene
+  Citral
+  Dihydrocarveol
+  Fenchone
+  γ-Terpinene
+  Limonene
+  Linalool
+  Menthol
+  Neroldol
+  Ocimene
+  Pulegone
+  Terpinolene
+`;
+
   await worker.setParameters({
-    tessedit_pageseg_mode: 4,
-    tessedit_rejection_debug: 1,
+    tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
+    tessedit_char_whitelist: '-ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .()',
+    user_patterns_file: path.join(__dirname, '../tessdata/eng.user-patterns'),
+    user_words_file: path.join(__dirname, '../tessdata/eng.user-words'),
+    preserve_interword_spaces: 1,
   });
 
   const isDev = process.env.NODE_ENV !== 'production';
@@ -144,10 +181,11 @@ async function recognize(url) {
       return null;
     }
     fs.writeFileSync('image.jpg', jpgBuffer);
-    const base64Data = jpgBuffer.toString('base64');
-    const decodedBuffer = Buffer.from(base64Data, 'base64');
-    let title = await worker.recognize('image.jpg', configWNCTerpenesTitle);
-    console.log('title', title.data.text)
+    //const base64Data = jpgBuffer.toString('base64');
+    //const decodedBuffer = Buffer.from(base64Data, 'base64');
+    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
+    console.log('title', title.data.text);
+
     const terpenes = [];
 
     const cannabinoids = [];
@@ -158,10 +196,10 @@ async function recognize(url) {
 
       console.log('----- terpenes -----');
 
-      const result = await worker.recognize(jpgBuffer, configWNCTerpenes);
+      const result = await worker.recognize('image.jpg', configWNCTerpenes);
 
       text = result.data.text;
-
+      console.log('text', text);
       const textArray = text.split('\n');
 
       // console.log('textArray', textArray.length)
@@ -192,52 +230,33 @@ async function recognize(url) {
       }
 
       await worker.terminate();
+
       return {
         terpenes
       }
     }
 
-
-
-    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
+    title = await worker.recognize('image.jpg', configWNCCannabinoidsTitle);
     console.log('title', title.data.text)
+
     if (title.data.text.toLowerCase().includes('cannabinoids')) {
 
       console.log('----- cannabinoids -----');
 
-      const file = await getAndProcessJpg(url, true);
+      const result = await worker.recognize('image.jpg', configWNCCannabinoids);
 
-      // console.log('file', file)
-
-      const result = await worker.recognize(file, configWNCCannabinoids);
-      // console.log(result.data.text
       const textArray = result.data.text.split('\n');
 
       for (const text of textArray) {
-        const split = text.split(' ');
-        cannabinoids.push({
-          name: split[0], pct: parseInt(split[3])
-        });
 
-        const textArray = result.data.text.split('\n');
+        const line = lineToOutput(text);
 
-        const chemicalNameRegex = /*\s?\d*/g; // Regular expression to match chemical names
-
-        for (const text of textArray) {
-          const matches = text.match(chemicalNameRegex);
-          if (matches) {
-            for (const match of matches) {
-              const name = match.trim();
-              if (name.length > 0) {
-                cannabinoids.push({ name });
-              }
-            }
-          }
-        }
+        cannabinoids.push(line);
 
       }
 
       await worker.terminate();
+
       return {
         cannabinoids
       }
@@ -251,14 +270,13 @@ async function recognize(url) {
       }
     */
     await worker.terminate();
+    return null;
+
   } catch (error) {
+    await worker.terminate();
     console.error(`Failed to recognize image: ${error} `);
     return null;
   }
-}
-
-function normalizeName(name) {
-  return name;
 }
 
 module.exports = {

@@ -78,21 +78,99 @@ function variantNameContainsWeightUnitString(variantName) {
 
 function normalizeTerpene(terpene) {
   const spellings = {
-    'aPinene': 'Pinene',
+    'a-Pinene': 'Pinene',
     '18Cineole': 'Cineole',
-    'BCaryophyllene': 'Caryophyllene',
-    'aHumulene': 'Humulene',
-    'aBisabolol': 'Bisabolol',
-    'BMyrcene': 'Myrcene',
-    'aTerpinene': 'Terpinene',
+    'B-Caryophyllene': 'Caryophyllene',
+    'a-Humulene': 'Humulene',
+    'a-Bisabolol': 'Bisabolol',
+    'B-Myrcene': 'Myrcene',
+    'a-Terpinene': 'Terpinene',
     'CaryophylleneOxide': 'Caryophyllene Oxide',
-    'BCaryophyliene': 'Caryophyllene',
+    'B-Caryophyliene': 'Caryophyllene',
     'Bormwol': 'Borneol',
   }
   if (spellings[terpene]) {
     return spellings[terpene];
   }
   return terpene;
+}
+
+
+function lineToOutput(line) {
+
+  /* output for each line {name, pct, originalText }
+
+  originalText should be the line from exampleInput,
+
+  pct should be the number after the last space, or 0 if "ND". If it is is not a number, then "Unknown"
+
+  name should be from this list, if it is not here say "Unknown"
+
+  Δ-8-Tetrahydrocannabinol(Δ-8 THC)
+  Δ-9-Tetrahydrocannabinol(Δ-9 THC)
+  Δ-9-Tetrahydrocannabinic Acid(Δ-9 THC-A)
+  Δ-9-Tetrahydrocannabiphorol(Δ-9 THCP)
+  Δ-9-Tetrahydrocannabivarin(Δ-9 THCV)
+  Δ-9-Tetrahydrocannabivarinic Acid(Δ-9 THCVA)
+  R-Δ-10-Tetrahydrocannabinol(R-Δ-10 THC)
+  S-Δ-10-Tetrahydrocannabinol(S-Δ-10 THC)
+  9S Hexahydrocannabinol(9R-HHC)
+  9S Hexahydrocannabinol(9S-HHC)
+  Tetrahydrocannabinol Acetate(THCO)
+  Cannabidivarin(CBDV)
+  Cannabidivarintic Acid(CBDVA)
+  Cannabidiol(CBD)
+  Cannabidiolic Acid(CBDA)
+  Cannabigerol(CBG)
+  Cannabigerolic Acid(CBGA)
+  Cannabinol(CBN)
+  Cannabinolic Acid(CBNA)
+  Cannabichrome(CBC)
+  Cannabichromenic Acid(CBCA)
+
+
+  */
+
+  const parts = line.split(' ');
+  const lastPart = parts[parts.length - 1];
+  const pct = lastPart === 'ND' ? 0 : parseFloat(lastPart);
+  const name = normalizeCannabinoid(parts[0]);
+  const originalText = line;
+
+  return { name, pct, originalText };
+}
+
+const cannabinoidSpellings = {
+  "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol",
+  "4-9-Tetrahydrocannabinol": "Δ-9-Tetrahydrocannabinol",
+  "4-9-Tetrahydrocannabinolic Acid": "Δ-9-Tetrahydrocannabinic Acid",
+  "A-9-Tetrahydrocannabiphorol": "Δ-9-Tetrahydrocannabiphorol",
+  "A-9-Tetrahydrocannabivarin": "Δ-9-Tetrahydrocannabivarin",
+  "A-9-Tetrahydrocannabivarinic Acid": "Δ-9-Tetrahydrocannabivarinic Acid",
+  "R-A-10-Tetrahydrocannabinol": "R-Δ-10-Tetrahydrocannabinol",
+  "-A-10-Tetrahydrocannabinol": "S-Δ-10-Tetrahydrocannabinol",
+  "9R-Hexahydrocannabinol": "9S Hexahydrocannabinol",
+  "95-Hexahydrocannabinol": "9S Hexahydrocannabinol",
+  "Tetrahydrocannabinol": "Tetrahydrocannabinol Acetate",
+  "Cannabidivarin": "Cannabidivarin",
+  "Cannabidivarinic Acid": "Cannabidivarintic Acid",
+  "Cannabidiol": "Cannabidiol",
+  "Cannabidiolic Acid": "Cannabidiolic Acid",
+  "Cannabigerol": "Cannabigerol",
+  "Cannabigerolic Acid": "Cannabigerolic Acid",
+  "Cannabinol": "Cannabinol",
+  "Cannabinolic Acid": "Cannabinolic Acid",
+  "Cannabichromene": "Cannabichrome",
+  "Cannabichromenic Acid": "Cannabichromenic Acid",
+}
+
+function normalizeCannabinoid(name) {
+
+  if (cannabinoidSpellings[name]) {
+    return cannabinoidSpellings[name];
+  }
+
+  return "Unknown";
 }
 
 function printPathToKey(obj, keyString, path = []) {
@@ -130,5 +208,7 @@ module.exports = {
   normalizeVariantTitle,
   variantNameContainsWeightUnitString,
   printPathToKey,
-  makeFirebaseSafeId
+  makeFirebaseSafeId,
+  normalizeCannabinoid,
+  lineToOutput
 }
