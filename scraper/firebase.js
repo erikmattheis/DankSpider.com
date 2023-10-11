@@ -42,7 +42,8 @@ function makeCannabinoidObj(str) {
   } else {
     spellings.add(firstWord);
   }
-  const pct = lastPart === 'ND' ? 0 : parseFloat(lastPart);
+
+  const pct = lastPart === 'ND' ? 0 : (parseFloat(lastPart) / 10).toFixed(2);
   return { name, pct };
 }
 async function getUniqueChemicals() {

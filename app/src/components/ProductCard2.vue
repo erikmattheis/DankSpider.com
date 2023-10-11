@@ -3,17 +3,16 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
 
-    <div v-for="substsance in product.assays">
+    {{ product.assays?.length }}
 
-      <ul v-for="cannabinoid in substsance.assay.cannabinoids">
-        <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
-      </ul>
-      <ul v-for="terpene in product.assays.terpenes">
-        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>-->
+    <ul v-for="cannabinoid in product.assays?.cannabinoids">
+      <li>{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
+      <li>{{ cannabinoid.originalText }}</li>
+    </ul>
+    <ul v-for="terpene in product.assays?.terpenes">
+      <li>{{ terpene.name }} ({{ terpene.pct }}%)</li>
+    </ul>
 
-      </ul>
-
-    </div>
 
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
@@ -84,6 +83,8 @@ export default {
       loadImage: false,
       imageLoaded: false,
       position: 0,
+      cannabinoids: [],
+      terpenes: [],
     };
   },
   created() {

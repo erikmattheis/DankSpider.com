@@ -221,7 +221,7 @@ function lineToOutput(line) {
 
   const parts = line.split(' ');
   const lastPart = parts[parts.length - 1];
-  const pct = lastPart === 'ND' ? 0 : parseFloat(lastPart);
+  const pct = lastPart === 'ND' ? 0 : (parseFloat(lastPart) / 10).toFixed(2);
   const name = parts.slice(0, parts.length - 1).join(' ');
   const normalizedName = normalizeCannabinoid(name);
   const originalText = line;

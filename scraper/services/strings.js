@@ -133,7 +133,7 @@ function lineToOutput(line) {
 
   const parts = line.split(' ');
   const lastPart = parts[parts.length - 1];
-  const pct = lastPart === 'ND' ? 0 : parseFloat(lastPart);
+  const pct = lastPart === 'ND' ? 0 : (parseFloat(lastPart) / 10).toFixed(2);;
   const name = normalizeCannabinoid(parts[0]);
   const originalText = line;
 
@@ -143,25 +143,25 @@ function lineToOutput(line) {
 const cannabinoidSpellings = {
   "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol",
   "4-9-Tetrahydrocannabinol": "Δ-9-Tetrahydrocannabinol",
-  "4-9-Tetrahydrocannabinolic Acid": "Δ-9-Tetrahydrocannabinic Acid",
+  "4-9-Tetrahydrocannabinolic": "Δ-9-Tetrahydrocannabinic Acid",
   "A-9-Tetrahydrocannabiphorol": "Δ-9-Tetrahydrocannabiphorol",
   "A-9-Tetrahydrocannabivarin": "Δ-9-Tetrahydrocannabivarin",
-  "A-9-Tetrahydrocannabivarinic Acid": "Δ-9-Tetrahydrocannabivarinic Acid",
+  "A-9-Tetrahydrocannabivarinic": "Δ-9-Tetrahydrocannabivarinic Acid",
   "R-A-10-Tetrahydrocannabinol": "R-Δ-10-Tetrahydrocannabinol",
   "-A-10-Tetrahydrocannabinol": "S-Δ-10-Tetrahydrocannabinol",
   "9R-Hexahydrocannabinol": "9S Hexahydrocannabinol",
   "95-Hexahydrocannabinol": "9S Hexahydrocannabinol",
   "Tetrahydrocannabinol": "Tetrahydrocannabinol Acetate",
   "Cannabidivarin": "Cannabidivarin",
-  "Cannabidivarinic Acid": "Cannabidivarintic Acid",
+  "Cannabidivarinic": "Cannabidivarintic Acid",
   "Cannabidiol": "Cannabidiol",
-  "Cannabidiolic Acid": "Cannabidiolic Acid",
+  "Cannabidiolic": "Cannabidiolic Acid",
   "Cannabigerol": "Cannabigerol",
-  "Cannabigerolic Acid": "Cannabigerolic Acid",
+  "Cannabigerolic": "Cannabigerolic Acid",
   "Cannabinol": "Cannabinol",
-  "Cannabinolic Acid": "Cannabinolic Acid",
+  "Cannabinolic": "Cannabinolic Acid",
   "Cannabichromene": "Cannabichrome",
-  "Cannabichromenic Acid": "Cannabichromenic Acid",
+  "Cannabichromenic": "Cannabichromenic Acid",
 }
 
 function normalizeCannabinoid(name) {

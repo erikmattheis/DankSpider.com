@@ -8,7 +8,7 @@ async function makeProductsFile(vendor, limit) {
 
   let products;
 
-  if (0 === 1) {
+  if (0 === 0) {
     const useDevCollection = true;
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
