@@ -3,6 +3,8 @@ const fs = require('fs');
 const { getProductsWithAssay2, getAllProducts, getProductsByVendor, cleanProductsCollections } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
+const jpegs = require('./services/jpegs.js');
+const { firebase } = require('./firebase.js');
 
 async function makeProductsFile(vendor, limit) {
 
@@ -18,16 +20,35 @@ async function makeProductsFile(vendor, limit) {
   else {
     products = await getAllProducts();
   }
+
+  products = products.map(product => {
+    if (product.assays) {
+      if (product.assays.cannabinoids)
+        product.assays.cannabinoids = filterAssay(product.assays.cannabinoids);
+    }
+    if (product.assays.terpenes) {
+      product.assays.terpenes = filterAssay(product.assays.terpenes);
+    }
+    return product;
+  });
+
   const updatedAt = new Date().toISOString();
+
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: products, updatedAt: updatedAt }));
+
   console.log(`Wrote ${products.length} products to products.json`);
+
+}
+
+function filterAssay(assay) {
+  return assay.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown');
 }
 
 
 
 async function init() {
   const uuid = uuidv4();
-  //await scrapers.run(uuid);
+  await jpegs.run('chems02');
   await makeProductsFile('WNC', 10);
 }
 

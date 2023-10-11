@@ -96,7 +96,7 @@ function normalizeTerpene(terpene) {
 }
 
 
-function lineToOutput(line) {
+function getCannabinoidObj(line) {
 
   /* output for each line {name, pct, originalText }
 
@@ -133,7 +133,7 @@ function lineToOutput(line) {
 
   const parts = line.split(' ');
   const lastPart = parts[parts.length - 1];
-  const pct = lastPart === 'ND' ? 0 : (parseFloat(lastPart) / 10).toFixed(2);;
+  const pct = lastPart === 'ND' || lastPart === '<LOQ' ? 0 : lastPart;
   const name = normalizeCannabinoid(parts[0]);
   const originalText = line;
 
@@ -141,27 +141,29 @@ function lineToOutput(line) {
 }
 
 const cannabinoidSpellings = {
-  "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol",
-  "4-9-Tetrahydrocannabinol": "Δ-9-Tetrahydrocannabinol",
-  "4-9-Tetrahydrocannabinolic": "Δ-9-Tetrahydrocannabinic Acid",
-  "A-9-Tetrahydrocannabiphorol": "Δ-9-Tetrahydrocannabiphorol",
-  "A-9-Tetrahydrocannabivarin": "Δ-9-Tetrahydrocannabivarin",
-  "A-9-Tetrahydrocannabivarinic": "Δ-9-Tetrahydrocannabivarinic Acid",
-  "R-A-10-Tetrahydrocannabinol": "R-Δ-10-Tetrahydrocannabinol",
-  "-A-10-Tetrahydrocannabinol": "S-Δ-10-Tetrahydrocannabinol",
-  "9R-Hexahydrocannabinol": "9S Hexahydrocannabinol",
-  "95-Hexahydrocannabinol": "9S Hexahydrocannabinol",
-  "Tetrahydrocannabinol": "Tetrahydrocannabinol Acetate",
-  "Cannabidivarin": "Cannabidivarin",
-  "Cannabidivarinic": "Cannabidivarintic Acid",
-  "Cannabidiol": "Cannabidiol",
-  "Cannabidiolic": "Cannabidiolic Acid",
-  "Cannabigerol": "Cannabigerol",
-  "Cannabigerolic": "Cannabigerolic Acid",
-  "Cannabinol": "Cannabinol",
-  "Cannabinolic": "Cannabinolic Acid",
-  "Cannabichromene": "Cannabichrome",
-  "Cannabichromenic": "Cannabichromenic Acid",
+  "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol (Δ-8 THC)",
+  "4-9-Tetrahydrocannabinol": "Δ-9-Tetrahydrocannabinol (Δ-9 THC)",
+  "4-9-Tetrahydrocannabinolic": "Δ-9-Tetrahydrocannabinic Acid (Δ-9 THCA)",
+  "A-9-Tetrahydrocannabiphorol": "Δ-9-Tetrahydrocannabiphorol (THCP)",
+  "A-9-Tetrahydrocannabivarin": "Δ-9-Tetrahydrocannabivarin (THCV)",
+  "A-9-Tetrahydrocannabivarinic": "Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)",
+  "R-A-10-Tetrahydrocannabinol": "R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)",
+  "-A-10-Tetrahydrocannabinol": "S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)",
+  "9R-Hexahydrocannabinol": "9R Hexahydrocannabinol (9R-HHC)",
+  "95-Hexahydrocannabinol": "9S Hexahydrocannabinol (9R-HHC)",
+  "Tetrahydrocannabinol": "Tetrahydrocannabinol Acetate (THC0)",
+  "Cannabidivarin": "Cannabidivarin (CBDV)",
+  "Cannabidivarinic": "Cannabidivarintic Acid (CBDVA)",
+  "Cannabidiol": "Cannabidiol (CBD)",
+  "Cannabidiolic": "Cannabidiolic Acid (CBDA)",
+  "Cannabigerol": "Cannabigerol (CBG)",
+  "Cannabigerolic": "Cannabigerolic Acid (CBGA)",
+  "Cannabinol": "Cannabinol (CBN)",
+  "Cannabinolic": "Cannabinolic Acid (CBNA)",
+  "Cannabichromene": "Cannabichrome (CBC)",
+  "Cannabichromenic": "Cannabichromenic Acid (CBCA)",
+  "Total": "Total Cannabinoids",
+  "TOTAL": "Total Cannabinoids",
 }
 
 function normalizeCannabinoid(name) {
@@ -210,5 +212,5 @@ module.exports = {
   printPathToKey,
   makeFirebaseSafeId,
   normalizeCannabinoid,
-  lineToOutput
+  getCannabinoidObj
 }

@@ -43,7 +43,7 @@ function makeCannabinoidObj(str) {
     spellings.add(firstWord);
   }
 
-  const pct = lastPart === 'ND' ? 0 : (parseFloat(lastPart) / 10).toFixed(2);
+  const pct = lastPart === 'ND' ? 0 : lastPart;
   return { name, pct };
 }
 async function getUniqueChemicals() {
@@ -270,5 +270,4 @@ module.exports = {
   getNextBatchNumber,
   saveBatchRecord,
   getUniqueChemicals
-
 };

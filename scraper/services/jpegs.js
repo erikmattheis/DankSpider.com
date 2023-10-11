@@ -15,7 +15,7 @@ const { deleteApp } = require('firebase-admin/app');
 
 async function run() {
 
-  const products = await getProductsByVendor('WNC', 5);
+  const products = await getProductsByVendor('WNC', 10);
 
   // console.log('products.length', products.length);
 
@@ -106,10 +106,6 @@ async function deleteAllDocumentsInCollection(collectionPath) {
   });
   await batch.commit();
 }
-
-
-
-run();
 
 async function getProductImages(url) {
   const response = await axios.get(url);

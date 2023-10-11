@@ -7,7 +7,7 @@ const { createWorker, OEM, PSM } = require('tesseract.js');
 // reinitialize = function(langs = 'eng', oem, config, jobId)
 // load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res)
 const path = require('path');
-const { normalizeTerpene, normalizeCannabinoid, lineToOutput } = require('./strings.js');
+const { normalizeTerpene, normalizeCannabinoid, getCannabinoidObj } = require('./strings.js');
 
 const badImages = [];
 
@@ -31,11 +31,11 @@ const configWNCCannabinoidsTitle = {
 */
 
 const configWNCTerpenes = {
-  rectangle: { top: 1768, left: 341, width: 1939, height: 1273 },
+  rectangle: { top: 1722, left: 320, width: 1939, height: 1361 },
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 2506, left: 571, width: 2470, height: 1503 },
+  rectangle: { top: 2511, left: 555, width: 2457, height: 1484 },
 }
 
 const jpgNameFromUrl = (url) => {
@@ -102,12 +102,21 @@ async function recognize(url) {
   const worker = await createWorker({
     oem: OEM.DEFAULT,
     cachePath: path.join(__dirname, '../tessdata'),
-    errorHandler: (err) => { console.error(err); }
+    errorHandler: (err) => { console.error(err); },
+    chop_enable: 'T',
+    use_new_state_cost: 'F',
+    segment_segcost_rating: 'F',
+    tessedit_dump_pageseg_images: true,
+    tessedit_write_images: path.join(__dirname, '../tessdata'),
+    enable_new_segsearch: 0,
+    user_defined_dpi: '300',
+    textord_force_make_prop_words: 'F',
+    edges_max_children_per_outline: 40
   });
 
   await worker.loadLanguage('eng');
 
-  await worker.initialize();
+  await worker.initialize('eng');
 
   const userPatterns = `
   Δ-8-Tetrahydrocannabinol (Δ-8 THC)
@@ -161,10 +170,15 @@ async function recognize(url) {
     user_patterns_file: path.join(__dirname, '../tessdata/eng.user-patterns'),
     user_words_file: path.join(__dirname, '../tessdata/eng.user-words'),
     preserve_interword_spaces: 1,
+    chop_enable: 'T',
+    use_new_state_cost: 'F',
+    segment_segcost_rating: 'F',
+    enable_new_segsearch: 0,
+    textord_force_make_prop_words: 'F',
+    edges_max_children_per_outline: 40
   });
 
   const isDev = process.env.NODE_ENV !== 'production';
-
 
   try {
     const jpgBuffer = await getAndProcessJpg(url, isDev);
@@ -216,9 +230,12 @@ async function recognize(url) {
 
         const name = normalizeTerpene(split[0]);
 
-        if (parseInt(split[1])) {
-          terpenes.push({ name, pct: split[1] });
-        }
+        const last = split.split(' ')[1];
+
+        const pct = last ? last : split.split(' ')[0] || 0;
+
+        terpenes.push({ name, pct });
+
       }
 
       await worker.terminate();
@@ -240,7 +257,7 @@ async function recognize(url) {
 
       for (const text of textArray) {
 
-        const line = lineToOutput(text);
+        const line = getCannabinoidObj(text);
 
         cannabinoids.push(line);
 
