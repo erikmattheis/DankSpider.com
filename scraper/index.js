@@ -47,14 +47,12 @@ function filterAssay(assay) {
 
 
 async function init() {
-  const uuid = uuidv4();
-  await jpegs.run('chems02');
+  //const uuid = uuidv4();
+  await jpegs.run('c2');
   await makeProductsFile('WNC', 88, true);
 }
 
 init();
-
-
 
 
 async function run() {

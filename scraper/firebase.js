@@ -33,22 +33,7 @@ async function getUniqueTerpenes() {
 
   return Array.from(terpenes);
 }
-/*
-function makeCannabinoidObj(str) {
-  const firstWord = line.split(' ')[0] || 0;
-  const secondWord = line.split(' ')[1] || 0;
-  if (secondWord === 'Acid') {
-    spellings.add(`${firstWord} Acid`);
-  } else {
-    spellings.add(firstWord);
-  }
-  let lastPart = parts[parts.length - 1] || 0;
-  let pct = parts[parts.length - 2] || 0;
-  lastPart = lastPart === 'ND' || lastPart === '<LOQ' ? 0 : lastPart;
 
-  return { name, pct, lastPart };
-}
-*/
 async function getUniqueChemicals() {
 
   console.log('getUniqueChemicals');
@@ -191,10 +176,33 @@ async function cleanProductsCollections() {
   await Promise.all(products);
 }
 
+async function cleanProductsWithAssaysCollection() {
+  const productsRef = db.collection('productsWithAssays2');
+  const archiveRef = db.collection('productArchive');
+
+  const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
+
+  const products = [];
+  const uniqueTitles = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (uniqueTitles.has(product.title)) {
+      const archiveDoc = archiveRef.doc(doc.id);
+      products.push(archiveDoc.set(product));
+      products.push(doc.ref.delete());
+    }
+    uniqueTitles.add(product.title);
+  });
+
+  await Promise.all(products);
+}
+
 if (require.main === module) {
   // console.log('This script is being executed directly by Node.js');
   (async () => {
     await cleanProductsCollections();
+    await cleanProductsWithAssaysCollection();
     console.log('deleted any duplicate');
   })();
 }
@@ -265,6 +273,15 @@ async function saveBatchRecord(batchNumber, startTime, endTime, duration, numDoc
   await batchRef.set(batchData);
 }
 
+async function deleteAllDocumentsInCollection(collectionPath) {
+  const snapshot = await admin.firestore().collection(collectionPath).get();
+  const batch = admin.firestore().batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+}
+
 
 module.exports = {
   saveProducts,
@@ -272,7 +289,9 @@ module.exports = {
   getProductsByTitle,
   getProductsByVendor,
   cleanProductsCollections,
+  cleanProductsWithAssaysCollection,
   getNextBatchNumber,
   saveBatchRecord,
-  getUniqueChemicals
+  getUniqueChemicals,
+  deleteAllDocumentsInCollection
 };

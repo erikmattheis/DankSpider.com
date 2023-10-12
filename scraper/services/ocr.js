@@ -156,12 +156,10 @@ async function recognize(url) {
 
       const result = await worker.recognize('image.jpg', configWNCTerpenes);
 
-      console.log(result.data.text)
-
       const textArray = result.data.text.split('\n');
 
       for (const text of textArray) {
-        console.log('terpene line', text)
+
         const line = getTerpeneObj(text);
         console.log('line', line);
         terpenes.push(line);

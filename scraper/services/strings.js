@@ -96,15 +96,35 @@ function normalizeTerpene(terpene) {
 }
 
 function getTerpeneObj(line) {
+  /*
   const cleanedLine = line.replace(/\s+/g, ' ');
 
   const parts = cleanedLine.split(' ');
+
   const name = normalizeTerpene(parts[0]) || 0;
+
   const pct = parts[parts.length - 2] || 0;
-  let mgg = parts[parts.length - 1] || 0;;
+
+  let mgg = parts[parts.length - 1] || 0;
+
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : 0 || mgg;
   const originalText = cleanedLine || 0;
   console.log('cleanedLINE', cleanedLine)
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
+*/
+  const cleanedLine = line.replace(/\s+/g, ' ');
+  const parts = cleanedLine.split(' ');
+
+  const name = normalizeTerpene(parts[0]) || 0;
+
+  let pct = parts[parts.length - 2] || 0;
+  pct = pct + '';
+  pct = (parseInt(pct.replace('.', '')) / 10000000).toFixed(2);
+
+  let mgg = parts[parts.length - 1] || 0;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
+  const originalText = cleanedLine || 0;
   console.log(name, pct, mgg, originalText)
   return { name, pct, mgg, originalText };
 }
@@ -112,16 +132,19 @@ function getTerpeneObj(line) {
 function getCannabinoidObj(line) {
   const cleanedLine = line.replace(/\s+/g, ' ');
   const parts = cleanedLine.split(' ');
+
+  const name = normalizeCannabinoid(parts[0]) || 0;
+
+  let pct = parts[parts.length - 2] || 0;
+  pct = pct + '';
+  pct = (parseInt(pct.replace('.', '')) / 1000).toFixed(2);
+
   let mgg = parts[parts.length - 1] || 0;
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
-  const name = normalizeCannabinoid(parts[0]) || 0;
-  let pct = parts[parts.length - 2] || 0;
   const originalText = cleanedLine || 0;
   console.log(name, pct, mgg, originalText)
   return { name, pct, mgg, originalText };
 }
-
-
 
 const cannabinoidSpellings = {
   "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol (Δ-8 THC)",
@@ -148,52 +171,6 @@ const cannabinoidSpellings = {
   "Total": "Total Cannabinoids",
   "TOTAL": "Total Cannabinoids",
 }
-
-const userPatterns = `
-  Δ-8-Tetrahydrocannabinol (Δ-8 THC)
-  Δ-9-Tetrahydrocannabinol (Δ-9 THC)
-  Δ-9-Tetrahydrocannabinic Acid (Δ-9 THC-A)
-  Δ-9-Tetrahydrocannabiphorol (Δ-9 THCP)
-  Δ-9-Tetrahydrocannabivarin (Δ-9 THCV)
-  Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)
-  R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)
-  S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)
-  9S Hexahydrocannabinol (9R-HHC)
-  9S Hexahydrocannabinol (9S-HHC)
-  Tetrahydrocannabinol Acetate (THCO)
-  Cannabidivarin (CBDV)
-  Cannabidivarintic Acid (CBDVA)
-  Cannabidiol (CBD)
-  Cannabidiolic Acid (CBDA)
-  Cannabigerol (CBG)
-  Cannabigerolic Acid (CBGA)
-  Cannabinol (CBN)
-  Cannabinolic Acid (CBNA)
-  Cannabichrome (CBC)
-  Cannabichromenic Acid (CBCA)
-  Bisabolol
-  Humulene
-  Pinene
-  α-Terpinene
-  Cineole
-  β-Caryophyllene
-  Myrcene
-  Borneol
-  Camphene
-  Carene
-  Caryophyllene
-  Citral
-  Dihydrocarveol
-  Fenchone
-  γ-Terpinene
-  Limonene
-  Linalool
-  Menthol
-  Neroldol
-  Ocimene
-  Pulegone
-  Terpinolene
-`;
 
 function normalizeCannabinoid(name) {
 

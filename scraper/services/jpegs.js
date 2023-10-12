@@ -8,14 +8,14 @@ const admin = require('firebase-admin');
 
 const { recognize } = require('./ocr.js');
 
-const { getProductsByVendor, getProductsWithAssay2, saveProducts } = require('../firebase.js');
+const { getProductsByVendor, getProductsWithAssay2, saveProducts, cleanProductsWithAssaysCollection, deleteAllDocumentsInCollection } = require('../firebase.js');
 const { AxiosHeaders } = require('axios');
 const { log } = require('console');
 const { deleteApp } = require('firebase-admin/app');
 
-async function run() {
+async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 88);
+  const products = await getProductsByVendor('WNC', 10);
 
   // console.log('products.length', products.length);
 
@@ -67,12 +67,10 @@ async function run() {
       }
 
       if (assay?.terpenes?.length) {
-        console.log('terpenes has length')
         assays.terpenes = [...assay.terpenes];
       }
 
       if (assay?.cannabinoids?.length) {
-        console.log('cannabinoids has length')
         assays.cannabinoids = [...assay.cannabinoids];
       }
 
@@ -90,22 +88,14 @@ async function run() {
 
   }
 
+  console.log(JSON.stringify(withOCRedImages));
   await deleteAllDocumentsInCollection('productsWithAssay2');
-  //console.log(JSON.stringify(withOCRedImages));
-  await saveProducts(withOCRedImages, 'chem01', true);
+  await saveProducts(withOCRedImages, batchId, true);
+  await cleanProductsWithAssaysCollection();
   console.log(`Viewed ${withImages.length} products to Firebase`);
   console.log(`Found ${bestImages.length} candidate products`);
   console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
-}
-
-async function deleteAllDocumentsInCollection(collectionPath) {
-  const snapshot = await admin.firestore().collection(collectionPath).get();
-  const batch = admin.firestore().batch();
-  snapshot.docs.forEach((doc) => {
-    batch.delete(doc.ref);
-  });
-  await batch.commit();
 }
 
 async function getProductImages(url) {

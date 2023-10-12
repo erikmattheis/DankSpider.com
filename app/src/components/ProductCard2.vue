@@ -6,11 +6,11 @@
     {{ product.assays?.length }}
 
     <ul v-for="cannabinoid in product.assays?.cannabinoids">
-      <li>C: {{ cannabinoid.name }} ({{ cannabinoid.pct }}%) ({{ cannabinoid.mgg }})</li>
+      <li class="line">{{ cannabinoid.pct }}% {{ cannabinoid.name }}</li>
       <!--<li>{{ cannabinoid.originalText }}</li>-->
     </ul>
     <ul v-for="terpene in product.assays?.terpenes">
-      <li>T: {{ terpene.name }} ({{ terpene.pct }}%)</li>
+      <li class="line terpene">T: {{ terpene.name }} ({{ terpene.pct }}%)</li>
     </ul>
 
 
@@ -268,6 +268,20 @@ h3 {
 
 p {
   margin-top: 5px;
+}
+
+ul li.line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0;
+  background-color: #050;
+  color: #f095e5;
+}
+
+ul li.line.terpene {
+  color: #050;
+  background-color: #f095e5 !important;
 }
 
 @keyframes pendulum {
