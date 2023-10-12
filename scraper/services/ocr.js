@@ -2,12 +2,14 @@ const axios = require('./rateLimitedAxios.js');
 const spellings = require('spellchecker');
 const fs = require('fs');
 const gm = require('gm').subClass({ imageMagick: true });
-const { createWorker, OEM, PSM } = require('tesseract.js');
+const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
+
+//setLogging(true);
 
 // reinitialize = function(langs = 'eng', oem, config, jobId)
 // load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res)
 const path = require('path');
-const { normalizeTerpene, normalizeCannabinoid, getCannabinoidObj } = require('./strings.js');
+const { getCannabinoidObj, getTerpeneObj } = require('./strings.js');
 
 const badImages = [];
 
@@ -68,20 +70,21 @@ const getAndProcessJpg = async (url, isDev) => {
 
     if (response.status !== 200) {
       console.log(`Failed to download image 1`);
-      return { name: null, data: null };
       badImages.push({ url, error: response.status });
+      return null;
     }
 
     const contentType = response.headers['content-type'];
+
     if (contentType !== 'image/jpeg') {
       console.log(`Invalid content type: ${contentType}`);
-      return { name: null, data: null };
       badImages.push({ url, error: contentType });
+      return null
     }
 
     const jpgName = jpgNameFromUrl(url);
-    console.log('jpgName', jpgName);
-    const gmResponse = await gm(response.data, jpgName).resize(4000); //quality(100).setFormat('jpg')
+
+    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(0.5, 0.5); //quality(100).setFormat('jpg')
 
     const jpgBuffer = await gmToBuffer(gmResponse);
 
@@ -103,66 +106,12 @@ async function recognize(url) {
     oem: OEM.DEFAULT,
     cachePath: path.join(__dirname, '../tessdata'),
     errorHandler: (err) => { console.error(err); },
-    chop_enable: 'T',
-    use_new_state_cost: 'F',
-    segment_segcost_rating: 'F',
-    tessedit_dump_pageseg_images: true,
     tessedit_write_images: path.join(__dirname, '../tessdata'),
-    enable_new_segsearch: 0,
-    user_defined_dpi: '300',
-    textord_force_make_prop_words: 'F',
-    edges_max_children_per_outline: 40
   });
 
   await worker.loadLanguage('eng');
 
   await worker.initialize('eng');
-
-  const userPatterns = `
-  Δ-8-Tetrahydrocannabinol (Δ-8 THC)
-  Δ-9-Tetrahydrocannabinol (Δ-9 THC)
-  Δ-9-Tetrahydrocannabinic Acid (Δ-9 THC-A)
-  Δ-9-Tetrahydrocannabiphorol (Δ-9 THCP)
-  Δ-9-Tetrahydrocannabivarin (Δ-9 THCV)
-  Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)
-  R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)
-  S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)
-  9S Hexahydrocannabinol (9R-HHC)
-  9S Hexahydrocannabinol (9S-HHC)
-  Tetrahydrocannabinol Acetate (THCO)
-  Cannabidivarin (CBDV)
-  Cannabidivarintic Acid (CBDVA)
-  Cannabidiol (CBD)
-  Cannabidiolic Acid (CBDA)
-  Cannabigerol (CBG)
-  Cannabigerolic Acid (CBGA)
-  Cannabinol (CBN)
-  Cannabinolic Acid (CBNA)
-  Cannabichrome (CBC)
-  Cannabichromenic Acid (CBCA)
-  Bisabolol
-  Humulene
-  Pinene
-  α-Terpinene
-  Cineole
-  β-Caryophyllene
-  Myrcene
-  Borneol
-  Camphene
-  Carene
-  Caryophyllene
-  Citral
-  Dihydrocarveol
-  Fenchone
-  γ-Terpinene
-  Limonene
-  Linalool
-  Menthol
-  Neroldol
-  Ocimene
-  Pulegone
-  Terpinolene
-`;
 
   await worker.setParameters({
     tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
@@ -212,29 +161,9 @@ async function recognize(url) {
 
       for (const text of textArray) {
 
-        let split = [];
+        const line = getTerpeneObj(text);
 
-        if (text.includes('0.750 3.000')) {
-
-          split = text.split('0.750 3.000');
-
-        }
-
-        else if (text.includes('3.000 3.000')) {
-
-          split = text.split('3.000 3.000');
-
-        }
-
-        split = split.map(member => member.trim());
-
-        const name = normalizeTerpene(split[0]);
-
-        const last = split.split(' ')[1];
-
-        const pct = last ? last : split.split(' ')[0] || 0;
-
-        terpenes.push({ name, pct });
+        terpenes.push(line);
 
       }
 
@@ -251,14 +180,17 @@ async function recognize(url) {
 
       console.log('----- cannabinoids -----');
 
-      const result = await worker.recognize('image.jpg', configWNCCannabinoids);
+      const result = await worker.recognize(jpgBuffer, configWNCCannabinoids);
 
       const textArray = result.data.text.split('\n');
 
       for (const text of textArray) {
 
         const line = getCannabinoidObj(text);
-
+        if (!line) {
+          console.log('not line');
+          process.exit(1);
+        }
         cannabinoids.push(line);
 
       }

@@ -15,7 +15,7 @@ const { deleteApp } = require('firebase-admin/app');
 
 async function run() {
 
-  const products = await getProductsByVendor('WNC', 10);
+  const products = await getProductsByVendor('WNC', 3);
 
   // console.log('products.length', products.length);
 
@@ -54,7 +54,7 @@ async function run() {
     const assays = {};
 
     for (const image of product.images) {
-      console.log('IMAGE')
+
       const assay = await recognize(image);
 
       if (!assay) {
@@ -91,6 +91,7 @@ async function run() {
   }
 
   await deleteAllDocumentsInCollection('productsWithAssay2');
+  //console.log(JSON.stringify(withOCRedImages));
   await saveProducts(withOCRedImages, 'chem01', true);
   console.log(`Viewed ${withImages.length} products to Firebase`);
   console.log(`Found ${bestImages.length} candidate products`);

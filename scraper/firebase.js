@@ -33,19 +33,22 @@ async function getUniqueTerpenes() {
 
   return Array.from(terpenes);
 }
-
+/*
 function makeCannabinoidObj(str) {
-  const firstWord = line.split(' ')[0];
-  const secondWord = line.split(' ')[1]
+  const firstWord = line.split(' ')[0] || 0;
+  const secondWord = line.split(' ')[1] || 0;
   if (secondWord === 'Acid') {
     spellings.add(`${firstWord} Acid`);
   } else {
     spellings.add(firstWord);
   }
+  let lastPart = parts[parts.length - 1] || 0;
+  let pct = parts[parts.length - 2] || 0;
+  lastPart = lastPart === 'ND' || lastPart === '<LOQ' ? 0 : lastPart;
 
-  const pct = lastPart === 'ND' ? 0 : lastPart;
-  return { name, pct };
+  return { name, pct, lastPart };
 }
+*/
 async function getUniqueChemicals() {
 
   console.log('getUniqueChemicals');
@@ -95,14 +98,17 @@ async function saveProducts(products, batchId, useDev) {
     productsRef = db.collection('products');
   }
 
-  const archiveRef = db.collection('productsArchive');
-
   const timestamp = admin.firestore.Timestamp.now();
   const idPrefix = batchId || timestamp.toDate().toISOString();
 
   for (product of products) {
     const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
     const docRef = productsRef.doc(id);
+    console.log('product', JSON.stringify(product));
+    console.log('id', id);
+
+    console.log('batchId', batchId);
+    console.log('TIMESTAMP', timestamp);
     if (batchId) {
       batch.set(docRef, {
         ...product,

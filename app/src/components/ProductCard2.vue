@@ -6,8 +6,8 @@
     {{ product.assays?.length }}
 
     <ul v-for="cannabinoid in product.assays?.cannabinoids">
-      <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 100).toFixed(2) }}%)</li>
-      <li>{{ cannabinoid.originalText }}</li>
+      <li>{{ cannabinoid.name }} ({{ cannabinoid.pct }}%) ({{ cannabinoid.mgg }})</li>
+      <!--<li>{{ cannabinoid.originalText }}</li>-->
     </ul>
     <ul v-for="terpene in product.assays?.terpenes">
       <li>{{ terpene.name }} ({{ terpene.pct }}%)</li>

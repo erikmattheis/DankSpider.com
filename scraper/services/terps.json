@@ -1,0 +1,968 @@
+[
+  {
+    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/365/3355/Acai_Berry_Frost_-_1__69723.1695139899.jpg?c=1",
+    "vendor": "WNC",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ],
+    "title": "Acai Berry Frost",
+    "batchId": "e6bb0804-b3d2-46be-b4c7-f420e870eb7b",
+    "url": "https://wnc-cbd.com/products/thca-acai-berry-frost-indoor-living-soil.html",
+    "timestamp": {
+      "_seconds": 1696970584,
+      "_nanoseconds": 273000000
+    },
+    "images": [
+      "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/365/3308/Indoor_-_THCa_Acai_Berry_Frost_Terpenes__54128.1695139895.jpg?c=1",
+      "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/365/3307/Indoor_-_THCa_Acai_Berry_Frost_Potency__49509.1695139895.jpg?c=1"
+    ],
+    "assays": {
+      "cannabinoids": [
+        {
+          "name": "A-8-Tetrahydrocannabinol",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-8-Tetrahydrocannabinol (A-8 THC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabinol (Δ-9 THC)",
+          "pct": "0090",
+          "mgg": "0.903",
+          "originalText": "4-9-Tetrahydrocannabinol (A-9 THC) 0.0485 0.0728 0090 0.903"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabinic Acid (Δ-9 THCA)",
+          "pct": "19.856",
+          "mgg": "198.563",
+          "originalText": "4-9-Tetrahydrocannabinolic Acid (THCA-A) 0.0485 0.0728 19.856 198.563"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabiphorol (THCP)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-9-Tetrahydrocannabiphorol (A-9-THCP) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabivarin (THCV)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-9-Tetrahydrocannabivarin (A-9-THCV) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)",
+          "pct": "L0OQ",
+          "mgg": "LOQ",
+          "originalText": "A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA) 0.0485 0.0728 L0OQ LOQ"
+        },
+        {
+          "name": "R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "R-A-10-Tetrahydrocannabinol (R-A-10-THC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "S-A-10-Tetrahydrocannabinol",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "S-A-10-Tetrahydrocannabinol (S-A-10-THC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "9R Hexahydrocannabinol (9R-HHC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "9R-Hexahydrocannabinol (9R-HHC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "9S Hexahydrocannabinol (9R-HHC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "95-Hexahydrocannabinol (95-HHC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Tetrahydrocannabinol Acetate (THC0)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Tetrahydrocannabinol Acetate (THCO) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabidivarin (CBDV)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidivarin (CBDV) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabidivarintic Acid (CBDVA)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidivarinic Acid (CBDVA) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabidiol (CBD)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidiol (CBD) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabidiolic Acid (CBDA)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidiolic Acid (CBDA) 0.0485 00728 ND ND"
+        },
+        {
+          "name": "Cannabigerol (CBG)",
+          "pct": "L0Q",
+          "mgg": "LOQ",
+          "originalText": "Cannabigerol (CBG) 0.0204 0.0728 L0Q LOQ"
+        },
+        {
+          "name": "Cannabigerolic Acid (CBGA)",
+          "pct": "0.405",
+          "mgg": "4049",
+          "originalText": "Cannabigerolic Acid (CBGA) 0.0485 0.0728 0.405 4049"
+        },
+        {
+          "name": "Cannabinol (CBN)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabinol (CBN) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabinolic Acid (CBNA)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabinolic Acid (CBNA) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabichrome (CBC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabichromene (CBC) 0.0485 0.0728 ND ND"
+        },
+        {
+          "name": "Cannabichromenic Acid (CBCA)",
+          "pct": "0121",
+          "mgg": "1214",
+          "originalText": "Cannabichromenic Acid (CBCA) 0.0485 0.0728 0121 1214"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        },
+        {
+          "name": "Total Cannabinoids",
+          "pct": "20473",
+          "mgg": "204.729",
+          "originalText": "Total 20473 204.729"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        }
+      ]
+    }
+  },
+  {
+    "image": "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/500x659/products/312/2452/Alien_Apple_Kush_-_1__91421.1689092161.jpg?c=1",
+    "vendor": "WNC",
+    "variants": [
+      "3.5 g",
+      "7 g"
+    ],
+    "title": "Alien Apple Kush",
+    "batchId": "e6bb0804-b3d2-46be-b4c7-f420e870eb7b",
+    "url": "https://wnc-cbd.com/products/thca-alien-apple-kush-indoor-living-soil.html",
+    "timestamp": {
+      "_seconds": 1696970584,
+      "_nanoseconds": 273000000
+    },
+    "images": [
+      "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/312/2455/Indoor_-_THCa_Alien_Apple_Kush_Potency__33040.1690981203.jpg?c=1",
+      "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/312/2454/Indoor_-_THCa_Alien_Apple_Kush_Terpenes__21399.1690981203.jpg?c=1"
+    ],
+    "assays": {
+      "cannabinoids": [
+        {
+          "name": "A-8-Tetrahydrocannabinol",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-8-Tetrahydrocannabinol (A-8 THC) 0.0503 00754 ND ND"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabinol (Δ-9 THC)",
+          "pct": "0.252",
+          "mgg": "2523",
+          "originalText": "4-9-Tetrahydrocannabinol (A-9 THC) 0.0503 0.0754 0.252 2523"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabinic Acid (Δ-9 THCA)",
+          "pct": "20227",
+          "mgg": "202271",
+          "originalText": "4-9-Tetrahydrocannabinolic Acid (THCA-A) 0.0503 0.0754 20227 202271"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabiphorol (THCP)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-9-Tetrahydrocannabiphorol (A-9-THCP) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabivarin (THCV)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "A-9-Tetrahydrocannabivarin (A-9-THCV) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)",
+          "pct": "L0OQ",
+          "mgg": "LOQ",
+          "originalText": "A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA) 0.0332 0.0754 L0OQ LOQ"
+        },
+        {
+          "name": "R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "R-A-10-Tetrahydrocannabinol (R-A-10-THC) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "-A-10-Tetrahydrocannabinol (S-A-10-THC) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "9R Hexahydrocannabinol (9R-HHC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "9R-Hexahydrocannabinol (9R-HHC) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "9S Hexahydrocannabinol (9R-HHC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "95-Hexahydrocannabinol (95-HHC) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Tetrahydrocannabinol Acetate (THC0)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Tetrahydrocannabinol Acetate (THCO) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabidivarin (CBDV)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidivarin (CBDV) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabidivarintic Acid (CBDVA)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidivarinic Acid (CBDVA) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabidiol (CBD)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabidiol (CBD) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabidiolic Acid (CBDA)",
+          "pct": "LOQ",
+          "mgg": "L0Q",
+          "originalText": "Cannabidiolic Acid (CBDA) 0.0503 00754 LOQ L0Q"
+        },
+        {
+          "name": "Cannabigerol (CBG)",
+          "pct": "L0Q",
+          "mgg": "LOQ",
+          "originalText": "Cannabigerol (CBG) 0.0332 0.0754 L0Q LOQ"
+        },
+        {
+          "name": "Cannabigerolic Acid (CBGA)",
+          "pct": "0894",
+          "mgg": "8.935",
+          "originalText": "Cannabigerolic Acid (CBGA) 0.0503 0.0754 0894 8.935"
+        },
+        {
+          "name": "Cannabinol (CBN)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabinol (CBN) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabinolic Acid (CBNA)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabinolic Acid (CBNA) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabichrome (CBC)",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "Cannabichromene (CBC) 0.0503 0.0754 ND ND"
+        },
+        {
+          "name": "Cannabichromenic Acid (CBCA)",
+          "pct": "0.110",
+          "mgg": "1.095",
+          "originalText": "Cannabichromenic Acid (CBCA) 0.0503 0.0754 0.110 1.095"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        },
+        {
+          "name": "Total Cannabinoids",
+          "pct": "21482",
+          "mgg": "214824",
+          "originalText": "Total 21482 214824"
+        },
+        {
+          "name": "",
+          "mgg": 0,
+          "originalText": 0
+        }
+      ],
+      "terpenes": [
+        {
+          "name": "Bisabolol",
+          "pct": "a-Bisabolol",
+          "mgg": 0,
+          "originalText": "a-Bisabolol"
+        },
+        {
+          "name": "Humulene",
+          "pct": "a-Humulene",
+          "mgg": 0,
+          "originalText": "a-Humulene"
+        },
+        {
+          "name": "Pinene",
+          "pct": "a-Pinene",
+          "mgg": 0,
+          "originalText": "a-Pinene"
+        },
+        {
+          "name": "Terpinene",
+          "pct": "a-Terpinene",
+          "mgg": 0,
+          "originalText": "a-Terpinene"
+        },
+        {
+          "name": "1.8-Cineole",
+          "pct": "1.8-Cineole",
+          "mgg": 0,
+          "originalText": "1.8-Cineole"
+        },
+        {
+          "name": "Caryophyllene",
+          "pct": "B-Caryophyllene",
+          "mgg": 0,
+          "originalText": "B-Caryophyllene"
+        },
+        {
+          "name": "Myrcene",
+          "pct": "B-Myrcene",
+          "mgg": 0,
+          "originalText": "B-Myrcene"
+        },
+        {
+          "name": "Borneol",
+          "pct": "Borneol",
+          "mgg": 0,
+          "originalText": "Borneol"
+        },
+        {
+          "name": "Camphene",
+          "pct": "Camphene",
+          "mgg": 0,
+          "originalText": "Camphene"
+        },
+        {
+          "name": "Carene",
+          "pct": "Carene",
+          "mgg": 0,
+          "originalText": "Carene"
+        },
+        {
+          "name": "Caryophyllene",
+          "pct": "Oxide",
+          "mgg": 0,
+          "originalText": "Caryophyllene Oxide"
+        },
+        {
+          "name": "Citral",
+          "pct": "Citral",
+          "mgg": 0,
+          "originalText": "Citral"
+        },
+        {
+          "name": "Dihydrocarveol",
+          "pct": "Dihydrocarveol",
+          "mgg": 0,
+          "originalText": "Dihydrocarveol"
+        },
+        {
+          "name": "Fenchone",
+          "pct": "Fenchone",
+          "mgg": 0,
+          "originalText": "Fenchone"
+        },
+        {
+          "name": "y-Terpinene",
+          "pct": "y-Terpinene",
+          "mgg": 0,
+          "originalText": "y-Terpinene"
+        },
+        {
+          "name": "Limonene",
+          "pct": "Limonene",
+          "mgg": 0,
+          "originalText": "Limonene"
+        },
+        {
+          "name": "Linalool",
+          "pct": "Linalool",
+          "mgg": 0,
+          "originalText": "Linalool"
+        },
+        {
+          "name": "Menthol",
+          "pct": "Menthol",
+          "mgg": 0,
+          "originalText": "Menthol"
+        },
+        {
+          "name": "Nerolidol",
+          "pct": "Nerolidol",
+          "mgg": 0,
+          "originalText": "Nerolidol"
+        },
+        {
+          "name": "Ocimene",
+          "pct": "Ocimene",
+          "mgg": 0,
+          "originalText": "Ocimene"
+        },
+        {
+          "name": "Pulegone",
+          "pct": "Pulegone",
+          "mgg": 0,
+          "originalText": "Pulegone"
+        },
+        {
+          "name": "Terpinolene",
+          "pct": "Terpinolene",
+          "mgg": 0,
+          "originalText": "Terpinolene"
+        },
+        {
+          "name": "Total",
+          "pct": "Total",
+          "mgg": 0,
+          "originalText": "Total"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "PPM",
+          "pct": "PPM",
+          "mgg": 0,
+          "originalText": "PPM"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "0.750",
+          "pct": "0.750",
+          "mgg": 0,
+          "originalText": "0.750"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "PPM",
+          "pct": "PPM",
+          "mgg": 0,
+          "originalText": "PPM"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "PPM",
+          "pct": "PPM",
+          "mgg": 0,
+          "originalText": "PPM"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "145.996",
+          "pct": "145.996",
+          "mgg": 0,
+          "originalText": "145.996"
+        },
+        {
+          "name": "1526.008",
+          "pct": "1526.008",
+          "mgg": 0,
+          "originalText": "1526.008"
+        },
+        {
+          "name": "1102.736",
+          "pct": "1102.736",
+          "mgg": 0,
+          "originalText": "1102.736"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "LOQ",
+          "pct": "LOQ",
+          "mgg": 0,
+          "originalText": "LOQ"
+        },
+        {
+          "name": "LOQ",
+          "pct": "LOQ",
+          "mgg": 0,
+          "originalText": "LOQ"
+        },
+        {
+          "name": "5232012",
+          "pct": "5232012",
+          "mgg": 0,
+          "originalText": "5232012"
+        },
+        {
+          "name": "5920.756",
+          "pct": "5920.756",
+          "mgg": 0,
+          "originalText": "5920.756"
+        },
+        {
+          "name": "236.072",
+          "pct": "236.072",
+          "mgg": 0,
+          "originalText": "236.072"
+        },
+        {
+          "name": "343.370",
+          "pct": "343.370",
+          "mgg": 0,
+          "originalText": "343.370"
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "3.000",
+          "pct": "3.000",
+          "mgg": 0,
+          "originalText": "3.000"
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "75.713",
+          "pct": "75.713",
+          "mgg": 0,
+          "originalText": "75.713"
+        },
+        {
+          "name": "LOQ",
+          "pct": "LOQ",
+          "mgg": 0,
+          "originalText": "LOQ"
+        },
+        {
+          "name": "6935.601",
+          "pct": "6935.601",
+          "mgg": 0,
+          "originalText": "6935.601"
+        },
+        {
+          "name": "5542581",
+          "pct": "5542581",
+          "mgg": 0,
+          "originalText": "5542581"
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        },
+        {
+          "name": "ND",
+          "pct": "ND",
+          "mgg": 0,
+          "originalText": "ND"
+        },
+        {
+          "name": "135.353",
+          "pct": "135.353",
+          "mgg": 0,
+          "originalText": "135.353"
+        },
+        {
+          "name": "27276.865",
+          "pct": "27276.865",
+          "mgg": 0,
+          "originalText": "27276.865"
+        },
+        {
+          "name": "",
+          "pct": "",
+          "mgg": 0,
+          "originalText": ""
+        }
+      ]
+    }
+  }
+]

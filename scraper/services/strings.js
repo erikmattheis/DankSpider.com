@@ -95,50 +95,31 @@ function normalizeTerpene(terpene) {
   return terpene;
 }
 
+function getTerpeneObj(line) {
+  const parts = line.split(' ');
+  let mgg = parts[parts.length - 2] || 0;;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '>3.000' ? 0 : parseFloat(mgg) / 10 || 0;
+  const name = normalizeTerpene(parts[0]) || 0;
+  let pct = parts[parts.length - 1];
+  pct = pct || 0;
+  const originalText = line;
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
+}
 
 function getCannabinoidObj(line) {
 
-  /* output for each line {name, pct, originalText }
-
-  originalText should be the line from exampleInput,
-
-  pct should be the number after the last space, or 0 if "ND". If it is is not a number, then "Unknown"
-
-  name should be from this list, if it is not here say "Unknown"
-
-  Δ-8-Tetrahydrocannabinol(Δ-8 THC)
-  Δ-9-Tetrahydrocannabinol(Δ-9 THC)
-  Δ-9-Tetrahydrocannabinic Acid(Δ-9 THC-A)
-  Δ-9-Tetrahydrocannabiphorol(Δ-9 THCP)
-  Δ-9-Tetrahydrocannabivarin(Δ-9 THCV)
-  Δ-9-Tetrahydrocannabivarinic Acid(Δ-9 THCVA)
-  R-Δ-10-Tetrahydrocannabinol(R-Δ-10 THC)
-  S-Δ-10-Tetrahydrocannabinol(S-Δ-10 THC)
-  9S Hexahydrocannabinol(9R-HHC)
-  9S Hexahydrocannabinol(9S-HHC)
-  Tetrahydrocannabinol Acetate(THCO)
-  Cannabidivarin(CBDV)
-  Cannabidivarintic Acid(CBDVA)
-  Cannabidiol(CBD)
-  Cannabidiolic Acid(CBDA)
-  Cannabigerol(CBG)
-  Cannabigerolic Acid(CBGA)
-  Cannabinol(CBN)
-  Cannabinolic Acid(CBNA)
-  Cannabichrome(CBC)
-  Cannabichromenic Acid(CBCA)
-
-
-  */
-
   const parts = line.split(' ');
-  const lastPart = parts[parts.length - 1];
-  const pct = lastPart === 'ND' || lastPart === '<LOQ' ? 0 : lastPart;
-  const name = normalizeCannabinoid(parts[0]);
-  const originalText = line;
-
-  return { name, pct, originalText };
+  let mgg = parts[parts.length - 1] || 0;
+  mgg = mgg === 'ND' || mgg === '<LOQ' ? 0 : mgg;
+  const name = normalizeCannabinoid(parts[0]) || 0;
+  let pct = parts[parts.length - 2] || 0;
+  const originalText = line || 0;
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
 }
+
+
 
 const cannabinoidSpellings = {
   "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol (Δ-8 THC)",
@@ -166,13 +147,59 @@ const cannabinoidSpellings = {
   "TOTAL": "Total Cannabinoids",
 }
 
+const userPatterns = `
+  Δ-8-Tetrahydrocannabinol (Δ-8 THC)
+  Δ-9-Tetrahydrocannabinol (Δ-9 THC)
+  Δ-9-Tetrahydrocannabinic Acid (Δ-9 THC-A)
+  Δ-9-Tetrahydrocannabiphorol (Δ-9 THCP)
+  Δ-9-Tetrahydrocannabivarin (Δ-9 THCV)
+  Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)
+  R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)
+  S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)
+  9S Hexahydrocannabinol (9R-HHC)
+  9S Hexahydrocannabinol (9S-HHC)
+  Tetrahydrocannabinol Acetate (THCO)
+  Cannabidivarin (CBDV)
+  Cannabidivarintic Acid (CBDVA)
+  Cannabidiol (CBD)
+  Cannabidiolic Acid (CBDA)
+  Cannabigerol (CBG)
+  Cannabigerolic Acid (CBGA)
+  Cannabinol (CBN)
+  Cannabinolic Acid (CBNA)
+  Cannabichrome (CBC)
+  Cannabichromenic Acid (CBCA)
+  Bisabolol
+  Humulene
+  Pinene
+  α-Terpinene
+  Cineole
+  β-Caryophyllene
+  Myrcene
+  Borneol
+  Camphene
+  Carene
+  Caryophyllene
+  Citral
+  Dihydrocarveol
+  Fenchone
+  γ-Terpinene
+  Limonene
+  Linalool
+  Menthol
+  Neroldol
+  Ocimene
+  Pulegone
+  Terpinolene
+`;
+
 function normalizeCannabinoid(name) {
 
   if (cannabinoidSpellings[name]) {
     return cannabinoidSpellings[name];
   }
 
-  return "Unknown";
+  return name;
 }
 
 function printPathToKey(obj, keyString, path = []) {
@@ -212,5 +239,6 @@ module.exports = {
   printPathToKey,
   makeFirebaseSafeId,
   normalizeCannabinoid,
-  getCannabinoidObj
+  getCannabinoidObj,
+  getTerpeneObj
 }
