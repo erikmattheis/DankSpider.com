@@ -10,7 +10,7 @@ async function makeProductsFile(vendor, limit) {
 
   let products;
 
-  if (0 === 0) {
+  if (0 === 1) {
     const useDevCollection = true;
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
@@ -23,11 +23,13 @@ async function makeProductsFile(vendor, limit) {
 
   products = products.map(product => {
     if (product.assays) {
-      if (product.assays.cannabinoids)
+      if (product.assays.cannabinoids) {
         product.assays.cannabinoids = filterAssay(product.assays.cannabinoids);
-    }
-    if (product.assays.terpenes) {
-      product.assays.terpenes = filterAssay(product.assays.terpenes);
+      }
+      if (product.assays.terpenes) {
+        product.assays.terpenes = filterAssay(product.assays.terpenes);
+      }
+
     }
     return product;
   });
@@ -44,12 +46,10 @@ function filterAssay(assay) {
   return assay.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown');
 }
 
-
-
 async function init() {
   //const uuid = uuidv4();
-  await jpegs.run('c2');
-  await makeProductsFile('WNC', 88, true);
+  // await jpegs.run('c2');
+  await makeProductsFile();
 }
 
 init();
@@ -58,7 +58,7 @@ init();
 async function run() {
   let startTime = performance.now();
   const uuid = uuidv4();
-  await scrapers.run(uuid);
+  await scrapers.run('c3');
   let endTime = performance.now();
 
   console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
@@ -77,6 +77,6 @@ async function run() {
 
 }
 
-//run();
+run();
 
 

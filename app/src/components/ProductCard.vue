@@ -2,6 +2,18 @@
   <div class="product-card shadowy page" ref="image">
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
+
+    {{ product.assays?.length }}
+
+    <ul v-for="cannabinoid in product.assays?.cannabinoids">
+      <li class="line">{{ cannabinoid.pct }}% {{ cannabinoid.name }}</li>
+      <!--<li>{{ cannabinoid.originalText }}</li>-->
+    </ul>
+    <ul v-for="terpene in product.assays?.terpenes">
+      <li class="line terpene">T: {{ terpene.name }} ({{ terpene.pct }}%)</li>
+    </ul>
+
+
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
       <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty"
@@ -40,7 +52,8 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(   variant, i   ) in    product.variants   " v-bind:key="i" :title="variant" class="variant-name"
+        <li v-for="(     variant, i     ) in      product.variants     " v-bind:key="i" :title="variant"
+          class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
@@ -70,6 +83,8 @@ export default {
       loadImage: false,
       imageLoaded: false,
       position: 0,
+      cannabinoids: [],
+      terpenes: [],
     };
   },
   created() {
@@ -253,6 +268,20 @@ h3 {
 
 p {
   margin-top: 5px;
+}
+
+ul li.line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0;
+  background-color: #050;
+  color: #f095e5;
+}
+
+ul li.line.terpene {
+  color: #050;
+  background-color: #f095e5 !important;
 }
 
 @keyframes pendulum {
