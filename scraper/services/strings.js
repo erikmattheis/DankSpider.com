@@ -96,25 +96,27 @@ function normalizeTerpene(terpene) {
 }
 
 function getTerpeneObj(line) {
-  const parts = line.split(' ');
-  let mgg = parts[parts.length - 2] || 0;;
-  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '>3.000' ? 0 : parseFloat(mgg) / 10 || 0;
+  const cleanedLine = line.replace(/\s+/g, ' ');
+
+  const parts = cleanedLine.split(' ');
   const name = normalizeTerpene(parts[0]) || 0;
-  let pct = parts[parts.length - 1];
-  pct = pct || 0;
-  const originalText = line;
+  const pct = parts[parts.length - 2] || 0;
+  let mgg = parts[parts.length - 1] || 0;;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : 0 || mgg;
+  const originalText = cleanedLine || 0;
+  console.log('cleanedLINE', cleanedLine)
   console.log(name, pct, mgg, originalText)
   return { name, pct, mgg, originalText };
 }
 
 function getCannabinoidObj(line) {
-
-  const parts = line.split(' ');
+  const cleanedLine = line.replace(/\s+/g, ' ');
+  const parts = cleanedLine.split(' ');
   let mgg = parts[parts.length - 1] || 0;
-  mgg = mgg === 'ND' || mgg === '<LOQ' ? 0 : mgg;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
   const name = normalizeCannabinoid(parts[0]) || 0;
   let pct = parts[parts.length - 2] || 0;
-  const originalText = line || 0;
+  const originalText = cleanedLine || 0;
   console.log(name, pct, mgg, originalText)
   return { name, pct, mgg, originalText };
 }

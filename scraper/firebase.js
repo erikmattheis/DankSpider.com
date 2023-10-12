@@ -106,7 +106,6 @@ async function saveProducts(products, batchId, useDev) {
     const docRef = productsRef.doc(id);
     console.log('product', JSON.stringify(product));
     console.log('id', id);
-
     console.log('batchId', batchId);
     console.log('TIMESTAMP', timestamp);
     if (batchId) {
@@ -126,7 +125,7 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
-  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');

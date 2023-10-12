@@ -49,10 +49,13 @@ function filterAssay(assay) {
 async function init() {
   const uuid = uuidv4();
   await jpegs.run('chems02');
-  await makeProductsFile('WNC', 10);
+  await makeProductsFile('WNC', 88, true);
 }
 
 init();
+
+
+
 
 async function run() {
   let startTime = performance.now();

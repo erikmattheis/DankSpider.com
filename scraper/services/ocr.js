@@ -84,10 +84,10 @@ const getAndProcessJpg = async (url, isDev) => {
 
     const jpgName = jpgNameFromUrl(url);
 
-    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(0.5, 0.5); //quality(100).setFormat('jpg')
+    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(0.5, 0.5).quality(100).setFormat('jpg')
 
     const jpgBuffer = await gmToBuffer(gmResponse);
-
+    fs.writeFileSync('image.jpg', jpgBuffer);
     return jpgBuffer;
 
   }
@@ -105,7 +105,7 @@ async function recognize(url) {
   const worker = await createWorker({
     oem: OEM.DEFAULT,
     cachePath: path.join(__dirname, '../tessdata'),
-    errorHandler: (err) => { console.error(err); },
+    errorHandler: (err) => { console.error(err); fs.appendFileSyncFileSync('error.txt', JSON.stringify(err, null, 2)); },
     tessedit_write_images: path.join(__dirname, '../tessdata'),
   });
 
@@ -114,8 +114,10 @@ async function recognize(url) {
   await worker.initialize('eng');
 
   await worker.setParameters({
-    tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
+    tessedit_pageseg_mode: PSM.DEFAULT
+    /*
     tessedit_char_whitelist: 'ΔαβγabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .()-',
+
     user_patterns_file: path.join(__dirname, '../tessdata/eng.user-patterns'),
     user_words_file: path.join(__dirname, '../tessdata/eng.user-words'),
     preserve_interword_spaces: 1,
@@ -125,6 +127,7 @@ async function recognize(url) {
     enable_new_segsearch: 0,
     textord_force_make_prop_words: 'F',
     edges_max_children_per_outline: 40
+    */
   });
 
   const isDev = process.env.NODE_ENV !== 'production';
@@ -140,29 +143,27 @@ async function recognize(url) {
     fs.writeFileSync('image.jpg', jpgBuffer);
     //const base64Data = jpgBuffer.toString('base64');
     //const decodedBuffer = Buffer.from(base64Data, 'base64');
-    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
-
 
     const terpenes = [];
 
     const cannabinoids = [];
 
-    let text = title.data.text;
+    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
 
-    if (text.toLowerCase().includes('terpenes')) {
+    if (title.data.text.toLowerCase().includes('terpenes')) {
 
       console.log('----- terpenes -----');
 
       const result = await worker.recognize('image.jpg', configWNCTerpenes);
 
-      text = result.data.text;
+      console.log(result.data.text)
 
-      const textArray = text.split('\n');
+      const textArray = result.data.text.split('\n');
 
       for (const text of textArray) {
-
+        console.log('terpene line', text)
         const line = getTerpeneObj(text);
-
+        console.log('line', line);
         terpenes.push(line);
 
       }
@@ -189,7 +190,6 @@ async function recognize(url) {
         const line = getCannabinoidObj(text);
         if (!line) {
           console.log('not line');
-          process.exit(1);
         }
         cannabinoids.push(line);
 
@@ -220,7 +220,14 @@ async function recognize(url) {
     return null;
   }
 }
-
+/*
+(async () => {
+  const result = await recognize('http://localhost:5173/BUFFER.jpg');
+  //console.log(JSON.stringify(result, null, 2));
+})();
+*/
 module.exports = {
   recognize
 };
+
+
