@@ -3,18 +3,6 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
 
-    <div v-for="substance in product.assays">
-
-      <ul v-for="cannabinoid in substance.cannabinoids">
-        <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
-      </ul>
-      <ul v-for="terpene in substance">
-        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>
-
-      </ul>
-
-    </div>
-
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
       <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty"
@@ -58,6 +46,12 @@
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
+      </ul>
+      <ul v-for="cannabinoid in product.cannabinoids">
+        <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
+      </ul>
+      <ul v-for="terpene in product.terpenes">
+        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>
       </ul>
     </div>
   </div>

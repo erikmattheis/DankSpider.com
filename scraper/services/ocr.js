@@ -142,10 +142,6 @@ async function recognize(url) {
     }
     fs.writeFileSync('image.jpg', jpgBuffer);
 
-
-    let title = await worker.recognize('image.jpg', configWNCTerpenesTitle);
-    console.log('title', title.data.text)
-
     const terpenes = [];
 
     const cannabinoids = [];
@@ -196,20 +192,23 @@ async function recognize(url) {
 
       }
 
-      await worker.terminate();
-
-      return { terpenes, cannabinoids }
     }
 
     await worker.terminate();
-    return 'STOP';
+
+    return { terpenes, cannabinoids }
+
   }
-    * /
-  await worker.terminate();
-} catch (error) {
-  console.error(`Failed to recognize image: ${error} `);
-  fs.writeFileSync('error.txt', JSON.stringify(error, null, 2));
-  return null;
+  catch (error) {
+    if (worker) {
+      await worker.terminate();
+    }
+    console.error(`Failed to recognize image: ${error} `);
+    fs.writeFileSync('error.txt', JSON.stringify(error, null, 2));
+    return null;
+  }
+
+
 }
 /*
 (async () => {
