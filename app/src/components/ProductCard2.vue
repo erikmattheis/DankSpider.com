@@ -48,10 +48,10 @@
         </li>
       </ul>
       <ul v-for="cannabinoid in product.cannabinoids">
-        <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
+        <li>{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
       </ul>
       <ul v-for="terpene in product.terpenes">
-        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>
+        <li>{{ terpene.name }} ({{ terpene.pct }}%)</li>
       </ul>
     </div>
   </div>

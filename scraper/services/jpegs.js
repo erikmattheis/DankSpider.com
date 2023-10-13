@@ -15,7 +15,7 @@ const { deleteApp } = require('firebase-admin/app');
 
 async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 10);
+  const products = await getProductsByVendor('WNC', 3);
 
   console.log('products.length', products.length);
 
@@ -93,8 +93,7 @@ async function run(batchId) {
   console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
 }
-
-//run('fuck');
+run('okx');
 
 async function getProductImages(url) {
   const response = await axios.get(url);
