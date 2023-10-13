@@ -12,7 +12,6 @@ export const useSpiderStore = defineStore('spider', {
     checkedVendors: [],
     normalizedVariants: [],
     checkedVariants: [],
-    checkedVendors: [],
     emptyProduct: {
       name: 'empty',
       image: '',
