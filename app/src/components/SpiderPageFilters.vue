@@ -35,7 +35,6 @@
         </li>
       -->
       </ul>
-      selectedVariants: {{ selectedVariants }}
       <ul>
         <li class="spacer">.</li>
         <li v-for="(variant, i) in selectedVariants" :key="i"
