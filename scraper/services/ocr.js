@@ -107,35 +107,35 @@ const getAndProcessJpg = async (url, isDev) => {
 }
 
 async function recognize(url) {
-
-  console.log('url', url)
-  if (url.includes('Pineapple') ||
-    url.includes('CBD-Diamond') ||
-    url.includes('BagsGroupSho')) {
-    console.log('pineapple')
-    return null;
-  }
-
-  const worker = await createWorker("eng", 1, {
-    user_patterns_file: './tessdata/eng.user-patterns',
-    tessdata: './tessdata',
-    userPatterns: './tessdata/eng.user-patterns',
-    tessedit_write_images: true,
-  });
-
-  await worker.loadLanguage('eng');
-
-  await worker.initialize();
-
-  await worker.setParameters({
-    tessedit_pageseg_mode: 4,
-    tessedit_rejection_debug: 1,
-  });
-
-  const isDev = process.env.NODE_ENV !== 'production';
-  console.log('recognizing', url)
-
   try {
+    console.log('url', url)
+    if (url.includes('Pineapple') ||
+      url.includes('CBD-Diamond') ||
+      url.includes('BagsGroupSho')) {
+      console.log('pineapple')
+      return null;
+    }
+
+    const worker = await createWorker("eng", 1, {
+      user_patterns_file: './tessdata/eng.user-patterns',
+      tessdata: './tessdata',
+      userPatterns: './tessdata/eng.user-patterns',
+      tessedit_write_images: true,
+    });
+
+    await worker.loadLanguage('eng');
+
+    await worker.initialize();
+
+    await worker.setParameters({
+      tessedit_pageseg_mode: 4,
+      tessedit_rejection_debug: 1,
+    });
+
+    const isDev = process.env.NODE_ENV !== 'production';
+    console.log('recognizing', url)
+
+
     const jpgBuffer = await getAndProcessJpg(url, isDev);
     if (!jpgBuffer) {
       console.log('skipping', url);
@@ -148,6 +148,7 @@ async function recognize(url) {
     const decodedBuffer = Buffer.from(base64Data, 'base64');
     let title = await worker.recognize('image.jpg', configWNCTerpenesTitle);
     console.log('title', title.data.text)
+
     const terpenes = [];
 
     const cannabinoids = [];
@@ -190,17 +191,10 @@ async function recognize(url) {
           terpenes.push({ name, pct: parseInt(split[1]) });
         }
       }
-
-      await worker.terminate();
-      return {
-        terpenes
-      }
     }
 
-
-
     title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
-    console.log('title', title.data.text)
+
     if (title.data.text.toLowerCase().includes('cannabinoids')) {
 
       console.log('----- cannabinoids -----');
@@ -215,43 +209,21 @@ async function recognize(url) {
 
       for (const text of textArray) {
         const split = text.split(' ');
+
         cannabinoids.push({
           name: split[0], pct: parseInt(split[3])
         });
 
-        const textArray = result.data.text.split('\n');
-
-        const chemicalNameRegex = /*\s?\d*/g; // Regular expression to match chemical names
-
-        for (const text of textArray) {
-          const matches = text.match(chemicalNameRegex);
-          if (matches) {
-            for (const match of matches) {
-              const name = match.trim();
-              if (name.length > 0) {
-                cannabinoids.push({ name });
-              }
-            }
-          }
-        }
-
-      }
-
-      await worker.terminate();
-      return {
-        cannabinoids
       }
     }
-    /*
-      if (title.data.text.toLowerCase().includes('bellieveau')) {
-        // reached legal stuff, npthing else will ever follow
-
-        await worker.terminate();
-        return 'STOP';
-      }
-    */
     await worker.terminate();
+    return { terpenes, cannabinoids }
   } catch (error) {
+    if (worker) {
+      await worker.terminate();
+    }
+    fs.appendFileSync('badImages.txt', `${url}\n`);
+    fs.appendFileSync('errors.txt', `${error}\n`);
     console.error(`Failed to recognize image: ${error} `);
     return null;
   }

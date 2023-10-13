@@ -17,7 +17,7 @@ async function run() {
 
   const products = await getProductsByVendor('WNC', 8);
 
-  // console.log('products.length', products.length);
+  console.log('products.length', products.length);
 
   const withImages = [];
 
@@ -109,8 +109,6 @@ async function deleteAllDocumentsInCollection(collectionPath) {
   await batch.commit();
 }
 
-
-
 run();
 
 async function getProductImages(url) {
@@ -125,10 +123,7 @@ function nameContains(imageNames, str) {
   return name.toLowerCase().includes(str.toLowerCase());
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  const dotenv = require('dotenv');
-  dotenv.config();
-}
+
 
 module.exports = {
   run

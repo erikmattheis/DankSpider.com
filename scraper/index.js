@@ -1,15 +1,14 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-await
 const { getProductsWithAssay2, getAllProducts, getProductsByVendor, cleanProductsCollections } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 
 async function makeProductsFile(vendor, limit) {
-
+  console.log('makeProductsFile', vendor, limit); //, useDevCollection);
   let products;
 
-  if (0 === 1) {
+  if (0 === 0) {
     const useDevCollection = true;
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
@@ -21,12 +20,13 @@ async function makeProductsFile(vendor, limit) {
   }
   const updatedAt = new Date().toISOString();
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: products, updatedAt: updatedAt }));
+  console.log('products file written for ', products.length, vendor, 'products');
 }
 
 async function init() {
-  const uuid = uuidv4();
-  await scrapers.run(uuid);
-  await makeProductsFile();
+  //const uuid = uuidv4();
+  //await scrapers.run('c3');
+  await makeProductsFile('WNC', 8);
 }
 
 init();

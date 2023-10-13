@@ -4,6 +4,11 @@ const { getApps, initializeApp, applicationDefault, cert } = require('firebase-a
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const { makeFirebaseSafeId } = require('./services/strings.js');
 
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config();
+}
+
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 if (!getApps().length) {
@@ -31,8 +36,6 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
-
-
 async function getUniqueChemicals() {
 
   console.log('getUniqueChemicals');
@@ -44,34 +47,32 @@ async function getUniqueChemicals() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
+
     if (!product.assays) {
       return;
     }
-    for (const assay of product?.assays) {
+    console.log(product.assays)
 
-      if (assay.cannabinoids) {
-        assay.cannabinoids.forEach(line => cannabinoids?.add(line.name));
-      }
-      else if (assay.terpenes) {
-        assay.terpenes.forEach(line => terpenes?.add(line.name));
-      }
+    product.assays.cannabinoids.forEach(line => cannabinoids.add(line.name));
 
-    }
+    product.assays.terpenes.forEach(line => terpenes.add(line.name));
 
   });
+
   const c = Array.from(cannabinoids);
   const t = Array.from(terpenes);
   console.log('c', c.length);
   console.log('t', t.length);
   return { cannabinoids: c, terpenes: t }
-}
 
+}
+/*
 (async () => {
   const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-
+*/
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -179,8 +180,10 @@ async function cleanProductsCollections() {
 */
 
 async function getProductsByVendor(vendor, limit, useDev) {
+  console.log('getProductsByVendor', vendor, limit, useDev);
   let productRef;
   if (useDev) {
+    console.log('productsWithAssay2', vendor)
     productsRef = db.collection('productsWithAssay2');
   }
   else {
@@ -192,10 +195,11 @@ async function getProductsByVendor(vendor, limit, useDev) {
     snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();
   }
   else {
+    console.log('vendor ------', vendor)
     snapshot = await productsRef.where('vendor', '==', vendor).get();
   }
 
-  // console.log(`Got ${snapshot.size} products from ${vendor}`)
+  console.log(`Got ${snapshot.size} products from ${vendor}`)
   const products = [];
 
   snapshot.forEach(doc => {
