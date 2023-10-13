@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SpiderPage from './components/SpiderPage.vue';
 import NewsPage from './components/NewsPage.vue';
+//import TerpenesPage from './components/TerpenesPage.vue';
+//import TerpenePage from './components/TerpenePage.vue';
 import StrainsPage from './components/StrainsPage.vue';
 import StrainPage from './components/StrainPage.vue';
 import THCAPage from './components/THCAPage.vue';
@@ -19,6 +21,18 @@ const router = createRouter({
       name: 'NewsPage',
       component: NewsPage,
     },
+    /*
+    {
+      path: '/terpenes',
+      name: 'TerpenesPage',
+      component: TerpenesPage,
+    },
+    {
+      path: '/terpene/:terpeneName',
+      name: 'TerpenePage',
+      component: TerpenePage,
+    },
+    */
     {
       path: '/strains',
       name: 'StrainsPage',

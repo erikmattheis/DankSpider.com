@@ -1,7 +1,9 @@
 <template>
   <div class="nav">
     <Menu class="left" />
-    <h3 class="center band"><span>Updated {{ updatedString }}</span></h3>
+    <h3 class="center band"><span>Updated {{ updatedString }}</span><br>
+      <router-link to="/terpenes">Terpenes</router-link>
+    </h3>
     <MailList class="right" />
   </div>
 </template>

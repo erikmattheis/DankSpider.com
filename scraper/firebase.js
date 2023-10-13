@@ -36,37 +36,6 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
-async function getUniqueChemicals() {
-
-  console.log('getUniqueChemicals');
-  const productsRef = db.collection('productsWithAssay2');
-  const snapshot = await productsRef.get();
-
-  const cannabinoids = new Set();
-  const terpenes = new Set();
-
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    product.cannabinoids.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
-    product.terpenes.forEach(terpene => terpenes.add(terpene.name));
-  });
-
-  const c = Array.from(cannabinoids);
-  const t = Array.from(terpenes);
-  console.log('c', c.length);
-  console.log('t', t.length);
-  c.sort();
-  t.sort();
-  return { cannabinoids: c, terpenes: t }
-
-}
-/*
-(async () => {
-  const result = await getUniqueChemicals();
-  console.log(JSON.stringify(result, null, 2));
-}
-)();
-*/
 
 async function saveChemicals(products, batchId, useDev) {
   const batch = db.batch();
@@ -359,6 +328,38 @@ async function getTerpenes() {
 
   return chemicals;
 }
+
+async function getUniqueChemicals() {
+
+  console.log('getUniqueChemicals');
+  const productsRef = db.collection('productsWithAssay2');
+  const snapshot = await productsRef.get();
+
+  const cannabinoids = new Set();
+  const terpenes = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    product.cannabinoids.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
+    product.terpenes.forEach(terpene => terpenes.add(terpene.name));
+  });
+
+  const c = Array.from(cannabinoids);
+  const t = Array.from(terpenes);
+  console.log('c', c.length);
+  console.log('t', t.length);
+  c.sort();
+  t.sort();
+  return { cannabinoids: c, terpenes: t }
+
+}
+/*
+(async () => {
+  const result = await getUniqueChemicals();
+  console.log(JSON.stringify(result, null, 2));
+}
+)();
+*/
 
 
 module.exports = {
