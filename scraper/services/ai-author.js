@@ -1,58 +1,61 @@
-const openai = require('openai');
+const openai = require('Openai');
 
-const openai = new openai(process.env.OPENAI_API_KEY);
+const Openai = new openai(process.env.OPENAI_API_KEY);
 
 async function getOpenAIArticle(topic, length) {
-  const prompt = [{ role: 'system', content: 'You are a humour author for an eigth grader with a good understanding of chemestry. ' },
-  { role: 'user', content: `${length} word article about ${topic}` }];
+  const messages = [{ role: 'user', content: `Funny and informative ${length} word article about ${topic} for an eigth grader with a good understanding of chemestry. Format for html using H2 for section headers` }];
 
-  const engine = "gpt-3.5-turbo";
+  const model = "gpt-3.5-turbo";
 
-  const gptResponse = await openai.chat.completions.create({
-    prompt,
-    engine,
+  const gptResponse = await Openai.chat.completions.create({
+    messages,
+    model,
   });
-
-  return gptResponse.data;
+  console.log('res', gptResponse.choices[0].message.content)
+  return gptResponse.choices[0].message.content;
 
 }
 
-async function getOpenAIDescription(topic, length) {
-  const prompt = [{ role: 'system', content: 'You write meta descriptions for search engines that are no longer than 155 characters.' },
-  { role: 'user', content: `${topic}` }]; of
+async function getOpenAIDescription(topic) {
+  const messages = [{
+    role: 'system', content: `Meta descriptions for no longer than 155 characters for page defining cannabis terpene ${topic}`
+  }];
 
-  const engine = "gpt-3.5-turbo";
+  const model = "gpt-3.5-turbo";
 
-  const gptResponse = await openai.chat.completions.create({
-    prompt,
-    engine,
+  const gptResponse = await Openai.chat.completions.create({
+    messages,
+    model,
   });
 
-  return gptResponse.data;
+  return gptResponse.choices[0].message.content;
 
 }
 
-async function getOpenAIPageHeadline(topic, length) {
-  const prompt = [{ role: 'system', content: 'You write headlines with silly puns 12 words or fewer.' },
-  { role: 'user', content: `${topic}` }]; of
+async function getOpenAIHeadline(topic) {
+  const messages = [{
+    role: 'system', content: `A headline with silly puns 10 words or fewer for article on cannabis terpene ${topic}`
+  }];
 
-  const engine = "gpt-3.5-turbo";
+  const model = "gpt-3.5-turbo";
 
-  const gptResponse = await openai.chat.completions.create({
-    prompt,
-    engine,
+  const gptResponse = await Openai.chat.completions.create({
+    messages,
+    model,
   });
 
-  return gptResponse.data;
+  return gptResponse.choices[0].message.content;
 }
 
-function getArticle(chemical) {
+async function getArticle(chemical, length) {
   console.log('article', chemical);
-  const article = await getOpenAIArticle(chemical);
+  const article = await getOpenAIArticle(chemical, length);
   console.log('description', chemical);
-  const description = await getOpenAIDescription(`chemical` + chemical);
+  const description = await getOpenAIDescription(`terpene ` + chemical);
   console.log('headline', chemical);
-  const headline = getOpenAIHeadline(`chemical` + chemical);
+  const headline = await getOpenAIHeadline(`terpene ` + chemical);
 
-  return { chemical, article, description, headline }
+  return { name: chemical, article, description, headline }
 }
+
+module.exports = { getArticle };

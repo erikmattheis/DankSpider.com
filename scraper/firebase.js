@@ -47,31 +47,66 @@ async function getUniqueChemicals() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-
-    if (!product.assays) {
-      return;
-    }
-    console.log(product.assays)
-
-    product.assays.cannabinoids.forEach(line => cannabinoids.add(line.name));
-
-    product.assays.terpenes.forEach(line => terpenes.add(line.name));
-
+    product.cannabinoids.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
+    product.terpenes.forEach(terpene => terpenes.add(terpene.name));
   });
 
   const c = Array.from(cannabinoids);
   const t = Array.from(terpenes);
   console.log('c', c.length);
   console.log('t', t.length);
+  c.sort();
+  t.sort();
   return { cannabinoids: c, terpenes: t }
 
 }
-
+/*
 (async () => {
   const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
+*/
+
+async function saveChemicals(products, batchId, useDev) {
+  const batch = db.batch();
+  let productsRef;
+  if (useDev) {
+    productsRef = db.collection('productsWithAssay2');
+  }
+  else {
+    productsRef = db.collection('products');
+  }
+
+  const timestamp = admin.firestore.Timestamp.now();
+  const idPrefix = batchId || timestamp.toDate().toISOString();
+
+  for (product of products) {
+    const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
+    const docRef = productsRef.doc(id);
+    console.log('product', JSON.stringify(product));
+    console.log('id', id);
+    console.log('batchId', batchId);
+    console.log('TIMESTAMP', timestamp);
+    if (batchId) {
+      batch.set(docRef, {
+        ...product,
+        batchId,
+        timestamp,
+      });
+    }
+    else {
+      batch.set(docRef, {
+        ...product,
+        timestamp,
+      });
+    }
+  };
+
+  await batch.commit();
+
+  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+}
 
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
@@ -292,7 +327,8 @@ async function saveArticles(articles) {
   const timestamp = admin.firestore.Timestamp.now();
 
   for (article of articles) {
-    const id = await makeFirebaseSafe(article.chemical);
+    console.log('article.name', article.name);
+    const id = await makeFirebaseSafe(article.name);
     const docRef = chemicalsRef.doc(id);
     console.log('product', JSON.stringify(article));
     console.log('id', id);
@@ -303,13 +339,31 @@ async function saveArticles(articles) {
       timestamp,
     });
   }
+
+  await batch.commit();
+
+  console.log(`Data has been written to Firebase for ${articles.length} articles`);
+
 };
 
-await batch.commit();
+async function getTerpenes() {
+  const chemicalsRef = db.collection('terpenes');
+  const snapshot = await chemicalsRef.get();
 
-console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  const chemicals = [];
+
+  snapshot.forEach(doc => {
+    const chemical = doc.data()
+    chemicals.push(chemical);
+  });
+
+  return chemicals;
+}
+
 
 module.exports = {
+  getTerpenes,
+  saveArticles,
   saveProducts,
   getAllProducts,
   getProductsByTitle,

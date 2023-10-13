@@ -1,10 +1,9 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getProductsWithAssay2, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical } = require('./firebase.js');
+const { getTerpenes, saveArticles, getProductsWithAssay2, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 const jpegs = require('./services/jpegs.js');
-const { firebase } = require('./firebase.js');
 const { getArticle } = require('./services/ai-author.js');
 
 async function makeProductsFile(vendor, limit) {
@@ -32,7 +31,9 @@ async function makeProductsFile(vendor, limit) {
 
   const updatedAt = new Date().toISOString();
 
-  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: products, updatedAt: updatedAt }));
+  const terpenes = await getTerpenes()
+
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }));
 
   console.log(`Wrote ${products.length} products to products.json`);
 
@@ -42,28 +43,54 @@ function filterAssay(assay) {
   return assay.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown');
 }
 
-function makeTerpenes() {
-  const cannabisTerpenes = []
+async function makeTerpenes() {
+  const cannabisTerpenes = [
+    "1,8 Cineole",
+    "Eucalyptol",
+    "Bisabolol",
+    "Borneol",
+    "Borreol",
+    "Camphene",
+    "Carene",
+    "Caryophyllene",
+    "Citral",
+    "Dihydrocarveol",
+    "Fenchone",
+    "Humulene",
+    "Limonene",
+    "Linalool",
+    "Menthol",
+    "Myrcene",
+    "Nerolidol",
+    "Ocimene",
+    "Pinene",
+    "Pulegone",
+    "Terpinene",
+    "Terpinolene"]
+  const terpenes = [];
   const updatedAt = new Date().toISOString();
+  for (const terpene of cannabisTerpenes) {
+    const result = await getArticle(terpene, 500);
+    await saveArticles([result]);
+    terpenes.push(result);
+  }
 
-  fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify({ terpenes: terpenesArray, updatedAt: updatedAt }));
-
-  console.log(`Wrote ${terpenesArray.length} terpenes to terpenes.json`);
+  console.log(`Wrote ${terpenes.length} terpenes to Firebase`);
 }
+
+async function makeTerpenesFile() {
+  const result = await getTerpenes();
+  fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result));
+  console.log(`Wrote ${result.length} terpenes to terpenes.json`);
+}
+
 async function init() {
   //const uuid = uuidv4();
-  await jpegs.run('c4');
-  //await makeProductsFile('WNC', 88);
+  //await jpegs.run('c4');
+  await makeProductsFile('WNC', 88);
 
-  //await getUniqueChemicals();
+  //await makeTerpenes();
 
-  // await jpegs.run('c2');
-
-  const terpenes = ['lemonine', 'camphor']
-  for (const terpene of terpenes) {
-    const result = await getArticle(terpene);
-    await saveTerpine(result);
-  }
 }
 
 init();

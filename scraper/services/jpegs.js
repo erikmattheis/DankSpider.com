@@ -93,7 +93,6 @@ async function run(batchId) {
   console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
 }
-run('okx');
 
 async function getProductImages(url) {
   const response = await axios.get(url);
