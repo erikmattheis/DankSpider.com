@@ -214,6 +214,10 @@ async function collectionIdExists(id, collectionRef) {
   return !snapshot.empty;
 }
 
+async function makeFirebaseSafe(str) {
+  return str.replace(/[^\w-]+/g, '_');
+}
+
 async function makeFirebaseSafeId(prefix, product, collectionRef) {
 
   let n = 0;
@@ -224,7 +228,8 @@ async function makeFirebaseSafeId(prefix, product, collectionRef) {
     idExists = await collectionIdExists(id, collectionRef);
     n = n + 1;
   }
-  return id.replace(/[^\w-]+/g, '_');
+  const result = makeFirebaseSafe(id);
+  return result;
 }
 
 module.exports = {
@@ -233,6 +238,7 @@ module.exports = {
   normalizeVariantTitle,
   variantNameContainsWeightUnitString,
   printPathToKey,
+  makeFirebaseSafe,
   makeFirebaseSafeId,
   normalizeCannabinoid,
   getCannabinoidObj,

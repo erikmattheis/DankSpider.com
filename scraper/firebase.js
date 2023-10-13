@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-const { makeFirebaseSafeId } = require('./services/strings.js');
+const { makeFirebaseSafe, makeFirebaseSafeId } = require('./services/strings.js');
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
@@ -66,13 +66,13 @@ async function getUniqueChemicals() {
   return { cannabinoids: c, terpenes: t }
 
 }
-/*
+
 (async () => {
   const result = await getUniqueChemicals();
   console.log(JSON.stringify(result, null, 2));
 }
 )();
-*/
+
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
@@ -285,6 +285,29 @@ async function deleteAllDocumentsInCollection(collectionPath) {
   await batch.commit();
 }
 
+async function saveArticles(articles) {
+  const batch = db.batch();
+  const chemicalsRef = db.collection('terpenes');
+
+  const timestamp = admin.firestore.Timestamp.now();
+
+  for (article of articles) {
+    const id = await makeFirebaseSafe(article.chemical);
+    const docRef = chemicalsRef.doc(id);
+    console.log('product', JSON.stringify(article));
+    console.log('id', id);
+    console.log('TIMESTAMP', timestamp);
+
+    batch.set(docRef, {
+      ...article,
+      timestamp,
+    });
+  }
+};
+
+await batch.commit();
+
+console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 
 module.exports = {
   saveProducts,

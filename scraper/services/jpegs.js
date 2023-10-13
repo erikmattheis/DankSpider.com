@@ -15,7 +15,7 @@ const { deleteApp } = require('firebase-admin/app');
 
 async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 3);
+  const products = await getProductsByVendor('WNC', 88);
 
   console.log('products.length', products.length);
 
