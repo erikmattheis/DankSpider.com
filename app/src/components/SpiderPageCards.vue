@@ -2,7 +2,7 @@
   <div class="page">
     <div class="horizontal-cards">
       <template v-for="(product, i) in filteredProducts" :key="i">
-        <ProductCard :product="product" />
+        <ProductCard2 :product="product" />
       </template>
     </div>
   </div>
@@ -11,12 +11,12 @@
 <script>
 import { useSpiderStore } from '../store';
 
-import ProductCard from './ProductCard.vue';
+import ProductCard2 from './ProductCard2.vue';
 
 export default {
   name: 'SpiderPageCards',
   components: {
-    ProductCard,
+    ProductCard2,
   },
   data() {
     return {

@@ -169,7 +169,7 @@ async function recognize(url) {
 
       for (const text of textArray) {
 
-        let split = [];
+        let split = text.split(' ');
 
         if (text.includes('0.750 3.000')) {
 

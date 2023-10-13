@@ -3,12 +3,12 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
 
-    <div v-for="substsance in product.assays">
+    <div v-for="substance in product.assays">
 
-      <ul v-for="cannabinoid in substsance.assay.cannabinoids">
+      <ul v-for="cannabinoid in substance.cannabinoids">
         <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
       </ul>
-      <ul v-for="terpene in product.assays.terpenes">
+      <ul v-for="terpene in substance">
         <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>-->
 
       </ul>

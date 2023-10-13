@@ -53,51 +53,45 @@ async function run() {
 
   for (const product of bestImages) {
 
-    const assays = [];
+    const terpenes = [];
+    const cannabinoids = [];
 
     for (const image of product.images) {
-      console.log('IMAGE')
-      const assay = await recognize(image);
 
-      if (!assay) {
+      const results = await recognize(image);
+
+      if (!results) {
         console.log('image rejected', image);
       }
-      console.log('GOT ASSAY')
-      console.log('assay', assay)
-      if (assay === 'STOP') {
+
+      if (results === 'STOP') {
         // console.log('wont finbe finding more assays')
         break;
       }
-      if (assay?.terpenes?.length) {
+
+      if (results.terpenes?.length) {
         console.log('terpenes has length')
-        assays.push({
-          image: image,
-          terpenes: assay.terpenes,
-        });
+        terpenes.push(...results.terpenes);
       }
-      else if (assay?.cannabinoids?.length) {
-        console.log('cannabinoids has length')
-        assays.push({
-          image: image,
-          cannabinoids: assay.cannabinoids,
-        });
+      else if (results.cannabinoids?.length) {
+        cannabinoids.push(...results.cannabinoids)
       }
 
-      if (assays.length === 2) {
+      if (terpenes.length && cannabinoids.length) {
         // console.log('found terpenes and cannabinoids');
         break;
       }
-    }
-    if (assays.length) {
-
-      withOCRedImages.push({ ...product, assays: assays });
-      await saveProducts([{ ...product, assays: assays }], 'chem01', true);
 
     }
 
-    console.log(`Saved ${withOCRedImages.length} products to Firebase`);
+    withOCRedImages.push({ ...product, terpenes, cannabinoids });
 
   }
+
+  await saveProducts(withOCRedImages, 'c3', true);
+
+  console.log(`Saved ${withOCRedImages.length} products to Firebase`);
+
 }
 
 async function deleteAllDocumentsInCollection(collectionPath) {
