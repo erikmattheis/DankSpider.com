@@ -78,21 +78,107 @@ function variantNameContainsWeightUnitString(variantName) {
 
 function normalizeTerpene(terpene) {
   const spellings = {
-    'aPinene': 'Pinene',
+    'a-Pinene': 'Pinene',
     '18Cineole': 'Cineole',
-    'BCaryophyllene': 'Caryophyllene',
-    'aHumulene': 'Humulene',
-    'aBisabolol': 'Bisabolol',
-    'BMyrcene': 'Myrcene',
-    'aTerpinene': 'Terpinene',
+    'B-Caryophyllene': 'Caryophyllene',
+    'a-Humulene': 'Humulene',
+    'a-Bisabolol': 'Bisabolol',
+    'B-Myrcene': 'Myrcene',
+    'a-Terpinene': 'Terpinene',
     'CaryophylleneOxide': 'Caryophyllene Oxide',
-    'BCaryophyliene': 'Caryophyllene',
+    'B-Caryophyliene': 'Caryophyllene',
     'Bormwol': 'Borneol',
   }
   if (spellings[terpene]) {
     return spellings[terpene];
   }
   return terpene;
+}
+
+function getTerpeneObj(line) {
+  /*
+  const cleanedLine = line.replace(/\s+/g, ' ');
+
+  const parts = cleanedLine.split(' ');
+
+  const name = normalizeTerpene(parts[0]) || 0;
+
+  const pct = parts[parts.length - 2] || 0;
+
+  let mgg = parts[parts.length - 1] || 0;
+
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : 0 || mgg;
+  const originalText = cleanedLine || 0;
+  console.log('cleanedLINE', cleanedLine)
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
+*/
+  const cleanedLine = line.replace(/\s+/g, ' ');
+  const parts = cleanedLine.split(' ');
+
+  const name = normalizeTerpene(parts[0]) || 0;
+
+  let pct = parts[parts.length - 2] || 0;
+  pct = pct + '';
+  pct = (parseInt(pct.replace('.', '')) / 10000000).toFixed(2);
+
+  let mgg = parts[parts.length - 1] || 0;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
+  const originalText = cleanedLine || 0;
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
+}
+
+function getCannabinoidObj(line) {
+  const cleanedLine = line.replace(/\s+/g, ' ');
+  const parts = cleanedLine.split(' ');
+
+  const name = normalizeCannabinoid(parts[0]) || 0;
+
+  let pct = parts[parts.length - 2] || 0;
+  pct = pct + '';
+  pct = (parseInt(pct.replace('.', '')) / 1000).toFixed(2);
+
+  let mgg = parts[parts.length - 1] || 0;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
+  const originalText = cleanedLine || 0;
+  console.log(name, pct, mgg, originalText)
+  return { name, pct, mgg, originalText };
+}
+
+const cannabinoidSpellings = {
+  "4-8-Tetrahydrocannabinol": "Δ-8-Tetrahydrocannabinol (Δ-8 THC)",
+  "4-9-Tetrahydrocannabinol": "Δ-9-Tetrahydrocannabinol (Δ-9 THC)",
+  "4-9-Tetrahydrocannabinolic": "Δ-9-Tetrahydrocannabinic Acid (Δ-9 THCA)",
+  "A-9-Tetrahydrocannabiphorol": "Δ-9-Tetrahydrocannabiphorol (THCP)",
+  "A-9-Tetrahydrocannabivarin": "Δ-9-Tetrahydrocannabivarin (THCV)",
+  "A-9-Tetrahydrocannabivarinic": "Δ-9-Tetrahydrocannabivarinic Acid (Δ-9 THCVA)",
+  "R-A-10-Tetrahydrocannabinol": "R-Δ-10-Tetrahydrocannabinol (R-Δ-10 THC)",
+  "-A-10-Tetrahydrocannabinol": "S-Δ-10-Tetrahydrocannabinol (S-Δ-10 THC)",
+  "9R-Hexahydrocannabinol": "9R Hexahydrocannabinol (9R-HHC)",
+  "95-Hexahydrocannabinol": "9S Hexahydrocannabinol (9R-HHC)",
+  "Tetrahydrocannabinol": "Tetrahydrocannabinol Acetate (THC0)",
+  "Cannabidivarin": "Cannabidivarin (CBDV)",
+  "Cannabidivarinic": "Cannabidivarintic Acid (CBDVA)",
+  "Cannabidiol": "Cannabidiol (CBD)",
+  "Cannabidiolic": "Cannabidiolic Acid (CBDA)",
+  "Cannabigerol": "Cannabigerol (CBG)",
+  "Cannabigerolic": "Cannabigerolic Acid (CBGA)",
+  "Cannabinol": "Cannabinol (CBN)",
+  "Cannabinolic": "Cannabinolic Acid (CBNA)",
+  "Cannabichromene": "Cannabichrome (CBC)",
+  "Cannabichromenic": "Cannabichromenic Acid (CBCA)",
+  "Total": "Total Cannabinoids",
+  "TOTAL": "Total Cannabinoids",
+}
+
+function normalizeCannabinoid(name) {
+
+  if (cannabinoidSpellings[name]) {
+    return cannabinoidSpellings[name];
+  }
+
+  return name;
 }
 
 function printPathToKey(obj, keyString, path = []) {
@@ -130,5 +216,8 @@ module.exports = {
   normalizeVariantTitle,
   variantNameContainsWeightUnitString,
   printPathToKey,
-  makeFirebaseSafeId
+  makeFirebaseSafeId,
+  normalizeCannabinoid,
+  getCannabinoidObj,
+  getTerpeneObj
 }

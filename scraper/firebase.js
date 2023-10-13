@@ -83,14 +83,16 @@ async function saveProducts(products, batchId, useDev) {
     productsRef = db.collection('products');
   }
 
-  const archiveRef = db.collection('productsArchive');
-
   const timestamp = admin.firestore.Timestamp.now();
   const idPrefix = batchId || timestamp.toDate().toISOString();
 
   for (product of products) {
     const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
     const docRef = productsRef.doc(id);
+    console.log('product', JSON.stringify(product));
+    console.log('id', id);
+    console.log('batchId', batchId);
+    console.log('TIMESTAMP', timestamp);
     if (batchId) {
       batch.set(docRef, {
         ...product,
@@ -108,7 +110,7 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
-  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');
@@ -154,6 +156,7 @@ async function getProductsByTitle(substring) {
 
 async function cleanProductsCollections() {
   const productsRef = db.collection('products');
+  const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
@@ -172,12 +175,37 @@ async function cleanProductsCollections() {
 
   await Promise.all(products);
 }
-/*
-(async () => {
-  await cleanProductsCollections();
-  console.log('deleted any duplicate');
-})();
-*/
+
+async function cleanProductsWithAssaysCollection() {
+  const productsRef = db.collection('productsWithAssays2');
+  const archiveRef = db.collection('productArchive');
+
+  const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
+
+  const products = [];
+  const uniqueTitles = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (uniqueTitles.has(product.title)) {
+      const archiveDoc = archiveRef.doc(doc.id);
+      products.push(archiveDoc.set(product));
+      products.push(doc.ref.delete());
+    }
+    uniqueTitles.add(product.title);
+  });
+
+  await Promise.all(products);
+}
+
+if (require.main === module) {
+  // console.log('This script is being executed directly by Node.js');
+  (async () => {
+    await cleanProductsCollections();
+    await cleanProductsWithAssaysCollection();
+    console.log('deleted any duplicate');
+  })();
+}
 
 async function getProductsByVendor(vendor, limit, useDev) {
   console.log('getProductsByVendor', vendor, limit, useDev);
@@ -248,6 +276,15 @@ async function saveBatchRecord(batchNumber, startTime, endTime, duration, numDoc
   await batchRef.set(batchData);
 }
 
+async function deleteAllDocumentsInCollection(collectionPath) {
+  const snapshot = await admin.firestore().collection(collectionPath).get();
+  const batch = admin.firestore().batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+}
+
 
 module.exports = {
   saveProducts,
@@ -255,8 +292,9 @@ module.exports = {
   getProductsByTitle,
   getProductsByVendor,
   cleanProductsCollections,
+  cleanProductsWithAssaysCollection,
   getNextBatchNumber,
   saveBatchRecord,
-  getUniqueChemicals
-
+  getUniqueChemicals,
+  deleteAllDocumentsInCollection
 };

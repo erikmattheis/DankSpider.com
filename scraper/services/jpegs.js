@@ -8,14 +8,14 @@ const admin = require('firebase-admin');
 
 const { recognize } = require('./ocr.js');
 
-const { getProductsByVendor, getProductsWithAssay2, saveProducts } = require('../firebase.js');
+const { getProductsByVendor, getProductsWithAssay2, saveProducts, cleanProductsWithAssaysCollection, deleteAllDocumentsInCollection } = require('../firebase.js');
 const { AxiosHeaders } = require('axios');
 const { log } = require('console');
 const { deleteApp } = require('firebase-admin/app');
 
-async function run() {
+async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 8);
+  const products = await getProductsByVendor('WNC', 10);
 
   console.log('products.length', products.length);
 
@@ -49,8 +49,6 @@ async function run() {
 
   const withOCRedImages = [];
 
-  deleteAllDocumentsInCollection('productsWithAssay2');
-
   for (const product of bestImages) {
 
     const terpenes = [];
@@ -58,7 +56,9 @@ async function run() {
 
     for (const image of product.images) {
 
+
       const results = await recognize(image);
+
 
       if (!results) {
         console.log('image rejected', image);
@@ -94,17 +94,6 @@ async function run() {
 
 }
 
-async function deleteAllDocumentsInCollection(collectionPath) {
-  const snapshot = await admin.firestore().collection(collectionPath).get();
-  const batch = admin.firestore().batch();
-  snapshot.docs.forEach((doc) => {
-    batch.delete(doc.ref);
-  });
-  await batch.commit();
-}
-
-run();
-
 async function getProductImages(url) {
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);
@@ -116,9 +105,6 @@ async function getProductImages(url) {
 function nameContains(imageNames, str) {
   return name.toLowerCase().includes(str.toLowerCase());
 }
-
-
-
 module.exports = {
   run
 }

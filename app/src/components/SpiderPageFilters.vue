@@ -40,7 +40,6 @@
         <li v-for="(variant, i) in selectedVariants" :key="i"
           @click="toggleSelectedVariant(variant)"
           class="shadowy-button selected"
-          :class="{ selected: checkedVariants.includes(variant) }"
           :title="variant">
           {{ variant }}
         </li>
@@ -69,6 +68,8 @@ export default {
   data() {
     return {
       store: null,
+      aVendorWasClicked: false,
+      aVariantWasClicked: false,
     };
   },
   created() {
@@ -78,19 +79,19 @@ export default {
   },
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
-
     for (const [key, value] of queryParams) {
       if (key === 'sizes') {
-        const checked = decodeURIComponent(value).split(',');
-        this.store.checkedVariants = checked;
+        const checked = decodeURIComponent(value).split(',').sort();
+        if (this.store.normalizedVariants.length > checked.length && checked.length !== 0) {
+          this.store.checkedVariants = [...checked];
+        }
+      } else if (key === 'vendors') {
+        const checked = decodeURIComponent(value).split(',').sort();
+        if (this.store.vendors.length > checked.length && checked.length !== 0) {
+          this.store.checkedVendors = [...checked];
+        }
       }
-      if (key === 'vendors') {
-        const checked = decodeURIComponent(value).split(',');
-        this.store.checkedVendors = checked;
-      }
-
     }
-
   },
   computed: {
     normalizedVariants() {
@@ -126,17 +127,44 @@ export default {
   },
   methods: {
     toggleSelectedVariant(variant) {
-      this.store.toggleSelectedVariant(decodeURIComponent(variant));
-      const sizes = this.checkedVariants.join(',');
-      this.$router.push({ path: '', query: { sizes: sizes, vendors: this.checkedVendors } });
+      if (!this.aVariantWasClicked) {
+        this.onlySelectVariant(variant);
+        this.aVariantWasClicked = true;
+      }
+      else {
+        this.store.toggleSelectedVariant(decodeURIComponent(variant));
+        if (this.unselectedVariants.length === 0) {
+          this.aVariantWasClicked = false;
+        }
+      }
+      this.changeQueryStrings(this.checkedVariants, this.checkedVendors);
     },
     toggleSelectedVendor(vendor) {
-      this.store.toggleSelectedVendor(decodeURIComponent(vendor));
-      const vendors = this.checkedVendors.join(',');
-      this.$router.push({ path: '', query: { sizes: this.checkedVariants, vendors: vendors } });
+      if (!this.aVendorWasClicked) {
+        this.onlySelectVendor(vendor);
+        this.aVendorWasClicked = true;
+      }
+      else {
+        this.store.toggleSelectedVendor(decodeURIComponent(vendor));
+        if (this.unselectedVendors.length === 0) {
+          this.aVendorWasClicked = false;
+        }
+      }
+      this.changeQueryStrings(this.checkedVariants, this.checkedVendors);
     },
+    changeQueryStrings(checkedVariants, checkedVendors) {
+      const sizes = checkedVariants.sort().join(',');
+      const vendors = checkedVendors.sort().join(',');
+      this.$router.push({ path: '', query: { sizes, vendors } });
+    },
+    onlySelectVariant(variant) {
+      this.store.checkedVariants = [variant];
+    },
+    onlySelectVendor(vendor) {
+      this.store.checkedVendors = [vendor];
+    }
   }
-};
+}
 </script>
 
 <style scoped>

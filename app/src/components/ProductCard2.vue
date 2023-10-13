@@ -9,7 +9,7 @@
         <li>{{ cannabinoid.name }} ({{ (cannabinoid.pct / 10000000).toFixed(4) }}%)</li>
       </ul>
       <ul v-for="terpene in substance">
-        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>-->
+        <li>{{ terpene.name }} ({{ (terpene.pct / 10000000).toFixed(4) }}%)</li>
 
       </ul>
 
