@@ -159,12 +159,14 @@ async function recognize(url) {
       for (const text of textArray) {
 
         const line = getTerpeneObj(text);
-        console.log('line', line);
+
         terpenes.push(line);
 
       }
 
       await worker.terminate();
+
+      terpenes.sort((a, b) => b.pct - a.pct);
       return {
         terpenes
       }
@@ -188,6 +190,7 @@ async function recognize(url) {
         if (!line) {
           console.log('not line');
         }
+
         cannabinoids.push(line);
 
       }
@@ -195,6 +198,8 @@ async function recognize(url) {
     }
 
     await worker.terminate();
+
+    cannabinoids.sort((a, b) => b.pct - a.pct);
 
     return { terpenes, cannabinoids }
 

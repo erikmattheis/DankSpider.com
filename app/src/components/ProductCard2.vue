@@ -41,7 +41,7 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(     variant, i     ) in      product.variants     " v-bind:key="i" :title="variant"
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant"
           class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
