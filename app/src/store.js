@@ -17,21 +17,56 @@ export const useSpiderStore = defineStore('spider', {
       image: '',
       variants: [],
     },
+    chemicalNames: [
+      'Borneol',
+      'Camphene', 'Carene',
+      'Caryophyllene', 'Caryoptnyliene',
+      'Citral', 'Dihydrocarveol',
+      'Eucalyptol', 'Fenchone',
+      'Limonene', 'Linalool',
+      'Menthol', 'Nerolidol',
+      'Ocimene', 'PPM',
+      'Pulegone', 'Terpinolene',
+      'Total', 'α-Bisabolol',
+      'α-Humulene', 'α-Pinene',
+      'α-Terpinene', 'β-Caryophyllene',
+      'β-Myrcene', 'γ-Terpinene',
+      "Total Terpenes",
+      "Δ-8 THC",
+      "Δ-9 THC",
+      "Δ-9 THCA",
+      "THCP",
+      "THCV",
+      "Δ-9 THCVA",
+      "R-Δ-10 THC",
+      "S-Δ-10 THC",
+      "9R-HHC",
+      "THC0",
+      "CBDV",
+      "CBDVA",
+      "CBD",
+      "CBDA",
+      "CBG",
+      "CBGA",
+      "CBN",
+      "CBNA",
+      "CBC",
+      "CBCA",
+      "Total Cannabinoids"
+    ],
   }),
   getters: {
     filteredProducts(state) {
-
+      console.log('filteredProducts')
       if (!state.products?.filter) return state.products;
       const products = state.products.filter((product) => {
         return this.checkedVendors.includes(product.vendor) && product.variants.some((variant) => this.checkedVariants.includes(variant));
       });
-
-      const emptyProductsCount = Math.max(3 - products.length, 0);
-      const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
-
-      products.sort(this.sortProducts('title'));
-
-      return [...products, ...emptyProducts];
+      /*
+            const emptyProductsCount = Math.max(3 - products.length, 0);
+            const emptyProducts = Array(emptyProductsCount).fill(state.emptyProduct);
+      */
+      return [...products];
     },
     numProducts(state) {
       return state.filteredProducts.filter((product) => product.name !== 'empty').length;
@@ -66,6 +101,32 @@ export const useSpiderStore = defineStore('spider', {
     },
   },
   actions: {
+    sortProductsByChemical(chemicalName) {
+      console.log('sortProductsByChemical called', chemicalName)
+
+      const sortedProducts = this.products.sort((a, b) => {
+        if (!a.terpenes) return 1;
+        if (!b.terpenes) return -1;
+
+        console.log('a', chemicalName)
+
+        const aChemical = a.terpenes?.find((chemical) => chemical.name === chemicalName);
+
+        const bChemical = b.terpenes?.find((chemical) => chemical.name === chemicalName);
+
+        console.log('!!!!!aChemical', aChemical?.pct)
+        console.log('!!!!!bChemical', bChemical?.pct)
+        console.log('aChemical.pct > bChemical.pct', aChemical?.pct > bChemical?.pct)
+        if (parseFloat(aChemical?.pct) < parseFloat(bChemical?.pct)) return 1;
+        if (parseFloat(aChemical?.pct) > parseFloat(bChemical?.pct)) return -1;
+        return 0;
+      });
+      console.log('then', this.products[0].title);
+      this.products = [...sortedProducts];
+      console.log('now', this.products[0].title);
+      console.log('sotere', sortedProducts[0].title);
+
+    },
     clearSelectedSizeFilters() {
       this.checkedVariants = [];
     },
@@ -80,6 +141,7 @@ export const useSpiderStore = defineStore('spider', {
       this.checkedVendors = [...this.vendors];
     },
     sortProducts(property) {
+      console.log('sortProducts called')
       var sortOrder = 1;
       if (property[0] === "-") {
         sortOrder = -1;

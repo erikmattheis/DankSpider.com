@@ -21,7 +21,7 @@ async function getProducts() {
       if (title.toLowerCase().includes('sugar leaf')) {
         return;
       }
-      // console.log('Flow: ', title);
+
       const product = {
         title: title,
         url: $(entry).children('link').first().attr('href'),
@@ -81,7 +81,7 @@ async function addDetails(products) {
 }
 
 async function getAvailableLeafProducts() {
-  // console.log('Getting Flow products');
+
   const products = await getProducts();
   const result = await addDetails(products);
   return result;

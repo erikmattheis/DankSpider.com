@@ -35,7 +35,6 @@ async function getProduct(url) {
     });
 
     const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
-    // console.log('WNC: ', title);
 
     const image = $('figure.productView-image img').attr('src');
     return {
@@ -53,8 +52,6 @@ async function getProduct(url) {
 }
 
 async function scrapePage(url, currentPage, productLinks) {
-
-  // console.log('Getting page ${currentPage} WNC products');
 
   try {
     const response = await axios.get(url);

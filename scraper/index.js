@@ -1,17 +1,16 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getTerpenes, saveArticles, getProductsWithAssay2, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical } = require('./firebase.js');
+const { getTerpenes, saveArticles, getProductsWithAssay, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 const jpegs = require('./services/jpegs.js');
 const { getArticle } = require('./services/ai-author.js');
 
-async function makeProductsFile(vendor, limit) {
-  console.log('makeProductsFile', vendor, limit); //, useDevCollection);
+async function makeProductsFile(vendor, limit, useDevCollection) {
+  // console.log('makeProductsFile', vendor, limit, useDevCollection);
   let products;
 
-  if (0 === 1) {
-    const useDevCollection = true;
+  if (vendor && useDevCollection) {
     products = await getProductsByVendor(vendor, limit, useDevCollection);
   }
   else if (vendor) {
@@ -40,6 +39,9 @@ async function makeProductsFile(vendor, limit) {
 }
 
 function filterAssay(assay) {
+  if (!assay || !assay.filter) {
+    return assay;
+  }
   return assay.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown');
 }
 
@@ -66,7 +68,7 @@ async function makeTerpenes() {
     "Pinene",
     "Pulegone",
     "Terpinene",
-    "Terpinolene"]
+    "Terpinolene"];
   const terpenes = [];
   const updatedAt = new Date().toISOString();
   for (const terpene of cannabisTerpenes) {
@@ -75,46 +77,50 @@ async function makeTerpenes() {
     terpenes.push(result);
   }
 
-  console.log(`Wrote ${terpenes.length} terpenes to Firebase`);
+  // console.log(`Wrote ${terpenes.length} terpenes to Firebase`);
 }
 
 async function makeTerpenesFile() {
   const result = await getTerpenes();
   fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result));
-  console.log(`Wrote ${result.length} terpenes to terpenes.json`);
+  // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
-
-
-
 
 async function run() {
   let startTime = performance.now();
-  const uuid = uuidv4();
-  await scrapers.run('c4');
+
+  await scrapers.run('c8');
   let endTime = performance.now();
 
-  console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
+  // console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
   startTime = performance.now();
   await cleanProductsCollections();
   endTime = performance.now();
 
-  console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
+  // console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
   startTime = performance.now();
   await makeProductsFile();
   endTime = performance.now();
 
-  console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
+  // console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
 }
-//
+
 //run();
 
 async function util() {
 
-  //await jpegs.run('c4');
-  await makeProductsFile();
+  //await makeProductsFile('WNC', 300, true);
+
+
+  const chems = await getUniqueChemicals();
+  console.log(chems);
+  console.log('terps', chems.terpenes.length);
+  console.log('canns', chems.cannabinoids.length);
+
+  // await jpegs.run('HMC4');
 
   //await makeTerpenes();
 

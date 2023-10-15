@@ -1,94 +1,108 @@
 const axios = require('./rateLimitedAxios.js');
 const Tesseract = require('tesseract.js');
-const OpenAI = require('openai');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin');
 
-const { recognize } = require('./ocr.js');
+const { recognize, recognizeWithSave } = require('./ocr.js');
+const { getCompleteProducts, getIncompleteProducts, getProductsByVendor, getProductsWithAssay, saveProducts, deleteAllDocumentsInCollection } = require('../firebase.js');
 
-const { getProductsByVendor, getProductsWithAssay2, saveProducts, cleanProductsWithAssaysCollection, deleteAllDocumentsInCollection } = require('../firebase.js');
-const { AxiosHeaders } = require('axios');
-const { log } = require('console');
-const { deleteApp } = require('firebase-admin/app');
+const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1807/1683224189.1280.1280__66714.1683226369.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1813/1683223605.1280.1280__73189.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1811/1683223605.1280.1280__28436.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1814/1683223605.1280.1280__52678.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1808/1683223605.1280.1280__47191.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1809/1683223605.1280.1280__02816.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1815/1683223605.1280.1280__19110.1683225192.jpg?c=1",
+  "BagsGroupShot",
+  "Diamond-Sticker",
+];
 
 async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 88);
+  //const products = await getProductsByVendor('WNC', 150);
+  //const complete = await getCompleteProducts('WNC');
+  const products = await getIncompleteProducts('WNC');
 
-  console.log('products.length', products.length);
+  console.log(`looking at ${products.length} products`);
 
+  //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
 
   for (const product of products) {
 
-    const images = await getProductImages(product.url);
+    const result = await getProductImages(product.url);
 
-    console.log('found images', images.length);
+    const best = result.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
+    const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
 
-    if (images.length) {
-      withImages.push({ ...product, images });
+    if (best.length === 0) {
+      console.log('No good images found for', product.title);
+      console.log(JSON.stringify(result, null, 2));
+      continue;
     }
-  }
+    const images = [...best];
 
-  const bestImages = [];
-
-  for (const product of withImages) {
-    const images = [];
-    product.images.forEach((image, i) => {
-      if (image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency')) {
-        images.push(image);
-      }
-    });
-
-    console.log('best images.length', images.length);
-
-    bestImages.push({ ...product, images });
+    withImages.push({ ...product, images });
   }
 
   const withOCRedImages = [];
 
-  for (const product of bestImages) {
+  for (const product of withImages) {
 
-    const terpenes = [];
-    const cannabinoids = [];
+    let terpenes = [];
+    let cannabinoids = [];
 
     for (const image of product.images) {
 
+      if (skippableImages.includes(image)) {
+        console.log('Skipping', image);
+        continue;
+      }
 
-      const results = await recognize(image);
+      const result = await recognize(image);
 
+      if (!result) {
+        continue;
+      }
 
-      if (!results) {
+      //const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
+
+      if (result instanceof String) {
         console.log('image rejected', image);
+        badImages.push(image);
       }
 
-      if (results === 'STOP') {
-        // console.log('wont finbe finding more assays')
+
+      if (result.terpenes?.length) {
+        console.log('Terpenes: ', result.terpenes.length)
+        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
+      }
+      else if (result.cannabinoids?.length) {
+        console.log('Cannabinoids: ', result.cannabinoids.length)
+        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+      }
+
+      if (product.terpenes?.length && product.cannabinoids?.length) {
+        console.log('both terpenes and cannabinoids found')
         break;
       }
 
-      if (results.terpenes?.length) {
-        console.log('terpenes has length')
-        terpenes.push(...results.terpenes);
-      }
-      else if (results.cannabinoids?.length) {
-        cannabinoids.push(...results.cannabinoids)
-      }
-
-      if (terpenes.length && cannabinoids.length) {
-        // console.log('found terpenes and cannabinoids');
-        break;
-      }
+      console.log('Nothing in', image);
 
     }
 
+    await saveProducts([product], batchId, true);
+
+    console.log('Saved one!')
     withOCRedImages.push({ ...product, terpenes, cannabinoids });
+
+    // console.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
 
   }
 
-  await saveProducts(withOCRedImages, 'c3', true);
+  //await saveProducts(withOCRedImages, batchId, true);
 
   console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
@@ -105,6 +119,7 @@ async function getProductImages(url) {
 function nameContains(imageNames, str) {
   return name.toLowerCase().includes(str.toLowerCase());
 }
+
 module.exports = {
   run
 }

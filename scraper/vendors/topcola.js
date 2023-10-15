@@ -11,7 +11,6 @@ let currentPage = 1;
 
 async function getAvailableLeafProducts() {
 
-  // console.log('Getting Top Cola products');
   try {
     const response = await axios.get(atomFeedUrl);
     const xmlData = response.data;
@@ -35,8 +34,6 @@ async function getAvailableLeafProducts() {
           const resolvedVariants = variants.map((variant) => strings.normalizeVariantTitle(variant.title));
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
-
-          // console.log('Top Cola: ', productTitle);
 
           const productUrl = entry.link?.$?.href || '';
 

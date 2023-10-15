@@ -56,6 +56,9 @@
         {{ numProducts }} product{{ numProducts === 1 ? '' :
           's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
       </div>
+      <select class="sort-by" @change="sortProductsByChemical">
+        <option v-for="chemical in chemicalNames">{{ chemical }}</option>
+      </select>
     </div>
   </form>
 </template>
@@ -68,14 +71,16 @@ export default {
   data() {
     return {
       store: null,
+      chemicalNames: [],
       aVendorWasClicked: false,
       aVariantWasClicked: false,
-    };
+    }
   },
   created() {
     this.store = useSpiderStore();
     this.store.normalizeVariants(this.store.variants);
     this.store.normalizeVendors(this.store.variants);
+    this.chemicalNames = this.store.chemicalNames;
   },
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
@@ -126,6 +131,10 @@ export default {
     },
   },
   methods: {
+    sortProductsByChemical(event) {
+      console.log(event.target.value);
+      this.store.sortProductsByChemical(event.target.value);
+    },
     toggleSelectedVariant(variant) {
       if (!this.aVariantWasClicked) {
         this.onlySelectVariant(variant);

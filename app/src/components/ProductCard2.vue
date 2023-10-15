@@ -47,9 +47,11 @@
           <span>{{ variant }}</span>
         </li>
       </ul>
+      product.cannabinoids: {{ product.cannabinoids?.length }}
       <ul v-for="cannabinoid in product.cannabinoids">
         <li>{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
       </ul>
+      product.terpenes: {{ product.terpenes?.length }}
       <ul v-for="terpene in product.terpenes">
         <li>{{ terpene.name }} ({{ terpene.pct }}%)</li>
       </ul>

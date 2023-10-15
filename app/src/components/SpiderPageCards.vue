@@ -1,5 +1,9 @@
 <template>
   <div class="page">
+    missingTerps: {{ missingTerps.length }}<br>
+    missingCanns: {{ missingCanns.length }}<br>
+    missingBoth: {{ missingBoth.length }}<br>
+    completeProducts: {{ completeProducts.length }}<br>
     <div class="horizontal-cards">
       <template v-for="(product, i) in filteredProducts" :key="i">
         <ProductCard2 :product="product" />
@@ -20,7 +24,7 @@ export default {
   },
   data() {
     return {
-      store: null
+      store: null,
     }
   },
   created() {
@@ -29,7 +33,19 @@ export default {
   computed: {
     filteredProducts() {
       return this.store.filteredProducts;
-    }
+    },
+    missingTerps() {
+      return this.store.filteredProducts.filter(product => !product.terpenes || product.terpenes.length === 0);
+    },
+    missingCanns() {
+      return this.store.filteredProducts.filter(product => !product.cannabinoids || product.cannabinoids.length === 0);
+    },
+    missingBoth() {
+      return this.store.filteredProducts.filter(product => (!product.terpenes || product.terpenes.length === 0) && (!product.cannabinoids || product.cannabinoids.length === 0));
+    },
+    completeProducts() {
+      return this.store.filteredProducts.filter(product => product.terpenes && product.terpenes.length > 0 && product.cannabinoids && product.cannabinoids.length > 0);
+    },
   }
 }
 </script>

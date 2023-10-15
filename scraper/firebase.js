@@ -21,7 +21,7 @@ if (!getApps().length) {
 const db = getFirestore();
 
 async function getUniqueTerpenes() {
-  const productsRef = db.collection('productsWithAssay2');
+  const productsRef = db.collection('productsWithAssay');
   const snapshot = await productsRef.get();
 
   const terpenes = new Set();
@@ -36,12 +36,11 @@ async function getUniqueTerpenes() {
   return Array.from(terpenes);
 }
 
-
 async function saveChemicals(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
   if (useDev) {
-    productsRef = db.collection('productsWithAssay2');
+    productsRef = db.collection('productsWithAssay');
   }
   else {
     productsRef = db.collection('products');
@@ -53,10 +52,6 @@ async function saveChemicals(products, batchId, useDev) {
   for (product of products) {
     const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
     const docRef = productsRef.doc(id);
-    console.log('product', JSON.stringify(product));
-    console.log('id', id);
-    console.log('batchId', batchId);
-    console.log('TIMESTAMP', timestamp);
     if (batchId) {
       batch.set(docRef, {
         ...product,
@@ -74,14 +69,14 @@ async function saveChemicals(products, batchId, useDev) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
   if (useDev) {
-    productsRef = db.collection('productsWithAssay2');
+    productsRef = db.collection('productsWithAssay');
   }
   else {
     productsRef = db.collection('products');
@@ -93,10 +88,6 @@ async function saveProducts(products, batchId, useDev) {
   for (product of products) {
     const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
     const docRef = productsRef.doc(id);
-    console.log('product', JSON.stringify(product));
-    console.log('id', id);
-    console.log('batchId', batchId);
-    console.log('TIMESTAMP', timestamp);
     if (batchId) {
       batch.set(docRef, {
         ...product,
@@ -114,7 +105,7 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');
@@ -139,10 +130,70 @@ async function getAllProducts() {
 
   const endTime = performance.now();
 
-  console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
 }
+
+async function getIncompleteProducts() {
+  const startTime = performance.now();
+
+  const productsRef = db.collection('productsWithAssay').orderBy('timestamp', 'desc');
+  const snapshot = await productsRef.get();
+
+  const products = [];
+  const uniqueUrls = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (uniqueUrls.has(product.url)) {
+      return;
+    }
+    console.log('product.terpenes?.length', product.terpenes?.length);
+    if (product.cannabinoids?.length && product.terpenes?.length) {
+      return;
+    }
+    uniqueUrls.add(product.url);
+    products.push(product);
+  });
+
+  const endTime = performance.now();
+
+  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+
+  return products;
+}
+
+async function getCompleteProducts() {
+  const startTime = performance.now();
+
+  const productsRef = db.collection('productsWithAssay').orderBy('timestamp', 'desc');
+  const snapshot = await productsRef.get();
+
+  const products = [];
+  const uniqueUrls = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (uniqueUrls.has(product.url)) {
+      return;
+    }
+    console.log('product.terpenes?.length', product.terpenes?.length);
+    if (!product.cannabinoids?.length || !product.terpenes?.length) {
+      console.log('hit');
+      return;
+    }
+    uniqueUrls.add(product.url);
+    products.push(product);
+  });
+
+  const endTime = performance.now();
+
+  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
+
+  return products;
+}
+
 
 async function getProductsByTitle(substring) {
   const productsRef = db.collection('products');
@@ -165,58 +216,53 @@ async function cleanProductsCollections() {
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
   const products = [];
-  const uniqueTitles = new Set();
+  const uniqueUrls = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueTitles.has(product.title)) {
+    if (uniqueUrls.has(product.url)) {
       const archiveDoc = archiveRef.doc(doc.id);
       products.push(archiveDoc.set(product));
       products.push(doc.ref.delete());
     }
-    uniqueTitles.add(product.title);
+    uniqueUrls.add(product.url);
   });
 
   await Promise.all(products);
 }
 
-async function cleanProductsWithAssaysCollection() {
-  const productsRef = db.collection('productsWithAssays2');
+async function cleanProductsWithAssayCollection() {
+  console.log('cleanProductsWithAssayCollection')
+  const productsRef = db.collection('productsWithAssay');
   const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
   const products = [];
-  const uniqueTitles = new Set();
+  const uniqueUrls = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueTitles.has(product.title)) {
+    if (uniqueUrls.has(product.title)) {
+      console.log('duplicate found')
       const archiveDoc = archiveRef.doc(doc.id);
       products.push(archiveDoc.set(product));
       products.push(doc.ref.delete());
     }
-    uniqueTitles.add(product.title);
+    uniqueUrls.add(product.title);
   });
 
   await Promise.all(products);
 }
 
-if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
-  (async () => {
-    await cleanProductsCollections();
-    await cleanProductsWithAssaysCollection();
-    console.log('deleted any duplicate');
-  })();
-}
-
 async function getProductsByVendor(vendor, limit, useDev) {
-  console.log('getProductsByVendor', vendor, limit, useDev);
+
+  // console.log('getProductsByVendor', vendor, limit, 'use dev:', useDev);
+
   let productRef;
+
   if (useDev) {
-    console.log('productsWithAssay2', vendor)
-    productsRef = db.collection('productsWithAssay2');
+    productsRef = db.collection('productsWithAssay');
   }
   else {
     productsRef = db.collection('products');
@@ -227,11 +273,10 @@ async function getProductsByVendor(vendor, limit, useDev) {
     snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();
   }
   else {
-    console.log('vendor ------', vendor)
     snapshot = await productsRef.where('vendor', '==', vendor).get();
   }
 
-  console.log(`Got ${snapshot.size} products from ${vendor}`)
+  // console.log(`Got ${snapshot.size} products from ${vendor}`);
   const products = [];
 
   snapshot.forEach(doc => {
@@ -296,12 +341,12 @@ async function saveArticles(articles) {
   const timestamp = admin.firestore.Timestamp.now();
 
   for (article of articles) {
-    console.log('article.name', article.name);
+    // console.log('article.name', article.name);
     const id = await makeFirebaseSafe(article.name);
     const docRef = chemicalsRef.doc(id);
-    console.log('product', JSON.stringify(article));
-    console.log('id', id);
-    console.log('TIMESTAMP', timestamp);
+    // console.log('product', JSON.stringify(article));
+    // console.log('id', id);
+    // console.log('TIMESTAMP', timestamp);
 
     batch.set(docRef, {
       ...article,
@@ -311,7 +356,7 @@ async function saveArticles(articles) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${articles.length} articles`);
+  // console.log(`Data has been written to Firebase for ${articles.length} articles`);
 
 };
 
@@ -331,8 +376,7 @@ async function getTerpenes() {
 
 async function getUniqueChemicals() {
 
-  console.log('getUniqueChemicals');
-  const productsRef = db.collection('productsWithAssay2');
+  const productsRef = db.collection('productsWithAssay');
   const snapshot = await productsRef.get();
 
   const cannabinoids = new Set();
@@ -340,23 +384,30 @@ async function getUniqueChemicals() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    product.cannabinoids.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
-    product.terpenes.forEach(terpene => terpenes.add(terpene.name));
+    product.cannabinoids?.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
+    product.terpenes?.forEach(terpene => terpenes.add(terpene.name));
   });
 
   const c = Array.from(cannabinoids);
   const t = Array.from(terpenes);
-  console.log('c', c.length);
-  console.log('t', t.length);
   c.sort();
   t.sort();
   return { cannabinoids: c, terpenes: t }
 
 }
+
+if (require.main === module) {
+  // console.log('This script is being executed directly by Node.js');
+  (async () => {
+    await cleanProductsCollections();
+    await cleanProductsWithAssayCollection();
+    console.log('deleted any duplicate');
+  })();
+}
 /*
 (async () => {
   const result = await getUniqueChemicals();
-  console.log(JSON.stringify(result, null, 2));
+  // console.log(JSON.stringify(result, null, 2));
 }
 )();
 */
@@ -367,10 +418,12 @@ module.exports = {
   saveArticles,
   saveProducts,
   getAllProducts,
+  getIncompleteProducts,
+  getCompleteProducts,
   getProductsByTitle,
   getProductsByVendor,
   cleanProductsCollections,
-  cleanProductsWithAssaysCollection,
+  cleanProductsWithAssayCollection,
   getNextBatchNumber,
   saveBatchRecord,
   getUniqueChemicals,
