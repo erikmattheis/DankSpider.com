@@ -89,7 +89,7 @@ async function makeTerpenesFile() {
 async function run() {
   let startTime = performance.now();
 
-  await scrapers.run('xIx');
+  await scrapers.run('x2x');
   let endTime = performance.now();
 
   // console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);

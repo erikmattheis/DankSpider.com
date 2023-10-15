@@ -18,8 +18,9 @@ const configWNCTerpenesTitle = {
 }
 
 const configWNCCannabinoidsTitle = {
-  rectangle: { top: 2100, left: 301, width: 485, height: 94 },
+  rectangle: { top: 2055, left: 123, width: 660, height: 209 },
 }
+
 const configWNCCannabinoidsTitle2 = {
   rectangle: { top: 1522, left: 86, width: 621, height: 313 },
 }
@@ -29,7 +30,7 @@ const configWNCTerpenes = {
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 2511, left: 555, width: 2457, height: 1484 },
+  rectangle: { top: 2505, left: 413, width: 2706, height: 1708 },
 }
 
 const configWNCCannabinoids2 = {
@@ -100,11 +101,9 @@ async function recognize(url) {
 
   try {
 
-    console.log('URL', url)
-
     const worker = await createWorker("eng", 1, {
       user_patterns_file: './tessdata/eng.user-patterns',
-      tessdata: './tessdata',
+      "tessdata-dir": './tessdata',
       userPatterns: './tessdata/eng.user-patterns',
       tessedit_write_images: true,
       errorHandler: (err) => { console.error('Error:', err) },

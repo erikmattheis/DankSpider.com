@@ -36,70 +36,70 @@ async function sendErrorEmail(error) {
 }
 
 async function run(uuid) {
+  /*
+   try {
+     const wncProducts = await wnc.getAvailableLeafProducts();
+     // console.log('WNC products', wncProducts.length);
+     await saveProducts(wncProducts, uuid);
+   } catch (error) {
+     console.error(error);
+     await sendErrorEmail(error);
+     logErrorToFile(error);
+   }
 
+
+     try {
+       const areteProducts = await arete.getAvailableLeafProducts();
+       // console.log('Artete products', areteProducts.length);
+       await saveProducts(areteProducts, uuid);
+     } catch (error) {
+       console.error(error);
+       await sendErrorEmail(error);
+       logErrorToFile(error);
+     }
+ */
   try {
-    const wncProducts = await wnc.getAvailableLeafProducts();
-    // console.log('WNC products', wncProducts.length);
-    await saveProducts(wncProducts, uuid);
+    const prestonProducts = await preston.getAvailableLeafProducts();
+    console.log('Preston products', prestonProducts.length);
+    await saveProducts(prestonProducts, uuid);
   } catch (error) {
     console.error(error);
     await sendErrorEmail(error);
     logErrorToFile(error);
   }
-
   /*
-    try {
-      const areteProducts = await arete.getAvailableLeafProducts();
-      // console.log('Artete products', areteProducts.length);
-      await saveProducts(areteProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
-    }
-
-    try {
-      const prestonProducts = await preston.getAvailableLeafProducts();
-      // console.log('Preston products', prestonProducts.length);
-      await saveProducts(prestonProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
-    }
-
-    try {
-      const flowProducts = await flow.getAvailableLeafProducts();
-      // console.log('Flow products', flowProducts.length);
-      await saveProducts(flowProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
-    }
+     try {
+       const flowProducts = await flow.getAvailableLeafProducts();
+       // console.log('Flow products', flowProducts.length);
+       await saveProducts(flowProducts, uuid);
+     } catch (error) {
+       console.error(error);
+       await sendErrorEmail(error);
+       logErrorToFile(error);
+     }
 
 
-    try {
-      const enlightenProducts = await enlighten.getAvailableLeafProducts();
-      // console.log('Enlighten products', enlightenProducts.length);
-      await saveProducts(enlightenProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
-    }
+     try {
+       const enlightenProducts = await enlighten.getAvailableLeafProducts();
+       // console.log('Enlighten products', enlightenProducts.length);
+       await saveProducts(enlightenProducts, uuid);
+     } catch (error) {
+       console.error(error);
+       await sendErrorEmail(error);
+       logErrorToFile(error);
+     }
 
-    try {
-      const topcolaProducts = await topcola.getAvailableLeafProducts();
-      // console.log('Top Cola products', topcolaProducts.length);
-      await saveProducts(topcolaProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
+     try {
+       const topcolaProducts = await topcola.getAvailableLeafProducts();
+       // console.log('Top Cola products', topcolaProducts.length);
+       await saveProducts(topcolaProducts, uuid);
+     } catch (error) {
+       console.error(error);
+       await sendErrorEmail(error);
+       logErrorToFile(error);
 
-    }
-  */
+     }
+   */
   // console.log(`Data has been written to Firebase for all vendors.`);
 }
 
