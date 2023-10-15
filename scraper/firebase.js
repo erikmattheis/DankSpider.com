@@ -252,7 +252,7 @@ async function cleanProductsCollections() {
 }
 
 async function cleanProductsWithAssayCollection() {
-  console.log('cleanProductsWithAssayCollection')
+
   const productsRef = db.collection('productsWithAssay');
   const archiveRef = db.collection('productArchive');
 

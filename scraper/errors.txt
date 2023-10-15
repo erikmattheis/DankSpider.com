@@ -1,0 +1,39 @@
+Error: Error getting product info: recognize is not defined
+
+
+Error: Error getting product info: Cannot read properties of null (reading 'terpenes')
+
+
+Error: Error getting product info: Cannot read properties of null (reading 'terpenes')
+
+
+Error: Error getting product info: Cannot read properties of null (reading 'terpenes')
+
+
+Error: Error getting product info: imageNodes is not defined
+
+
+Error: Error getting product info: Cannot read properties of null (reading 'terpenes')
+
+
+TypeError: Cannot read properties of null (reading 'terpenes')
+
+
+TypeError: Cannot read properties of null (reading 'terpenes')
+
+
+ReferenceError: push is not defined
+
+
+ReferenceError: images is not defined
+
+
+ReferenceError: product is not defined
+
+
+ReferenceError: worker is not defined
+
+
+ReferenceError: product is not defined
+
+

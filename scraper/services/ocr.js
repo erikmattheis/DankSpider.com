@@ -9,7 +9,7 @@ const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
 // reinitialize = function(langs = 'eng', oem, config, jobId)
 // load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res)
 const path = require('path');
-const { getCannabinoidObj, getTerpeneObj } = require('./strings.js');
+const { getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js');
 
 const badImages = [];
 
@@ -123,7 +123,7 @@ async function recognize(url) {
     const jpgBuffer = await getAndProcessJpg(url, isDev);
 
     if (!jpgBuffer) {
-      // console.log('skipping empty', url);
+      console.log('skipping empty', url);
       badImages.push(url);
       fs.appendFileSync('badImages.json', JSON.stringify(badImages, null, 2));
       await worker.terminate();
@@ -164,9 +164,6 @@ async function recognize(url) {
       return { terpenes }
 
     }
-
-    await worker.terminate();
-    return null;
 
     title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
 
@@ -220,18 +217,16 @@ async function recognize(url) {
 
     }
 
-
   }
   catch (error) {
-    if (worker) {
-      await worker.terminate();
-    }
+
+    // await worker.terminate();
+
     console.error(`Failed to recognize image: ${error} `);
     fs.writeFileSync('error.txt', JSON.stringify(error, null, 2));
 
     return error;
   }
-
 
 }
 

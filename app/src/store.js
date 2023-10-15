@@ -105,8 +105,8 @@ export const useSpiderStore = defineStore('spider', {
       console.log('sortProductsByChemical called', chemicalName)
 
       const sortedProducts = this.products.sort((a, b) => {
-        if (!a.terpenes) return 1;
-        if (!b.terpenes) return -1;
+        if (!a.terpenes || !a.terpenes.length) return 1;
+        if (!b.terpenes || !b.terpenes.length) return -1;
 
         console.log('a', chemicalName)
 

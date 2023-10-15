@@ -135,7 +135,7 @@ function getTerpeneObj(line) {
   pct = pct + '';
   pct = pct.replace('.', '')
   pct = parseInt(pct)
-  pct = (pct / 10000).toFixed(2);
+  pct = (pct / 10000).toFixed(3);
 
   let mgg = parts[parts.length - 2] || "Unknown";
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
@@ -155,7 +155,7 @@ function getCannabinoidObj(line) {
   pct = pct + '';
   pct = pct.replace('.', '')
   pct = parseInt(pct)
-  pct = (pct / 1000).toFixed(2);
+  pct = (pct / 1000).toFixed(3);
 
   let mgg = parts[parts.length - 1] || 0;
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
@@ -177,7 +177,7 @@ function getCannabinoidObj2(line) {
   pct = pct + '';
   pct = pct.replace('.', '')
   pct = parseInt(pct)
-  pct = (pct / 1000).toFixed(2);
+  pct = (pct / 1000).toFixed(3);
 
   let mgg = parts[parts.length - 1] || 0;
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;

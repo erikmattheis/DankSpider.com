@@ -1,6 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const strings = require('../services/strings');
+const { recognize } = require('../services/ocr');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
@@ -14,132 +15,130 @@ function addUniqueVariant(variant) {
 }
 
 async function getProduct(url) {
-  try {
 
-    const response = await axios.get(url);
-    const $ = cheerio.load(response.data);
+  const response = await axios.get(url);
+  const $ = cheerio.load(response.data);
 
-    const variants = [];
+  const variants = [];
 
-    // Extract available variant values from BCData object
-    const bcDataScript = $('script:contains("var BCData")').html();
-    const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
-    const availableVariantValues = bcData.product_attributes.available_variant_values;
+  // Extract available variant values from BCData object
+  const bcDataScript = $('script:contains("var BCData")').html();
+  const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
+  const availableVariantValues = bcData.product_attributes.available_variant_values;
 
-    // Filter variants by available variant values
-    $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((index, element) => {
-      const variantValue = $(element).attr('for').split('_').pop();
-      if (availableVariantValues.includes(parseInt(variantValue))) {
-        variants.push($(element).text().trim());
-      }
-    });
+  // Filter variants by available variant values
+  $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((index, element) => {
+    const variantValue = $(element).attr('for').split('_').pop();
+    if (availableVariantValues.includes(parseInt(variantValue))) {
+      variants.push($(element).text().trim());
+    }
+  });
 
-    const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
+  const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
 
-    const image = $('figure.productView-image img').attr('src');
+  const image = $('figure.productView-image img').attr('src');
 
-    const images = $('a.productView-thumbnail-link');
+  const imageNodes = $('a.productView-thumbnail-link');
 
-    const allImages = images.map((index, el) => $(el).attr('href')).get();
+  const imageUrls = imageNodes.map((index, el) => $(el).attr('href')).get();
 
-    const best = allImages.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
-    // const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
+  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
+  const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
-    if (best.length === 0) {
-      console.log('No good images found for', product.title);
-      console.log(JSON.stringify(best, null, 2));
-      return null;
+  if (images.length === 0) {
+    console.log('No good images found for', title);
+    return null;
+  }
+
+  let terpenes = [];
+  let cannabinoids = [];
+
+  for (const image of images) {
+
+    if (skippableImages.includes(image)) {
+      console.log('Skipping', image);
+      continue;
     }
 
-    let terpenes = [];
-    let cannabinoids = [];
+    const result = await recognize(image);
 
-    for (const image of best) {
-
-      if (skippableImages.includes(image)) {
-        console.log('Skipping', image);
-        continue;
-      }
-
-      const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
-
-      if (result instanceof String) {
-        console.log('image rejected', image);
-        badImages.push(image);
-      }
-
-      if (result.terpenes?.length) {
-        console.log('Terpenes: ', result.terpenes.length)
-        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
-      }
-      if (result.cannabinoids?.length) {
-        console.log('Cannabinoids: ', result.cannabinoids.length)
-        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-      }
-
-      if (product.terpenes?.length && product.cannabinoids?.length) {
-        console.log('both terpenes and cannabinoids found')
-        break;
-      }
-
-      console.log('Nothing in', image);
-
+    if (!result) {
+      console.log('nothing interesting, continuing ...', image);
+      continue;
     }
 
-    await saveProducts([product], batchId, true);
+    if (result instanceof String) {
+      console.log('image rejected', image);
+      badImages.push(image);
+      console.error(result);
+      continue;
+    }
 
-    console.log('Saved one!')
-    withOCRedImages.push({ ...product, terpenes, cannabinoids });
+    if (result.terpenes?.length) {
+      console.log('Terpenes: ', result.terpenes.length)
+      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+    }
+    if (result.cannabinoids?.length) {
+      console.log('Cannabinoids: ', result.cannabinoids.length)
+      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+    }
 
-    // console.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
-
-    return imageUrls;
-
-    return {
-      title,
-      url,
-      image,
-      images,
-      variants,
-      vendor: 'WNC',
+    if (terpenes?.length && cannabinoids?.length) {
+      console.log('both terpenes and cannabinoids found')
+      break;
     }
 
   }
-  catch (error) {
-    throw new Error(`Error getting product info: ${error.message}`);
-  }
+
+  // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
+
+  // console.log('Saved ${title}');
+
+  console.log(`${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`);
+
+  return {
+    title,
+    url,
+    image,
+    images,
+    variants,
+    terpenes,
+    cannabinoids,
+    vendor: 'WNC',
+  };
 }
 
 async function scrapePage(url, currentPage, productLinks) {
 
-  try {
-    const response = await axios.get(url);
-    const $ = cheerio.load(response.data);
+  //try {
+  const response = await axios.get(url);
+  const $ = cheerio.load(response.data);
 
-    const cards = $('.card');
+  const cards = $('.card');
 
-    for (const card of cards) {
-      const anchorElement = $(card).find('a.card-figure__link');
-      const productTitle = $(card).find('h3.card-title a').text().trim();
+  for (const card of cards) {
+    const anchorElement = $(card).find('a.card-figure__link');
+    const productTitle = $(card).find('h3.card-title a').text().trim();
 
-      const chooseOptionsButton = $(card).find('a.card-figcaption-button');
-      if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text().includes('Choose Options')) {
+    const chooseOptionsButton = $(card).find('a.card-figcaption-button');
+    if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text().includes('Choose Options')) {
 
-        const href = anchorElement.attr('href');
+      const href = anchorElement.attr('href');
 
-        productLinks.push(href);
-      }
+      productLinks.push(href);
     }
-
-    const nextPageLink = $('.pagination-item--next a').attr('href');
-    if (nextPageLink && currentPage < 3) {
-      currentPage++;
-      await scrapePage(nextPageLink, currentPage, productLinks);
-    }
-  } catch (error) {
-    throw new Error(`Error scraping page: ${error.message}`);
   }
 
+  const nextPageLink = $('.pagination-item--next a').attr('href');
+  if (nextPageLink) {
+    currentPage++;
+    await scrapePage(nextPageLink, currentPage, productLinks);
+  }
+  /*
+} catch (error) {
+  throw new Error(`Error scraping page: ${error.message}`);
+}
+*/
   return productLinks;
 }
 
@@ -185,6 +184,7 @@ async function getAvailableLeafProducts() {
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
   const products = await getWNCProductsInfo(productLinks);
+
   return products;
 
 }
