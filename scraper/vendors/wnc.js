@@ -37,10 +37,69 @@ async function getProduct(url) {
     const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
 
     const image = $('figure.productView-image img').attr('src');
+
+    const images = $('a.productView-thumbnail-link');
+
+    const allImages = images.map((index, el) => $(el).attr('href')).get();
+
+    const best = allImages.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
+    // const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
+
+    if (best.length === 0) {
+      console.log('No good images found for', product.title);
+      console.log(JSON.stringify(best, null, 2));
+      return null;
+    }
+
+    let terpenes = [];
+    let cannabinoids = [];
+
+    for (const image of best) {
+
+      if (skippableImages.includes(image)) {
+        console.log('Skipping', image);
+        continue;
+      }
+
+      const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
+
+      if (result instanceof String) {
+        console.log('image rejected', image);
+        badImages.push(image);
+      }
+
+      if (result.terpenes?.length) {
+        console.log('Terpenes: ', result.terpenes.length)
+        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
+      }
+      if (result.cannabinoids?.length) {
+        console.log('Cannabinoids: ', result.cannabinoids.length)
+        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+      }
+
+      if (product.terpenes?.length && product.cannabinoids?.length) {
+        console.log('both terpenes and cannabinoids found')
+        break;
+      }
+
+      console.log('Nothing in', image);
+
+    }
+
+    await saveProducts([product], batchId, true);
+
+    console.log('Saved one!')
+    withOCRedImages.push({ ...product, terpenes, cannabinoids });
+
+    // console.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
+
+    return imageUrls;
+
     return {
       title,
       url,
       image,
+      images,
       variants,
       vendor: 'WNC',
     }
@@ -73,7 +132,7 @@ async function scrapePage(url, currentPage, productLinks) {
     }
 
     const nextPageLink = $('.pagination-item--next a').attr('href');
-    if (nextPageLink) {
+    if (nextPageLink && currentPage < 3) {
       currentPage++;
       await scrapePage(nextPageLink, currentPage, productLinks);
     }
@@ -138,3 +197,14 @@ if (require.main === module) {
 module.exports = {
   getAvailableLeafProducts
 }
+
+const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1807/1683224189.1280.1280__66714.1683226369.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1813/1683223605.1280.1280__73189.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1811/1683223605.1280.1280__28436.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1814/1683223605.1280.1280__52678.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1808/1683223605.1280.1280__47191.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1809/1683223605.1280.1280__02816.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1815/1683223605.1280.1280__19110.1683225192.jpg?c=1",
+  "BagsGroupShot",
+  "Diamond-Sticker",
+];

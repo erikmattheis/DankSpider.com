@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-const { makeFirebaseSafe, makeFirebaseSafeId } = require('./services/strings.js');
+const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene } = require('./services/strings.js');
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
@@ -28,12 +28,32 @@ async function getUniqueTerpenes() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    product.images?.forEach(image => {
-      image.terpenes.forEach(terpene => terpenes.add(terpene.name));
+    const terpenesNormalized = product.terpenes?.map(terpene => {
+      console.log('terpene', terpene, normalizeTerpene(terpene.name))
+      return { ...terpene, name: normalizeTerpene(terpene.name) };
     });
+    console.log('terpenesNormalized', terpenesNormalized)
+    doc.ref.update({ terpenes: terpenesNormalized });
+    terpenesNormalized?.forEach(terpene => terpenes.add(terpene.name));
   });
 
   return Array.from(terpenes);
+}
+
+async function getUniqueCannabinoids() {
+  const productsRef = db.collection('productsWithAssay');
+  const snapshot = await productsRef.get();
+
+  const cannabinoids = new Set();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    product.cannabinoids?.forEach(cannabinoid => cannabinoid.name = normalizeCannabinoid(cannabinoid.name));
+    product.cannabinoids?.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
+    doc.set(product);
+  });
+
+  return Array.from(cannabinoids);
 }
 
 async function saveChemicals(products, batchId, useDev) {
@@ -210,7 +230,7 @@ async function getProductsByTitle(substring) {
 }
 
 async function cleanProductsCollections() {
-  const productsRef = db.collection('products');
+  const productsRef = db.collection('productsWithAssay');
   const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
@@ -427,5 +447,7 @@ module.exports = {
   getNextBatchNumber,
   saveBatchRecord,
   getUniqueChemicals,
+  getUniqueCannabinoids,
+  getUniqueTerpenes,
   deleteAllDocumentsInCollection
 };

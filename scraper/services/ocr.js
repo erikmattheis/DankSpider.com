@@ -206,7 +206,7 @@ async function recognize(url) {
 
       for (const text of textArray) {
 
-        const line = getCannabinoidObj(text);
+        const line = getCannabinoidObj2(text);
 
         cannabinoids.push(line);
 

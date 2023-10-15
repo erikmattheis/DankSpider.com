@@ -21,9 +21,9 @@ const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/sten
 
 async function run(batchId) {
 
-  //const products = await getProductsByVendor('WNC', 150);
+  const products = await getProductsByVendor('WNC', 6);
   //const complete = await getCompleteProducts('WNC');
-  const products = await getIncompleteProducts('WNC');
+  //const products = await getIncompleteProducts('WNC');
 
   console.log(`looking at ${products.length} products`);
 

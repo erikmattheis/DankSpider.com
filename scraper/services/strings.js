@@ -77,6 +77,10 @@ function variantNameContainsWeightUnitString(variantName) {
 }
 
 function normalizeTerpene(terpene) {
+  if (!terpene) {
+    return "Unknown";
+  }
+
   const spellings = {
     '1,8-Cineole': 'Eucalyptol',
     '1,8-Cineole': 'Eucalyptol',
@@ -124,18 +128,18 @@ function getTerpeneObj(line) {
   const cleanedLine = line.replace(/\s+/g, ' ');
   const parts = cleanedLine.split(' ');
 
-  const name = normalizeTerpene(parts[0]) || 0;
+  const name = normalizeTerpene(parts[0]) || "Unknown";
 
-  let pct = parts[parts.length - 1] || 0;
+  let pct = parts[parts.length - 1] || "Unknown";
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
   pct = pct + '';
   pct = pct.replace('.', '')
   pct = parseInt(pct)
   pct = (pct / 10000).toFixed(2);
 
-  let mgg = parts[parts.length - 2] || 0;
+  let mgg = parts[parts.length - 2] || "Unknown";
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
-  const originalText = cleanedLine || 0;
+  const originalText = cleanedLine || "Unknown";
 
   return { name, pct, mgg, originalText };
 }
@@ -144,7 +148,29 @@ function getCannabinoidObj(line) {
   const cleanedLine = line.replace(/\s+/g, ' ');
   const parts = cleanedLine.split(' ');
 
-  const name = normalizeCannabinoid(parts[0]) || 0;
+  const name = normalizeCannabinoid(parts[0]) || "Unknown";
+
+  let pct = parts[parts.length - 2] || "Unknown";
+  pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
+  pct = pct + '';
+  pct = pct.replace('.', '')
+  pct = parseInt(pct)
+  pct = (pct / 1000).toFixed(2);
+
+  let mgg = parts[parts.length - 1] || 0;
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
+
+
+  const originalText = cleanedLine || "Unknown";
+
+  return { name, pct, mgg, originalText };
+}
+
+function getCannabinoidObj2(line) {
+  const cleanedLine = line.replace(/\s+/g, ' ');
+  const parts = cleanedLine.split(' ');
+
+  const name = normalizeCannabinoid(`${parts[0]} ${parts[1]}`);
 
   let pct = parts[parts.length - 2] || 0;
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
@@ -156,11 +182,10 @@ function getCannabinoidObj(line) {
   let mgg = parts[parts.length - 1] || 0;
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
 
-  const originalText = cleanedLine || 0;
+  const originalText = cleanedLine || "Unknown";
 
   return { name, pct, mgg, originalText };
 }
-
 const cannabinoidSpellings = {
   "4-8-Tetrahydrocannabinol": "Δ-8 THC",
   "4-9-Tetrahydrocannabinol": "Δ-9 THC",
@@ -243,5 +268,6 @@ module.exports = {
   makeFirebaseSafeId,
   normalizeCannabinoid,
   getCannabinoidObj,
+  getCannabinoidObj2,
   getTerpeneObj
 }
