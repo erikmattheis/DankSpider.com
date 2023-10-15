@@ -125,7 +125,9 @@ async function scrapePage(url, currentPage) {
         productLinks.push({ title: strings.normalizeProductTitle(title), url: url });
       }
     }
+
     return productLinks;
+
   } catch (error) {
     throw new Error(`Error scraping page: ${error.message}`);
   }
@@ -183,9 +185,6 @@ async function getPrestonProductsInfo(products) {
 
     if (size) {
       finalProducts.push(product);
-    }
-    if (finalProducts.length > 2) {
-      break;
     }
   }
 

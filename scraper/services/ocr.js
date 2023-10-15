@@ -5,10 +5,11 @@ const gm = require('gm').subClass({ imageMagick: true });
 const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
 
 //setLogging(true);
-
 // reinitialize = function(langs = 'eng', oem, config, jobId)
-// load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res)
+// load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res);
+
 const path = require('path');
+
 const { getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js');
 
 const badImages = [];
