@@ -31,7 +31,7 @@ const configWNCTerpenes = {
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 2505, left: 413, width: 2706, height: 1708 },
+  rectangle: { top: 2505, left: 413, width: 2658, height: 1708 },
 }
 
 const configWNCCannabinoids2 = {

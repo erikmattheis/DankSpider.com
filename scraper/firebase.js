@@ -230,7 +230,7 @@ async function getProductsByTitle(substring) {
 }
 
 async function cleanProductsCollections() {
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
   const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();

@@ -10,3 +10,6 @@ ReferenceError: terpenes is not defined
 ReferenceError: images is not defined
 
 
+TypeError: products is not iterable
+
+

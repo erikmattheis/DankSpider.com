@@ -47,13 +47,13 @@
           <span>{{ variant }}</span>
         </li>
       </ul>
-      product.cannabinoids: {{ product.cannabinoids?.length }}
+      <h3>Cannabinoids</h3>
       <ul v-for="cannabinoid in product.cannabinoids">
-        <li>{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
+        <li class="chemical cannabinoid">{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
       </ul>
-      product.terpenes: {{ product.terpenes?.length }}
+      <h3>Terpenes</h3>
       <ul v-for="terpene in product.terpenes">
-        <li>{{ terpene.name }} ({{ terpene.pct }}%)</li>
+        <li class="chemical terpene">{{ terpene.name }} ({{ terpene.pct }}%)</li>
       </ul>
     </div>
   </div>
@@ -220,13 +220,22 @@ ul {
 
 ul li {
   display: inline-block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-right: 5px;
   padding: 5px 10px;
-  border-radius: 20px;
-  background-color: #cfcfcf;
-  color: #333;
+  border-radius: 0;
 }
+
+.cannabinoid {
+  background-color: #f71c08;
+  color: #fff;
+}
+
+.terpene {
+  background-color: #9c07b6;
+  color: #fff;
+}
+
 
 ul li::after {
   display: block;

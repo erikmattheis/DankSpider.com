@@ -195,7 +195,8 @@ if (require.main === module) {
 }
 
 module.exports = {
-  getAvailableLeafProducts
+  getAvailableLeafProducts,
+  getProduct
 }
 
 const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1807/1683224189.1280.1280__66714.1683226369.jpg?c=1",
