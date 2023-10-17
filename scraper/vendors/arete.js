@@ -17,7 +17,7 @@ function parseSingleProduct(html) {
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size;
-    const sizeString = strings.normalizeVariantTitle(size);
+    const sizeString = strings.normalizeVariantName(size);
     const availability = $(variation.availability_html).text().trim();
 
     if (availability.toLowerCase().includes('in stock')) {

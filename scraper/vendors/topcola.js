@@ -31,7 +31,7 @@ async function getAvailableLeafProducts() {
 
         if (filteredVariants.length && (productType === 'flower')) {
 
-          const resolvedVariants = variants.map((variant) => strings.normalizeVariantTitle(variant.title));
+          const resolvedVariants = variants.map((variant) => strings.normalizeVariantName(variant.title));
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
 

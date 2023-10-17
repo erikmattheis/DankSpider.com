@@ -13,3 +13,6 @@ ReferenceError: images is not defined
 TypeError: products is not iterable
 
 
+ReferenceError: wncProducts is not defined
+
+

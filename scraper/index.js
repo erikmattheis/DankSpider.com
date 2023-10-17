@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getProductsWithAssay, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical } = require('./firebase.js');
+const { getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getProductsWithAssay, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 const jpegs = require('./services/jpegs.js');
@@ -89,7 +89,7 @@ async function makeTerpenesFile() {
 async function run() {
   let startTime = performance.now();
 
-  await scrapers.run('x3x');
+  await scrapers.run('x5x');
   let endTime = performance.now();
 
   // console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
@@ -109,7 +109,7 @@ async function run() {
 
 }
 
-run();
+//run();
 
 async function util() {
 
@@ -121,17 +121,22 @@ async function util() {
     const canns = await getUniqueCannabinoids();
     console.log(canns);
   */
-  await cleanProductsCollections();
+
+  //await normalizeVariants();
+  //await cleanProductsCollections();
+
+  const vart = await getProductsByVariant('7g');
+  console.log(vart);
+  await makeProductsFile();
 
   // await jpegs.run('HMC6');
 
-  // await cleanProductsCollections();
   console.log("Done.")
 
   //await makeTerpenes();
 
 }
 
-//util();
+util();
 
 

@@ -56,9 +56,11 @@
         {{ numProducts }} product{{ numProducts === 1 ? '' :
           's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
       </div>
+      <!--
       <select class="sort-by" @change="sortProductsByChemical">
         <option v-for="chemical in chemicalNames">{{ chemical }}</option>
       </select>
+      -->
     </div>
   </form>
 </template>

@@ -9,7 +9,7 @@ function normalizeProductTitle(title) {
   return replaceString;
 }
 
-function normalizeVariantTitle(title) {
+function normalizeVariantName(title) {
   if (!title) {
     return title;
   }
@@ -19,29 +19,24 @@ function normalizeVariantTitle(title) {
   if (title === '1oz') {
     return '28 g';
   }
-  if (title === 'Half oz') {
-    return '14 g';
-  }
   if (title === 'Sugar leaf trim - 28 grams') {
     return '28 g';
   }
   if (title === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
     return '28 g';
   }
-  if (title === 'Dry Sift 1g') {
-    return '1 g';
+
+  if (title === 'Half oz') {
+    return '14 g';
   }
   if (title === '14 grams') {
     return '14 g';
   }
-  if (title === '7 grams') {
-    return '7 g';
-  }
-  if (title === '3.5 grams') {
-    return '3.5 g';
-  }
   if (title === '14g') {
     return '14 g';
+  }
+  if (title === '7 grams') {
+    return '7 g';
   }
   if (title === '7g') {
     return '7 g';
@@ -49,7 +44,13 @@ function normalizeVariantTitle(title) {
   if (title === '3.5g') {
     return '3.5 g';
   }
+  if (title === '3.5 grams') {
+    return '3.5 g';
+  }
   if (title === '1g') {
+    return '1 g';
+  }
+  if (title === 'Dry Sift 1g') {
     return '1 g';
   }
   title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
@@ -261,7 +262,7 @@ async function makeFirebaseSafeId(prefix, product, collectionRef) {
 module.exports = {
   normalizeTerpene,
   normalizeProductTitle,
-  normalizeVariantTitle,
+  normalizeVariantName,
   variantNameContainsWeightUnitString,
   printPathToKey,
   makeFirebaseSafe,

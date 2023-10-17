@@ -45,7 +45,7 @@ async function addVariants(product, $) {
 
   const labels = $('label.variant__button-label:not(.disabled)');
 
-  result.variants = labels.map((index, el) => strings.normalizeVariantTitle($(el).text())).get();
+  result.variants = labels.map((index, el) => strings.normalizeVariantName($(el).text())).get();
 
 
   return result;

@@ -47,6 +47,7 @@
           <span>{{ variant }}</span>
         </li>
       </ul>
+      <!--
       <h3>Cannabinoids</h3>
       <ul v-for="cannabinoid in product.cannabinoids">
         <li class="chemical cannabinoid">{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
@@ -55,6 +56,7 @@
       <ul v-for="terpene in product.terpenes">
         <li class="chemical terpene">{{ terpene.name }} ({{ terpene.pct }}%)</li>
       </ul>
+      -->
     </div>
   </div>
   <div class="product-card" v-if="!product.image">
@@ -220,9 +222,10 @@ ul {
 
 ul li {
   display: inline-block;
+  font-size: 0.8rem;
   margin-bottom: 5px;
   margin-right: 5px;
-  padding: 5px 10px;
+  padding: 0px 5px;
   border-radius: 0;
 }
 

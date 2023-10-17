@@ -169,7 +169,7 @@ async function getWNCProductsInfo(productLinks) {
 
     if (product.variants.length > 0) {
 
-      product.variants = product.variants.map((variant) => strings.normalizeVariantTitle(variant));
+      product.variants = product.variants.map((variant) => strings.normalizeVariantName(variant));
 
       products.push(product);
 

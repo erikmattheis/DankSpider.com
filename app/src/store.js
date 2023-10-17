@@ -187,7 +187,7 @@ export const useSpiderStore = defineStore('spider', {
 
       this.products.forEach((product) => {
 
-        if (!product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
+        if (!product.image || !product.variants || product.variants.length === 0 || product.variants[0] === 'CBD Type 3') {
           return;
         }
 

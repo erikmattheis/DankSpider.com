@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene } = require('./services/strings.js');
+const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./services/strings.js');
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
@@ -38,6 +38,42 @@ async function getUniqueTerpenes() {
   });
 
   return Array.from(terpenes);
+}
+
+// find products with variant
+
+async function getProductsByVariant(variant) {
+  const results = [];
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.where('variants', 'array-contains', variant).get();
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    results.push(product);
+  }
+  );
+  return results;
+}
+
+// Update all prodproducucts by having all product.variant[n].name match the normalized variant title. use normalizeVariantName() It's firebase
+
+async function normalizeVariants() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (product.variants) {
+      product.variants.forEach(variant => {
+        const variantTrimmed = variant.trim();
+        const name = normalizeVariantName(variantTrimmed);
+        if (name) {
+          variant = name;
+        }
+      });
+      doc.ref.update({ variants: product.variants });
+    }
+  });
+
 }
 
 async function getUniqueCannabinoids() {
@@ -449,5 +485,7 @@ module.exports = {
   getUniqueChemicals,
   getUniqueCannabinoids,
   getUniqueTerpenes,
-  deleteAllDocumentsInCollection
+  deleteAllDocumentsInCollection,
+  normalizeVariants,
+  getProductsByVariant
 };

@@ -38,7 +38,7 @@ async function addVariants(products) {
       const $ = cheerio.load(response.data);
 
       for (const variant of response.data.data) {
-        const name = strings.normalizeVariantTitle(variant.name);
+        const name = strings.normalizeVariantName(variant.name);
         product.variants.push(name);
       }
 

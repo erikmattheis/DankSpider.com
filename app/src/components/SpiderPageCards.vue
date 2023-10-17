@@ -1,9 +1,11 @@
 <template>
   <div class="page">
+    <!--
     missingTerps: {{ missingTerps.length }}<br>
     missingCanns: {{ missingCanns.length }}<br>
     missingBoth: {{ missingBoth.length }}<br>
     completeProducts: {{ completeProducts.length }}<br>
+    -->
     <div class="horizontal-cards">
       <template v-for="(product, i) in filteredProducts" :key="i">
         <ProductCard :product="product" />
