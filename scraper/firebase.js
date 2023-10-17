@@ -217,11 +217,14 @@ async function getProductsByVendor(vendor, limit, useDev) {
   }
 
   let snapshot;
-  if (limit) {
+  if (limit && vendor) {
     snapshot = await productsRef.where('vendor', '==', vendor).limit(limit).get();
   }
-  else {
+  else if (vendor) {
     snapshot = await productsRef.where('vendor', '==', vendor).get();
+  }
+  else {
+    snapshot = await productsRef.get();
   }
 
   // console.log(`Got ${snapshot.size} products from ${vendor}`)
