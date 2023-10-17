@@ -21,23 +21,19 @@ if (!getApps().length) {
 const db = getFirestore();
 
 async function getUniqueTerpenes() {
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
 
   const terpenes = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    const terpenesNormalized = product.terpenes?.map(terpene => {
-      console.log('terpene', terpene, normalizeTerpene(terpene.name))
-      return { ...terpene, name: normalizeTerpene(terpene.name) };
-    });
-    console.log('terpenesNormalized', terpenesNormalized)
-    doc.ref.update({ terpenes: terpenesNormalized });
-    terpenesNormalized?.forEach(terpene => terpenes.add(terpene.name));
+    product.terpenes?.forEach(terpene => terpenes.add(terpene.name));
   });
 
-  return Array.from(terpenes);
+  const t = Array.from(terpenes);
+  t.sort();
+  return { terpenes: t }
 }
 
 // find products with variant
@@ -51,6 +47,30 @@ async function getProductsByVariant(variant) {
     results.push(product);
   }
   );
+  return results;
+}
+
+async function getProductsByPPM() {
+  const results = [];
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.where('terpenes', '==', 'PPM').get();
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    results.push(product);
+  });
+
+  return results;
+}
+
+async function getProductsByTerpene(terpene) {
+  const results = [];
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.where('terpenes', 'array-contains', { name: terpene }).get();
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    results.push(product);
+  });
+  console.log('there are', results.length, 'products with', terpene, 'terpene')
   return results;
 }
 
@@ -76,8 +96,26 @@ async function normalizeVariants() {
 
 }
 
+async function normalizeTerpenes() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (product.terpenes) {
+      product.terpenes.forEach(terpene => {
+        const name = normalizeTerpene(terpene.name);
+        if (name) {
+          terpene.name = name;
+        }
+      });
+      doc.ref.update({ terpenes: product.terpenes });
+    }
+  });
+
+}
+
 async function getUniqueCannabinoids() {
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
 
   const cannabinoids = new Set();
@@ -96,7 +134,7 @@ async function saveChemicals(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
   if (useDev) {
-    productsRef = db.collection('productsWithAssay');
+    productsRef = db.collection('products');
   }
   else {
     productsRef = db.collection('products');
@@ -132,7 +170,7 @@ async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
   let productsRef;
   if (useDev) {
-    productsRef = db.collection('productsWithAssay');
+    productsRef = db.collection('products');
   }
   else {
     productsRef = db.collection('products');
@@ -194,7 +232,7 @@ async function getAllProducts() {
 async function getIncompleteProducts() {
   const startTime = performance.now();
 
-  const productsRef = db.collection('productsWithAssay').orderBy('timestamp', 'desc');
+  const productsRef = db.collection('products').orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
 
   const products = [];
@@ -223,7 +261,7 @@ async function getIncompleteProducts() {
 async function getCompleteProducts() {
   const startTime = performance.now();
 
-  const productsRef = db.collection('productsWithAssay').orderBy('timestamp', 'desc');
+  const productsRef = db.collection('products').orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
 
   const products = [];
@@ -287,9 +325,9 @@ async function cleanProductsCollections() {
   await Promise.all(products);
 }
 
-async function cleanProductsWithAssayCollection() {
+async function cleanproductsCollection() {
 
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
   const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
@@ -318,7 +356,7 @@ async function getProductsByVendor(vendor, limit, useDev) {
   let productRef;
 
   if (useDev) {
-    productsRef = db.collection('productsWithAssay');
+    productsRef = db.collection('products');
   }
   else {
     productsRef = db.collection('products');
@@ -432,7 +470,7 @@ async function getTerpenes() {
 
 async function getUniqueChemicals() {
 
-  const productsRef = db.collection('productsWithAssay');
+  const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
 
   const cannabinoids = new Set();
@@ -456,7 +494,7 @@ if (require.main === module) {
   // console.log('This script is being executed directly by Node.js');
   (async () => {
     await cleanProductsCollections();
-    await cleanProductsWithAssayCollection();
+    await cleanproductsCollection();
     console.log('deleted any duplicate');
   })();
 }
@@ -471,6 +509,7 @@ if (require.main === module) {
 
 module.exports = {
   getTerpenes,
+  normalizeTerpenes,
   saveArticles,
   saveProducts,
   getAllProducts,
@@ -479,7 +518,7 @@ module.exports = {
   getProductsByTitle,
   getProductsByVendor,
   cleanProductsCollections,
-  cleanProductsWithAssayCollection,
+  cleanproductsCollection,
   getNextBatchNumber,
   saveBatchRecord,
   getUniqueChemicals,
@@ -487,5 +526,7 @@ module.exports = {
   getUniqueTerpenes,
   deleteAllDocumentsInCollection,
   normalizeVariants,
-  getProductsByVariant
+  getProductsByVariant,
+  getProductsByTerpene,
+  getProductsByPPM
 };

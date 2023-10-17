@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getProductsWithAssay, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
+const { getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const { v4: uuidv4 } = require('uuid');
 const jpegs = require('./services/jpegs.js');
@@ -115,20 +115,17 @@ async function util() {
 
   //await makeProductsFile('WNC', 300, true);
 
-  /*
-    const terps = await getUniqueTerpenes();
-    console.log(terps);
-    const canns = await getUniqueCannabinoids();
-    console.log(canns);
-  */
+
+  await normalizeTerpenes();
+
 
   //await normalizeVariants();
   //await cleanProductsCollections();
+  /*
 
-  const vart = await getProductsByVariant('7g');
-  console.log(vart);
-  await makeProductsFile();
-
+    console.log(vart);
+    await makeProductsFile();
+  */
   // await jpegs.run('HMC6');
 
   console.log("Done.")

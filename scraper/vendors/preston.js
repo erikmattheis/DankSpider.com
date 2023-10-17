@@ -63,12 +63,10 @@ async function getPrestonProductInfo(product) {
       }
 
       if (result.terpenes?.length) {
-        console.log('Terpenes: ', result.terpenes.length)
         product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
 
       if (result.cannabinoids?.length) {
-        console.log('Cannabinoids: ', result.cannabinoids.length)
         product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 

@@ -78,6 +78,9 @@ function variantNameContainsWeightUnitString(variantName) {
 }
 
 function normalizeTerpene(terpene) {
+  if (terpene === 'α-Bisabolol') {
+    //console.log('Trying to change it.', terpene);
+  }
   if (!terpene) {
     return "Unknown";
   }
@@ -86,15 +89,21 @@ function normalizeTerpene(terpene) {
     '1,8-Cineole': 'Eucalyptol',
     '1,8-Cineole': 'Eucalyptol',
     '1.8-Cinecle': 'Eucalyptol',
-    'Bisabolol': 'Bisabolol',
-    'a-Bisabolol': 'α-Bisabolol',
-    'a-Bsabolol': 'α-Bisabolol',
-    'a-Humulene': 'α-Humulene',
-    'a-Pinene': 'α-Pinene',
-    'a-Terpinene': 'α-Terpinene',
-    'B-Caryophyliene': 'β-Caryophyllene',
-    'B-Caryophyllene': 'β-Caryophyllene',
-    'B-Myrcene': 'β-Myrcene',
+    'α-Bisabolol': 'Bisabolol',
+    'a-Bisabolol': 'Bisabolol',
+    'a-Bsabolol': 'Bisabolol',
+    'a-Humulene': 'Humulene',
+    'α-Humulene': 'Humulene',
+    'α-Pinene': 'Pinene',
+    'a-Pinene': 'Pinene',
+    'a-Terpinene': 'Terpinene',
+    'α-Terpinene': 'Terpinene',
+    'α-Terpinene': 'Terpinene',
+    'β-Caryophyllene': 'Caryophyllene',
+    'B-Caryophyliene': 'Caryophyllene',
+    'B-Caryophyllene': 'Caryophyllene',
+    'B-Myrcene': 'Myrcene',
+    'β-Myrcene': 'Myrcene',
     'Bisabolol': 'Bisabolol',
     'Bormwol': 'Borneol',
     'Borreol': 'Borneol',
@@ -103,22 +112,16 @@ function normalizeTerpene(terpene) {
     'Caryophyllene': 'Caryophyllene',
     'Citral': 'Citral',
     'CaryophylleneOxide': 'Caryophyllene Oxide',
-    'Dihydrocarveol': 'Dihydrocarveol',
     'Ferxhone': 'Fenchone',
-    'Humulene': 'Humulene',
-    'Limonene': 'Limonene',
-    'Linalool': 'Linalool',
     'Mentho!': 'Menthol',
-    'Myrcene': 'Myrcene',
-    'Nerolidol': 'Nerolidol',
-    'Ocimene': 'Ocimene',
-    'Pinene': 'Pinene',
-    'Pulegone': 'Pulegone',
-    'Terpinene': 'Terpinene',
-    'Terpinolene': 'Terpinolene',
     'y-Terpinene': 'γ-Terpinene',
   }
+
+  if (terpene === 'α-Bisabolol') {
+    //console.log('Going to return', spellings[terpene]);
+  }
   if (spellings[terpene]) {
+    //console.log('Returning', spellings[terpene])
     return spellings[terpene];
   }
   return terpene;
