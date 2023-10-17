@@ -31,7 +31,7 @@ export const useSpiderStore = defineStore('spider', {
 
       products.sort(this.sortProducts('title'));
 
-      return [...products, ...emptyProducts];
+      return products
     },
     numProducts(state) {
       return state.filteredProducts.filter((product) => product.name !== 'empty').length;
