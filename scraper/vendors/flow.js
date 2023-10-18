@@ -43,11 +43,10 @@ async function addCannabinoids(product, $) {
   const cannabinoids = [];
 
   const images = $('.product__thumb-item[index="2"] a').map((index, el) => $(el).attr('href')).get();
-  console.log(images);
-  process.exit()
-  result.variants = labels.map((index, el) => strings.normalizeVariantName($(el).text())).get();
+  if (result.variants) {
+    result.variants = $('label').map((index, el) => strings.normalizeVariantName($(el).text())).get();
 
-
+  }
   return result;
 }
 

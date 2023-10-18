@@ -130,7 +130,7 @@ async function scrapePage(url, currentPage, productLinks) {
   }
 
   const nextPageLink = $('.pagination-item--next a').attr('href');
-  if (nextPageLink && currentPage < 3) {
+  if (nextPageLink) {
     currentPage++;
     await scrapePage(nextPageLink, currentPage, productLinks);
   }
