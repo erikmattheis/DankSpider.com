@@ -9,64 +9,65 @@ function normalizeProductTitle(title) {
   return replaceString;
 }
 
-function normalizeVariantName(title) {
-  if (!title) {
-    return title;
+function normalizeVariantName(name) {
+
+  if (!name) {
+    return name;
   }
-  if (title === '28 grams') {
+  if (name === '28 grams') {
     return '28 g';
   }
-  if (title === '1oz') {
+  if (name === '1oz') {
     return '28 g';
   }
-  if (title === 'Sugar leaf trim - 28 grams') {
+  if (name === 'Sugar leaf trim - 28 grams') {
     return '28 g';
   }
-  if (title === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
+  if (name === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
     return '28 g';
   }
 
-  if (title === 'Half oz') {
+  if (name === 'Half oz') {
     return '14 g';
   }
-  if (title === '14 grams') {
+  if (name === '14 grams') {
     return '14 g';
   }
-  if (title === '14g') {
+  if (name === '14g') {
     return '14 g';
   }
-  if (title === '7 grams') {
+  if (name === '7 grams') {
     return '7 g';
   }
-  if (title === '7g') {
+  if (name === '7g') {
     return '7 g';
   }
-  if (title === '3.5g') {
+  if (name === '3.5g') {
     return '3.5 g';
   }
-  if (title === '3.5 grams') {
+  if (name === '3.5 grams') {
     return '3.5 g';
   }
-  if (title === '1g') {
+  if (name === '1g') {
     return '1 g';
   }
-  if (title === 'Dry Sift 1g') {
+  if (name === 'Dry Sift 1g') {
     return '1 g';
   }
-  title = title?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
-  title = title?.replace(/(\s+)/g, ' ');
-  title = title?.replace('SMALLS', 'smalls');
-  title = title?.replace('MINIS', 'minis');
-  title = title?.replace('Smalls', 'smalls');
-  title = title?.replace('Minis', 'minis');
-  title = title?.replace(' (1/8 oz)', '');
-  title = title?.replace(' (1/4 oz)', '');
-  title = title?.replace(' (1/2 oz)', '');
-  title = title?.replace(' (1 oz)', '');
-  title = title?.replace('(small/minis)', 'smalls/minis');
-  title = title?.trim().replace(/\s+/g, ' ');
+  name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
+  name = name?.replace(/(\s+)/g, ' ');
+  name = name?.replace('SMALLS', 'smalls');
+  name = name?.replace('MINIS', 'minis');
+  name = name?.replace('Smalls', 'smalls');
+  name = name?.replace('Minis', 'minis');
+  name = name?.replace(' (1/8 oz)', '');
+  name = name?.replace(' (1/4 oz)', '');
+  name = name?.replace(' (1/2 oz)', '');
+  name = name?.replace(' (1 oz)', '');
+  name = name?.replace('(small/minis)', 'smalls/minis');
+  name = name?.trim().replace(/\s+/g, ' ');
 
-  return title;
+  return name;
 }
 
 const regexMatchingPossibleWeightString = /\d\s(oz|g)/i;
@@ -190,42 +191,108 @@ function getCannabinoidObj2(line) {
 
   return { name, pct, mgg, originalText };
 }
+
 const cannabinoidSpellings = {
-  "4-8-Tetrahydrocannabinol": "Δ-8 THC",
-  "4-9-Tetrahydrocannabinol": "Δ-9 THC",
-  "4-9-Tetrahydrocannabinolic": "Δ-9 THCA",
-  "A-9-Tetrahydrocannabiphorol": "THCP",
-  "A-9-Tetrahydrocannabivarin": "THCV",
-  "A-9-Tetrahydrocannabivarinic": "Δ-9 THCVA",
-  "R-A-10-Tetrahydrocannabinol": "R-Δ-10 THC",
-  "-A-10-Tetrahydrocannabinol": "S-Δ-10 THC",
-  "$-A-10-Tetrahydrocannabinol": "S-Δ-10 THC",
-  "9R-Hexahydrocannabinol": "9R-HHC",
-  "95-Hexahydrocannabinol": "9R-HHC",
-  "Tetrahydrocannabinol": "THC0",
-  "Tetrahwdrocannabinol:": "THC0",
-  "Tetratwarocamanng": "THC0",
-  "Cannabidivarin": "CBDV",
-  "Cannabidivarinic": "CBDVA",
-  "Cannabidiol": "CBD",
-  "Cannabidiolic": "CBDA",
-  "Cannabigerol": "CBG",
-  "Cannabigerolic": "CBGA",
-  "Cannabinol": "CBN",
-  "Cannabinolic": "CBNA",
-  "Cannabichromene": "CBC",
-  "Cannabichromenic": "CBCA",
-  "Total": "Total Cannabinoids",
-  "TOTAL": "Total Cannabinoids",
-}
+  // Existing corrected spellings
+
+  "4-8-Tetrahydrocannabinol": { name: "Delta 8-THC", confidence: 1 },
+  "4-9-Tetrahydrocannabinol": { name: "Delta 9-THC", confidence: 1 },
+  "4-9-Tetrahydrocannabinolic": { name: "Delta 9-THCA", confidence: 1 },
+  "A-9-Tetrahydrocannabiphorol": { name: "THCP", confidence: 1 },
+  "A-9-Tetrahydrocannabivarin": { name: "THCV", confidence: 1 },
+  "A-9-Tetrahydrocannabivarinic": { name: "Delta 9-THCVA", confidence: 1 },
+  "R-A-10-Tetrahydrocannabinol": { name: "R-Delta 10-THC", confidence: 1 },
+  "-A-10-Tetrahydrocannabinol": { name: "S-Delta 10-THC", confidence: 1 },
+  "$-A-10-Tetrahydrocannabinol": { name: "S-Delta 10-THC", confidence: 1 },
+  "9R-Hexahydrocannabinol": { name: "9R-HHC", confidence: 1 },
+  "95-Hexahydrocannabinol": { name: "9S-HHC", confidence: 1 },
+  "Tetrahydrocannabinol": { name: "THC", confidence: 1 },
+  "Tetrahwdrocannabinol:": { name: "THC", confidence: 1 },
+  "Tetratwarocamanng": { name: "THC", confidence: 1 },
+  "Cannabidivarin": { name: "CBDV", confidence: 1 },
+  "Cannabidivarinic": { name: "CBDVA", confidence: 1 },
+  "Cannabidiol": { name: "CBD", confidence: 1 },
+  "Cannabidiolic": { name: "CBDA", confidence: 1 },
+  "Cannabigerol": { name: "CBG", confidence: 1 },
+  "Cannabigerolic": { name: "CBGA", confidence: 1 },
+  "Cannabinol": { name: "CBN", confidence: 1 },
+  "Cannabinolic": { name: "CBNA", confidence: 1 },
+  "Cannabichromene": { name: "CBC", confidence: 1 },
+  "Cannabichromenic": { name: "CBCA", confidence: 1 },
+  "Total": { name: "Total Cannabinoids", confidence: 1 },
+  "TOTAL": { name: "Total Cannabinoids", confidence: 1 },
+  "Camaby": { name: "Cannabicyclol (CBL)", confidence: 0.6 },
+  "Camnabichromenic": { name: "CBC", confidence: 0.9 },
+  "Camnabigeralic": { name: "CBG", confidence: 0.7 },
+  "Cannabi": { name: "CBN", confidence: 0.6 },
+  "Cannabichabe": { name: "CBC", confidence: 0.8 },
+  "Cannabichearinic": { name: "CBC", confidence: 0.9 },
+  "Cannabichonvene": { name: "CBC", confidence: 0.8 },
+  "Cannabichromenic Acid": { name: "CBC", confidence: 0.9 },
+  "Cannabidiolic Acid": { name: "CBD", confidence: 0.9 },
+  "Cannabidivarinic Acid": { name: "THCV", confidence: 0.8 },
+  "Cannabigeral": { name: "CBG", confidence: 0.7 },
+  "Cannabigerdl": { name: "CBG", confidence: 0.7 },
+  "Cannabinod": { name: "CBN", confidence: 0.6 },
+  "Cannabinolic Acid": { name: "CBN", confidence: 0.8 },
+  "Cannabs": { name: "CBN", confidence: 0.6 },
+  "Cannaby": { name: "CBN", confidence: 0.6 },
+  "Cannat": { name: "Cannabicitran (CBT)", confidence: 0.8 },
+  "Cannatinol": { name: "CBN", confidence: 0.8 },
+  "Cannaty": { name: "CBN", confidence: 0.6 },
+  "Canrudschromenic": { name: "CBC", confidence: 0.9 },
+  "Canrudsdial": { name: "CBD", confidence: 0.9 },
+  "Canruts": { name: "CBN", confidence: 0.6 },
+  "Carnabynod": { name: "CBN", confidence: 0.6 },
+  "Carnals": { name: "CBN", confidence: 0.6 },
+  "Carnuabsgerolic": { name: "CBG", confidence: 0.6 },
+  "Carnuatsrolic": { name: "CBG", confidence: 0.6 },
+  "Carrubichromenic": { name: "CBC", confidence: 0.9 },
+  "Carrubirolic": { name: "CBG", confidence: 0.7 },
+  "Carrubsrolic": { name: "CBG", confidence: 0.7 },
+  "Carrubyrolic": { name: "CBG", confidence: 0.7 },
+  "Carruds": { name: "CBN", confidence: 0.6 },
+  "Carrudy": { name: "CBN", confidence: 0.6 },
+  "Carvabrnod": { name: "CBN", confidence: 0.6 },
+  "Carvaby": { name: "CBN", confidence: 0.6 },
+  "Carvubs": { name: "CBG", confidence: 0.6 },
+  "Carvubschasn": { name: "CBC", confidence: 0.9 },
+  "Carvubschrorrenic": { name: "CBC", confidence: 0.9 },
+  "Carvubsgerolic": { name: "CBG", confidence: 0.7 },
+  "Carvuby": { name: "CBN", confidence: 0.6 },
+  "Carvubzdizl(CHDY": { name: "CBD", confidence: 0.9 },
+  "Carvuda": { name: "CBD", confidence: 0.6 },
+  "Carvuds": { name: "CBN", confidence: 0.6 },
+  "Carvudschromenk": { name: "CBC", confidence: 0.9 },
+  "Conmaby": { name: "Cannabicyclol (CBL)", confidence: 0.8 },
+  "Connaby": { name: "CBN", confidence: 0.6 },
+  "Cornaby": { name: "CBN", confidence: 0.6 },
+  "FR-He": { name: "9R-HHC", confidence: 0.9 },
+  "FR-Hewbrpdr": { name: "9R-HHC", confidence: 0.9 },
+  "FR-Hewtredr": { name: "9R-HHC", confidence: 0.9 },
+  "FR-Hexatrd": { name: "9R-HHC", confidence: 0.9 },
+  "FR-Hexdrd": { name: "9R-HHC", confidence: 0.9 },
+  "HC": { name: "CBN", confidence: 0.6 },
+  "IC": { name: "CBN", confidence: 0.6 },
+  "IC=THCa*": { name: "THCA", confidence: 0.9 },
+  "IRt": { name: "CBN", confidence: 0.6 },
+  "75%-Henatydrocarrabingl": { name: "9S-HHC", confidence: 0.9 },
+  "75-Hexatydrocarrabiscl": { name: "9S-HHC", confidence: 0.9 },
+  "95-Hexahydracannabinal": { name: "9S-HHC", confidence: 0.9 },
+  "95-Hexatydrocarrabisol": { name: "9S-HHC", confidence: 0.9 },
+  "9S-Hexahydrocannabinol": { name: "9S-HHC", confidence: 0.9 },
+  "?5-Hexatydrocarrabiacl": { name: "9S-HHC", confidence: 0.9 },
+};
 
 function normalizeCannabinoid(name) {
 
-  if (cannabinoidSpellings[name]) {
-    return cannabinoidSpellings[name];
+  if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
+
+    return cannabinoidSpellings[name].name;
+
   }
 
-  return name;
+  return "Unreadable";
 }
 
 function printPathToKey(obj, keyString, path = []) {

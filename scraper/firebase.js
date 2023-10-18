@@ -4,6 +4,7 @@ const { getApps, initializeApp, applicationDefault, cert } = require('firebase-a
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./services/strings.js');
 
+
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config();
@@ -114,6 +115,22 @@ async function normalizeTerpenes() {
 
 }
 
+async function normalizeCannabinoids() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (product.cannabinoids) {
+      product.cannabinoids.forEach(cannabinoid => {
+        const name = normalizeCannabinoid(cannabinoid.name);
+        if (name) {
+          cannabinoid.name = name;
+        }
+      });
+      doc.ref.update({ cannabinoids: product.cannabinoids });
+    }
+  });
+}
 async function getUniqueCannabinoids() {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
@@ -122,12 +139,12 @@ async function getUniqueCannabinoids() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    product.cannabinoids?.forEach(cannabinoid => cannabinoid.name = normalizeCannabinoid(cannabinoid.name));
+    //product.cannabinoids?.forEach(cannabinoid => cannabinoid.name = normalizeCannabinoid(cannabinoid.name));
     product.cannabinoids?.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
-    doc.set(product);
+    //doc.set(product);
   });
 
-  return Array.from(cannabinoids);
+  return Array.from(cannabinoids).sort();
 }
 
 async function saveChemicals(products, batchId, useDev) {
@@ -164,6 +181,30 @@ async function saveChemicals(products, batchId, useDev) {
   await batch.commit();
 
   // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+}
+
+async function getProductById(id) {
+  const docRef = db.collection('products').doc(id);
+  const doc = await docRef.get();
+  return doc.data();
+}
+
+
+// find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
+async function fixWNCProducts() {
+  const data = await getProductById('x8-undefined-undefined-0');
+  // console.log('products', products);
+  const fixedProducts = [];
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const value = data[key];
+      if (value.title) {
+        console.log('yes')
+        fixedProducts.push(value)
+      }
+    }
+  }
+  await saveProducts(fixedProducts, 'x8');
 }
 
 async function saveProducts(products, batchId, useDev) {
@@ -215,6 +256,7 @@ async function getAllProducts() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
+    console.log(doc.data().url);
     if (uniqueUrls.has(product.url)) {
       return;
     }
@@ -310,22 +352,23 @@ async function cleanProductsCollections() {
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
   const products = [];
-  const uniqueUrls = new Set();
+  const uniqueTitles = new Set();
+  const dels = [];
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueUrls.has(product.url)) {
+    if (uniqueTitles.has(product.title + product.vendor)) {
       const archiveDoc = archiveRef.doc(doc.id);
       products.push(archiveDoc.set(product));
-      products.push(doc.ref.delete());
+      dels.push(doc.ref.delete());
     }
-    uniqueUrls.add(product.url);
+    uniqueTitles.add(product.title + product.vendor);
   });
 
-  await Promise.all(products);
+  await Promise.all(dels);
 }
 
-async function cleanproductsCollection() {
+async function cleanProductsCollection() {
 
   const productsRef = db.collection('products');
   const archiveRef = db.collection('productArchive');
@@ -333,20 +376,21 @@ async function cleanproductsCollection() {
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
   const products = [];
+  const dels = [];
   const uniqueUrls = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueUrls.has(product.title)) {
+    if (uniqueUrls.has(product.url)) {
       console.log('duplicate found')
       const archiveDoc = archiveRef.doc(doc.id);
       products.push(archiveDoc.set(product));
-      products.push(doc.ref.delete());
+      dels.push(doc.ref.delete());
     }
-    uniqueUrls.add(product.title);
+    uniqueUrls.add(product.url);
   });
 
-  await Promise.all(products);
+  await Promise.all(dels);
 }
 
 async function getProductsByVendor(vendor, limit, useDev) {
@@ -490,6 +534,26 @@ async function getUniqueChemicals() {
 
 }
 
+// select products where variants is an array of objects, the should be String. The objects have a name property.
+
+async function deleteProductsWithObjectsInVariants() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+
+  const products = [];
+  const dels = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (product.variants && product.variants.some(variant => typeof variant !== 'string')) {
+      products.push(product);
+      dels.push(doc.ref.delete());
+    }
+  });
+  await Promise.all(dels);
+  return products;
+}
+
 if (require.main === module) {
   // console.log('This script is being executed directly by Node.js');
   (async () => {
@@ -518,7 +582,7 @@ module.exports = {
   getProductsByTitle,
   getProductsByVendor,
   cleanProductsCollections,
-  cleanproductsCollection,
+  cleanProductsCollection,
   getNextBatchNumber,
   saveBatchRecord,
   getUniqueChemicals,
@@ -528,5 +592,8 @@ module.exports = {
   normalizeVariants,
   getProductsByVariant,
   getProductsByTerpene,
-  getProductsByPPM
+  getProductsByPPM,
+  normalizeCannabinoids,
+  deleteProductsWithObjectsInVariants,
+  fixWNCProducts
 };

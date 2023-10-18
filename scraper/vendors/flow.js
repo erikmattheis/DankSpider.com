@@ -18,7 +18,7 @@ async function getProducts() {
     if (productType === 'Flower') {
       const image$ = cheerio.load($(entry).html());
       const title = strings.normalizeProductTitle($(entry).children('title').first().text());
-      if (title.toLowerCase().includes('sugar leaf')) {
+      if (title?.toLowerCase().includes('sugar leaf')) {
         return;
       }
 
@@ -35,6 +35,20 @@ async function getProducts() {
   });
 
   return products;
+}
+
+async function addCannabinoids(product, $) {
+  const result = { ...product };
+
+  const cannabinoids = [];
+
+  const images = $('.product__thumb-item[index="2"] a').map((index, el) => $(el).attr('href')).get();
+  console.log(images);
+  process.exit()
+  result.variants = labels.map((index, el) => strings.normalizeVariantName($(el).text())).get();
+
+
+  return result;
 }
 
 async function addVariants(product, $) {
@@ -74,6 +88,7 @@ async function addDetails(products) {
     const productWithVariants = await addVariants(product, $);
     if (productWithVariants.variants.length > 0) {
       const productWithImage = addImage(productWithVariants, $);
+      const productWithCannabinoids = await addCannabinoids(product, $);
       result.push(productWithImage);
     }
   }

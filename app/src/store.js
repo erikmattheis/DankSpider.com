@@ -153,9 +153,6 @@ export const useSpiderStore = defineStore('spider', {
       }
 
     },
-    normalizeText(title) {
-      return title.toLowerCase().replace(/[^\w]+/g, '');
-    },
     normalizeVariants() {
       const variants = [];
 
@@ -167,7 +164,6 @@ export const useSpiderStore = defineStore('spider', {
 
         product.variants.forEach((variant) => {
           if (!variant) return;
-          const normalizedVariant = this.normalizeText(variant);
 
           if (!variants.includes(variant)) {
             variants.push(variant);

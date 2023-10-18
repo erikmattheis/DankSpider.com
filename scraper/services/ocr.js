@@ -82,7 +82,7 @@ const getAndProcessJpg = async (url, isDev) => {
 
     const jpgName = jpgNameFromUrl(url);
 
-    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(0.5, 0.5).quality(100).setFormat('jpg')
+    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100).setFormat('jpg')
 
     const jpgBuffer = await gmToBuffer(gmResponse);
 
