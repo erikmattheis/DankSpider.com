@@ -86,7 +86,7 @@ async function makeTerpenesFile() {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-const batchId = 'x8';
+const batchId = 'x9';
 
 async function run() {
   let startTime = performance.now();
@@ -104,7 +104,7 @@ async function run() {
   console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
   startTime = performance.now();
-  await makeProductsFile();
+  //await makeProductsFile();
   endTime = performance.now();
 
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
@@ -115,7 +115,7 @@ run();
 
 async function util() {
 
-  await fixWNCProducts()
+  //await fixWNCProducts()
   await makeProductsFile()
 
   //await cleanProductsCollections();

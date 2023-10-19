@@ -10,3 +10,18 @@ ReferenceError: labels is not defined
 ReferenceError: label is not defined
 
 
+ReferenceError: drGanja is not defined
+
+
+TypeError: Cannot read properties of undefined (reading 'length')
+
+
+TypeError: Cannot read properties of undefined (reading 'length')
+
+
+TypeError: Cannot read properties of undefined (reading 'length')
+
+
+TypeError: Cannot read properties of undefined (reading 'length')
+
+

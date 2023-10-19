@@ -37,7 +37,7 @@ async function getProducts() {
   return products;
 }
 
-async function addCannabinoids(product, $) {
+async function addAssays(product, $) {
   const result = { ...product };
 
   const cannabinoids = [];
@@ -87,8 +87,8 @@ async function addDetails(products) {
     const productWithVariants = await addVariants(product, $);
     if (productWithVariants.variants.length > 0) {
       const productWithImage = addImage(productWithVariants, $);
-      const productWithCannabinoids = await addCannabinoids(product, $);
-      result.push(productWithImage);
+      const productWithAssays = await addAssays(productWithImage, $);
+      result.push(productWithAssays);
     }
   }
   return result;

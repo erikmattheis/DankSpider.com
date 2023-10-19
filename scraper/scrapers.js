@@ -7,6 +7,7 @@ const wnc = require('./vendors/wnc.js');
 const enlighten = require('./vendors/enlighten.js');
 const topcola = require('./vendors/topcola.js');
 const arete = require('./vendors/arete.js');
+const drGanja = require('./vendors/drganja.js');
 
 const fs = require('fs');
 
@@ -34,6 +35,17 @@ async function sendErrorEmail(error) {
 }
 
 async function run(uuid) {
+  /*
+  try {
+    const drGanjaProducts = await drGanja.getAvailableLeafProducts();
+    console.log('Dr Ganja products', drGanjaProducts.length);
+    await saveProducts(drGanjaProducts, uuid);
+  } catch (error) {
+    console.error(error);
+    await sendErrorEmail(error);
+    logErrorToFile(error);
+  }
+
 
   try {
     const wncProducts = await wnc.getAvailableLeafProducts();
@@ -46,7 +58,6 @@ async function run(uuid) {
     logErrorToFile(error);
   }
 
-
   try {
     const prestonProducts = await preston.getAvailableLeafProducts();
     console.log('Preston products', prestonProducts.length);
@@ -56,7 +67,7 @@ async function run(uuid) {
     await sendErrorEmail(error);
     logErrorToFile(error);
   }
-  /*
+*/
 
   try {
     const flowProducts = await flow.getAvailableLeafProducts();
@@ -68,6 +79,7 @@ async function run(uuid) {
     logErrorToFile(error);
   }
 
+/*
   try {
     console.log('Artete products');
     const areteProducts = await arete.getAvailableLeafProducts();
