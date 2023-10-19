@@ -84,13 +84,8 @@ async function normalizeVariants() {
   snapshot.forEach(doc => {
     const product = doc.data();
     if (product.variants) {
-      product.variants.forEach(variant => {
-        const variantTrimmed = variant.trim();
-        const name = normalizeVariantName(variantTrimmed);
-        if (name) {
-          variant = name;
-        }
-      });
+      product.variants.forEach(variant => normalizeVariantName(variant));
+
       doc.ref.update({ variants: product.variants });
     }
   });
@@ -191,19 +186,21 @@ async function getProductById(id) {
 
 
 // find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
-async function fixWNCProducts() {
-  const data = await getProductById('x8-undefined-undefined-0');
+async function fixProducts() {
+  const data = await getProductsByVendor('Dr Ganja')
   // console.log('products', products);
   const fixedProducts = [];
-  for (const key in data) {
-    if (data.hasOwnProperty(key)) {
-      const value = data[key];
-      if (value.title) {
-        fixedProducts.push(value)
-      }
+  for (const product of data) {
+    if (product.assays) {
+      const values = JSON.parse(JSON.stringify(product.assays));
+      delete product.assays;
+      const fixed = { ...product, cannabinoids: values.cannabinoids, terpenes: values.terpenes };
+
+      fixedProducts.push(fixed)
+
     }
   }
-  await saveProducts(fixedProducts, 'x8');
+  await saveProducts(fixedProducts, 'z0');
 }
 
 async function saveProducts(products, batchId, useDev) {
@@ -606,5 +603,5 @@ module.exports = {
   getProductsByPPM,
   normalizeCannabinoids,
   deleteProductsWithObjectsInVariants,
-  fixWNCProducts
+  fixProducts
 };

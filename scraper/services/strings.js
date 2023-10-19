@@ -17,6 +17,9 @@ function normalizeVariantName(name) {
   if (name === '28 grams') {
     return '28 g';
   }
+  if (name === '1-oz') {
+    return '28 g';
+  }
   if (name === '1oz') {
     return '28 g';
   }
@@ -26,11 +29,13 @@ function normalizeVariantName(name) {
   if (name === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
     return '28 g';
   }
-
   if (name === 'Half oz') {
     return '14 g';
   }
   if (name === '14 grams') {
+    return '14 g';
+  }
+  if (name === '14-g') {
     return '14 g';
   }
   if (name === '14g') {
@@ -39,8 +44,14 @@ function normalizeVariantName(name) {
   if (name === '7 grams') {
     return '7 g';
   }
+  if (name === '7-g') {
+    return '7 g';
+  }
   if (name === '7g') {
     return '7 g';
+  }
+  if (name === '3.5-g') {
+    return '3.5 g';
   }
   if (name === '3.5g') {
     return '3.5 g';
@@ -48,12 +59,17 @@ function normalizeVariantName(name) {
   if (name === '3.5 grams') {
     return '3.5 g';
   }
+  if (name === '1-g') {
+    return '1 g';
+  }
   if (name === '1g') {
     return '1 g';
   }
   if (name === 'Dry Sift 1g') {
     return '1 g';
   }
+  console.log('name', name)
+  name = name + '';
   name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
   name = name?.replace(/(\s+)/g, ' ');
   name = name?.replace('SMALLS', 'smalls');

@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const fs = require('fs');
 
-const atomFeedUrl = 'https://www.drganja.com/thca-flower/feed';
+const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
 const products = [];
 const productLinks = [];
@@ -30,16 +30,17 @@ async function getAvailableLeafProducts() {
 
 async function getProducts() {
   const response = await axios.get(atomFeedUrl);
-  
+
   const $ = cheerio.load(response.data, { xmlMode: true });
 
   const products = [];
 
-  $('item').each((_, entry) => {
-    const title = strings.normalizeProductTitle($(entry).children('title').first().text());
-    const url = $(entry).children('link').first().text();
+  $('.drganja_products_list').each((_, entry) => {
+    const title = strings.normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
+    const url = $(entry).find('.drganja_list_product_image').attr('href');
+    const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
     const vendor = 'Dr Ganja';
-    products.push({ title, url, vendor });
+    products.push({ title, url, image, vendor });
   });
 
   console.log('products', products.length);
@@ -50,31 +51,30 @@ async function addDetails(products) {
   const result = [];
   for (const product of products) {
     const response = await axios.get(product.url);
+    fs.writeFileSync('drganja.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
     console.log('productWithVariants', productWithVariants)
-    if (productWithVariants.variants.length > 0) {
-      const productWithImage = addImage(productWithVariants, $);
-      const productWithAssays = await addAssays(productWithImage, $);
-      result.push(productWithAssays);
-    }
+    const productWithAssays = await addAssays(productWithVariants, $);
+    result.push(productWithAssays);
+
   }
   return result;
 }
 
 async function addVariants(product, $) {
-  const result = { ...product };
 
-  const labels = $('ul[aria-label=Amount] li div').map((index, el) => $(el).text()).get();
+  // const variants = $('variable-item-span').map((_, el) => $(el).text()).get();
+  const values = $('ul[data-attribute_name="attribute_pa_weight"] li').map((_, el) => $(el).attr('data-value')).get();
+  const variants = values.map(value => strings.normalizeVariantName(value));
 
-   const variants = labels.map((_, el) => strings.normalizeVariantName(el));
 
-  return {...product, variants};
+  console.log('variants', variants)
+
+  return { ...product, variants };
 }
 
 function addImage(product, $) {
-  const result = { ...product };
-
   const imageDataSrc = $('img.photoswipe__image').data('src');
 
   const image = imageDataSrc?.startsWith('//') ? `https:${imageDataSrc}` : imageDataSrc;
@@ -84,23 +84,62 @@ function addImage(product, $) {
     product.image = image_360x;
   }
 
-  return product;
+  return { ...product, image };;
 
 }
 
 async function addAssays(product, $) {
-  const result = { ...product };
 
-  const cannabinoids = [];
+  let cannabinoids = [];
+  let terpenes = [];
 
-  const images = $('.product__thumb-item[index="2"] a').map((index, el) => $(el).attr('href')).get();
-  if (result.variants) {
-    result.variants = $('label').map((index, el) => strings.normalizeVariantName($(el).text())).get();
+  const images = $('.lazyload').map((_, el) => $(el).attr('data-photoswipe-src')).get();
 
+  if (images.length === 0) {
+    console.log('no images', product.url);
+    return {
+      ...product, assays: { cannabinoids: [], terpenes: [] }
+    };
   }
-  return result;
-}
+  console.log('images', images)
+  for (const imgStr of images) {
+    const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
+    const result = await recognize(image);
+
+    if (!result) {
+      console.log('nothing interesting, continuing ...', image);
+      continue;
+    }
+
+    if (result instanceof String) {
+      console.log('image rejected', image);
+      console.error(result);
+      continue;
+    }
+
+    if (result.terpenes?.length) {
+      console.log('Terpenes: ', result.terpenes.length)
+      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+    }
+    if (result.cannabinoids?.length) {
+      console.log('Cannabinoids: ', result.cannabinoids.length)
+      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+    }
+
+    if (terpenes?.length && cannabinoids?.length) {
+      console.log('both terpenes and cannabinoids found')
+      break;
+    }
+  }
+
+  const assays = {
+    cannabinoids,
+    terpenes
+  }
+
+  return { ...product, assays };
+}
 
 
 

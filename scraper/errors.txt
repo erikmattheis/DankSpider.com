@@ -76,3 +76,21 @@ TypeError: Assignment to constant variable.
 ReferenceError: assays is not defined
 
 
+TypeError: name?.replace is not a function
+
+
+TypeError: name?.replace is not a function
+
+
+Error: Value for argument "data" is not a valid Firestore document. Cannot use "undefined" as a Firestore value (found in field "image"). If you want to ignore undefined values, enable `ignoreUndefinedProperties`.
+
+
+Error: Value for argument "data" is not a valid Firestore document. Cannot use "undefined" as a Firestore value (found in field "image"). If you want to ignore undefined values, enable `ignoreUndefinedProperties`.
+
+
+ReferenceError: variant is not defined
+
+
+Error: Value for argument "data" is not a valid Firestore document. Cannot use "undefined" as a Firestore value (found in field "variants.`0`"). If you want to ignore undefined values, enable `ignoreUndefinedProperties`.
+
+

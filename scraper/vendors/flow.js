@@ -54,7 +54,7 @@ async function addVariants(product, $) {
     throw new Error('ooops');
   }
 
-  return { product, variants };
+  return { ...product, variants };
 }
 
 async function addDetails(products) {
@@ -66,10 +66,9 @@ async function addDetails(products) {
     fs.writeFileSync('flow.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
-    if (productWithVariants.variants.length > 0) {
-      const productWithAssays = await addAssays(productWithVariants, $);
-      result.push(productWithAssays);
-    }
+
+    const productWithAssays = await addAssays(productWithVariants, $);
+    result.push(productWithAssays);
 
   }
   return result;
@@ -122,7 +121,7 @@ async function addAssays(product, $) {
 
   const assays = {
     cannabinoids,
-    terpenes: []
+    terpenes
   }
 
   return { ...product, assays };

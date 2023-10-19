@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { deleteProductsByVendor, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
+const { fixProducts, deleteProductsByVendor, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const jpegs = require('./services/jpegs.js');
 const { getArticle } = require('./services/ai-author.js');
@@ -126,7 +126,7 @@ async function util() {
   //await normalizeTerpenes();
 
   //await deleteProductsByVendor('Flow');
-
+  //await fixProducts()
   await normalizeVariants();
   await makeProductsFile();
   //await cleanProductsCollections();
@@ -159,6 +159,6 @@ async function util() {
 */
 }
 
-// util();
+//util();
 
 
