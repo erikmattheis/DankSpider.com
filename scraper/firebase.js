@@ -199,7 +199,6 @@ async function fixWNCProducts() {
     if (data.hasOwnProperty(key)) {
       const value = data[key];
       if (value.title) {
-        console.log('yes')
         fixedProducts.push(value)
       }
     }
@@ -256,7 +255,6 @@ async function getAllProducts() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    console.log(doc.data().url);
     if (uniqueUrls.has(product.url)) {
       return;
     }
@@ -285,7 +283,6 @@ async function getIncompleteProducts() {
     if (uniqueUrls.has(product.url)) {
       return;
     }
-    console.log('product.terpenes?.length', product.terpenes?.length);
     if (product.cannabinoids?.length && product.terpenes?.length) {
       return;
     }
@@ -314,9 +311,7 @@ async function getCompleteProducts() {
     if (uniqueUrls.has(product.url)) {
       return;
     }
-    console.log('product.terpenes?.length', product.terpenes?.length);
     if (!product.cannabinoids?.length || !product.terpenes?.length) {
-      console.log('hit');
       return;
     }
     uniqueUrls.add(product.url);
@@ -382,7 +377,6 @@ async function cleanProductsCollection() {
   snapshot.forEach(doc => {
     const product = doc.data();
     if (uniqueUrls.has(product.url)) {
-      console.log('duplicate found')
       const archiveDoc = archiveRef.doc(doc.id);
       products.push(archiveDoc.set(product));
       dels.push(doc.ref.delete());
@@ -534,6 +528,23 @@ async function getUniqueChemicals() {
 
 }
 
+
+async function deleteProductsByVendor(vendor) {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.where('vendor', '==', vendor).get();
+
+  const products = [];
+  const dels = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    products.push(product);
+    dels.push(doc.ref.delete());
+  });
+
+  await Promise.all(dels);
+  return products;
+}
 // select products where variants is an array of objects, the should be String. The objects have a name property.
 
 async function deleteProductsWithObjectsInVariants() {
@@ -559,7 +570,6 @@ if (require.main === module) {
   (async () => {
     await cleanProductsCollections();
     await cleanproductsCollection();
-    console.log('deleted any duplicate');
   })();
 }
 /*
@@ -589,6 +599,7 @@ module.exports = {
   getUniqueCannabinoids,
   getUniqueTerpenes,
   deleteAllDocumentsInCollection,
+  deleteProductsByVendor,
   normalizeVariants,
   getProductsByVariant,
   getProductsByTerpene,

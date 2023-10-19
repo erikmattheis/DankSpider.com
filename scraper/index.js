@@ -1,12 +1,12 @@
 const { performance } = require('perf_hooks');
 const fs = require('fs');
-const { fixWNCProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
+const { deleteProductsByVendor, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js');
 const scrapers = require('./scrapers.js');
 const jpegs = require('./services/jpegs.js');
 const { getArticle } = require('./services/ai-author.js');
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
-  // console.log('makeProductsFile', vendor, limit, useDevCollection);
+  console.log("makeProductsFile", vendor, limit, useDevCollection);
   let products;
 
   if (vendor && useDevCollection) {
@@ -16,6 +16,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     products = await getProductsByVendor(vendor, limit);
   }
   else {
+
     products = await getAllProducts();
     console.log('products ->', products.length);
   }
@@ -86,11 +87,10 @@ async function makeTerpenesFile() {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-const batchId = 'x9';
+const batchId = 'x0';
 
 async function run() {
   let startTime = performance.now();
-
   await scrapers.run(batchId);
   let endTime = performance.now();
 
@@ -104,7 +104,7 @@ async function run() {
   console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
 
   startTime = performance.now();
-  //await makeProductsFile();
+  await makeProductsFile();
   endTime = performance.now();
 
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`);
@@ -116,7 +116,7 @@ run();
 async function util() {
 
   //await fixWNCProducts()
-  await makeProductsFile()
+
 
   //await cleanProductsCollections();
 
@@ -125,8 +125,10 @@ async function util() {
 
   //await normalizeTerpenes();
 
+  //await deleteProductsByVendor('Flow');
 
-  //await normalizeVariants();
+  await normalizeVariants();
+  await makeProductsFile();
   //await cleanProductsCollections();
   /*
 
@@ -157,6 +159,6 @@ async function util() {
 */
 }
 
-//util();
+// util();
 
 

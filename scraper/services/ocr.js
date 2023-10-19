@@ -39,6 +39,10 @@ const configWNCCannabinoids2 = {
 }
 
 const jpgNameFromUrl = (url) => {
+  if (!url || !url.split) {
+    console.log('bad url', url);
+    return null;
+  }
   const split = url.split('/');
   const last = split[split.length - 1];
   const split2 = last.split('?');
@@ -64,6 +68,8 @@ async function gmToBuffer(data) {
 
 const getAndProcessJpg = async (url, isDev) => {
   try {
+    console.log('before', url);
+
     const response = await axios.get(url, { responseType: 'arraybuffer' });
 
     if (response.status !== 200) {
@@ -136,8 +142,6 @@ async function recognize(url) {
     const terpenes = [];
 
     const cannabinoids = [];
-
-    const jpgName = jpgNameFromUrl(url);
 
     let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
 

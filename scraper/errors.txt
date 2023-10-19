@@ -25,3 +25,54 @@ TypeError: Cannot read properties of undefined (reading 'length')
 TypeError: Cannot read properties of undefined (reading 'length')
 
 
+ReferenceError: result is not defined
+
+
+ReferenceError: result is not defined
+
+
+ReferenceError: result is not defined
+
+
+Error: Value for argument "data" is not a valid Firestore document. Input is not a plain JavaScript object (found in field "assays").
+
+
+ReferenceError: FsReadStream is not defined
+
+
+ReferenceError: variants is not defined
+
+
+ReferenceError: variants is not defined
+
+
+Error: Unexpected type of selector
+
+
+ReferenceError: normalizeVariantName is not defined
+
+
+ReferenceError: result is not defined
+
+
+TypeError: el.data is not a function
+
+
+TypeError: el.attr is not a function
+
+
+TypeError: el.attrs is not a function
+
+
+ReferenceError: imgStr is not defined
+
+
+TypeError: Cannot read properties of undefined (reading 'cannabinoids')
+
+
+TypeError: Assignment to constant variable.
+
+
+ReferenceError: assays is not defined
+
+
