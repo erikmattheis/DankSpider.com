@@ -3,19 +3,15 @@
     <div class="container">
       <ul>
         <li class="small shadowy-button spacer">.</li>
-        <li v-for="(vendor, i) in unselectedVendors" :key="i"
-          @click="toggleSelectedVendor(vendor)"
-          class="small shadowy-button"
-          :title="vendor">
+        <li v-for="(vendor, i) in unselectedVendors" :key="i" @click="toggleSelectedVendor(vendor)"
+          class="small shadowy-button" :title="vendor">
           {{ vendor }}
         </li>
       </ul>
       <ul>
         <li class="shadowy-button selected spacer">.</li>
-        <li v-for="(vendor, i) in selectedVendors" :key="i"
-          @click="toggleSelectedVendor(vendor)"
-          class="shadowy-button selected"
-          :title="vendor">
+        <li v-for="(vendor, i) in selectedVendors" :key="i" @click="toggleSelectedVendor(vendor)"
+          class="shadowy-button selected" :title="vendor">
           {{ vendor }}
         </li>
       </ul>
@@ -23,10 +19,8 @@
     <div class="container">
       <ul>
         <li class="small shadowy-button spacer">.</li>
-        <li v-for="(variant, i) in unselectedVariants" :key="i"
-          @click="toggleSelectedVariant(variant)"
-          class="small shadowy-button"
-          :title="variant">
+        <li v-for="(variant, i) in unselectedVariants" :key="i" @click="toggleSelectedVariant(variant)"
+          class="small shadowy-button" :title="variant">
           {{ variant }}
         </li>
         <!--
@@ -37,10 +31,8 @@
       </ul>
       <ul>
         <li class="spacer">.</li>
-        <li v-for="(variant, i) in selectedVariants" :key="i"
-          @click="toggleSelectedVariant(variant)"
-          class="shadowy-button selected"
-          :title="variant">
+        <li v-for="(variant, i) in selectedVariants" :key="i" @click="toggleSelectedVariant(variant)"
+          class="shadowy-button selected" :title="variant">
           {{ variant }}
         </li>
         <!--
@@ -56,11 +48,11 @@
         {{ numProducts }} product{{ numProducts === 1 ? '' :
           's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
       </div>
-      <!--
+
       <select class="sort-by" @change="sortProductsByChemical">
         <option v-for="chemical in chemicalNames">{{ chemical }}</option>
       </select>
-      -->
+
     </div>
   </form>
 </template>
@@ -264,5 +256,9 @@ ul li.all,
 ul li.none {
   font-weight: 500;
   text-align: center;
+}
+
+.sort-by {
+  margin-right: 80px
 }
 </style>
