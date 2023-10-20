@@ -50,7 +50,7 @@ async function recognize(url) {
 
     let title;
 
-    if (url.includes('Certificate')) {
+    if (url.toLowerCase().includes('ertificate') && !url.toLowerCase().includes('terpenes')) {
       console.log('Cannazyze')
       title = await worker.recognize(jpgBuffer, configCannalyzeCannabinoidsTitle);
 
@@ -81,6 +81,8 @@ async function recognize(url) {
 
         return { cannabinoids }
       }
+
+    }
 
       title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
 
@@ -160,7 +162,6 @@ async function recognize(url) {
 
       }
 
-    }
   }
   catch (error) {
 

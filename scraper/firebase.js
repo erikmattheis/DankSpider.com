@@ -187,12 +187,13 @@ async function getProductById(id) {
 
 // find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
 async function fixProducts() {
-  const data = await getProductsByVendor('Dr Ganja')
+  const data = await getProductsByVendor('WNC');
   console.log('fiximg products', data.length);
   const fixedProducts = [];
   for (const product of data) {
-    if (product.variants) {
-      const variants = product.variants.map(variant => normalizeVariantName(variant));
+    if (product.terpenes) {
+      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene));
+      const cannabinoids = product.cannabinoids.map(terpene => normalizeCannabinoid(terpene));
       const fixed = { ...product, variants };
 
       fixedProducts.push(fixed)

@@ -55,7 +55,6 @@ export const useSpiderStore = defineStore('spider', {
         })
       })
       return [...cannabinoids]
-
     },
     filteredProducts(state) {
       if (!state.products?.filter) return state.products

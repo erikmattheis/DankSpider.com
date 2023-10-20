@@ -2,27 +2,15 @@
   <form class="search-filters page">
     <div class="container">
       <ul>
-        <li class="small shadowy-button spacer">.</li>
-        <li v-for="(vendor, i) in unselectedVendors" :key="i" @click="toggleSelectedVendor(vendor)"
-          class="small shadowy-button" :title="vendor">
-          {{ vendor }}
-        </li>
-      </ul>
-      <ul>
         <li class="shadowy-button selected spacer">.</li>
-        <li v-for="(vendor, i) in selectedVendors" :key="i" @click="toggleSelectedVendor(vendor)"
-          class="shadowy-button selected" :title="vendor">
+        <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)"
+          class="shadowy-button" :class="{selected: checkedVendors.includes(vendor)}" :title="vendor">
           {{ vendor }}
         </li>
       </ul>
     </div>
     <div class="container">
       <ul>
-        <li class="small shadowy-button spacer">.</li>
-        <li v-for="(variant, i) in unselectedVariants" :key="i" @click="toggleSelectedVariant(variant)"
-          class="small shadowy-button" :title="variant">
-          {{ variant }}
-        </li>
         <!--
         <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
           Select All
@@ -31,8 +19,8 @@
       </ul>
       <ul>
         <li class="spacer">.</li>
-        <li v-for="(variant, i) in selectedVariants" :key="i" @click="toggleSelectedVariant(variant)"
-          class="shadowy-button selected" :title="variant">
+        <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)"
+          class="shadowy-button" :class="{selected: checkedVariants.includes(variant)}" :title="variant">
           {{ variant }}
         </li>
         <!--
@@ -43,20 +31,23 @@
       -->
       </ul>
     </div>
-    <div class="container slim">
+    <div class="container">
       <ul>
         <li class="spacer">.</li>
-        <li v-for="(cannabinoid, i) in cannabinoids" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
+        <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
           class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
           {{ cannabinoid }}
         </li>
+      </ul>
+    </div>
+    <div class="container">
+      <ul>
         <li class="spacer">.</li>
-        <li v-for="(terpene, i) in terpenes" :key="i" @click="toggleSelectedTerpene(terpene)"
+        <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
           class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
           {{ terpene }}
         </li>
       </ul>
-
     </div>
     <div class="container slim">
       <div class="stats">
@@ -85,10 +76,9 @@ export default {
   data() {
     return {
       store: null,
+     
       terpenes: [],
       cannabinoids: [],
-      checkedCannabinoids: [],
-      checkedTerpenes: [],
       aVendorWasClicked: false,
       aVariantWasClicked: false,
     }
@@ -99,6 +89,7 @@ export default {
     this.store.normalizeVendors(this.store.variants);
     this.store.normalizeCannabinoids();
     this.store.normalizeTerpenes();
+    this.variants = this.store.normalizedVariants;
     this.terpenes = this.store.terpeneNames;
     this.cannabinoids = this.store.cannabinoidNames;
   },
@@ -107,16 +98,18 @@ export default {
     for (const [key, value] of queryParams) {
       if (key === 'sizes') {
         const checked = decodeURIComponent(value).split(',').sort();
-        if (this.store.normalizedVariants.length > checked.length && checked.length !== 0) {
+        if (this.store.normalizedVariants.length > checked.length) {
           this.store.checkedVariants = [...checked];
         }
       } else if (key === 'vendors') {
         const checked = decodeURIComponent(value).split(',').sort();
-        if (this.store.vendors.length > checked.length && checked.length !== 0) {
+        if (this.store.vendors.length > checked.length) {
           this.store.checkedVendors = [...checked];
         }
       }
     }
+    this.store.checkedTerpenes = [...this.terpenes];
+    this.store.checkedCannabinoids = [...this.cannabinoids];
   },
   computed: {
     normalizedVariants() {
@@ -249,9 +242,10 @@ export default {
 ul {
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
+  margin: 0 0 30px 0;
   list-style-type: none;
   padding-left: 0;
+  border-bottom: 1px solid #aaa;
 }
 
 ul li {

@@ -45,7 +45,7 @@ async function run(uuid) {
     await sendErrorEmail(error);
     logErrorToFile(error);
   }
-  /*
+  
   
     try {
       const wncProducts = await wnc.getAvailableLeafProducts();
@@ -111,7 +111,7 @@ async function run(uuid) {
       logErrorToFile(error);
   
     }
-  */
+  
   console.log(`Data has been written to Firebase for all vendors.`);
 }
 
