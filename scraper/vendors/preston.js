@@ -1,6 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const strings = require('../services/strings');
+const { recognize } = require('../services/ocr');
 
 const products = [];
 
@@ -18,25 +19,84 @@ function getImageSrc(html) {
 }
 
 async function getPrestonProductInfo(product) {
-  try {
-    // console.log('Preston: ', product.title);
-    const response = await axios.get(product.url);
+  // try {
 
-    if (response.status < 400) {
-      const $ = cheerio.load(response.data);
-      const select = $('.sizes-dropdown .size-dropdown-link');
-      const variants = select.map((i, el) => $(el).text()).get();
+  const response = await axios.get(product.url);
 
-      return {
-        variants: variants,
+  if (response.status < 400) {
+    const $ = cheerio.load(response.data);
+    const select = $('.sizes-dropdown .size-dropdown-link');
+    product.variants = select.map((i, el) => $(el).text()).get();
+
+    product.images = [];
+
+    $('script.w-json').each((i, el) => {
+      const json = $(el).html();
+      const data = JSON.parse(json);
+      if (data.group === 'Product Shots') {
+        data.items.forEach(item => {
+          if (item.type === 'image') {
+            product.images.push(item.url);
+          }
+        });
+      }
+    });
+
+    for (const image of product.images) {
+
+      product.terpenes = [];
+      product.cannabinoids = [];
+
+      const result = await recognize(image);
+
+      if (!result) {
+        console.log('Nothing interesting, continuing ...', image);
+        console.log('');
+        continue;
+      }
+
+      if (result instanceof String) {
+        console.log('image rejected', image);
+        console.log('');
+        console.error(result);
+        continue;
+      }
+
+      if (result.terpenes?.length) {
+        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
+      }
+
+      if (result.cannabinoids?.length) {
+        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+      }
+
+      if (product.terpenes?.length && product.cannabinoids?.length) {
+        console.log('both terpenes and cannabinoids found')
+        break;
       }
     }
-  }
-  catch (error) {
+    // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-    throw new Error(`Error getting product info: ${error.message}`);
-  }
+    // console.log('Saved ${title}');
 
+    console.log(`${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`);
+
+    return {
+      ...product,
+      vendor: 'Preston',
+    }
+  }
+  else {
+    console.error(`Error getting product info: ${response.status}`);
+    return null;
+  }
+  /*
+    }
+    catch (error) {
+      console.error(`Error getting product info2: ${error.message}`);
+      return null;
+    }
+  */
 }
 
 async function scrapePage(url, currentPage) {
@@ -56,14 +116,16 @@ async function scrapePage(url, currentPage) {
 
       if (isDesiredProduct(title)) {
 
-        const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
-
         const image = getImageSrc(card);
 
-        productLinks.push({ title: strings.normalizeProductTitle(title), url: url, image: image });
+        const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
+
+        productLinks.push({ title: strings.normalizeProductTitle(title), url: url });
       }
     }
+
     return productLinks;
+
   } catch (error) {
     throw new Error(`Error scraping page: ${error.message}`);
   }
@@ -97,6 +159,7 @@ function extractNumberFromString(inputString) {
 async function getPrestonProductsInfo(products) {
 
   const finalProducts = [];
+
   for (const product of products) {
 
     if (!product?.url) {
@@ -104,13 +167,17 @@ async function getPrestonProductsInfo(products) {
     }
 
     const info = await getPrestonProductInfo(product);
-    if (!info.variants || info.variants.length === 0) {
+
+    if (!info || !info.variants || info.variants.length === 0) {
+      console.log('no variants or error, skipping', product.url);
       continue;
     }
 
     product.vendor = 'Preston';
 
     product.variants = info.variants.map((variant) => parseFloat(variant.trim()) + ' g');
+
+    product.images = [...info.images];
 
     const size = parseFloat(product.variants[0].trim());
 

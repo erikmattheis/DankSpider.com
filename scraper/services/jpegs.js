@@ -1,99 +1,109 @@
 const axios = require('./rateLimitedAxios.js');
 const Tesseract = require('tesseract.js');
-const OpenAI = require('openai');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin');
 
-const { recognize } = require('./ocr.js');
+const { recognize, recognizeWithSave } = require('./ocr.js');
+const { getCompleteProducts, getIncompleteProducts, getProductsByVendor, getproducts, saveProducts, deleteAllDocumentsInCollection } = require('../firebase.js');
 
-const { getProductsByVendor, getProductsWithAssay2, saveProducts, cleanProductsWithAssaysCollection, deleteAllDocumentsInCollection } = require('../firebase.js');
-const { AxiosHeaders } = require('axios');
-const { log } = require('console');
-const { deleteApp } = require('firebase-admin/app');
+const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1807/1683224189.1280.1280__66714.1683226369.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1813/1683223605.1280.1280__73189.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1811/1683223605.1280.1280__28436.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1814/1683223605.1280.1280__52678.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1808/1683223605.1280.1280__47191.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1809/1683223605.1280.1280__02816.1683225192.jpg?c=1",
+  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1815/1683223605.1280.1280__19110.1683225192.jpg?c=1",
+  "BagsGroupShot",
+  "Diamond-Sticker",
+];
 
 async function run(batchId) {
 
-  const products = await getProductsByVendor('WNC', 10);
+  const products = await getProductsByVendor('WNC', 1000);
+  //const complete = await getCompleteProducts('WNC');
+  //const products = await getIncompleteProducts('WNC');
 
-  // console.log('products.length', products.length);
+  console.log(`looking at ${products.length} products`);
 
+  //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
 
   for (const product of products) {
 
-    const images = await getProductImages(product.url);
+    const result = await getProductImages(product.url);
 
-    console.log('found images', images.length);
+    const best = result.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
+    const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
 
-    if (images.length) {
-      withImages.push({ ...product, images });
+    if (best.length === 0) {
+      console.log('No good images found for', product.title);
+      console.log(JSON.stringify(result, null, 2));
+      continue;
     }
-  }
+    const images = [...best];
 
-  const bestImages = [];
-
-  for (const product of withImages) {
-    const images = [];
-    product.images.forEach((image, i) => {
-      if (image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency')) {
-        images.push(image);
-      }
-    });
-
-    console.log('best images.length', images.length);
-
-    bestImages.push({ ...product, images });
+    withImages.push({ ...product, images });
   }
 
   const withOCRedImages = [];
 
-  for (const product of bestImages) {
+  for (const product of withImages) {
 
-    const assays = {};
+    let terpenes = [];
+    let cannabinoids = [];
 
     for (const image of product.images) {
 
-      const assay = await recognize(image);
+      if (skippableImages.includes(image)) {
+        console.log('Skipping', image);
+        continue;
+      }
 
-      if (!assay) {
+      const result = await recognize(image);
+
+      if (!result) {
+        continue;
+      }
+
+      //const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
+
+      if (result instanceof String) {
         console.log('image rejected', image);
+        badImages.push(image);
       }
 
-      if (assay === 'STOP') {
-        // console.log('wont finbe finding more assays')
+
+      if (result.terpenes?.length) {
+        console.log('Terpenes: ', result.terpenes.length)
+        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
+      }
+      else if (result.cannabinoids?.length) {
+        console.log('Cannabinoids: ', result.cannabinoids.length)
+        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+      }
+
+      if (product.terpenes?.length && product.cannabinoids?.length) {
+        console.log('both terpenes and cannabinoids found')
         break;
       }
 
-      if (assay?.terpenes?.length) {
-        assays.terpenes = [...assay.terpenes];
-      }
-
-      if (assay?.cannabinoids?.length) {
-        assays.cannabinoids = [...assay.cannabinoids];
-      }
-
-      if (assays.length === 2) {
-        console.log('found terpenes and cannabinoids');
-        break;
-      }
-    }
-
-    if (assays.terpenes || assays.cannabinoids) {
-
-      withOCRedImages.push({ ...product, assays });
+      console.log('Nothing in', image);
 
     }
+
+    await saveProducts([product], batchId, true);
+
+    console.log('Saved one!')
+    withOCRedImages.push({ ...product, terpenes, cannabinoids });
+
+    // console.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
 
   }
 
-  console.log(JSON.stringify(withOCRedImages));
-  await deleteAllDocumentsInCollection('productsWithAssay2');
-  await saveProducts(withOCRedImages, batchId, true);
-  await cleanProductsWithAssaysCollection();
-  console.log(`Viewed ${withImages.length} products to Firebase`);
-  console.log(`Found ${bestImages.length} candidate products`);
+  //await saveProducts(withOCRedImages, batchId, true);
+
   console.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
 }
@@ -108,11 +118,6 @@ async function getProductImages(url) {
 
 function nameContains(imageNames, str) {
   return name.toLowerCase().includes(str.toLowerCase());
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  const dotenv = require('dotenv');
-  dotenv.config();
 }
 
 module.exports = {

@@ -1,10 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import SpiderPage from './components/SpiderPage.vue';
-import NewsPage from './components/NewsPage.vue';
-import StrainsPage from './components/StrainsPage.vue';
-import StrainPage from './components/StrainPage.vue';
-import THCAPage from './components/THCAPage.vue';
-import test from './components/test.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import SpiderPage from './components/SpiderPage.vue'
+import NewsPage from './components/NewsPage.vue'
+// import TerpenesPage from './components/TerpenesPage.vue';
+// import TerpenePage from './components/TerpenePage.vue';
+import StrainsPage from './components/StrainsPage.vue'
+import StrainPage from './components/StrainPage.vue'
+import THCAPage from './components/THCAPage.vue'
+import test from './components/test.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,17 +14,29 @@ const router = createRouter({
     {
       path: '/',
       name: 'SpiderPage',
-      component: SpiderPage,
+      component: SpiderPage
     },
     {
       path: '/news',
       name: 'NewsPage',
-      component: NewsPage,
+      component: NewsPage
     },
+    /*
+    {
+      path: '/terpenes',
+      name: 'TerpenesPage',
+      component: TerpenesPage,
+    },
+    {
+      path: '/terpene/:terpeneName',
+      name: 'TerpenePage',
+      component: TerpenePage,
+    },
+    */
     {
       path: '/strains',
       name: 'StrainsPage',
-      component: StrainsPage,
+      component: StrainsPage
     },
     {
       path: '/strains/grapefruit',
@@ -59,14 +73,14 @@ const router = createRouter({
     {
       path: '/information/THCA',
       name: 'THCAPage',
-      component: THCAPage,
+      component: THCAPage
     },
     {
       path: '/test',
       name: 'test',
-      component: test,
-    },
-  ],
-});
+      component: test
+    }
+  ]
+})
 
-export default router;
+export default router

@@ -9,7 +9,7 @@ function parseSingleProduct(html) {
   const $ = cheerio.load(html);
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim());
-  // console.log('Arete: ', title);
+
   const variants = [];
 
   const variationsData = $('form.variations_form').attr('data-product_variations');
@@ -17,7 +17,7 @@ function parseSingleProduct(html) {
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size;
-    const sizeString = strings.normalizeVariantTitle(size);
+    const sizeString = strings.normalizeVariantName(size);
     const availability = $(variation.availability_html).text().trim();
 
     if (availability.toLowerCase().includes('in stock')) {
@@ -75,7 +75,7 @@ async function getProducts(feedUrl) {
 }
 
 async function getAvailableLeafProducts() {
-  // console.log('Getting Arete products');
+
   const products = await getProducts(feedUrl);
   return products;
 }

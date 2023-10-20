@@ -3,17 +3,6 @@
     <img src="/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
 
-    {{ product.assays?.length }}
-
-    <ul v-for="cannabinoid in product.assays?.cannabinoids">
-      <li class="line">{{ cannabinoid.pct }}% {{ cannabinoid.name }}</li>
-      <!--<li>{{ cannabinoid.originalText }}</li>-->
-    </ul>
-    <ul v-for="terpene in product.assays?.terpenes">
-      <li class="line terpene">T: {{ terpene.name }} ({{ terpene.pct }}%)</li>
-    </ul>
-
-
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
       <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty"
@@ -52,12 +41,22 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(     variant, i     ) in      product.variants     " v-bind:key="i" :title="variant"
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant"
           class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
       </ul>
+
+      <h3>Cannabinoids</h3>
+      <ul v-for="cannabinoid in product.cannabinoids">
+        <li class="chemical cannabinoid">{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
+      </ul>
+      <h3>Terpenes</h3>
+      <ul v-for="terpene in product.terpenes">
+        <li class="chemical terpene">{{ terpene.name }} ({{ terpene.pct }}%)</li>
+      </ul>
+
     </div>
   </div>
   <div class="product-card" v-if="!product.image">
@@ -83,8 +82,6 @@ export default {
       loadImage: false,
       imageLoaded: false,
       position: 0,
-      cannabinoids: [],
-      terpenes: [],
     };
   },
   created() {
@@ -225,13 +222,23 @@ ul {
 
 ul li {
   display: inline-block;
-  margin-bottom: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
   margin-right: 5px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background-color: #cfcfcf;
-  color: #333;
+  padding: 0px 5px;
+  border-radius: 0;
 }
+
+.cannabinoid {
+  background-color: #f71c08;
+  color: #fff;
+}
+
+.terpene {
+  background-color: #9c07b6;
+  color: #fff;
+}
+
 
 ul li::after {
   display: block;
@@ -268,20 +275,6 @@ h3 {
 
 p {
   margin-top: 5px;
-}
-
-ul li.line {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 0;
-  background-color: #050;
-  color: #f095e5;
-}
-
-ul li.line.terpene {
-  color: #050;
-  background-color: #f095e5 !important;
 }
 
 @keyframes pendulum {
