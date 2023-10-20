@@ -56,7 +56,7 @@ async function addDetails(products) {
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
     const productWithAssays = await addAssays(productWithVariants, $);
-    console.log('productWithAssays', productWithAssays);
+
     result.push(productWithAssays);
 
   }
@@ -106,8 +106,6 @@ async function addAssays(product, $) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const result = await recognize(image);
-
-    console.log('result', result);
 
     if (!result) {
       console.log('nothing interesting, continuing ...', image);

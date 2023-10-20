@@ -110,7 +110,7 @@ async function run() {
 
 }
 
-//run();
+run();
 
 async function utils() {
 
@@ -121,7 +121,7 @@ await normalizeTerpenes();
   console.log('Done utils');
 }
 
-utils();
+//utils();
 
 
 

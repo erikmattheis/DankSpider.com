@@ -216,27 +216,29 @@ async function saveProducts(products, batchId, useDev) {
   const timestamp = admin.firestore.Timestamp.now();
   const idPrefix = batchId || timestamp.toDate().toISOString();
 
-  for (product of products) {
-    const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
-    const docRef = productsRef.doc(id);
-    if (batchId) {
-      batch.set(docRef, {
-        ...product,
-        batchId,
-        timestamp,
-      });
-    }
-    else {
-      batch.set(docRef, {
-        ...product,
-        timestamp,
-      });
+  for (const product of products) {
+    if (product?.title) {
+      const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
+      const docRef = productsRef.doc(id);
+      if (batchId) {
+        batch.set(docRef, {
+          ...product,
+          batchId,
+          timestamp,
+        });
+      }
+      else {
+        batch.set(docRef, {
+          ...product,
+          timestamp,
+        });
+      }
     }
   };
 
   await batch.commit();
 
-  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
+  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');
