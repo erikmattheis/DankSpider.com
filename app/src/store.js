@@ -40,7 +40,7 @@ export const useSpiderStore = defineStore('spider', {
       'CBCA',
       'Total Cannabinoids'
     ],
-    terpeneNames: [
+    terpenes: [
       'Borneol',
       'Camphene', 'Carene',
       'Caryophyllene', 'Caryoptnyliene',
@@ -58,8 +58,17 @@ export const useSpiderStore = defineStore('spider', {
     ]
   }),
   getters: {
+    terpeneNames(state) {
+      // remove values not found in and product.terpenes[].name
+      return state.terpenes.filter((terpene) => {
+        return state.products.some((product) => {
+          return product.terpenes?.some((chemical) => {
+            return chemical.name === terpene
+          })
+        })
+      });
+    },
     filteredProducts(state) {
-      console.log('filteredProducts')
       if (!state.products?.filter) return state.products
       const products = state.products.filter((product) => {
         return this.checkedVendors.includes(product.vendor) && product.variants.some((variant) => this.checkedVariants.includes(variant))
@@ -67,7 +76,7 @@ export const useSpiderStore = defineStore('spider', {
 
       // products.sort(this.sortProducts('title'))
 
-      return [...products, ...emptyProducts]
+      return [...products]
     },
     numProducts(state) {
       return state.filteredProducts.filter((product) => product.name !== 'empty').length
