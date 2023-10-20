@@ -8,10 +8,13 @@ import {
   faChevronDown,
   faChevronUp,
   faUser,
-  faBars
+  faBars,
+  faLeaf,
+  faFaceGrinStars,
+  faCircle
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add([faChevronDown, faChevronUp, faUser, faBars]);
+library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faCircle]);
 
 import App from './App.vue'
 import router from './router';

@@ -4,7 +4,7 @@ const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 
 let currentPage = 1;
-const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
+const startUrl = 'https://wnc-cbd.com/categories/new-release-and-restock.html';
 
 const uniqueVariants = [];
 
@@ -15,7 +15,7 @@ function addUniqueVariant(variant) {
 }
 
 async function getProduct(url) {
-
+console.log('getProduct called with', url)
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);
 

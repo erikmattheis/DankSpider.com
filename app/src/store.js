@@ -61,9 +61,9 @@ export const useSpiderStore = defineStore('spider', {
 
       const products = state.products.filter((product) => {
         return (this.checkedVendors.includes(product.vendor)
-        && product.variants.some((variant) => this.checkedVariants.includes(variant))
+        && product.variants.some((variant) => this.checkedVariants.includes(variant)) /*
         && (product.cannabinoids && product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))
-        && (product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)))
+        && (product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)) )*/
         )
       })
       // products.sort(this.sortProducts('title'))

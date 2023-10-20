@@ -36,7 +36,8 @@
         <li class="spacer">.</li>
         <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
           class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
-          {{ cannabinoid }}
+          {{ cannabinoid }}  <font-awesome-icon :icon="['fas', 'circle']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
+          <font-awesome-icon :icon="['fas', 'face-grin-stars']" v-else/>
         </li>
       </ul>
     </div>
@@ -45,7 +46,8 @@
         <li class="spacer">.</li>
         <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
           class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
-          {{ terpene }}
+          {{ terpene }}  <font-awesome-icon :icon="['fas', 'circle']" v-if="checkedTerpenes.includes(terpene)"/>
+          <font-awesome-icon :icon="['fas', 'leaf']" v-else/>
         </li>
       </ul>
     </div>
@@ -76,7 +78,6 @@ export default {
   data() {
     return {
       store: null,
-     
       terpenes: [],
       cannabinoids: [],
       aVendorWasClicked: false,
@@ -270,8 +271,7 @@ ul li.selected {
   color: #242424;
   font-weight: 600;
   background-color: #fff;
-  margin-left: 0px;
-  margin-right: 10px;
+
 }
 
 li span {
