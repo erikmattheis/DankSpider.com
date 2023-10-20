@@ -342,8 +342,7 @@ const cannabinoidSpellings = {
   "A9-THC": { name: "∆-9 THC", confidence: 0.99 },
   "A9-THCA-A": { name: "∆-9 THCA", confidence: 0.99 },
   "A9-THCA": { name: "∆-9 THCA", confidence: 0.99 },
-
-
+  "A9-THCVA": { name: "∆-9 THCVA", confidence: 0.99 },
 };
 
 function normalizeCannabinoid(name) {

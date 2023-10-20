@@ -111,7 +111,7 @@ async function run() {
 
 }
 
-run();
+// run();
 
 async function util() {
 
@@ -127,7 +127,7 @@ async function util() {
 
   //await deleteProductsByVendor('Flow');
   //await fixProducts()
-  await normalizeVariants();
+  //await normalizeVariants();
   await makeProductsFile();
   //await cleanProductsCollections();
   /*
@@ -159,6 +159,6 @@ async function util() {
 */
 }
 
-//util();
+util();
 
 
