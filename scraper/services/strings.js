@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function normalizeProductTitle(title) {
   let replaceString = title;
   const find = ["Hemp Flower", "(Indoor)", "(Greenhouse)", "High THCa", "THCa", "Hydro", "Indoor", "Living Soil", "Hemp", "  "];
@@ -236,7 +238,6 @@ function getCannabinoidObjCannalyze(line) {
 }
 
 const cannabinoidSpellings = {
-  // Existing corrected spellings
 
   "4-8-Tetrahydrocannabinol": { name: "∆ 8-THC", confidence: 1 },
   "4-9-Tetrahydrocannabinol": { name: "∆ 9-THC", confidence: 1 },
@@ -264,7 +265,7 @@ const cannabinoidSpellings = {
   "Cannabichromenic": { name: "CBCA", confidence: 1 },
   "Total": { name: "Total Cannabinoids", confidence: 1 },
   "TOTAL": { name: "Total Cannabinoids", confidence: 1 },
-  "Camaby": { name: "Cannabicyclol (CBL)", confidence: 0.6 },
+  "Camaby": { name: "CBL", confidence: 0.6 },
   "Camnabichromenic": { name: "CBC", confidence: 0.9 },
   "Camnabigeralic": { name: "CBG", confidence: 0.7 },
   "Cannabi": { name: "CBN", confidence: 0.6 },
@@ -280,7 +281,7 @@ const cannabinoidSpellings = {
   "Cannabinolic Acid": { name: "CBN", confidence: 0.8 },
   "Cannabs": { name: "CBN", confidence: 0.6 },
   "Cannaby": { name: "CBN", confidence: 0.6 },
-  "Cannat": { name: "Cannabicitran (CBT)", confidence: 0.8 },
+  "Cannat": { name: "CBT", confidence: 0.6 },
   "Cannatinol": { name: "CBN", confidence: 0.8 },
   "Cannaty": { name: "CBN", confidence: 0.6 },
   "Canrudschromenic": { name: "CBC", confidence: 0.9 },
@@ -343,6 +344,31 @@ const cannabinoidSpellings = {
   "A9-THCA-A": { name: "∆-9 THCA", confidence: 0.99 },
   "A9-THCA": { name: "∆-9 THCA", confidence: 0.99 },
   "A9-THCVA": { name: "∆-9 THCVA", confidence: 0.99 },
+  "∆-9 THCA": { name: "∆-9 THCA", confidence: 0.99 },
+  "∆-9 THC": { name: "∆-9 THC", confidence: 0.99 },
+  "9R-HHC": { name: "9R-HHC", confidence: 0.99 },
+  "9-S-HHC": { name: "9S-HHC", confidence: 0.99 },
+  "Total Cannabinoids": { name: "Total Cannabinoids", confidence: 0.99 },
+  "THCP": { name: "THCP", confidence: 0.99 },
+  "THCV": { name: "THCV", confidence: 0.99 },
+  "Delta 9-THCVA": { name: "∆ 9-THCVA", confidence: 0.99 },
+  "R-Delta 10-THC": { name: "R-∆ 10-THC", confidence: 0.99 },
+  "S-Delta 10-THC": { name: "S-∆ 10-THC", confidence: 0.99 },
+  "THC": { name: "∆-9 THC", confidence: 0.99 },
+  "Cannabicyclol (CBL)": { name: "CBL", confidence: 0.99 },
+  "THCA": { name: "∆-9 THCA", confidence: 0.99 },
+  "CBC": { name: "CBC", confidence: 0.99 },
+  "CBCA": { name: "CBCA", confidence: 0.99 },
+  "CBD": { name: "CBD", confidence: 0.99 },
+  "CBDA": { name: "CBDA", confidence: 0.99 },
+  "CBDV": { name: "CBDV", confidence: 0.99 },
+  "CBDVA": { name: "CBDVA", confidence: 0.99 },
+  "CBG": { name: "CBG", confidence: 0.99 },
+  "CBGA": { name: "CBGA", confidence: 0.99 },
+  "CBN": { name: "CBN", confidence: 0.99 },
+  "CBNA": { name: "CBNA", confidence: 0.99 },
+  "Unreadable": { name: "Unreadable", confidence: 0.99 },
+
 };
 
 function normalizeCannabinoid(name) {
@@ -353,8 +379,19 @@ function normalizeCannabinoid(name) {
 
   }
 
+  addUnreadable(name);
+  console.log('unreadable', name);
   return "Unreadable";
 }
+
+const unknown = []
+
+function addUnreadable(name) {
+  if (!unknown.includes(name)) {
+    fs.appendFileSync('unknown.txt', `${name}\n`);
+    unknown.push(name);
+  }
+} 
 
 function printPathToKey(obj, keyString, path = []) {
   for (const [key, value] of Object.entries(obj)) {

@@ -44,6 +44,21 @@
       </ul>
     </div>
     <div class="container slim">
+      <ul>
+        <li class="spacer">.</li>
+        <li v-for="(cannabinoid, i) in cannabinoids" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
+          class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
+          {{ cannabinoid }}
+        </li>
+        <li class="spacer">.</li>
+        <li v-for="(terpene, i) in terpenes" :key="i" @click="toggleSelectedTerpene(terpene)"
+          class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
+          {{ terpene }}
+        </li>
+      </ul>
+
+    </div>
+    <div class="container slim">
       <div class="stats">
         {{ numProducts }} product{{ numProducts === 1 ? '' :
           's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
@@ -71,6 +86,9 @@ export default {
     return {
       store: null,
       terpenes: [],
+      cannabinoids: [],
+      checkedCannabinoids: [],
+      checkedTerpenes: [],
       aVendorWasClicked: false,
       aVariantWasClicked: false,
     }
@@ -79,7 +97,10 @@ export default {
     this.store = useSpiderStore();
     this.store.normalizeVariants(this.store.variants);
     this.store.normalizeVendors(this.store.variants);
+    this.store.normalizeCannabinoids();
+    this.store.normalizeTerpenes();
     this.terpenes = this.store.terpeneNames;
+    this.cannabinoids = this.store.cannabinoidNames;
   },
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
@@ -103,6 +124,12 @@ export default {
     },
     checkedVariants() {
       return this.store.checkedVariants;
+    },
+    checkedTerpenes() {
+      return this.store.checkedTerpenes;
+    },
+    checkedCannabinoids() {
+      return this.store.checkedCannabinoids;
     },
     vendors() {
       return this.store.vendors;
@@ -163,6 +190,12 @@ export default {
         }
       }
       this.changeQueryStrings(this.checkedVariants, this.checkedVendors);
+    },
+    toggleSelectedCannabinoid(cannabinoid) {
+      this.store.toggleSelectedCannabinoid(decodeURIComponent(cannabinoid));
+    },
+    toggleSelectedTerpene(terpene) {
+      this.store.toggleSelectedTerpene(decodeURIComponent(terpene));
     },
     changeQueryStrings(checkedVariants, checkedVendors) {
       const sizes = checkedVariants.sort().join(',');
@@ -265,6 +298,10 @@ ul li.all,
 ul li.none {
   font-weight: 500;
   text-align: center;
+}
+
+select {
+  appearance: none !important;
 }
 
 .sort-by {

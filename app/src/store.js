@@ -8,38 +8,14 @@ export const useSpiderStore = defineStore('spider', {
     products: jsonData.products,
     updatedAt: jsonData.updatedAt,
     variants: [],
+    terpenes: [],
+    cannabinoids: [],
     vendors: [],
     checkedVendors: [],
     normalizedVariants: [],
     checkedVariants: [],
-    emptyProduct: {
-      name: 'empty',
-      image: '',
-      variants: []
-    },
-    cannabinoidNames: [
-      'Δ-8 THC',
-      'Δ-9 THC',
-      'Δ-9 THCA',
-      'THCP',
-      'THCV',
-      'Δ-9 THCVA',
-      'R-Δ-10 THC',
-      'S-Δ-10 THC',
-      '9R-HHC',
-      'THC0',
-      'CBDV',
-      'CBDVA',
-      'CBD',
-      'CBDA',
-      'CBG',
-      'CBGA',
-      'CBN',
-      'CBNA',
-      'CBC',
-      'CBCA',
-      'Total Cannabinoids'
-    ],
+    checkedCannabinoids: [],
+    checkedTerpenes: [],
     terpenes: [
       'Borneol',
       'Camphene', 'Carene',
@@ -59,21 +35,38 @@ export const useSpiderStore = defineStore('spider', {
   }),
   getters: {
     terpeneNames(state) {
-      // remove values not found in and product.terpenes[].name
-      return state.terpenes.filter((terpene) => {
-        return state.products.some((product) => {
-          return product.terpenes?.some((chemical) => {
-            return chemical.name === terpene
-          })
+      // unique values in product.terpenes[].name
+      const terpenes = new Set()
+      state.products.forEach((product) => {
+        if (!product.terpenes) return
+        product.terpenes.forEach((terpene) => {
+          terpenes.add(terpene.name)
         })
-      });
+      })
+      return [...terpenes]
+    },
+    cannabinoidNames(state) {
+      // unique values in product.cannabinoids[].name
+      const cannabinoids = new Set()
+      state.products.forEach((product) => {
+        if (!product.cannabinoids) return
+        product.cannabinoids.forEach((cannabinoid) => {
+          cannabinoids.add(cannabinoid.name)
+        })
+      })
+      return [...cannabinoids]
+
     },
     filteredProducts(state) {
       if (!state.products?.filter) return state.products
-      const products = state.products.filter((product) => {
-        return this.checkedVendors.includes(product.vendor) && product.variants.some((variant) => this.checkedVariants.includes(variant))
-      })
 
+      const products = state.products.filter((product) => {
+        return (this.checkedVendors.includes(product.vendor)
+        && product.variants.some((variant) => this.checkedVariants.includes(variant))
+        && (product.cannabinoids && product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))
+        && (product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)))
+        )
+      })
       // products.sort(this.sortProducts('title'))
 
       return [...products]
@@ -113,7 +106,7 @@ export const useSpiderStore = defineStore('spider', {
   actions: {
     sortProductsByCannabinoid(chemicalName) {
       console.log('sortProductsByCannabinoid called', chemicalName)
-
+      const a = this.products[0].title
       const sortedProducts = this.products.sort((a, b) => {
         if (!a.cannabinoids || !a.cannabinoids.length) return 1
         if (!b.cannabinoids || !b.cannabinoids.length) return -1
@@ -127,17 +120,19 @@ export const useSpiderStore = defineStore('spider', {
         return 0
       })
       this.products = [...sortedProducts]
+      const b = this.products[0].title
+      console.log('changed?', a, b)
     },
     sortProductsByTerpene(chemicalName) {
       console.log('sortProductsByTerpene called', chemicalName)
       const a = this.products[0].title
       const sortedProducts = this.products.sort((a, b) => {
-        if (!a.terpenes || !a.terpenes.length) return 1
-        if (!b.terpenes || !b.terpenes.length) return -1
+        if (!a.cannabinoids || !a.cannabinoids.length) return 1
+        if (!b.cannabinoids || !b.cannabinoids.length) return -1
 
-        const aChemical = a.terpenes?.find((chemical) => chemical.name === chemicalName)
+        const aChemical = a.cannabinoids?.find((chemical) => chemical.name === chemicalName)
 
-        const bChemical = b.terpenes?.find((chemical) => chemical.name === chemicalName)
+        const bChemical = b.cannabinoids?.find((chemical) => chemical.name === chemicalName)
 
         if (parseFloat(aChemical?.pct) < parseFloat(bChemical?.pct)) return 1
         if (parseFloat(aChemical?.pct) > parseFloat(bChemical?.pct)) return -1
@@ -194,6 +189,50 @@ export const useSpiderStore = defineStore('spider', {
       this.checkedVariants = [...variants]
       this.normalizedVariants = [...variants]
     },
+    normalizeCannabinoids() {
+      const cannabinoids = []
+    
+      this.products.forEach((product) => {
+        if (!product.cannabinoids || product.cannabinoids.length === 0) {
+          return
+        }
+    
+        product.cannabinoids.forEach((variant) => {
+          if (!variant) return
+    
+          if (!cannabinoids.includes(variant)) {
+            cannabinoids.push(variant)
+          }
+        })
+      })
+    
+      cannabinoids.sort(this.sortByParseFloat)
+    
+      this.checkedCannabinoids = [...cannabinoids]
+      this.normalizedCannabinoids = [...cannabinoids]
+    },
+    normalizeTerpenes() {
+      const terpenes = []
+    
+      this.products.forEach((product) => {
+        if (!product.terpenes || product.terpenes.length === 0) {
+          return
+        }
+    
+        product.terpenes.forEach((variant) => {
+          if (!variant) return
+    
+          if (!terpenes.includes(variant)) {
+            terpenes.push(variant)
+          }
+        })
+      })
+    
+      terpenes.sort(this.sortByParseFloat)
+    
+      this.checkedTerpenes = [...terpenes]
+      this.normalizedTerpenes = [...terpenes]
+    },
     normalizeVendors() {
       const vendors = []
 
@@ -227,6 +266,20 @@ export const useSpiderStore = defineStore('spider', {
         this.checkedVariants.splice(this.checkedVariants.indexOf(variant), 1)
       } else {
         this.checkedVariants.push(variant)
+      }
+    },
+    toggleSelectedCannabinoid(cannabinoid) {
+      if (this.checkedCannabinoids.find((element) => element === cannabinoid)) {
+        this.checkedCannabinoids.splice(this.checkedCannabinoids.indexOf(cannabinoid), 1)
+      } else {
+        this.checkedCannabinoids.push(cannabinoid)
+      }
+    },
+    toggleSelectedTerpene(terpene) {
+      if (this.checkedTerpenes.find((element) => element === terpene)) {
+        this.checkedTerpenes.splice(this.checkedTerpenes.indexOf(terpene), 1)
+      } else {
+        this.checkedTerpenes.push(terpene)
       }
     },
     toggleSelectedVendor(vendor) {

@@ -16,7 +16,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     products = await getProductsByVendor(vendor, limit);
   }
   else {
-
     products = await getAllProducts();
     console.log('products ->', products.length);
   }
@@ -114,9 +113,14 @@ async function run() {
 //run();
 
 async function utils() {
-  await fixProducts();
-  await normalizeVariants();
-  await makeProductsFile();
+  const s = new Set();
+  s.add("j");
+  const t = [...s];
+  console.log(t);
+ // await fixProducts();
+//  await normalizeVariants();\
+
+ // await makeProductsFile();
   console.log('Done utils');
 }
 
