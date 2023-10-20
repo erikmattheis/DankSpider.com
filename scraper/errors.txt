@@ -94,3 +94,42 @@ ReferenceError: variant is not defined
 Error: Value for argument "data" is not a valid Firestore document. Cannot use "undefined" as a Firestore value (found in field "variants.`0`"). If you want to ignore undefined values, enable `ignoreUndefinedProperties`.
 
 
+ReferenceError: no is not defined
+
+
+TypeError: $(...).attr(...).get is not a function
+
+
+TypeError: imgSrcs.filter is not a function
+
+
+TypeError: imgSrcs.filter is not a function
+
+
+Error: Unexpected type of selector
+
+
+TypeError: el.toLowerCase is not a function
+
+
+ReferenceError: images is not defined
+
+
+ReferenceError: recognize is not defined
+
+
+TypeError: recognize is not a function
+
+
+ReferenceError: getAssay is not defined
+
+
+ReferenceError: getAssay is not defined
+
+
+ReferenceError: terpenes is not defined
+
+
+ReferenceError: result is not defined
+
+

@@ -1,5 +1,4 @@
 const axios = require('./rateLimitedAxios.js');
-const spellings = require('spellchecker');
 const fs = require('fs');
 const gm = require('gm').subClass({ imageMagick: true });
 const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
@@ -10,7 +9,7 @@ const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
 
 const path = require('path');
 
-const { getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js');
+const { getCannabinoidObjCannalyze, getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js');
 
 const badImages = [];
 
@@ -40,97 +39,128 @@ async function recognize(url) {
 
     if (!jpgBuffer) {
       console.log('skipping empty', url);
-      badImages.push(url);
-      fs.appendFileSync('badImages.json', JSON.stringify(badImages, null, 2));
       await worker.terminate();
 
       return null;
     }
 
-    //fs.writeFileSync('image.jpg', jpgBuffer);
-
     const terpenes = [];
 
     const cannabinoids = [];
 
-    let title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
+    let title;
 
-    if (title.data.text.toLowerCase().includes('terpenes')) {
+    if (url.includes('Certificate')) {
+      console.log('Cannazyze')
+      title = await worker.recognize(jpgBuffer, configCannalyzeCannabinoidsTitle);
 
-      console.log('----- terpenes -----');
+      console.log('title', title.data.text);
 
-      const result = await worker.recognize(jpgBuffer, configWNCTerpenes);
+      if (title.data.text.toLowerCase().includes('consolidated')) {
 
-      const textArray = result.data.text.split('\n');
+        console.log('----- cannabinoids -----');
 
-      for (const text of textArray) {
+        const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids);
 
-        const line = getTerpeneObj(text);
+        console.log(result.data.text)
 
-        terpenes.push(line);
+        const textArray = result.data.text.split('\n');
+
+        for (const text of textArray) {
+          if (text.split && text.split(' ').length === 4) {
+            const line = getCannabinoidObjCannalyze(text);
+
+            cannabinoids.push(line);
+          }
+        }
+
+        if (cannabinoids.length)
+          await worker.terminate();
+
+        cannabinoids.sort((a, b) => b.pct - a.pct);
+
+        return { cannabinoids }
+      }
+
+      title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
+
+      if (title.data.text.toLowerCase().includes('cannabinoids')) {
+
+        console.log('----- cannabinoids -----');
+
+        const result = await worker.recognize(jpgBuffer, configWNCCannabinoids);
+
+        const textArray = result.data.text.split('\n');
+
+        for (const text of textArray) {
+
+          const line = getCannabinoidObj(text);
+
+          cannabinoids.push(line);
+
+        }
+
+        await worker.terminate();
+
+        cannabinoids.sort((a, b) => b.pct - a.pct);
+
+        return { cannabinoids }
 
       }
 
-      await worker.terminate();
+      title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle);
 
-      terpenes.sort((a, b) => b.pct - a.pct);
+      if (title.data.text.toLowerCase().includes('terpenes')) {
 
-      return { terpenes }
+        console.log('----- terpenes -----');
 
-    }
+        const result = await worker.recognize(jpgBuffer, configWNCTerpenes);
 
-    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle);
+        const textArray = result.data.text.split('\n');
 
-    if (title.data.text.toLowerCase().includes('cannabinoids')) {
+        for (const text of textArray) {
 
-      console.log('----- cannabinoids -----');
+          const line = getTerpeneObj(text);
 
-      const result = await worker.recognize(jpgBuffer, configWNCCannabinoids);
+          terpenes.push(line);
 
-      const textArray = result.data.text.split('\n');
+        }
 
-      for (const text of textArray) {
+        await worker.terminate();
 
-        const line = getCannabinoidObj(text);
+        terpenes.sort((a, b) => b.pct - a.pct);
 
-        cannabinoids.push(line);
-
-      }
-
-      await worker.terminate();
-
-      cannabinoids.sort((a, b) => b.pct - a.pct);
-
-      return { cannabinoids }
-
-    }
-
-    title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle2);
-
-    if (title.data.text.toLowerCase().includes('cannabinoids')) {
-
-      console.log('----- cannabinoids 2 -----');
-
-      const result = await worker.recognize(jpgBuffer, configWNCCannabinoids2);
-
-      const textArray = result.data.text.split('\n');
-
-      for (const text of textArray) {
-
-        const line = getCannabinoidObj2(text);
-
-        cannabinoids.push(line);
+        return { terpenes }
 
       }
 
-      await worker.terminate();
+      title = await worker.recognize(jpgBuffer, configWNCCannabinoidsTitle2);
 
-      cannabinoids.sort((a, b) => b.pct - a.pct);
+      if (title.data.text.toLowerCase().includes('cannabinoids')) {
 
-      return { cannabinoids }
+        console.log('----- cannabinoids 2 -----');
+
+        const result = await worker.recognize(jpgBuffer, configWNCCannabinoids2);
+
+        const textArray = result.data.text.split('\n');
+
+        for (const text of textArray) {
+
+          const line = getCannabinoidObj2(text);
+
+          cannabinoids.push(line);
+
+        }
+
+        await worker.terminate();
+
+        cannabinoids.sort((a, b) => b.pct - a.pct);
+
+        return { cannabinoids }
+
+      }
 
     }
-
   }
   catch (error) {
 
@@ -143,7 +173,17 @@ async function recognize(url) {
     return error;
   }
 
-} const configWNCTerpenesTitle = {
+}
+
+const configCannalyzeCannabinoidsTitle = {
+  rectangle: { top: 170, left: 1923, width: 1852, height: 460 },
+}
+
+const configCannalyzeCannabinoids = {
+  rectangle: { top: 1461, left: 420, width: 3137, height: 2262 },
+}
+
+const configWNCTerpenesTitle = {
   rectangle: { top: 1352, left: 284, width: 400, height: 188 },
 }
 

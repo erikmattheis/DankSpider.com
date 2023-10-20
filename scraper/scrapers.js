@@ -68,7 +68,7 @@ async function run(uuid) {
       logErrorToFile(error);
     }
   
-  */
+  
   try {
     const flowProducts = await flow.getAvailableLeafProducts();
     console.log('Flow products', flowProducts.length);
@@ -79,7 +79,7 @@ async function run(uuid) {
     logErrorToFile(error);
   }
 
-  /*
+
     try {
       console.log('Artete products');
       const areteProducts = await arete.getAvailableLeafProducts();

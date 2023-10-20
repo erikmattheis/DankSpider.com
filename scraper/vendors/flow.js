@@ -32,8 +32,6 @@ async function getProducts() {
         vendor: 'Flow',
       }
 
-
-
       products.push(product);
     }
   });
