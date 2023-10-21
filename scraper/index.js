@@ -86,7 +86,7 @@ async function makeTerpenesFile() {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-const batchId = 'x2';
+const batchId = 'x3';
 
 async function run() {
   let startTime = performance.now();
@@ -115,9 +115,9 @@ run();
 async function utils() {
 
  // await fixProducts();
-await normalizeTerpenes();
+  await normalizeTerpenes();
 
- await makeProductsFile();
+  await makeProductsFile();
   console.log('Done utils');
 }
 
