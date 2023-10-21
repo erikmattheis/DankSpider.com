@@ -4,3 +4,9 @@ AxiosError: Unsupported protocol hhttps:
 AxiosError: Unsupported protocol hhttps:
 
 
+ReferenceError: title is not defined
+
+
+ReferenceError: terpenes is not defined
+
+

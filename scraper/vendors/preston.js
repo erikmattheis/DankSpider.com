@@ -42,10 +42,12 @@ async function getPrestonProductInfo(product) {
       }
     });
 
+    let terpenes = [];
+    let cannabinoids = [];
+
     for (const image of product.images) {
 
-      product.terpenes = [];
-      product.cannabinoids = [];
+
 
       const result = await recognize(image);
 
@@ -57,20 +59,18 @@ async function getPrestonProductInfo(product) {
 
       if (result instanceof String) {
         console.log('image rejected', image);
-        console.log('');
-        console.error(result);
         continue;
       }
 
       if (result.terpenes?.length) {
-        product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
+        terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
 
       if (result.cannabinoids?.length) {
-        product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+        cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 
-      if (product.terpenes?.length && product.cannabinoids?.length) {
+      if (terpenes?.length && cannabinoids?.length) {
         console.log('both terpenes and cannabinoids found')
         break;
       }
@@ -83,7 +83,8 @@ async function getPrestonProductInfo(product) {
 
     return {
       ...product,
-      vendor: 'Preston',
+      terpenes,
+      cannabinoids
     }
   }
   else {
@@ -120,7 +121,8 @@ async function scrapePage(url, currentPage) {
 
         const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
 
-        productLinks.push({ title: strings.normalizeProductTitle(title), url: url });
+        productLinks.push({ title: strings.normalizeProductTitle(title), url: url, vendor: 'Preston' });
+        
       }
     }
 

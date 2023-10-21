@@ -35,7 +35,7 @@ async function sendErrorEmail(error) {
 }
 
 async function run(uuid) {
-
+/*
   try {
     const drGanjaProducts = await drGanja.getAvailableLeafProducts();
     console.log('Dr Ganja products', drGanjaProducts.length);
@@ -57,7 +57,7 @@ async function run(uuid) {
       await sendErrorEmail(error);
       logErrorToFile(error);
     }
-  
+  */
     try {
       const prestonProducts = await preston.getAvailableLeafProducts();
       console.log('Preston products', prestonProducts.length);
@@ -78,7 +78,7 @@ async function run(uuid) {
     await sendErrorEmail(error);
     logErrorToFile(error);
   }
-
+/*
 
     try {
       console.log('Artete products');
@@ -111,7 +111,7 @@ async function run(uuid) {
       logErrorToFile(error);
   
     }
-  
+  */
   console.log(`Data has been written to Firebase for all vendors.`);
 }
 

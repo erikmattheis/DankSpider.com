@@ -117,12 +117,7 @@ async function addAssays(product, $) {
     }
   }
 
-  const assays = {
-    cannabinoids,
-    terpenes
-  }
-
-  return { ...product, assays };
+  return { ...product, cannabinoids, terpenes };
 }
 
 async function getAvailableLeafProducts() {
