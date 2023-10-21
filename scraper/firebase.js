@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./services/strings.js');
+const { makeFirebaseSafe, makeFirebaseSafeId, processPossibleCannabinoid, normalizeTerpene, normalizeVariantName } = require('./services/strings.js');
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -117,7 +117,7 @@ async function normalizeCannabinoids() {
     const product = doc.data();
     if (product.cannabinoids) {
       product.cannabinoids.forEach(cannabinoid => {
-        const name = normalizeCannabinoid(cannabinoid.name);
+        const name = processPossibleCannabinoid(cannabinoid.name);
         if (name) {
           cannabinoid.name = name;
         }
@@ -134,7 +134,6 @@ async function getUniqueCannabinoids() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    //product.cannabinoids?.forEach(cannabinoid => cannabinoid.name = normalizeCannabinoid(cannabinoid.name));
     product.cannabinoids?.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
     //doc.set(product);
   });
@@ -193,7 +192,7 @@ async function fixProducts() {
   for (const product of data) {
     if (product.terpenes) {
       const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene));
-      const cannabinoids = product.cannabinoids.map(terpene => normalizeCannabinoid(terpene));
+      const cannabinoids = product.cannabinoids.map(terpene => processPossibleCannabinoid(terpene));
       const fixed = { ...product, variants };
 
       fixedProducts.push(fixed)

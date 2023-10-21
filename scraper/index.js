@@ -118,6 +118,7 @@ async function utils() {
   await normalizeTerpenes();
 
   await makeProductsFile();
+  
   console.log('Done utils');
 }
 

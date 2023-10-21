@@ -174,7 +174,7 @@ function getCannabinoidObj(line) {
   const cleanedLine = line.replace(/\s+/g, ' ');
   const parts = cleanedLine.split(' ');
 
-  const name = normalizeCannabinoid(parts[0]) || "Unknown";
+  const name = processPossibleCannabinoid(parts[0]) || "Unknown";
 
   let pct = parts[parts.length - 2] || "Unknown";
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
@@ -196,7 +196,7 @@ function getCannabinoidObj2(line) {
   const cleanedLine = line.replace(/\s+/g, ' ');
   const parts = cleanedLine.split(' ');
 
-  const name = normalizeCannabinoid(`${parts[0]} ${parts[1]}`);
+  const name = processPossibleCannabinoid(`${parts[0]} ${parts[1]}`);
 
   let pct = parts[parts.length - 2] || 0;
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
@@ -221,7 +221,7 @@ function getCannabinoidObjCannalyze(line) {
     return { name: "Unknown", pct: 0, mgg: 0, originalText: cleanedLine };
   }
 
-  const name = normalizeCannabinoid(parts[0]);
+  const name = processPossibleCannabinoid(parts[0]);
 
   let pct = parts[parts.length - 1] || "Unknown";
 
@@ -436,6 +436,16 @@ IO
 
 };
 
+function processPossibleCannabinoid(name, url) {
+
+  const cannabinoid = normalizeCannabinoid(name);
+
+  if (cannabinoid === "Unreadable") {
+
+  }
+  
+   
+  }
 function normalizeCannabinoid(name) {
 
   if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
@@ -500,7 +510,7 @@ module.exports = {
   printPathToKey,
   makeFirebaseSafe,
   makeFirebaseSafeId,
-  normalizeCannabinoid,
+  processPossibleCannabinoid,
   getCannabinoidObj,
   getCannabinoidObj2,
   getCannabinoidObjCannalyze,

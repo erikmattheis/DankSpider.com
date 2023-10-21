@@ -10,3 +10,6 @@ ReferenceError: title is not defined
 ReferenceError: terpenes is not defined
 
 
+TypeError: Cannot read properties of undefined (reading 'images')
+
+
