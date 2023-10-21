@@ -189,7 +189,7 @@ const configWNCTerpenesTitle = {
 }
 
 const configWNCCannabinoidsTitle = {
-  rectangle: { top: 2055, left: 123, width: 660, height: 209 },
+  rectangle: { top: 2042, left: 109, width: 731, height: 253 },
 }
 
 const configWNCCannabinoidsTitle2 = {
@@ -201,7 +201,7 @@ const configWNCTerpenes = {
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 2505, left: 413, width: 2658, height: 1708 },
+  rectangle: { top: 2471, left: 292, width: 2764, height: 1744 },
 }
 
 const configWNCCannabinoids2 = {

@@ -105,6 +105,12 @@ export const useSpiderStore = defineStore('spider', {
     }
   },
   actions: {
+    toggleOnlyShowProductsWithCannabinoids() {
+      this.onlyShowProductsWithCannabinoids = !this.onlyShowProductsWithCannabinoids
+    },
+    toggleOnlyShowProductsWithTerpenes() {
+      this.onlyShowProductsWithTerpenes = !this.onlyShowProductsWithTerpenes
+    },
     sortProductsByCannabinoid(chemicalName) {
       console.log('sortProductsByCannabinoid called', chemicalName)
       const a = this.products[0].title

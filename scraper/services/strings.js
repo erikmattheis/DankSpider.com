@@ -360,6 +360,77 @@ const cannabinoidSpellings = {
   "Tetrahydrocannabivarin (THCV)": { name: "THCV", confidence: 0.99 },
   "Tetrahydrocannabivarinic Acid": { name: "∆ 9-THCVA", confidence: 0.99 },
 
+  /*
+  HC
+
+S-A-10-Tetrahydrocannabinol
+
+&-8-Tetrabwdracanmabing!
+&-3Tetrabwdracanmating
+&-9-Tetrabydrocamainalic
+&3
+&-%-Tetrabwdrocamazvaris
+R-4-10-Tetrabydrocamaing
+S
+Tetratwdrocanmaing!
+Carrudy
+Canruts
+Cannabi
+Carruds
+Cannabinal
+Carrubyrolic
+HC
+¥
+O
+L-8-Tetrahydracannabinal
+L-F-Tetrahydracannabinal
+L-F-Tetrahydracannabinalic
+L-9-Tetrahydrocannabiphorol
+L-F-Tetrahydracannabivarin
+L-F-Tetrahydrocannabivasinic
+R-A-10-Tetralydrocannabinol
+9R-Hexahydracannabinal
+Tetrahydrocamnmabinol
+Cannabigeral
+Camnabigeralic
+4C
+1IC
+C
+&-8-Tetrabwdracamabing
+&9
+&-9-Tetrabwdrecamasinalic
+A9
+R-4-10-Tetrabydrocamabing
+S8
+Tetrabwdvocanmuding
+Carvuds
+Cannaby
+Carvubs
+Connaby
+Carvuby
+Cannabinod
+Carrubirolic
+2
+&-3-Tetratwdracamabiphand
+Cannabigerdl
+A-9-Tetrabydrocamasinalic
+A-3-Tetrabwdrocamasivaris
+R-4-10-Tetrabydrocamasing
+Tetratwdvotanmading
+Cannabs
+Cornaby
+Carnuabsgerolic
+Carrubsrolic
+Camaby
+&-9-Tetrabwdrocamasivaris
+Cannaty
+Carnabynod
+3D
+C=THCa*
+D)
+IO
+*/
+
 
   "Unreadable": { name: "Unreadable", confidence: 0.99 },
 

@@ -34,6 +34,7 @@
       </ul>
     </div>
     <div class="container">
+      <input type="checkbox" @click="toggleOnlyShowProductsWithCannabinoids" :checked="store.onlyShowProductsWithCannabinoids">
       <ul>
         <li class="spacer">.</li>
         <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
@@ -44,6 +45,7 @@
       </ul>
     </div>
     <div class="container">
+      <input type="checkbox" @click="toggleOnlyShowProductsWithTerpenes" :checked="store.onlyShowProductsWithTerpenes">
       <ul>
         <li class="spacer">.</li>
         <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
@@ -155,6 +157,12 @@ export default {
     },
   },
   methods: {
+    toggleOnlyShowProductsWithCannabinoids() {
+      this.store.toggleOnlyShowProductsWithCannabinoids();
+    },
+    toggleOnlyShowProductsWithTerpenes() {
+      this.store.toggleOnlyShowProductsWithTerpenes();
+    },
     toggleCollapse() {
       this.isCollapsed = !this.isCollapsed;
     },
