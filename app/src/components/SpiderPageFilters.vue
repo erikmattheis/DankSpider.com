@@ -1,5 +1,10 @@
 <template>
-  <form class="search-filters page">
+  <form class="search-filters page filters" :class="{ collapsed: isCollapsed }">
+    <div class="collapse-button" @click="toggleCollapse" href="#">
+      <span v-if="isCollapsed"><font-awesome-icon :icon="['fas', 'filter']" /></span>
+      <span v-else><font-awesome-icon :icon="['fas', 'filter-circle-xmark']" /></span>
+    </div>
+    <template v-if="!isCollapsed">
     <div class="container">
       <ul>
         <li class="shadowy-button selected spacer">.</li>
@@ -11,24 +16,21 @@
     </div>
     <div class="container">
       <ul>
-        <!--
-        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
-          Select All
-        </li>
-      -->
-      </ul>
-      <ul>
         <li class="spacer">.</li>
         <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)"
           class="shadowy-button" :class="{selected: checkedVariants.includes(variant)}" :title="variant">
           {{ variant }}
         </li>
-        <!--
+        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
+          Select All
+        </li>
+        <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button none" title="Select None">
+          Select None
+        </li>
         <li v-if="checkedVariants.length > 0" @click.prevent="store.clearSelectedSizeFilters()"
           class="shadowy-button none"
           title="Select None">Select None
         </li>
-      -->
       </ul>
     </div>
     <div class="container">
@@ -36,8 +38,8 @@
         <li class="spacer">.</li>
         <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
           class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
-          {{ cannabinoid }}  <font-awesome-icon :icon="['fas', 'circle']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
-          <font-awesome-icon :icon="['fas', 'face-grin-stars']" v-else/>
+          {{ cannabinoid }}  <font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>
         </li>
       </ul>
     </div>
@@ -46,8 +48,8 @@
         <li class="spacer">.</li>
         <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
           class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
-          {{ terpene }}  <font-awesome-icon :icon="['fas', 'circle']" v-if="checkedTerpenes.includes(terpene)"/>
-          <font-awesome-icon :icon="['fas', 'leaf']" v-else/>
+          {{ terpene }}  <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>
         </li>
       </ul>
     </div>
@@ -67,6 +69,7 @@
         </select>
       </div>
     </div>
+  </template>
   </form>
 </template>
 
@@ -78,6 +81,7 @@ export default {
   data() {
     return {
       store: null,
+      isCollapsed: false,
       terpenes: [],
       cannabinoids: [],
       aVendorWasClicked: false,
@@ -151,6 +155,9 @@ export default {
     },
   },
   methods: {
+    toggleCollapse() {
+      this.isCollapsed = !this.isCollapsed;
+    },
     sortProductsByTerpene(event) {
       console.log('sort', event.target.value);
       this.store.sortProductsByTerpene(event.target.value);
@@ -252,9 +259,10 @@ ul {
 ul li {
   display: inline-block;
   font-weight: 300;
+  font-size: 70%;
   margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 0px;
+  margin-left: 6px;
+  margin-right: 6px;
   padding: 5px 10px;
   border-radius: 20px;
   background-color: #aaa;
