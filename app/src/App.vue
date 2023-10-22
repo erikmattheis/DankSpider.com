@@ -47,7 +47,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
- /* min-height: 100vh; */
+  /* min-height: 100vh; */
   background-color: #eee;
   color: #333;
 }
@@ -113,7 +113,7 @@ body {
   transform: translateY(0);
 }
 
-.page {
+.app {
   margin: 0 auto;
 }
 
@@ -124,20 +124,20 @@ body {
 
 
 @media (min-width: 768px) {
-  .page {
+  .app {
     margin: 0 10px;
     width: 720px;
   }
 }
 
 @media (min-width: 992px) {
-  .page {
+  .app {
     width: 720px;
   }
 }
 
 @media (min-width: 1200px) {
-  .page {
+  .app {
     width: 1080px;
   }
 }

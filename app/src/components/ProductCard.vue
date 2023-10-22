@@ -5,16 +5,14 @@
 
     <a :href="product.url + queryString" class="backdrop" target="_blank">
 
-      <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty"
-        class="beauty pendulum"
-        :src="product.image"
-        :alt="product.title" />
+      <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty" class="beauty pendulum"
+        :src="product.image" :alt="product.title" />
 
       <svg v-if="!imageLoaded" data-v-c74e63d3="" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        version="1.1" x="0" y="0" viewBox="2.8489999771118164 1.590000033378601 94.3010025024414 96.82013702392578"
-        enable-background="new 0 0 100 100" xml:space="preserve" height="70" width="69"
-        class="icon-icon-0" data-fill-palette-color="quaternary" id="icon-0">
+        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0"
+        viewBox="2.8489999771118164 1.590000033378601 94.3010025024414 96.82013702392578"
+        enable-background="new 0 0 100 100" xml:space="preserve" height="70" width="69" class="icon-icon-0"
+        data-fill-palette-color="quaternary" id="icon-0">
         <path data-v-c74e63d3=""
           d="M86.547 97.711c0 0-11.271 1.141-18.314-0.102-7.045-1.238-18.269-6.416-18.269-6.416s12.312-1.348 19.447-0.09C76.549 92.363 86.547 97.711 86.547 97.711z"
           fill="green" data-fill-palette-color="quaternary"></path>
@@ -41,8 +39,7 @@
     <div class="info">
       <h3>{{ product.title }}</h3>
       <ul>
-        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant"
-          class="variant-name"
+        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
@@ -233,6 +230,7 @@ ul li {
   background-color: #f71c08;
   color: #fff;
 }
+
 .terpene {
   background-color: #9c07b6;
   color: #fff;
@@ -247,6 +245,7 @@ ul li::after {
   overflow: hidden;
   visibility: hidden;
 }
+
 ul li.selected {
   font-weight: 700;
   background-color: #eee;

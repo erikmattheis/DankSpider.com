@@ -16,8 +16,8 @@ export const useSpiderStore = defineStore('spider', {
     checkedCannabinoids: [],
     checkedTerpenes: [],
     normalizedVariants: [],
-    onlyShowProductsWithCannabinoids: false,
-    onlyShowProductsWithTerpenes: false,
+    filterByCannabinoids: false,
+    filterByTerpenes: false,
     
   }),
   getters: {
@@ -49,8 +49,8 @@ export const useSpiderStore = defineStore('spider', {
       const products = state.products.filter((product) => {
         return (this.checkedVendors.includes(product.vendor)
         && product.variants.some((variant) => this.checkedVariants.includes(variant)) 
-        && (state.onlyShowProductsWithCannabinoids && product.cannabinoids && product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))
-        && (state.onlyShowProductsWithTerpenes && product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)) )
+        && (state.filterByCannabinoids && product.cannabinoids && product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))
+        && (state.filterByTerpenes && product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)) )
         )
       })
 
@@ -89,11 +89,11 @@ export const useSpiderStore = defineStore('spider', {
     }
   },
   actions: {
-    toggleOnlyShowProductsWithCannabinoids() {
-      this.onlyShowProductsWithCannabinoids = !this.onlyShowProductsWithCannabinoids
+    toggleFilterByCannabinoids() {
+      this.filterByCannabinoids = !this.filterByCannabinoids
     },
-    toggleOnlyShowProductsWithTerpenes() {
-      this.onlyShowProductsWithTerpenes = !this.onlyShowProductsWithTerpenes
+    toggleFilterByTerpenes() {
+      this.filterByTerpenes = !this.filterByTerpenes
     },
     sortProductsByCannabinoid(chemicalName) {
       console.log('sortProductsByCannabinoid called', chemicalName)

@@ -1,65 +1,63 @@
 <template>
-  <form class="page filters">
-    <div class="header">
+  <form class="page filters container">
+    <div class="header" @click="toggleCollapse('filters')">
       <h3>Filters</h3>
-      <div class="collapse-button" @click="toggleCollapseAll" href="#">
+      <div class="collapse-button">
         <span v-if="isCollapsed"><font-awesome-icon :icon="['fas', 'filter']" /></span>
         <span v-else><font-awesome-icon :icon="['fas', 'filter-circle-xmark']" /></span>
       </div>
     </div>
-    <template v-if="!isCollapsed">
-      <div class="container">
-        <div class="header">
-          <h3>Vendors</h3>
-          <div class="selected-items"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
-          <div class="collapse-button" @click="toggleCollapse('vendors')">
-            <font-awesome-icon :icon="['fas', 'square-caret-right']" />
-          </div>
+    <div class="container" id="filters">
+      <div class="header" @click="toggleCollapse('vendors')">
+        <h3>Vendors</h3>
+        <div class="selected-items"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
+        <div class="collapse-button">
+          <font-awesome-icon :icon="['fas', 'square-caret-right']" />
         </div>
-        <ul id="vendors">
-          <li v-for="(vendor) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
-            :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
-            {{ vendor }}
-          </li>
-          <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
-            All
-          </li>
-          <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
-            None
-          </li>
-        </ul>
       </div>
-      <div class="container">
-        <div class="header">
-          <h3>Sizes</h3>
-          <div class="selected-items"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
-          <div class="collapse-button" @click="toggleCollapse('sizes')">
-            <font-awesome-icon :icon="['fas', 'square-caret-right']" />
-          </div>
+      <ul id="vendors">
+        <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
+          :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
+          {{ vendor }}
+        </li>
+        <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
+          All
+        </li>
+        <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
+          None
+        </li>
+      </ul>
+
+      <div class="header">
+        <h3>Sizes</h3>
+        <div class="selected-items"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
+        <div class="collapse-button" @click="toggleCollapse('sizes')">
+          <font-awesome-icon :icon="['fas', 'square-caret-right']" />
         </div>
-        <ul id="sizes">
-          <li v-for="(variant) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
-            :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
-            {{ variant }}
-          </li>
-          <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
-            All
-          </li>
-          <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button selected" title="None">
-            None
-          </li>
-        </ul>
       </div>
+
+      <ul id="sizes" class="container">
+        <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
+          :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
+          {{ variant }}
+        </li>
+        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
+          All
+        </li>
+        <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button selected" title="None">
+          None
+        </li>
+      </ul>
+
       <div class="container">
         <div class="header">
           <h3>Terpenes</h3>
           <div class="selected-items">
-            <input type="checkbox" @click="toggleOnlyShowProductsWithTerpenes"
-              :checked="store.onlyShowProductsWithTerpenes">
+            <input type="checkbox" @click="store.toggleFilterByTerpenes" :checked="store.filterByTerpenes">
             <span v-for="(terpene) in checkedTerpenes">{{ terpene }}</span>
           </div>
         </div>
-        <div class="collapse-button"  @click="toggleCollapse('terpenes')">
+        <div class="collapse-button" @click="toggleCollapse('terpenes')">
           <font-awesome-icon :icon="['fas', 'square-caret-right']" />
         </div>
         <ul>
@@ -80,8 +78,7 @@
         <div class="header">
           <h3>Cannabinoids</h3>
           <div class="selected-items">
-            <input type="checkbox" @click="toggleOnlyShowProductsWithCannabinoids"
-              :checked="store.onlyShowProductsWithCannabinoids">
+            <input type="checkbox" @click="store.toggleFilterByCannabinoids" :checked="store.filterByCannabinoids">
             <span v-for="(cannabinoid) in checkedCannabinoids">{{ cannabinoid }}</span>
           </div>
           <div class="collapse-button" @click="toggleCollapse('cannabinoids')">
@@ -118,7 +115,7 @@
           </select>
         </div>
       </div>
-    </template>
+    </div>
   </form>
 </template>
 
@@ -255,9 +252,6 @@ export default {
     }
   },
   methods: {
-    toggleCollapseAll() {
-      this.isCollapsed = !this.isCollapsed;
-    },
     toggleCollapse(id) {
       const element = document.getElementById(id);
       element.classList.toggle('collapsed');
@@ -275,13 +269,26 @@ export default {
 <style scoped>
 .header {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+}
+
+.collapse-button {
+  align-self: flex-end;
 }
 
 .selected-items {
   font-size: 0.5rem;
 }
+
+.container {
+  margin: 30px 0;
+  background-color: #fff;
+  width: 100%;
+}
+
+
 
 .selected-items span {
   margin-right: 5px;
@@ -291,19 +298,10 @@ export default {
   color: #333;
 }
 
-.collapse-button {
-  align-self: flex-end;
-}
+
 
 .small {
   font-size: 0.6em;
-}
-
-.container {
-  display: block;
-  margin: 3px 0;
-  padding:15px;
-  width: 100%;
 }
 
 .container.slim {
