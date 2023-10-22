@@ -20,7 +20,7 @@ import { useSpiderStore } from '../store';
 import ProductCard from './ProductCard.vue';
 
 export default {
-  name: 'SpiderPageCards',
+  name: 'ProductCards',
   components: {
     ProductCard,
   },

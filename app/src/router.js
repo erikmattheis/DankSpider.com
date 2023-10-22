@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SpiderPage from './components/SpiderPage.vue'
+import ProductPage from './components/ProductPage.vue'
 import NewsPage from './components/NewsPage.vue'
 // import TerpenesPage from './components/TerpenesPage.vue';
 // import TerpenePage from './components/TerpenePage.vue';
@@ -13,8 +13,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'SpiderPage',
-      component: SpiderPage
+      name: 'ProductPage',
+      component: ProductPage
     },
     {
       path: '/news',

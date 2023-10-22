@@ -1,5 +1,5 @@
 <template>
-  <form class="search-filters page filters" :class="{ collapsed: isCollapsed }">
+  <form class="page filters" :class="{ collapsed: isCollapsed }">
     <div class="collapse-button" @click="toggleCollapse" href="#">
       <span v-if="isCollapsed"><font-awesome-icon :icon="['fas', 'filter']" /></span>
       <span v-else><font-awesome-icon :icon="['fas', 'filter-circle-xmark']" /></span>
@@ -39,8 +39,8 @@
         <li class="spacer">.</li>
         <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
           class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
-          {{ cannabinoid }}  <font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>
+          {{ cannabinoid }}  <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
       </ul>
     </div>
@@ -50,8 +50,8 @@
         <li class="spacer">.</li>
         <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
           class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
-          {{ terpene }}  <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>
+          {{ terpene }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
       </ul>
     </div>
@@ -79,7 +79,7 @@
 import { useSpiderStore } from '../store';
 
 export default {
-  name: 'SpiderPageFilters',
+  name: 'ProductFilters',
   data() {
     return {
       store: null,
@@ -245,18 +245,17 @@ export default {
   width: 100%;
 }
 
-.search-filters {
+.filters {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
-
   background-color: #fff;
 }
 
 ul {
-  display: flex;
+  display: block;
   flex-wrap: wrap;
   margin: 0 0 30px 0;
   list-style-type: none;
@@ -268,12 +267,10 @@ ul li {
   display: inline-block;
   font-weight: 300;
   font-size: 70%;
-  margin-bottom: 10px;
-  margin-left: 6px;
-  margin-right: 6px;
-  padding: 5px 10px;
+  margin: 2px;
+  padding: 0 8px;
   border-radius: 20px;
-  background-color: #aaa;
+  background-color: #012e06;
   color: #eee;
   cursor: pointer;
 }
@@ -284,10 +281,9 @@ ul li.shadowy-button {
 
 ul li.shadowy-button.selected,
 ul li.selected {
-  color: #242424;
+  color: #057503;
   font-weight: 600;
   background-color: #fff;
-
 }
 
 li span {
@@ -297,7 +293,7 @@ li span {
 ul li::after {
   display: block;
   content: attr(title);
-  font-weight: 700;
+  font-weight: 600;
   height: 1px;
   color: transparent;
   overflow: hidden;

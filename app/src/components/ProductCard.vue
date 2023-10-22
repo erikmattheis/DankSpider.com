@@ -233,12 +233,10 @@ ul li {
   background-color: #f71c08;
   color: #fff;
 }
-
 .terpene {
   background-color: #9c07b6;
   color: #fff;
 }
-
 
 ul li::after {
   display: block;
@@ -249,7 +247,6 @@ ul li::after {
   overflow: hidden;
   visibility: hidden;
 }
-
 ul li.selected {
   font-weight: 700;
   background-color: #eee;

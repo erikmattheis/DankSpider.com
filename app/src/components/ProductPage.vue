@@ -1,18 +1,18 @@
 <template>
   <div class="spider-page page">
-    <SpiderPageFilters class="spider-page-filters" />
-    <SpiderPageCards class="spider-page-cards" />
+    <ProductFilters class="spider-page-filters" />
+    <ProductCards class="spider-page-cards" />
   </div>
 </template>
 
 <script>
-import SpiderPageFilters from './SpiderPageFilters.vue';
-import SpiderPageCards from './SpiderPageCards.vue';
+import ProductFilters from './ProductFilters.vue';
+import ProductCards from './ProductCards.vue';
 
 export default {
   components: {
-    SpiderPageFilters,
-    SpiderPageCards,
+    ProductFilters,
+    ProductCards,
   },
 }
 </script>
