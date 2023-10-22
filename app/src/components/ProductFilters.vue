@@ -12,6 +12,12 @@
           class="shadowy-button" :class="{selected: checkedVendors.includes(vendor)}" :title="vendor">
           {{ vendor }}
         </li>
+        <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
+          All
+        </li>
+        <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
+          None
+        </li>
       </ul>
     </div>
     <div class="container">
@@ -21,15 +27,11 @@
           class="shadowy-button" :class="{selected: checkedVariants.includes(variant)}" :title="variant">
           {{ variant }}
         </li>
-        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button all selected" title="Select None">
-          Select All
+        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
+          All
         </li>
-        <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button none" title="Select None">
-          Select None
-        </li>
-        <li v-if="checkedVariants.length > 0" @click.prevent="store.clearSelectedSizeFilters()"
-          class="shadowy-button none"
-          title="Select None">Select None
+        <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button selected" title="None">
+          None
         </li>
       </ul>
     </div>
@@ -42,6 +44,12 @@
           {{ cannabinoid }}  <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
+        <li @click.prevent="store.selectAllCannabinoidFilters()" class="shadowy-button selected" title="All ">
+          None
+        </li>
+        <li @click.prevent="store.clearSelectedCannabinoidFilters()" class="shadowy-button selected" title="None">
+          None
+        </li>
       </ul>
     </div>
     <div class="container">
@@ -53,6 +61,12 @@
           {{ terpene }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
+        <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
+          None
+        </li>
+        <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
+          None
+        </li> 
       </ul>
     </div>
     <div class="container slim">
@@ -257,10 +271,9 @@ export default {
 ul {
   display: block;
   flex-wrap: wrap;
-  margin: 0 0 30px 0;
+  margin: 10px 0 20px 0;
   list-style-type: none;
   padding-left: 0;
-  border-bottom: 1px solid #aaa;
 }
 
 ul li {

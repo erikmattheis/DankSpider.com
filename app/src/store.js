@@ -12,28 +12,13 @@ export const useSpiderStore = defineStore('spider', {
     cannabinoids: [],
     vendors: [],
     checkedVendors: [],
-    normalizedVariants: [],
     checkedVariants: [],
     checkedCannabinoids: [],
+    checkedTerpenes: [],
+    normalizedVariants: [],
     onlyShowProductsWithCannabinoids: false,
     onlyShowProductsWithTerpenes: false,
-    checkedTerpenes: [],
-    terpenes: [
-      'Borneol',
-      'Camphene', 'Carene',
-      'Caryophyllene', 'Caryoptnyliene',
-      'Citral', 'Dihydrocarveol',
-      'Eucalyptol', 'Fenchone',
-      'Limonene', 'Linalool',
-      'Menthol', 'Nerolidol',
-      'Ocimene', 'PPM',
-      'Pulegone', 'Terpinolene',
-      'Total', 'α-Bisabolol',
-      'α-Humulene', 'α-Pinene',
-      'α-Terpinene', 'β-Caryophyllene',
-      'β-Myrcene', 'γ-Terpinene',
-      'Total Terpenes'
-    ]
+    
   }),
   getters: {
     terpeneNames(state) {
@@ -68,7 +53,6 @@ export const useSpiderStore = defineStore('spider', {
         && (state.onlyShowProductsWithTerpenes && product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)) )
         )
       })
-      // products.sort(this.sortProducts('title'))
 
       return [...products]
     },
@@ -149,18 +133,33 @@ export const useSpiderStore = defineStore('spider', {
       const b = this.products[0].title
       console.log('changed?', a, b)
     },
-    clearSelectedSizeFilters() {
-      this.checkedVariants = []
-    },
     resetFilters() {
       this.selectAllSizeFilters()
       this.selectAllVendorFilters()
     },
+    selectAllVendorFilters() {
+      this.checkedVendors = [...this.vendors]
+    },
+    clearSelectedVendorFilters() {
+      this.checkedVendors = []
+    },
     selectAllSizeFilters() {
       this.checkedVariants = [...this.normalizedVariants]
     },
-    selectAllVendorFilters() {
-      this.checkedVendors = [...this.vendors]
+    clearSelectedSizeFilters() {
+      this.checkedVariants = []
+    },
+    selectAllCannabinoidFilters() {
+      this.checkedCannabinoids = [...this.cannabinoids]
+    },
+    clearSelectedCannabinoidFilters() {
+      this.checkedCannabinoids = []
+    },
+    selectAllTerpeneFilters() {
+      this.checkedTerpenes = [...this.terpenes]
+    },
+    clearSelectedTerpeneFilters() {
+      this.checkedTerpenes = []
     },
     sortProducts(property) {
       console.log('sortProducts called')
