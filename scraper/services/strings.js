@@ -186,7 +186,6 @@ function getCannabinoidObj(line) {
   let mgg = parts[parts.length - 1] || 0;
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
 
-
   const originalText = cleanedLine || "Unknown";
 
   return { name, pct, mgg, originalText };
@@ -223,34 +222,32 @@ function getCannabinoidObjCannalyze(line) {
 
   const name = processPossibleCannabinoid(parts[0]);
 
-  let pct = parts[parts.length - 1] || "Unknown";
+  let pct = parts[parts.length - 2] || "Unknown";
 
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct;
   pct = pct + '';
   pct = pct.replace('.', '')
   pct = parseInt(pct)
-  pct = (pct / 10000).toFixed(3);
+  pct = (pct / 1000).toFixed(3);
 
-  let mgg = parts[parts.length - 2] || 0;
+  const mgg = parts[parts.length - 1] || 0;
 
-  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg;
-
-  const originalText = cleanedLine || "Unknown";
+  const originalText = cleanedLine;
 
   return { name, pct, mgg, originalText };
 }
 
 const cannabinoidSpellings = {
 
-  "4-8-Tetrahydrocannabinol": { name: "∆ 8-THC", confidence: 1 },
-  "4-9-Tetrahydrocannabinol": { name: "∆ 9-THC", confidence: 1 },
-  "4-9-Tetrahydrocannabinolic": { name: "∆ 9-THCA", confidence: 1 },
+  "4-8-Tetrahydrocannabinol": { name: "∆-8-THC", confidence: 1 },
+  "4-9-Tetrahydrocannabinol": { name: "∆-9-THC", confidence: 1 },
+  "4-9-Tetrahydrocannabinolic": { name: "∆-9-THCA", confidence: 1 },
   "A-9-Tetrahydrocannabiphorol": { name: "THCP", confidence: 1 },
   "A-9-Tetrahydrocannabivarin": { name: "THCV", confidence: 1 },
-  "A-9-Tetrahydrocannabivarinic": { name: "∆ 9-THCVA", confidence: 1 },
-  "R-A-10-Tetrahydrocannabinol": { name: "R-∆ 10-THC", confidence: 1 },
-  "-A-10-Tetrahydrocannabinol": { name: "S-∆ 10-THC", confidence: 1 },
-  "$-A-10-Tetrahydrocannabinol": { name: "S-∆ 10-THC", confidence: 1 },
+  "A-9-Tetrahydrocannabivarinic": { name: "∆-9-THCVA", confidence: 1 },
+  "R-A-10-Tetrahydrocannabinol": { name: "R-∆-10-THC", confidence: 1 },
+  "-A-10-Tetrahydrocannabinol": { name: "S-∆-10-THC", confidence: 1 },
+  "$-A-10-Tetrahydrocannabinol": { name: "S-∆-10-THC", confidence: 1 },
   "9R-Hexahydrocannabinol": { name: "9R-HHC", confidence: 1 },
   "95-Hexahydrocannabinol": { name: "9S-HHC", confidence: 1 },
   "Tetrahydrocannabinol": { name: "THC", confidence: 1 },
@@ -329,9 +326,9 @@ const cannabinoidSpellings = {
   "Total Cannabinoids": { name: "Total Cannabinoids", confidence: 0.99 },
   "THCP": { name: "THCP", confidence: 0.99 },
   "THCV": { name: "THCV", confidence: 0.99 },
-  "Delta 9-THCVA": { name: "∆ 9-THCVA", confidence: 0.99 },
-  "R-Delta 10-THC": { name: "R-∆ 10-THC", confidence: 0.99 },
-  "S-Delta 10-THC": { name: "S-∆ 10-THC", confidence: 0.99 },
+  "Delta 9-THCVA": { name: "∆-9-THCVA", confidence: 0.99 },
+  "R-Delta 10-THC": { name: "R-∆-10-THC", confidence: 0.99 },
+  "S-Delta 10-THC": { name: "S-∆-10-THC", confidence: 0.99 },
   "THC": { name: "∆-9 THC", confidence: 0.99 },
   "Cannabicyclol (CBL)": { name: "CBL", confidence: 0.99 },
   "THCA": { name: "∆-9 THCA", confidence: 0.99 },
@@ -345,92 +342,38 @@ const cannabinoidSpellings = {
   "CBGA": { name: "CBGA", confidence: 0.99 },
   "CBN": { name: "CBN", confidence: 0.99 },
   "CBNA": { name: "CBNA", confidence: 0.99 },
-  "A-8-Tetrahydrocannabinol": { name: "∆ 8-THC", confidence: 0.99 },
-  "A-9-Tetrahydrocannabinol": { name: "∆ 9-THC", confidence: 0.99 },
-  "A-9-Tetrahydrocannabinolic": { name: "∆ 9-THCA", confidence: 0.99 },
+  "A-8-Tetrahydrocannabinol": { name: "∆-8-THC", confidence: 0.99 },
+  "A-9-Tetrahydrocannabinol": { name: "∆-9-THC", confidence: 0.99 },
+  "A-9-Tetrahydrocannabinolic": { name: "∆-9-THCA", confidence: 0.99 },
   "Cannabichromene (CBC)": { name: "CBC", confidence: 0.99 },
   "Cannabidiol (CBD)": { name: "CBD", confidence: 0.99 },
   "Cannabidivarin (CBDV)": { name: "CBDV", confidence: 0.99 },
   "Cannabigerol (CBG)": { name: "CBG", confidence: 0.99 },
   "Cannabigerolic Acid": { name: "CBGA", confidence: 0.99 },
   "Cannabinol (CBN)": { name: "CBN", confidence: 0.99 },
-  "Delta 8-Tetrahydrocannabinol": { name: "∆ 8-THC", confidence: 0.99 },
-  "Delta 9-Tetrahydrocannabinol": { name: "∆ 9-THC", confidence: 0.99 },
-  "Delta 9-Tetrahydrocannabinolic": { name: "∆ 9-THCA", confidence: 0.99 },
+  "Delta 8-Tetrahydrocannabinol": { name: "∆-8-THC", confidence: 0.99 },
+  "Delta 9-Tetrahydrocannabinol": { name: "∆-9-THC", confidence: 0.99 },
+  "Delta 9-Tetrahydrocannabinolic": { name: "∆-9-THCA", confidence: 0.99 },
   "Tetrahydrocannabivarin (THCV)": { name: "THCV", confidence: 0.99 },
-  "Tetrahydrocannabivarinic Acid": { name: "∆ 9-THCVA", confidence: 0.99 },
-
-  /*
-  HC
-
-S-A-10-Tetrahydrocannabinol
-
-&-8-Tetrabwdracanmabing!
-&-3Tetrabwdracanmating
-&-9-Tetrabydrocamainalic
-&3
-&-%-Tetrabwdrocamazvaris
-R-4-10-Tetrabydrocamaing
-S
-Tetratwdrocanmaing!
-Carrudy
-Canruts
-Cannabi
-Carruds
-Cannabinal
-Carrubyrolic
-HC
-¥
-O
-L-8-Tetrahydracannabinal
-L-F-Tetrahydracannabinal
-L-F-Tetrahydracannabinalic
-L-9-Tetrahydrocannabiphorol
-L-F-Tetrahydracannabivarin
-L-F-Tetrahydrocannabivasinic
-R-A-10-Tetralydrocannabinol
-9R-Hexahydracannabinal
-Tetrahydrocamnmabinol
-Cannabigeral
-Camnabigeralic
-4C
-1IC
-C
-&-8-Tetrabwdracamabing
-&9
-&-9-Tetrabwdrecamasinalic
-A9
-R-4-10-Tetrabydrocamabing
-S8
-Tetrabwdvocanmuding
-Carvuds
-Cannaby
-Carvubs
-Connaby
-Carvuby
-Cannabinod
-Carrubirolic
-2
-&-3-Tetratwdracamabiphand
-Cannabigerdl
-A-9-Tetrabydrocamasinalic
-A-3-Tetrabwdrocamasivaris
-R-4-10-Tetrabydrocamasing
-Tetratwdvotanmading
-Cannabs
-Cornaby
-Carnuabsgerolic
-Carrubsrolic
-Camaby
-&-9-Tetrabwdrocamasivaris
-Cannaty
-Carnabynod
-3D
-C=THCa*
-D)
-IO
-*/
-
+  "Tetrahydrocannabivarinic Acid": { name: "∆-9-THCVA", confidence: 0.99 },
+  "A-8-Tetrahydrocannabinol (A-8 THC)": { name: "∆-8-THC", confidence: 0.99 },
+  "A-9-Tetrahydrocannabinol (A-9 THC)": { name: "∆-9-THC", confidence: 0.99 },
+  "A-9-Tetrahydrocannabinolic Acid (THCA-A)": { name: "∆-9-THCA", confidence: 0.99 },
+  "A-9-Tetrahydrocannabinol Acetate (A-9-THCO)": { name: "∆-9-THC0", confidence: 0.99 },
+  "A-9-Tetrahydrocannabiphorol (A-9-THCP)": { name: "∆-9-THCP", confidence: 0.99 },
+  "A-9-Tetrahydrocannabivarin (A-9-THCV)": { name: "∆-9-THCV", confidence: 0.99 },
+  "A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA)": { name: "∆-9-THCVA", confidence: 0.99 },
+  "R-A-10-Tetrahydrocannabinol (R-A-10-THC)": { name: "R-∆-10-THC", confidence: 0.99 },
+  "S-A-10-Tetrahydrocannabinol (S-A-10-THC)": { name: "S-∆-10-THC", confidence: 0.99 },
+  "Cannabidivarin (CBDV)": { name: "CBDV", confidence: 0.99 },
+  "Cannabidivarinic Acid (CBDVA)": { name: "CBDVA", confidence: 0.99 },
+  "Cannabidiol (CBD)": { name: "CBD", confidence: 0.99 },
+  "Cannabidiolic Acid (CBDA)": { name: "CBDA", confidence: 0.99 },
+  "Cannabigerol (CBG)": { name: "CBG", confidence: 0.99 },
+  "Cannabigerolic Acid (CBGA)": { name: "CBGA", confidence: 0.99 },
+  "Cannabinol (CBN)": { name: "CBN", confidence: 0.99 },
+  "Cannabinolic Acid (CBNA)": { name: "CBNA", confidence: 0.99 },
+  "Cannabichromene (CBC)": { name: "CBC", confidence: 0.99 },
 
   "Unreadable": { name: "Unreadable", confidence: 0.99 },
 
@@ -454,18 +397,7 @@ function normalizeCannabinoid(name) {
 
   }
 
-  addUnreadable(name);
-  console.log('unreadable', name);
   return "Unreadable";
-}
-
-const unknown = []
-
-function addUnreadable(name) {
-  if (!unknown.includes(name)) {
-    fs.appendFileSync('unknown.txt', `${name}\n`);
-    unknown.push(name);
-  }
 } 
 
 function printPathToKey(obj, keyString, path = []) {

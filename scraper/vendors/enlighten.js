@@ -10,7 +10,7 @@ async function getAvailableLeafProducts() {
   for (const product of response.data.data) {
     let image = "";
     let i = 0;
-    while (!(image.includes(".jpg") || image.includes(".jpeg")) && i < response.data.data[i].images.data.length) {
+    while (!(image.includes(".jpg") || image.includes(".jpeg"))) {
       image = response.data.data[i].images.data[0].urls["640"];
       i = i + 1;
     }

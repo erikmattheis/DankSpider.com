@@ -3,10 +3,6 @@ const fs = require('fs');
 const gm = require('gm').subClass({ imageMagick: true });
 const { createWorker, OEM, PSM, setLogging } = require('tesseract.js');
 
-//setLogging(true);
-// reinitialize = function(langs = 'eng', oem, config, jobId)
-// load = ({ workerId, jobId, payload: { options: { lstmOnly, corePath, logging } } }, res);
-
 const path = require('path');
 
 const { getCannabinoidObjCannalyze, getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js');
@@ -41,6 +37,8 @@ async function recognize(url) {
       console.log('skipping empty', url);
       await worker.terminate();
 
+      fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nblank\n\n`);
+
       return null;
     }
 
@@ -50,36 +48,70 @@ async function recognize(url) {
 
     let title;
 
-    if (url.toLowerCase().includes('ertificate') && !url.toLowerCase().includes('terpenes')) {
+    if (url.toLowerCase().includes('ertificate')) {
       console.log('Cannazyze')
-      title = await worker.recognize(jpgBuffer, configCannalyzeCannabinoidsTitle);
+      if (url.toLowerCase().includes('cannabinoids')) {
 
-      console.log('title', title.data.text);
-
-      if (title.data.text.toLowerCase().includes('consolidated')) {
+        title = await worker.recognize(jpgBuffer, configCannalyzeCannabinoidsTitle);
 
         console.log('----- cannabinoids -----');
 
         const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids);
-
-        console.log(result.data.text)
 
         const textArray = result.data.text.split('\n');
 
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
             const line = getCannabinoidObjCannalyze(text);
+            if (line && line.name === "Unknown") {
+              fs.appendFileSync('unknown.txt', `=========`); 
+              fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigCannalyzeCannabinoids\n\n`);
+              fs.appendFileSync('unknown.txt', `${title.data.text}`);
+              fs.appendFileSync('unknown.txt', `=========`); 
+            }
 
             cannabinoids.push(line);
           }
         }
 
-        if (cannabinoids.length)
-          await worker.terminate();
+        await worker.terminate();
 
         cannabinoids.sort((a, b) => b.pct - a.pct);
 
         return { cannabinoids }
+      }
+      
+      else {
+  
+          console.log('----- terpenes -----');
+  
+          const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids);
+  
+          const textArray = result.data.text.split('\n');
+  
+          for (const text of textArray) {
+            if (text.split && text.split(' ').length === 4) {
+
+              const line = getTerpeneObj(text);
+
+              if (line && line.name === "Unknown") {
+                fs.appendFileSync('unknown.txt', `=========`); 
+                fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigCannalyzeCannabinoids terpenes\n\n`);
+                fs.appendFileSync('unknown.txt', `${title.data.text}`);
+                fs.appendFileSync('unknown.txt', `=========`); 
+              }
+  
+              terpenes.push(line);
+            }
+          }
+  
+          await worker.terminate();
+  
+          terpenes.sort((a, b) => b.pct - a.pct);
+  
+          return { cannabinoids }
+        
+
       }
 
     }
@@ -98,11 +130,15 @@ async function recognize(url) {
 
         const line = getCannabinoidObj(text);
 
+        if (line && line.name === "Unknown") {
+          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCCannabinoidsTitle \n\n`);
+        }
+
         cannabinoids.push(line);
 
       }
 
-        await worker.terminate();
+      await worker.terminate();
 
       cannabinoids.sort((a, b) => b.pct - a.pct);
 
@@ -123,6 +159,10 @@ async function recognize(url) {
       for (const text of textArray) {
 
         const line = getCannabinoidObj2(text);
+
+        if (line && line.name === "Unknown") {
+          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCCannabinoidsTitle2 2\n\n`);
+        }
 
         cannabinoids.push(line);
 
@@ -146,13 +186,21 @@ async function recognize(url) {
 
       const textArray = result.data.text.split('\n');
 
+
       for (const text of textArray) {
 
         const line = getTerpeneObj(text);
 
         terpenes.push(line);
 
+        if (line && line.name === "Unknown") {
+          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCTerpenesTitle\n\n`);
+        }
+
       }
+
+      console.log(JSON.stringify(textArray, null, 2))
+process.exit()
 
       await worker.terminate();
 
@@ -165,14 +213,21 @@ async function recognize(url) {
   }
   catch (error) {
 
-    // await worker.terminate();
+    if (worker) {
+      try {
+        await worker.terminate();
+      }
+      catch (error) {
+        console.error(`Failed to terminate worker: ${error}`);
+      }
+    }
 
-    console.error(`Failed to recognize image: ${error} `);
+    console.error(`Failed to recognize image: ${error}`);
 
-    fs.writeFileSync('error.txt', JSON.stringify(error, null, 2));
+    fs.appendFileSync('nothing.txt', `${url}\n`);
 
     return error;
-  }
+    }
 
 }
 
@@ -188,6 +243,10 @@ const configWNCTerpenesTitle = {
   rectangle: { top: 1352, left: 284, width: 400, height: 188 },
 }
 
+const configWNCTerpenes = {
+  rectangle: { top: 1722, left: 320, width: 1939, height: 1361 },
+}
+
 const configWNCCannabinoidsTitle = {
   rectangle: { top: 2042, left: 109, width: 731, height: 253 },
 }
@@ -196,9 +255,7 @@ const configWNCCannabinoidsTitle2 = {
   rectangle: { top: 1522, left: 86, width: 621, height: 313 },
 }
 
-const configWNCTerpenes = {
-  rectangle: { top: 1722, left: 320, width: 1939, height: 1361 },
-}
+
 
 const configWNCCannabinoids = {
   rectangle: { top: 2471, left: 292, width: 2764, height: 1744 },
@@ -274,14 +331,6 @@ const getAndProcessJpg = async (url, isDev) => {
   }
 }
 
-
-
-/*
-(async () => {
-  const result = await recognize('http://localhost:5173/BUFFER.jpg');
-  //console.log(JSON.stringify(result, null, 2));
-})();
-*/
 module.exports = {
   recognize
-};
+}

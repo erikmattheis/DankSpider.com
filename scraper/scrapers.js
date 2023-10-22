@@ -45,11 +45,12 @@ async function run(uuid) {
     await sendErrorEmail(error);
     logErrorToFile(error);
   }
-  
+        
   
     try {
+
+
       const wncProducts = await wnc.getAvailableLeafProducts();
-      //const wncProduct = await wnc.getProduct('https://wnc-cbd.com/products/thca-zkittles-indoor-living-soil.html');
       console.log('WNC products', wncProducts.length);
       await saveProducts(wncProducts, uuid);
     } catch (error) {
@@ -58,16 +59,16 @@ async function run(uuid) {
       logErrorToFile(error);
     }
   
-    try {
-      const prestonProducts = await preston.getAvailableLeafProducts();
-      console.log('Preston products', prestonProducts.length);
-      await saveProducts(prestonProducts, uuid);
-    } catch (error) {
-      console.error(error);
-      await sendErrorEmail(error);
-      logErrorToFile(error);
-    }
-  
+
+  try {
+    const prestonProducts = await preston.getAvailableLeafProducts();
+    console.log('Preston products', prestonProducts.length);
+    await saveProducts(prestonProducts, uuid);
+  } catch (error) {
+    console.error(error);
+    await sendErrorEmail(error);
+    logErrorToFile(error);
+  }
   
   try {
     const flowProducts = await flow.getAvailableLeafProducts();
