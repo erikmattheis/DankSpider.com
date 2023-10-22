@@ -1,91 +1,124 @@
 <template>
-  <form class="page filters" :class="{ collapsed: isCollapsed }">
-    <div class="collapse-button" @click="toggleCollapse" href="#">
-      <span v-if="isCollapsed"><font-awesome-icon :icon="['fas', 'filter']" /></span>
-      <span v-else><font-awesome-icon :icon="['fas', 'filter-circle-xmark']" /></span>
+  <form class="page filters">
+    <div class="header">
+      <h3>Filters</h3>
+      <div class="collapse-button" @click="toggleCollapseAll" href="#">
+        <span v-if="isCollapsed"><font-awesome-icon :icon="['fas', 'filter']" /></span>
+        <span v-else><font-awesome-icon :icon="['fas', 'filter-circle-xmark']" /></span>
+      </div>
     </div>
     <template v-if="!isCollapsed">
-    <div class="container">
-      <ul>
-        <li class="shadowy-button selected spacer">.</li>
-        <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)"
-          class="shadowy-button" :class="{selected: checkedVendors.includes(vendor)}" :title="vendor">
-          {{ vendor }}
-        </li>
-        <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
-          All
-        </li>
-        <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
-          None
-        </li>
-      </ul>
-    </div>
-    <div class="container">
-      <ul>
-        <li class="spacer">.</li>
-        <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)"
-          class="shadowy-button" :class="{selected: checkedVariants.includes(variant)}" :title="variant">
-          {{ variant }}
-        </li>
-        <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
-          All
-        </li>
-        <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button selected" title="None">
-          None
-        </li>
-      </ul>
-    </div>
-    <div class="container">
-      <input type="checkbox" @click="toggleOnlyShowProductsWithCannabinoids" :checked="store.onlyShowProductsWithCannabinoids">
-      <ul>
-        <li class="spacer">.</li>
-        <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
-          class="shadowy-button" :class="{selected: checkedCannabinoids.includes(cannabinoid)}" :title="cannabinoid">
-          {{ cannabinoid }}  <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
-        </li>
-        <li @click.prevent="store.selectAllCannabinoidFilters()" class="shadowy-button selected" title="All ">
-          None
-        </li>
-        <li @click.prevent="store.clearSelectedCannabinoidFilters()" class="shadowy-button selected" title="None">
-          None
-        </li>
-      </ul>
-    </div>
-    <div class="container">
-      <input type="checkbox" @click="toggleOnlyShowProductsWithTerpenes" :checked="store.onlyShowProductsWithTerpenes">
-      <ul>
-        <li class="spacer">.</li>
-        <li v-for="(terpene, i) in store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
-          class="shadowy-button" :class="{selected: checkedTerpenes.includes(terpene)}" :title="terpene">
-          {{ terpene }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
-        </li>
-        <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
-          None
-        </li>
-        <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
-          None
-        </li> 
-      </ul>
-    </div>
-    <div class="container slim">
-      <div class="stats">
-        {{ numProducts }} product{{ numProducts === 1 ? '' :
-          's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
+      <div class="container">
+        <div class="header">
+          <h3>Vendors</h3>
+          <div class="selected-items"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
+          <div class="collapse-button">
+            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('vendors')" />
+          </div>
+        </div>
+        <ul id="vendors">
+          <li v-for="(vendor) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
+            :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
+            {{ vendor }}
+          </li>
+          <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
+            All
+          </li>
+          <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
+            None
+          </li>
+        </ul>
       </div>
-      <div>
-        <select class="sort-by" @change="sortProductsByTerpene">
-          <option value="all">Sort by Terpene...</option>
-          <option v-for="chemical in store.terpeneNames">{{ chemical }}</option>
-        </select>
-        <select class="sort-by" @change="sortProductsByCannabinoid">
-          <option value="all">Sort by Cannabinoid...</option>
-          <option v-for="chemical in store.cannabinoidNames">{{ chemical }}</option>
-        </select>
+      <div class="container">
+        <div class="header">
+          <h3>Sizes</h3>
+          <div class="selected-items"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
+          <div class="collapse-button">
+            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('sizes')" />
+          </div>
+        </div>
+        <ul id="sizes">
+          <li v-for="(variant) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
+            :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
+            {{ variant }}
+          </li>
+          <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
+            All
+          </li>
+          <li @click.prevent="store.clearSelectedSizeFilters()" class="shadowy-button selected" title="None">
+            None
+          </li>
+        </ul>
       </div>
-    </div>
-  </template>
+      <div class="container">
+        <div class="header">
+          <h3>Terpenes</h3>
+          <div class="selected-items">
+            <input type="checkbox" @click="toggleOnlyShowProductsWithTerpenes"
+              :checked="store.onlyShowProductsWithTerpenes">
+            <span v-for="(terpene) in checkedTerpenes">{{ terpene }}</span>
+          </div>
+        </div>
+        <div class="collapse-button">
+          <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('terpenes')" />
+        </div>
+        <ul>
+          <li v-for="(terpene, i) in store.terpenes" :key="i" @click="toggleSelectedTerpene(terpene)"
+            class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
+            {{ terpene }} <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedTerpenes.includes(terpene)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
+          </li>
+          <li @click.prevent="store.selectAllTerpeneFilters()" class="shadowy-button selected" title="All ">
+            None
+          </li>
+          <li @click.prevent="store.clearSelectedTerpeneFilters()" class="shadowy-button selected" title="None">
+            None
+          </li>
+        </ul>
+      </div>
+      <div class="container">
+        <div class="header">
+          <h3>Cannabinoids</h3>
+          <div class="selected-items">
+            <input type="checkbox" @click="toggleOnlyShowProductsWithCannabinoids"
+              :checked="store.onlyShowProductsWithCannabinoids">
+            <span v-for="(cannabinoid) in checkedCannabinoids">{{ cannabinoid }}</span>
+          </div>
+          <div class="collapse-button">
+            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('cannabinoids')" />
+          </div>
+        </div>
+        <ul>
+          <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
+            class="shadowy-button" :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
+            {{ cannabinoid }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
+          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
+          </li>
+          <li @click.prevent="store.selectAllVendorFilters()" class="shadowy-button selected" title="All ">
+            None
+          </li>
+          <li @click.prevent="store.clearSelectedVendorFilters()" class="shadowy-button selected" title="None">
+            None
+          </li>
+        </ul>
+      </div>
+      <div class="container slim">
+        <div class="stats">
+          {{ numProducts }} product{{ numProducts === 1 ? '' :
+            's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
+        </div>
+        <div>
+          <select class="sort-by" @change="sortProductsByTerpene">
+            <option value="all">Sort by Terpene...</option>
+            <option v-for="chemical in store.terpeneNames">{{ chemical }}</option>
+          </select>
+          <select class="sort-by" @change="sortProductsByCannabinoid">
+            <option value="all">Sort by Cannabinoid...</option>
+            <option v-for="chemical in store.cannabinoidNames">{{ chemical }}</option>
+          </select>
+        </div>
+      </div>
+    </template>
   </form>
 </template>
 
@@ -169,17 +202,6 @@ export default {
     numVendors() {
       return this.store.numVendors;
     },
-  },
-  methods: {
-    toggleOnlyShowProductsWithCannabinoids() {
-      this.store.toggleOnlyShowProductsWithCannabinoids();
-    },
-    toggleOnlyShowProductsWithTerpenes() {
-      this.store.toggleOnlyShowProductsWithTerpenes();
-    },
-    toggleCollapse() {
-      this.isCollapsed = !this.isCollapsed;
-    },
     sortProductsByTerpene(event) {
       console.log('sort', event.target.value);
       this.store.sortProductsByTerpene(event.target.value);
@@ -231,15 +253,40 @@ export default {
     onlySelectVendor(vendor) {
       this.store.checkedVendors = [vendor];
     }
+  },
+  methods: {
+    toggleCollapseAll() {
+      this.isCollapsed = !this.isCollapsed;
+    },
+    toggleCollapse(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('collapsed');
+    },
+    toggleOnlyShowProductsWithTerpenes() {
+      this.store.toggleOnlyShowProductsWithTerpenes();
+    },
+    toggleOnlyShowProductsWithCannabinoids() {
+      this.store.toggleOnlyShowProductsWithCannabinoids();
+    }
   }
 }
 </script>
 
 <style scoped>
-.spacer {
-  opacity: 0;
-  cursor: default;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.header h3 {
+  margin-right: 10px;
+}
+
+.header .collapse-button {
+  align-self: flex-end;
+}
+
 
 .small {
   font-size: 0.6em;
@@ -251,19 +298,11 @@ export default {
 }
 
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 5px;
+  display: block;
   width: 100%;
 }
 
 .filters {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   margin-bottom: 20px;
   background-color: #fff;
 }
@@ -313,17 +352,15 @@ ul li::after {
   visibility: hidden;
 }
 
-ul li.all,
-ul li.none {
-  font-weight: 500;
-  text-align: center;
-}
-
 select {
   appearance: none !important;
 }
 
 .sort-by {
   margin-right: 80px
+}
+
+.collapsed {
+  height: 0;
 }
 </style>
