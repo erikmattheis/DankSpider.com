@@ -12,8 +12,8 @@
         <div class="header">
           <h3>Vendors</h3>
           <div class="selected-items"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
-          <div class="collapse-button">
-            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('vendors')" />
+          <div class="collapse-button" @click="toggleCollapse('vendors')">
+            <font-awesome-icon :icon="['fas', 'square-caret-right']" />
           </div>
         </div>
         <ul id="vendors">
@@ -33,8 +33,8 @@
         <div class="header">
           <h3>Sizes</h3>
           <div class="selected-items"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
-          <div class="collapse-button">
-            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('sizes')" />
+          <div class="collapse-button" @click="toggleCollapse('sizes')">
+            <font-awesome-icon :icon="['fas', 'square-caret-right']" />
           </div>
         </div>
         <ul id="sizes">
@@ -59,8 +59,8 @@
             <span v-for="(terpene) in checkedTerpenes">{{ terpene }}</span>
           </div>
         </div>
-        <div class="collapse-button">
-          <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('terpenes')" />
+        <div class="collapse-button"  @click="toggleCollapse('terpenes')">
+          <font-awesome-icon :icon="['fas', 'square-caret-right']" />
         </div>
         <ul>
           <li v-for="(terpene, i) in store.terpenes" :key="i" @click="toggleSelectedTerpene(terpene)"
@@ -84,8 +84,8 @@
               :checked="store.onlyShowProductsWithCannabinoids">
             <span v-for="(cannabinoid) in checkedCannabinoids">{{ cannabinoid }}</span>
           </div>
-          <div class="collapse-button">
-            <font-awesome-icon :icon="['fas', 'star-of-life']" @click="toggleCollapse('cannabinoids')" />
+          <div class="collapse-button" @click="toggleCollapse('cannabinoids')">
+            <font-awesome-icon :icon="['fas', 'star-of-life']" />
           </div>
         </div>
         <ul>
@@ -275,31 +275,40 @@ export default {
 <style scoped>
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  width: 100%;
 }
 
-.header h3 {
-  margin-right: 10px;
+.selected-items {
+  font-size: 0.5rem;
 }
 
-.header .collapse-button {
+.selected-items span {
+  margin-right: 5px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background-color: #eee;
+  color: #333;
+}
+
+.collapse-button {
   align-self: flex-end;
 }
-
 
 .small {
   font-size: 0.6em;
 }
 
+.container {
+  display: block;
+  margin: 3px 0;
+  padding:15px;
+  width: 100%;
+}
+
 .container.slim {
   margin-bottom: 3px;
   margin-left: 20px;
-}
-
-.container {
-  display: block;
-  width: 100%;
 }
 
 .filters {

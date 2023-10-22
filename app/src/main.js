@@ -13,10 +13,12 @@ import {
   faFaceGrinStars,
   faStarOfLife,
   faFilter,
-  faFilterCircleXmark
+  faFilterCircleXmark,
+  faSquareCaretRight,
+  faSquareCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark]);
+library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark, faSquareCaretRight, faSquareCaretDown]);
 
 import App from './App.vue'
 import router from './router';
