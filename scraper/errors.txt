@@ -28,3 +28,6 @@ ReferenceError: worker is not defined
 TypeError: Cannot read properties of undefined (reading 'images')
 
 
+ReferenceError: worker is not defined
+
+

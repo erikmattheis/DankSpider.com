@@ -37,7 +37,7 @@ async function recognize(url) {
       console.log('skipping empty', url);
       await worker.terminate();
 
-      fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nblank\n\n`);
+      fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nblank\n\n`);
 
       return null;
     }
@@ -62,10 +62,12 @@ async function recognize(url) {
 
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
+
             const line = getCannabinoidObjCannalyze(text);
+            
             if (line && line.name === "Unknown") {
               fs.appendFileSync('unknown.txt', `=========`); 
-              fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigCannalyzeCannabinoids\n\n`);
+              fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigCannalyzeCannabinoids\n\n`);
               fs.appendFileSync('unknown.txt', `${title.data.text}`);
               fs.appendFileSync('unknown.txt', `=========`); 
             }
@@ -96,7 +98,7 @@ async function recognize(url) {
 
               if (line && line.name === "Unknown") {
                 fs.appendFileSync('unknown.txt', `=========`); 
-                fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigCannalyzeCannabinoids terpenes\n\n`);
+                fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigCannalyzeCannabinoids terpenes\n\n`);
                 fs.appendFileSync('unknown.txt', `${title.data.text}`);
                 fs.appendFileSync('unknown.txt', `=========`); 
               }
@@ -131,7 +133,7 @@ async function recognize(url) {
         const line = getCannabinoidObj(text);
 
         if (line && line.name === "Unknown") {
-          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCCannabinoidsTitle \n\n`);
+          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCCannabinoids \n\n`);
         }
 
         cannabinoids.push(line);
@@ -161,7 +163,7 @@ async function recognize(url) {
         const line = getCannabinoidObj2(text);
 
         if (line && line.name === "Unknown") {
-          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCCannabinoidsTitle2 2\n\n`);
+          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCCannabinoids2\n\n`);
         }
 
         cannabinoids.push(line);
@@ -194,7 +196,7 @@ async function recognize(url) {
         terpenes.push(line);
 
         if (line && line.name === "Unknown") {
-          fs.appendFileSync('unknown.txt', `${text}\n${line}\n${url}\nconfigWNCTerpenesTitle\n\n`);
+          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCTerpenesTitle\n\n`);
         }
 
       }
@@ -251,14 +253,12 @@ const configWNCCannabinoidsTitle = {
   rectangle: { top: 2042, left: 109, width: 731, height: 253 },
 }
 
-const configWNCCannabinoidsTitle2 = {
-  rectangle: { top: 1522, left: 86, width: 621, height: 313 },
-}
-
-
-
 const configWNCCannabinoids = {
   rectangle: { top: 2471, left: 292, width: 2764, height: 1744 },
+}
+
+const configWNCCannabinoidsTitle2 = {
+  rectangle: { top: 1522, left: 86, width: 621, height: 313 },
 }
 
 const configWNCCannabinoids2 = {
