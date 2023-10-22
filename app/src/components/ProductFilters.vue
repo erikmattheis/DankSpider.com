@@ -1,6 +1,10 @@
 <template>
   <form class="page filters container">
     <div class="header" @click="toggleCollapse('filters')">
+      <div class="stats">
+        {{ numProducts }} product{{ numProducts === 1 ? '' : 's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? ''
+          : 's' }}
+      </div>
       <h3>Filters</h3>
     </div>
     <div class="filters-container" id="filters">
@@ -96,10 +100,6 @@
         </li>
       </ul>
       <div class="container slim">
-        <div class="stats">
-          {{ numProducts }} product{{ numProducts === 1 ? '' :
-            's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? '' : 's' }}
-        </div>
         <div>
           <select class="sort-by" @change="sortProductsByTerpene">
             <option value="all">Sort by Terpene...</option>
