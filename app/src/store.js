@@ -183,7 +183,6 @@ export const useSpiderStore = defineStore('spider', {
       })
 
       variants.sort(this.sortByParseFloat)
-      console.log('variants', variants.length)
       this.checkedVariants = [...variants]
       this.normalizedVariants = [...variants]
     },
@@ -212,6 +211,9 @@ export const useSpiderStore = defineStore('spider', {
       this.normalizedCannabinoids = [...cannabinoids]
     },
     normalizeTerpenes () {
+      if (!product.terpenes) {
+        return
+      }
       const terpenes = []
 
       this.products.forEach((product) => {

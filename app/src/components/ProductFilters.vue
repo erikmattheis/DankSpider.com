@@ -63,7 +63,7 @@
       </div>
 
       <ul id="terpenes" class="container">
-        <li v-for="( terpene, i ) in  store.terpenes " :key="i" @click="toggleSelectedTerpene(terpene)"
+        <li v-for="( terpene, i ) in  store.terpeneNames" :key="i" @click="toggleSelectedTerpene(terpene)"
           class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
           {{ terpene }} <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedTerpenes.includes(terpene)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
