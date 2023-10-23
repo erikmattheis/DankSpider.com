@@ -67,7 +67,7 @@ function normalizeVariantName (name) {
   if (name === 'Dry Sift 1g') {
     return '1 g'
   }
-  console.log('name', name)
+
   name = name + ''
   name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2')
   name = name?.replace(/(\s+)/g, ' ')
@@ -92,9 +92,7 @@ function variantNameContainsWeightUnitString (variantName) {
 }
 
 function normalizeTerpene (terpene) {
-  if (terpene === 'α-Bisabolol') {
-    // console.log('Trying to change it.', terpene);
-  }
+
   if (!terpene) {
     return 'Unknown'
   }

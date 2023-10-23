@@ -7,29 +7,26 @@ setLogging(false)
 
 const { getCannabinoidObjCannalyze, getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js')
 
-let worker
-
 async function recognize (url) {
   try {
-    worker = await createWorker('eng', 1, {
-      /*
+
+    const worker = await createWorker("eng", 1, {
       user_patterns_file: './tessdata/eng.user-patterns',
-      'tessdata-dir
-      'tessdata-dir': '../tessdata',
+      "tessdata-dir": './tessdata',
       userPatterns: './tessdata/eng.user-patterns',
       tessedit_write_images: true,
-      */
-      errorHandler: (err) => { console.error('Error:', err) }
+      errorHandler: (err) => { console.error('Error:', err) },
     })
 
-    await worker.loadLanguage('eng')
+   // console.log('recognizing', Object.keys(worker))
 
-    await worker.initialize('eng')
+    await worker.loadLanguage('eng');
+
+    await worker.initialize('eng');
 
     await worker.setParameters({
-      tessedit_pageseg_mode: PSM.SINGLE_COLUMN, // 4
-      tessedit_ocr_engine_mode: OEM.DEFAULT // 3
-    })
+      tessedit_pageseg_mode: 4,
+    });
 
     const jpgBuffer = await getAndProcessJpg(url)
 
@@ -54,7 +51,7 @@ async function recognize (url) {
       if (url.toLowerCase().includes('cannabinoids')) {
         title = await worker.recognize(jpgBuffer, configCannalyzeCannabinoidsTitle)
 
-        console.log('----- cannabinoids -----')
+        console.log('----- Cannazyze cannabinoids -----')
 
         const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids)
 
@@ -81,7 +78,8 @@ async function recognize (url) {
 
         return { cannabinoids }
       } else {
-        console.log('----- terpenes -----')
+        
+        console.log('----- Cannazyze terpenes -----')
 
         const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids)
 
@@ -186,14 +184,6 @@ async function recognize (url) {
       return { terpenes }
     }
   } catch (error) {
-    if (worker) {
-      try {
-        await worker.terminate()
-      } catch (error) {
-        console.error(`Failed to terminate worker: ${error}`)
-        fs.appendFileSync('errors.txt', `\nFailed to terminate worker:\n${url}\n${JSON.stringify(error, null, 2)}\n\n`)
-      }
-    }
 
     console.error(`Failed to recognize image: ${error}`)
 
@@ -261,7 +251,6 @@ async function gmToBuffer (data) {
 
 const getAndProcessJpg = async (url) => {
   try {
-    console.log('before', url)
 
     const response = await axios.get(url, { responseType: 'arraybuffer' })
 
@@ -272,16 +261,17 @@ const getAndProcessJpg = async (url) => {
     }
 
     const contentType = response.headers['content-type']
-
+    const contentTypeStr = response.headers['content-type'].split('/')[1]
+/*
     if (contentType !== 'image/jpeg') {
       // console.log(`Invalid content type: ${contentType}`);
       fs.appendFileSync('errors.txt', `\n${url}\nInvalid content type: ${contentType}\n\n`)
       return null
     }
-
+*/
     const jpgName = jpgNameFromUrl(url)
 
-    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100).setFormat('jpg')
+    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100)
 
     const jpgBuffer = await gmToBuffer(gmResponse)
 

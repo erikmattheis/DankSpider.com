@@ -262,8 +262,6 @@ async function getAllProducts() {
 
   const endTime = performance.now();
 
-  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
-
   return products;
 }
 
@@ -290,8 +288,6 @@ async function getIncompleteProducts() {
 
   const endTime = performance.now();
 
-  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
-
   return products;
 }
 
@@ -317,8 +313,6 @@ async function getCompleteProducts() {
   });
 
   const endTime = performance.now();
-
-  // console.log(`getAllProducts() took ${((endTime - startTime) / 1000).toFixed(1)} seconds`);
 
   return products;
 }
@@ -387,8 +381,6 @@ async function cleanProductsCollection() {
 
 async function getProductsByVendor(vendor, limit, useDev) {
 
-  // console.log('getProductsByVendor', vendor, limit, 'use dev:', useDev);
-
   let productRef;
 
   if (useDev) {
@@ -409,7 +401,6 @@ async function getProductsByVendor(vendor, limit, useDev) {
     snapshot = await productsRef.get();
   }
 
-  // console.log(`Got ${snapshot.size} products from ${vendor}`);
   const products = [];
 
   snapshot.forEach(doc => {
@@ -473,13 +464,11 @@ async function saveArticles(articles) {
 
   const timestamp = admin.firestore.Timestamp.now();
 
-  for (article of articles) {
-    // console.log('article.name', article.name);
+  for (const article of articles) {
+
     const id = await makeFirebaseSafe(article.name);
     const docRef = chemicalsRef.doc(id);
-    // console.log('product', JSON.stringify(article));
-    // console.log('id', id);
-    // console.log('TIMESTAMP', timestamp);
+
 
     batch.set(docRef, {
       ...article,
@@ -489,7 +478,7 @@ async function saveArticles(articles) {
 
   await batch.commit();
 
-  // console.log(`Data has been written to Firebase for ${articles.length} articles`);
+  //  log(`Data has been written to Firebase for ${articles.length} articles`);
 
 };
 

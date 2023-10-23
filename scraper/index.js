@@ -86,7 +86,7 @@ async function makeTerpenesFile() {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-const batchId = 'x5';
+const batchId = 'x6';
 
 async function run() {
   let startTime = performance.now();

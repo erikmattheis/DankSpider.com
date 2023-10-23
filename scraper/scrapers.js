@@ -3,7 +3,7 @@ const { saveProducts } = require('./firebase.js')
 const preston = require('./vendors/preston.js')
 const flow = require('./vendors/flow.js')
 const wnc = require('./vendors/wnc.js')
-const enlighten = require('./vendors/enlighten.js')
+const enlighten = require('./vendors/enlighten-weebly-few-products.js')
 const topcola = require('./vendors/topcola.js')
 const arete = require('./vendors/arete.js')
 const drGanja = require('./vendors/drganja.js')
@@ -17,6 +17,7 @@ function logErrorToFile (str) {
 }
 
 async function run (uuid) {
+  /*
   try {
     const drGanjaProducts = await drGanja.getAvailableLeafProducts()
     console.log('Dr Ganja products', drGanjaProducts.length)
@@ -56,7 +57,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-
+*/
   try {
     console.log('Artete products')
     const areteProducts = await arete.getAvailableLeafProducts()
@@ -67,7 +68,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-
+  /*
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts()
     console.log('Enlighten products', enlightenProducts.length)
@@ -77,7 +78,9 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
+  */
 
+  /*
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts()
     // console.log('Top Cola products', topcolaProducts.length);
@@ -87,7 +90,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-
+*/
   console.log('Data has been written to Firebase for all vendors.')
 }
 
