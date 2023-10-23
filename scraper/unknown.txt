@@ -1,0 +1,190 @@
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/371/3381/Indoor_-_THCa_Blueberry_Apple_Fritter_Terpenes__26336.1695144443.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/366/3319/Indoor_-_THCa_Death_Star_Destroyer_Terpenes__47460.1695140003.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/380/3510/Indoor_-_THCa_Pixie_Stix_Terpenes__43926.1695738602.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/377/3463/Indoor_-_THCa_Purple_Star_Diesel_Terpenes__75338.1695328778.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/360/3223/Indoor_-_THCa_Purple_Trainwreck_Terpenes__74769.1695139759.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/395/3684/Indoor_-_THCa_Rainbow_Zangria_Hydro_Terpenes__89377.1697039255.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/399/3736/Indoor_-_THCa_Sherba_Dough_Cookies_Living_Soil_Terpenes__88698.1697467388.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/394/3671/Indoor_-_THCa_Sherbanger_Terpenes__60214.1696873771.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/OrangeDreamsicleTerps_1800x1800.jpg?v=1678145683
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/friedbananasterp_1800x1800.jpg?v=1697213874
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/RS-11Terps_1800x1800.jpg?v=1697820273
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/LVOGTerps_1800x1800.jpg?v=1694193290
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/FabledTerps_1800x1800.jpg?v=1685122145
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/CherryMuffinsTerps_1800x1800.jpg?v=1675190813
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/SourSexWaxTerps_1800x1800.jpg?v=1692978914
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/LemonCherrySherbertTerps_1800x1800.jpg?v=1692036883
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/BordeauxTerps_1800x1800.jpg?v=1695226728
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/OrangeGlazeTerps_1800x1800.jpg?v=1695226514
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/BananaBread_1800x1800.jpg?v=1685728988
+configWNCTerpenesTitle
+
