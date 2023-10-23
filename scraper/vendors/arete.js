@@ -1,4 +1,6 @@
 const axios = require('../services/rateLimitedAxios')
+const { saveProducts } = require('../firebase')
+
 const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
 
@@ -6,7 +8,7 @@ const strings = require('../services/strings')
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
 
-async function parseSingleProduct (html) {
+async function parseSingleProduct (html, url) {
   const $ = cheerio.load(html)
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim())
@@ -41,8 +43,6 @@ async function parseSingleProduct (html) {
 
   const images = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get()
 
-  console.log('images', images)
-
   // remove any that contain the words "legal" abd "opinion
 
   const productImages = images.filter(image => !image.toLowerCase().includes('legal') && !image.toLowerCase().includes('opinion'))
@@ -51,10 +51,10 @@ async function parseSingleProduct (html) {
 
   const assayLinks = productImages.sort((a, b) => {
     if (a.toLowerCase().includes('lab')) {
-      return -1
+      return 1
     }
     if (b.toLowerCase().includes('lab')) {
-      return 1
+      return -1
     }
     return 0
   })
@@ -64,7 +64,7 @@ async function parseSingleProduct (html) {
 
   if (assayLinks.length === 0) {
     console.log('Arete no images')
-    return { title, cannabinoids, terpenes, image, variants }
+    return { title, url, cannabinoids, terpenes, image, variants, vendor: 'Arete' }
   }
 
   for (const imgStr of assayLinks) {
@@ -91,8 +91,8 @@ async function parseSingleProduct (html) {
       break
     }
   }
-
-  return { title, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
+  await saveProducts([{ title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }], 'aaa')
+  return { title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
 }
 
 async function getProducts (feedUrl) {
@@ -108,19 +108,10 @@ async function getProducts (feedUrl) {
     const vendor = 'Arete'
     const vendorDate = $(el).find('pubDate').text()
 
-    const more = await parseSingleProduct(resultP.data)
-    const variants = more.variants
-    const image = more.image
-    const title = more.title
+    const more = await parseSingleProduct(resultP.data, url)
 
     const product = {
-      title,
-      url,
-      image,
-      variants,
-      vendor,
-      vendorDate,
-
+      ...more, vendor, vendorDate
     }
 
     products.push(product)

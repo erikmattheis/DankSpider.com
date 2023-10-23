@@ -10,6 +10,10 @@ const drGanja = require('./vendors/drganja.js')
 
 const fs = require('fs')
 
+fs.writeFileSync('errors.txt', '')
+fs.writeFileSync('unknown.txt', '')
+fs.writeFileSync('no-buffer.txt', '')
+
 function logErrorToFile (str) {
   if (process.env.NODE_ENV !== 'production') {
     fs.appendFileSync('errors.txt', str + '\n\n\n')
@@ -17,7 +21,7 @@ function logErrorToFile (str) {
 }
 
 async function run (uuid) {
-  /*
+  
   try {
     const drGanjaProducts = await drGanja.getAvailableLeafProducts()
     console.log('Dr Ganja products', drGanjaProducts.length)
@@ -57,7 +61,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-*/
+
   try {
     console.log('Artete products')
     const areteProducts = await arete.getAvailableLeafProducts()
@@ -68,7 +72,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-  /*
+  
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts()
     console.log('Enlighten products', enlightenProducts.length)
@@ -78,9 +82,8 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-  */
 
-  /*
+  
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts()
     // console.log('Top Cola products', topcolaProducts.length);
@@ -90,7 +93,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-*/
+
   console.log('Data has been written to Firebase for all vendors.')
 }
 

@@ -61,7 +61,6 @@ async function addDetails(products) {
     console.log('product', product.url)
 
     const response = await axios.get(product.url);
-    fs.writeFileSync('flow.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
 
@@ -82,7 +81,7 @@ async function addAssays(product, $) {
   if (images.length === 0) {
     console.log('no images', product.url);
     return {
-      ...product, assays: { cannabinoids: [], terpenes: [] }
+      ...product, cannabinoids: [], terpenes: []
     };
   }
   console.log('images', images)

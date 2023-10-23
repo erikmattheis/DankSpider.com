@@ -5,6 +5,8 @@ const scrapers = require('./scrapers.js');
 const jpegs = require('./services/jpegs.js');
 const { getArticle } = require('./services/ai-author.js');
 
+const batchId = 'a';
+
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log("makeProductsFile", vendor, limit, useDevCollection);
   let products;
@@ -86,7 +88,7 @@ async function makeTerpenesFile() {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-const batchId = 'x6';
+
 
 async function run() {
   let startTime = performance.now();

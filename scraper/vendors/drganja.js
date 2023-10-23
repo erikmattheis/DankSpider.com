@@ -52,7 +52,6 @@ async function addDetails(products) {
   const result = [];
   for (const product of products) {
     const response = await axios.get(product.url);
-    fs.writeFileSync('drganja.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
     const productWithAssays = await addAssays(productWithVariants, $);
