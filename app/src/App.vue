@@ -46,7 +46,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   /* min-height: 100vh; */
   background-color: #eee;
   color: #333;
@@ -55,7 +54,6 @@ body {
 #app {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .app {
@@ -63,7 +61,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 

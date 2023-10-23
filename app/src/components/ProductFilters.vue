@@ -11,7 +11,7 @@
 
       <div class="header" @click="toggleCollapse('vendors')">
         <h3>Vendors</h3>
-        <div class="selected-items"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
+        <div class="selected-items vendors"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
         <div class="collapse-button">
           <font-awesome-icon :icon="['fas', 'arrow-right']" />
         </div>
@@ -32,7 +32,7 @@
 
       <div class="header" @click="toggleCollapse('sizes')">
         <h3>Sizes</h3>
-        <div class="selected-items"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
+        <div class="selected-items sizes"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
         <div class="collapse-button">
           <font-awesome-icon :icon="['fas', 'arrow-right']" />
         </div>
@@ -53,9 +53,9 @@
 
       <div class="header" @click="toggleCollapse('terpenes')">
         <h3>Terpenes</h3>
-        <div class="selected-items">
+        <div class="selected-items terpenes">
           <input type="checkbox" @click="store.toggleFilterByTerpenes" :checked="store.filterByTerpenes">
-          <span v-for="(terpene) in checkedTerpenes">{{ terpene }}</span>
+          <span v-for="(terpene, i) in  checkedTerpenes ">{{ terpene }}</span>
         </div>
       </div>
       <div class="collapse-button">
@@ -63,8 +63,8 @@
       </div>
 
       <ul id="terpenes" class="container">
-        <li v-for="(terpene, i) in store.terpenes" :key="i" @click="toggleSelectedTerpene(terpene)" class="shadowy-button"
-          :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
+        <li v-for="( terpene, i ) in  store.terpenes " :key="i" @click="toggleSelectedTerpene(terpene)"
+          class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
           {{ terpene }} <!--<font-awesome-icon :icon="['fas', 'face-grin-stars']" v-if="checkedTerpenes.includes(terpene)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
@@ -78,17 +78,18 @@
 
       <div class="header" @click="toggleCollapse('cannabinoids')">
         <h3>Cannabinoids</h3>
-        <div class="selected-items">
-          <input type="checkbox" @click="store.toggleFilterByCannabinoids" :checked="store.filterByCannabinoids">
-          <span v-for="(cannabinoid) in checkedCannabinoids">{{ cannabinoid }}</span>
+        <input type="checkbox" @click="store.toggleFilterByCannabinoids" :checked="store.filterByCannabinoids">
+        <div class="selected-items cannabinoids">
+          <span v-for="( cannabinoid ) in  checkedCannabinoids ">{{ cannabinoid }}</span>
         </div>
         <div class="collapse-button">
           <font-awesome-icon :icon="['fas', 'arrow-right']" />
         </div>
       </div>
       <ul class="container" id="cannabinoids">
-        <li v-for="(cannabinoid, i) in store.cannabinoidNames" :key="i" @click="toggleSelectedCannabinoid(cannabinoid)"
-          class="shadowy-button" :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
+        <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
+          @click="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
+          :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
           {{ cannabinoid }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
         </li>
@@ -103,11 +104,11 @@
         <div>
           <select class="sort-by" @change="sortProductsByTerpene">
             <option value="all">Sort by Terpene...</option>
-            <option v-for="chemical in store.terpeneNames">{{ chemical }}</option>
+            <option v-for=" chemical  in  store.terpeneNames ">{{ chemical }}</option>
           </select>
           <select class="sort-by" @change="sortProductsByCannabinoid">
             <option value="all">Sort by Cannabinoid...</option>
-            <option v-for="chemical in store.cannabinoidNames">{{ chemical }}</option>
+            <option v-for=" chemical  in  store.cannabinoidNames ">{{ chemical }}</option>
           </select>
         </div>
       </div>
@@ -262,27 +263,25 @@ export default {
 }
 </script>
 
+
+  <ProductFilters />
+
 <style scoped>
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   width: 100%;
   border-top: 1px solid #ccc;
+  background-color: #eee;
   cursor: pointer;
 }
 
 .collapse-button {
-  align-self: flex-end;
-  margin-right: 20px;
-}
-
-.selected-items {
-  font-size: 0.5rem;
+  margin-left: auto;
+  margin-right: 8px;
 }
 
 .container {
-  margin: 15px 0;
   width: 100%;
 }
 
@@ -290,16 +289,19 @@ h3 {
   margin: 0 0 0 8px;
 }
 
-.selected-items span {
-  margin-right: 5px;
-  padding: 2px 5px;
-  border-radius: 5px;
-  background-color: #eee;
-  color: #333;
+.selected-items {
+  display: block;
+  overflow-x: scroll;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 12px;
 }
 
-.small {
-  font-size: 0.6em;
+.selected-items span {
+  margin-right: 5px;
+  font-size: 0.5rem;
+  background-color: #eee;
+  color: #333;
 }
 
 .container.slim {
@@ -316,7 +318,7 @@ ul {
   display: block;
   height: min-content;
   flex-wrap: wrap;
-  margin: 20px 0 0 0;
+  margin: 0;
   list-style-type: none;
   padding-left: 0;
   background-color: #fff;

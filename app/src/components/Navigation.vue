@@ -50,8 +50,7 @@ export default {
 
 .band {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-weight: 700;
   margin-top: 0;
   padding: 5px;
