@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="vendors filter">
+      <div class="vendors filter collapsed">
         <ul class="container">
           <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
             :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="sizes filter">
+      <div class="sizes filter collapsed">
         <ul class="container">
           <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
             :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="terpenes filter">
+      <div class="terpenes filter collapsed">
         <ul class="container">
           <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <div class="cannabinoids filter">
+      <div class="cannabinoids filter collapsed">
         <ul class="container">
           <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
             @click="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
@@ -115,13 +115,15 @@
 
       <div class="container slim">
         <div>
-          <select class="sort-by" @change="sortProductsByTerpene">
-            <option value="all">Sort by Terpene...</option>
-            <option v-for=" chemical  in  store.terpeneNames ">{{ chemical }}</option>
+          <!-- TODO: only sort terpenes in filtered products -->
+          <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
+            <option value="all">Terpene ▼</option>
+            <option v-for=" chemical  in  store.filteredProductsTerpenes ">{{ chemical }}</option>
+            <font-awesome-icon :icon="['fas', 'sort']" />
           </select>
-          <select class="sort-by" @change="sortProductsByCannabinoid">
-            <option value="all">Sort by Cannabinoid...</option>
-            <option v-for=" chemical  in  store.cannabinoidNames ">{{ chemical }}</option>
+          <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
+            <option value="all">Cannabinoid ▼</option>
+            <option v-for=" chemical  in  store.filteredProductsCannabinoids ">{{ chemical }}</option>
           </select>
         </div>
       </div>
@@ -313,17 +315,52 @@ export default {
   margin-right: 8px;
 }
 
+.container {
+  padding: 6px;
+}
+
+h3 {
+  margin: 0 0 0 8px;
+  align-self: flex-start;
+}
+
+.selected-items {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 12px;
+}
+
+.selected-items::-moz-scrollbar,
+.selected-items::-webkit-scrollbar {
+  display: none;
+}
+
+.selected-items span {
+  margin-right: 5px;
+  font-size: 0.5rem;
+  background-color: #eee;
+  color: #333;
+}
+
 .collapse-button {
   margin-right: 8px;
   transition: transform 0.3s ease-in-out;
+  align-self: flex-end;
 }
+
 
 .hidden {
   opacity: 0;
 }
 
 .down {
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
 }
 
 .container {
@@ -332,14 +369,6 @@ export default {
 
 h3 {
   margin: 0 0 0 8px;
-}
-
-.selected-items {
-  display: block;
-  overflow-x: scroll;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-left: 12px;
 }
 
 .selected-items::-moz-scrollbar,
@@ -359,8 +388,10 @@ h3 {
   margin-left: 20px;
 }
 
-.filters {
-  margin-bottom: 20px;
+.filter {
+  transition: all 0.4s ease-out;
+  height: auto;
+  overflow: hidden;
 }
 
 .filters-container,
@@ -370,8 +401,7 @@ ul {
   flex-wrap: wrap;
   list-style-type: none;
   background-color: #fff;
-  transition: all 3s ease-out;
-  overflow: hidden;
+  margin: 0;
 }
 
 ul li {
@@ -386,10 +416,7 @@ ul li {
   cursor: pointer;
 }
 
-ul li.shadowy-button {
-  font-weight: 400;
-}
-
+select.shadowy-button.selected,
 ul li.shadowy-button.selected,
 ul li.selected {
   color: #057503;
@@ -411,12 +438,9 @@ ul li::after {
   visibility: hidden;
 }
 
-select {
-  appearance: none !important;
-}
-
 .sort-by {
-  margin-right: 80px
+  margin-right: 80px;
+  padding: 4px 10px;
 }
 
 .collapsed {

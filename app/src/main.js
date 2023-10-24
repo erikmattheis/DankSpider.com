@@ -15,13 +15,14 @@ import {
   faFilter,
   faFilterCircleXmark,
   faRightLong,
-  faDownLong
+  faDownLong,
+  faSort
 } from '@fortawesome/free-solid-svg-icons'
 
 import App from './App.vue'
 import router from './router'
 
-library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark, faRightLong, faDownLong])
+library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark, faRightLong, faDownLong, faSort])
 
 const app = createApp(App)
 const pinia = createPinia()
