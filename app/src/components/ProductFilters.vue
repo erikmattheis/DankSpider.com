@@ -1,5 +1,5 @@
 <template>
-  <form class="page filters container">
+  <form class="page">
     <div class="header" @click="toggleCollapse('filters')">
       <div class="stats">
         {{ numProducts }} product{{ numProducts === 1 ? '' : 's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? ''
@@ -10,7 +10,7 @@
         <font-awesome-icon :icon="['fas', 'right-long']" />
       </div>
     </div>
-    <div class="filters-container collapsed" id="filters">
+    <div class="filters filter" id="filters">
 
       <div class="header" @click="toggleCollapse('vendors')">
         <h3>Vendors</h3>
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div :class="{ 'collapsed': collapseVendors }">
+      <div class="vendors filter">
         <ul class="container">
           <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
             :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div :class="{ 'collapsed': collapseSizes }">
+      <div class="sizes filter">
         <ul class="container">
           <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
             :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div :class="{ 'collapsed': collapseTerpenes }">
+      <div class="terpenes filter">
         <ul class="container">
           <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <div :class="{ 'collapsed': collapseCannabinoids }">
+      <div class="cannabinoids filter">
         <ul class="container">
           <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
             @click="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
@@ -217,6 +217,31 @@ export default {
     },
     numVendors() {
       return this.store.numVendors;
+    }
+  },
+  methods: {
+    toggleCollapse(name) {
+
+      // toggle "collapsed" class on element with classes name and "container"
+      const element = document.querySelector(`.${name}.filter`);
+      element.classList.toggle('collapsed');
+
+      // toggle "down" class on element with class "collapse-button" inside element with classes name and "header"
+      const button = document.querySelector(`.${name}.collapse-button`);
+      button.classList.toggle('down');
+
+      // toggle "hidden" class on element with class "container" inside element with classes name and "filter"
+      const container = document.querySelector(`.${name}.list`);
+      container.classList.toggle('hidden');
+
+
+    },
+
+    toggleOnlyShowProductsWithTerpenes() {
+      this.store.toggleOnlyShowProductsWithTerpenes();
+    },
+    toggleOnlyShowProductsWithCannabinoids() {
+      this.store.toggleOnlyShowProductsWithCannabinoids();
     },
     sortProductsByTerpene(event) {
       console.log('sort', event.target.value);
@@ -268,34 +293,6 @@ export default {
     },
     onlySelectVendor(vendor) {
       this.store.checkedVendors = [vendor];
-    }
-  },
-  methods: {
-    toggleCollapse(id) {
-      const collapse = document.getElementById(id);
-      collapse.classList.toggle('collapsed');
-      const list = document.getElementsByClassName(`${id} list`);
-      if (!list) {
-        console.log('no list', id)
-      }
-      else {
-        list.classList.toggle('hidden');
-      }
-
-      const arrow = document.getElementsByClassName(`${id} arrow`);
-      if (!list) {
-        console.log('no list', id)
-      }
-      else {
-        arrow.classList.toggle('down');
-      }
-      arrow.classList.toggle('down');
-    },
-    toggleOnlyShowProductsWithTerpenes() {
-      this.store.toggleOnlyShowProductsWithTerpenes();
-    },
-    toggleOnlyShowProductsWithCannabinoids() {
-      this.store.toggleOnlyShowProductsWithCannabinoids();
     }
   }
 }
