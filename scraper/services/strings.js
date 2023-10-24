@@ -294,7 +294,7 @@ const cannabinoidSpellings = {
   'Tetrahwdrocannabinol:': { name: 'THC', confidence: 1 },
   'Tetrahydrocannabivarin (THCV)': { name: 'THCV', confidence: 0.99 },
   'Tetrahydrocannabivarinic Acid': { name: '∆-9-THCVA', confidence: 0.99 },
-  'Total Cannabinoids': { name: 'Total Cannabinoids', confidence: 0.99 },
+  'Total Cannabinoids': { name: 'Total', confidence: 0.99 },
   Camnabichromenic: { name: 'CBC', confidence: 0.9 },
   Camnabigeralic: { name: 'CBG', confidence: 0.9 },
   Cannabichabe: { name: 'CBC', confidence: 0.6 },
@@ -343,8 +343,8 @@ const cannabinoidSpellings = {
   THCA: { name: '∆-9 THCA', confidence: 0.99 },
   THCP: { name: 'THCP', confidence: 0.99 },
   THCV: { name: 'THCV', confidence: 0.99 },
-  Total: { name: 'Total Cannabinoids', confidence: 1 },
-  TOTAL: { name: 'Total Cannabinoids', confidence: 1 }
+  Total: { name: 'Total', confidence: 1 },
+  TOTAL: { name: 'Total', confidence: 1 }
 }
 
 function normalizeCannabinoid (name) {

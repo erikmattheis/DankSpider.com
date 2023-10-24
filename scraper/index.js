@@ -103,15 +103,17 @@ async function run () {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-// run()
+//run()
 
 async function utils () {
   // await fixProducts();
   // await normalizeTerpenes()
+
+  normalizeCannabinoids()
 
   await makeProductsFile()
 
   console.log('Done utils')
 }
 
-utils()
+// utils()

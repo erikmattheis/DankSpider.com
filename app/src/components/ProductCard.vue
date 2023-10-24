@@ -38,30 +38,33 @@
     </a>
     <div class="info">
       <h3>{{ product.title }}</h3>
-      <ul>
+      <ul class="sizes">
         <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name"
           :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
       </ul>
 
-      <h3>Cannabinoids</h3>
-      <ul v-for="cannabinoid in product.cannabinoids">
-        <li class="chemical cannabinoid">{{ cannabinoid.name }} ({{ cannabinoid.pct }}%)</li>
-      </ul>
-      <h3>Terpenes</h3>
-      <ul v-for="terpene in product.terpenes">
-        <li class="chemical terpene">{{ terpene.name }} ({{ terpene.pct }}%)</li>
-      </ul>
+      <span v-if="product.price" class="price">{{ product.price }}</span>
+      <span v-if="product.price && product.pricePerGram" class="price-per-gram">({{ product.pricePerGram }})</span>
 
+      <div class="assays">
+        <div class="assay">
+          <h3>Terpenes</h3>
+          <ul>
+            <li v-for="terpene in product.terpenes" class="chemical terpene"><span>{{ terpene.name }} ({{ terpene.pct
+            }}%)</span></li>
+          </ul>
+        </div>
+        <div class="assay">
+          <h3>Cannabinoids</h3>
+          <ul clss="right">
+            <li v-for="cannabinoid in product.cannabinoids" class="chemical cannabinoid"><span>{{ cannabinoid.name }} ({{
+              cannabinoid.pct }}%)</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="product-card" v-if="!product.image">
-
-    <div class="info">
-      <h2 class="empty">EMPTY</h2>
-    </div>
-
   </div>
 </template>
 
@@ -98,6 +101,7 @@ export default {
     });
 
     this.observer.observe(this.$refs.image)
+
     this.setAnimationValues();
 
     window.addEventListener('scroll', this.onScroll);
@@ -116,9 +120,9 @@ export default {
     },
     setAnimationValues() {
       const beauty = this.$refs.beauty;
-      const duration = Math.floor(Math.random() * 5000) + 10000;
+      const duration = Math.floor(Math.random() * 500) + 1000;
       beauty?.style.setProperty('--duration', `${duration}ms`);
-      const rotation = 45 + Math.floor(Math.random() * 31) - 13;
+      const rotation = 50 + Math.floor(Math.random() * 31) - 13;
       beauty?.style.setProperty('--rotation', `${rotation}deg`);
     },
   },
@@ -205,7 +209,6 @@ export default {
   background-color: #ddd;
   padding: 5px 0 30px;
   width: 100%;
-
   min-height: 149px;
 }
 
@@ -213,8 +216,8 @@ ul {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
+  padding: 0;
   list-style-type: none;
-  padding-left: 10px;
 }
 
 ul li {
@@ -224,6 +227,10 @@ ul li {
   margin-right: 5px;
   padding: 0px 5px;
   border-radius: 0;
+}
+
+.right {
+  margin-left: 3px;
 }
 
 .cannabinoid {
@@ -254,6 +261,20 @@ ul li.selected {
 
 li span {
   white-space: nowrap;
+}
+
+.assays {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.assay {
+  width: 50%;
+}
+
+.assay span {
+  text-align: left;
 }
 
 .empty {

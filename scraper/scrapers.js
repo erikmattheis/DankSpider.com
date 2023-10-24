@@ -21,7 +21,6 @@ function logErrorToFile (str) {
 }
 
 async function run (uuid) {
-  
   try {
     const drGanjaProducts = await drGanja.getAvailableLeafProducts()
     console.log('Dr Ganja products', drGanjaProducts.length)
@@ -72,7 +71,7 @@ async function run (uuid) {
 
     logErrorToFile(error)
   }
-  
+
   try {
     const enlightenProducts = await enlighten.getAvailableLeafProducts()
     console.log('Enlighten products', enlightenProducts.length)
@@ -83,7 +82,6 @@ async function run (uuid) {
     logErrorToFile(error)
   }
 
-  
   try {
     const topcolaProducts = await topcola.getAvailableLeafProducts()
     // console.log('Top Cola products', topcolaProducts.length);
