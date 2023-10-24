@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { fixProducts, deleteProductsByVendor, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js')
+const { fixProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js')
 const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
@@ -37,7 +37,6 @@ async function makeProductsFile (vendor, limit, useDevCollection) {
 }
 
 function filterAssay (assay) {
-  console.log('assay', assay)
   return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown')
 }
 
@@ -82,9 +81,10 @@ async function makeTerpenesFile () {
   // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
-async function run () {
+async function run (batchId, vendor) {
+
   let startTime = performance.now()
-  await scrapers.run(batchId)
+  await scrapers.run(batchId, vendor)
   let endTime = performance.now()
 
   console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
@@ -103,7 +103,7 @@ async function run () {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-//run()
+run('o24', 'WNC')
 
 async function utils () {
   // await fixProducts();

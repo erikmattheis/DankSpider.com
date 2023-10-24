@@ -1,22 +1,22 @@
 <template>
   <div>
-    <a href="#" @click="toggleExpanded()">
+    <a href="#" @click.prevent="toggleExpanded()">
       <font-awesome-icon :icon="['fas', 'user']" />
     </a>
     <div class="modal" v-if="expanded">
-      <div class="modal-backdrop" @click="toggleExpanded()" />
+      <div class="modal-backdrop" @click.prevent="toggleExpanded()" />
       <div class="modal-content">
         <form @submit.prevent v-if="!successMessage">
           <p>Tell me when new features are added.</p>
           <div class="container">
             <input @keydown.enter.prevent type="email" v-model="email" :disabled="disabled" />
-            <button @click="addEmail">Email me</button>
+            <button @click.prevent="addEmail">Email me</button>
           </div>
         </form>
         <div v-else class="container-column">
           <p>Thanks for signing up!</p>
 
-          <button @click="toggleExpanded()">Close</button>
+          <button @click.prevent="toggleExpanded()">Close</button>
         </div>
       </div>
     </div>

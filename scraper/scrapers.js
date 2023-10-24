@@ -20,79 +20,95 @@ function logErrorToFile (str) {
   }
 }
 
-async function run (uuid) {
-  try {
-    const drGanjaProducts = await drGanja.getAvailableLeafProducts()
-    console.log('Dr Ganja products', drGanjaProducts.length)
-    await saveProducts(drGanjaProducts, uuid)
-  } catch (error) {
-    console.error(error)
+async function run (batchId, vendor) {
 
-    logErrorToFile(error)
+  if (!vendor || vendor === 'drGanja') {
+
+    try {
+      const drGanjaProducts = await drGanja.getAvailableLeafProducts()
+      console.log('Dr Ganja products', drGanjaProducts.length)
+      await saveProducts(drGanjaProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
   }
 
-  try {
-    const wncProducts = await wnc.getAvailableLeafProducts()
-    console.log('WNC products', wncProducts.length)
-    await saveProducts(wncProducts, uuid)
-  } catch (error) {
-    console.error(error)
 
-    logErrorToFile(error)
+
+  if (!vendor || vendor === 'WNC') {
+    try {
+      const wncProducts = await wnc.getAvailableLeafProducts()
+      console.log('WNC products', wncProducts.length)
+      await saveProducts(wncProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
+
   }
 
-  try {
-    const prestonProducts = await preston.getAvailableLeafProducts()
-    console.log('Preston products', prestonProducts.length)
-    await saveProducts(prestonProducts, uuid)
-  } catch (error) {
-    console.error(error)
+  if (!vendor || vendor === 'Preston') {
+    try {
+      const prestonProducts = await preston.getAvailableLeafProducts()
+      console.log('Preston products', prestonProducts.length)
+      await saveProducts(prestonProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
+  } 
 
-    logErrorToFile(error)
+  if (!vendor || vendor === 'Flow') {
+
+    try {
+      const flowProducts = await flow.getAvailableLeafProducts()
+      console.log('Flow products', flowProducts.length)
+      await saveProducts(flowProducts, batchId)
+    } catch (error) {
+      console.error(error)
+
+      logErrorToFile(error)
+    }
   }
 
-  try {
-    const flowProducts = await flow.getAvailableLeafProducts()
-    console.log('Flow products', flowProducts.length)
-    await saveProducts(flowProducts, uuid)
-  } catch (error) {
-    console.error(error)
-
-    logErrorToFile(error)
+  if (!vendor || vendor === 'Arete') {
+    try {
+      console.log('Artete products')
+      const areteProducts = await arete.getAvailableLeafProducts()
+      console.log('Artete products', areteProducts.length)
+      await saveProducts(areteProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
   }
 
-  try {
-    console.log('Artete products')
-    const areteProducts = await arete.getAvailableLeafProducts()
-    console.log('Artete products', areteProducts.length)
-    await saveProducts(areteProducts, uuid)
-  } catch (error) {
-    console.error(error)
+  if(!vendor || vendor === 'Enlighten') {
 
-    logErrorToFile(error)
+    try {
+      const enlightenProducts = await enlighten.getAvailableLeafProducts()
+      console.log('Enlighten products', enlightenProducts.length)
+      await saveProducts(enlightenProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
   }
 
-  try {
-    const enlightenProducts = await enlighten.getAvailableLeafProducts()
-    console.log('Enlighten products', enlightenProducts.length)
-    await saveProducts(enlightenProducts, uuid)
-  } catch (error) {
-    console.error(error)
+  if (!vendor || vendor === 'TopCola') {
 
-    logErrorToFile(error)
+    try {
+      const topcolaProducts = await topcola.getAvailableLeafProducts()
+      // console.log('Top Cola products', topcolaProducts.length);
+      await saveProducts(topcolaProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
+
+    console.log('Data has been written to Firebase for all vendors.')
   }
-
-  try {
-    const topcolaProducts = await topcola.getAvailableLeafProducts()
-    // console.log('Top Cola products', topcolaProducts.length);
-    await saveProducts(topcolaProducts, uuid)
-  } catch (error) {
-    console.error(error)
-
-    logErrorToFile(error)
-  }
-
-  console.log('Data has been written to Firebase for all vendors.')
 }
 
 module.exports = {

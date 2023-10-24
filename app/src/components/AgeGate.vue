@@ -5,10 +5,10 @@
       <img src="/apple-touch-icon.png" alt="DankSpider.com" />
       <p>Are you 21 or older?</p>
       <ul>
-        <li @click="setAgeGate(true)" class="enter shadowy-button yes" role="button"><span
+        <li @click.prevent="setAgeGate(true)" class="enter shadowy-button yes" role="button"><span
             class="text">YES</span><span>Let Me In</span>
         </li>
-        <li @click="exitApp()" class="enter shadowy-button no" role="button"><span class="text">NO</span><span>Get
+        <li @click.prevent="exitApp()" class="enter shadowy-button no" role="button"><span class="text">NO</span><span>Get
             Me Out</span></li>
       </ul>
     </div>

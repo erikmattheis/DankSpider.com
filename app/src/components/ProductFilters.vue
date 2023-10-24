@@ -1,9 +1,9 @@
 <template>
   <form class="page">
-    <div class="header" @click="toggleCollapse('filters')">
+    <div class="header" @click.prevent="toggleCollapse('filters')">
       <div class="stats">
         {{ numProducts }} product{{ numProducts === 1 ? '' : 's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? ''
-          : 's' }}
+                : 's' }}
       </div>
       <h3 class="filters-title">Filters</h3>
       <div class="collapse-button">
@@ -12,7 +12,7 @@
     </div>
     <div class="filters filter" id="filters">
 
-      <div class="header" @click="toggleCollapse('vendors')">
+      <div class="header" @click.prevent="toggleCollapse('vendors')">
         <h3>Vendors</h3>
         <div class="selected-items vendors list"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
         <div class="collapse-button vendors arrow">
@@ -22,7 +22,7 @@
 
       <div class="vendors filter collapsed">
         <ul class="container">
-          <li v-for="(vendor, i) in vendors" :key="i" @click="toggleSelectedVendor(vendor)" class="shadowy-button"
+          <li v-for="(vendor, i) in vendors" :key="i" @click.prevent="toggleSelectedVendor(vendor)" class="shadowy-button"
             :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
             {{ vendor }}
           </li>
@@ -35,7 +35,7 @@
         </ul>
       </div>
 
-      <div class="header" @click="toggleCollapse('sizes')">
+      <div class="header" @click.prevent="toggleCollapse('sizes')">
         <h3>Sizes</h3>
         <div class="selected-items sizes list"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
         <div class="collapse-button sizes arrow">
@@ -45,8 +45,8 @@
 
       <div class="sizes filter collapsed">
         <ul class="container">
-          <li v-for="(variant, i) in variants" :key="i" @click="toggleSelectedVariant(variant)" class="shadowy-button"
-            :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
+          <li v-for="(variant, i) in variants" :key="i" @click.prevent="toggleSelectedVariant(variant)"
+            class="shadowy-button" :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
             {{ variant }}
           </li>
           <li @click.prevent="store.selectAllSizeFilters()" class="shadowy-button selected" title="All ">
@@ -58,7 +58,7 @@
         </ul>
       </div>
 
-      <div class="header" @click="toggleCollapse('terpenes')">
+      <div class="header" @click.prevent="toggleCollapse('terpenes')">
         <h3>Terpenes</h3>
 
         <div class="selected-items terpenes list">
@@ -71,7 +71,7 @@
 
       <div class="terpenes filter collapsed">
         <ul class="container">
-          <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click="toggleSelectedTerpene(terpene)"
+          <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click.prevent="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
             {{ terpene }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
@@ -85,7 +85,7 @@
         </ul>
       </div>
 
-      <div class="header" @click="toggleCollapse('cannabinoids')">
+      <div class="header" @click.prevent="toggleCollapse('cannabinoids')">
         <h3>Cannabinoids</h3>
 
         <div class="selected-items cannabinoids list">
@@ -99,7 +99,7 @@
       <div class="cannabinoids filter collapsed">
         <ul class="container">
           <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
-            @click="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
+            @click.prevent="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
             :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
             {{ cannabinoid }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
           <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->

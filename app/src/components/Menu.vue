@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="#" @click="toggleExpanded()">
+    <a href="#" @click.prevent="toggleExpanded()">
       <!--<font-awesome-icon :icon="['fas', 'bars']" />-->
     </a>
   </div>

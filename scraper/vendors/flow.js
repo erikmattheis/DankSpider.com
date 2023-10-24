@@ -84,7 +84,7 @@ async function addAssays(product, $) {
       ...product, cannabinoids: [], terpenes: []
     };
   }
-  console.log('images', images)
+
   for (const imgStr of images) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 

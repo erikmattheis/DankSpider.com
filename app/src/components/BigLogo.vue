@@ -1,5 +1,5 @@
 <template>
-  <div @click="goHome">
+  <div @click.prevent="goHome">
     <g id="tight-bounds" transform="matrix(1,0,0,1,148.57422074112307,28.57422074112307)"><svg
         viewBox="0 0 342.85155851775386 342.85155851775386" height="342.85155851775386" width="342.85155851775386">
         <g><svg></svg></g>
