@@ -2,6 +2,7 @@ const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
+const fs = require('fs');
 
 const products = [];
 
@@ -22,6 +23,7 @@ async function getPrestonProductInfo(product) {
   // try {
 
   const response = await axios.get(product.url);
+  fs.writeFileSync('preston-product.html', response.data);
 
   if (response.status < 400) {
     const $ = cheerio.load(response.data);
@@ -107,6 +109,7 @@ async function scrapePage(url, currentPage) {
   try {
 
     const response = await axios.get(url);
+    fs.writeFileSync('preston.html', response.data);
     const $ = cheerio.load(response.data);
 
     const cards = $('.w-dyn-item');

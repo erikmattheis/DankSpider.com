@@ -103,7 +103,7 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-run('o24', 'WNC')
+run('o24-2')
 
 async function utils () {
   // await fixProducts();

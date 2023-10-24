@@ -2,6 +2,7 @@ const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
+const fs = require('fs');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/new-release-and-restock.html';
@@ -17,6 +18,7 @@ function addUniqueVariant(variant) {
 async function getProduct(url) {
 console.log('getProduct called with', url)
   const response = await axios.get(url);
+  fs.writeFileSync('wnc-product.html', response.data);
   const $ = cheerio.load(response.data);
 
   const variants = [];
@@ -112,6 +114,7 @@ async function scrapePage(url, currentPage, productLinks) {
 
   //try {
   const response = await axios.get(url);
+  fs.writeFileSync(`wnc-page-${currentPage}.html`, response.data);
   const $ = cheerio.load(response.data);
 
   const cards = $('.card');
