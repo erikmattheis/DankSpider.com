@@ -64,17 +64,24 @@ export const useSpiderStore = defineStore('spider', {
           terpenes.add(terpene.name)
         })
       })
-      return [...terpenes]
+      
+      return [...terpenes].sort()
     },
     filteredProductsCannabinoids (state) {
+
       const cannabinoids = new Set()
+
       this.filteredProducts.forEach((product) => {
         if (!product.cannabinoids) return
         product.cannabinoids.forEach((cannabinoid) => {
           cannabinoids.add(cannabinoid.name)
         })
       })
-      return [...cannabinoids]
+
+      const s = [...cannabinoids].sort().join('\n');
+      
+      console.log(JSON.stringify([...cannabinoids], null, 2));
+      return [...cannabinoids].sort()
     },
     numProducts (state) {
       return state.filteredProducts.filter((product) => product.name !== 'empty').length
