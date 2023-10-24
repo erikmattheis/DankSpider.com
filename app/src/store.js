@@ -53,8 +53,6 @@ export const useSpiderStore = defineStore('spider', {
         )
       })
 
-      console.log('filteredProducts', state.products.length, products.length)
-
       return [...products]
     },
     numProducts (state) {
@@ -205,15 +203,10 @@ export const useSpiderStore = defineStore('spider', {
 
       cannabinoids.sort()
 
-      console.log('cannabinoids', cannabinoids.length)
-
       this.checkedCannabinoids = [...cannabinoids]
       this.normalizedCannabinoids = [...cannabinoids]
     },
     normalizeTerpenes () {
-      if (!product.terpenes) {
-        return
-      }
       const terpenes = []
 
       this.products.forEach((product) => {
@@ -232,8 +225,6 @@ export const useSpiderStore = defineStore('spider', {
 
       terpenes.sort()
 
-      console.log('terpenes', terpenes.length)
-
       this.checkedTerpenes = [...terpenes]
       this.normalizedTerpenes = [...terpenes]
     },
@@ -248,8 +239,6 @@ export const useSpiderStore = defineStore('spider', {
         }
       })
       vendors.sort()
-
-      console.log('vendors', vendors.length)
 
       this.vendors = [...vendors]
       this.checkedVendors = [...vendors]

@@ -1,9 +1,9 @@
-import './style.css';
+import './style.css'
 import { createApp } from 'vue'
-import { createPinia } from 'pinia';
-import VueGtag from "vue-gtag";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { createPinia } from 'pinia'
+import VueGtag from 'vue-gtag'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faChevronDown,
   faChevronUp,
@@ -14,28 +14,28 @@ import {
   faStarOfLife,
   faFilter,
   faFilterCircleXmark,
-  faArrowRight,
-  faArrowDown,
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark, faArrowRight, faArrowDown]);
+  faRightLong,
+  faDownLong
+} from '@fortawesome/free-solid-svg-icons'
 
 import App from './App.vue'
-import router from './router';
+import router from './router'
 
-const app = createApp(App);
-const pinia = createPinia();
+library.add([faChevronDown, faChevronUp, faUser, faBars, faLeaf, faFaceGrinStars, faStarOfLife, faFilter, faFilterCircleXmark, faRightLong, faDownLong])
 
-app.component('font-awesome-icon', FontAwesomeIcon);
+const app = createApp(App)
+const pinia = createPinia()
 
-app.use(router);
-app.use(pinia);
+app.component('font-awesome-icon', FontAwesomeIcon)
+
+app.use(router)
+app.use(pinia)
 app.use(VueGtag, {
   config: {
     appName: 'DankSpider',
     pageTrackerScreenviewEnabled: true,
-    id: "G-1R8ZDWL3XJ",
-  },
-}, router);
+    id: 'G-1R8ZDWL3XJ'
+  }
+}, router)
 
-app.mount('#app');
+app.mount('#app')
