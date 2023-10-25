@@ -95,7 +95,7 @@ async function run (batchId, vendor) {
       logErrorToFile(error)
     }
   }
-
+/*
   if (!vendor || vendor === 'TopCola') {
 
     try {
@@ -109,6 +109,7 @@ async function run (batchId, vendor) {
 
     console.log('Data has been written to Firebase for all vendors.')
   }
+  */
 }
 
 module.exports = {

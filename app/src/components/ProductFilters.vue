@@ -3,10 +3,10 @@
     <div class="header" @click.prevent="toggleCollapse('filters')">
       <div class="stats">
         {{ numProducts }} product{{ numProducts === 1 ? '' : 's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? ''
-                : 's' }}
+          : 's' }}
       </div>
       <h3 class="filters-title">Filters</h3>
-      <div class="collapse-button">
+      <div class="collapse-button filters">
         <font-awesome-icon :icon="['fas', 'right-long']" />
       </div>
     </div>
@@ -57,7 +57,7 @@
           </li>
         </ul>
       </div>
-
+      <!--
       <div class="header" @click.prevent="toggleCollapse('terpenes')">
         <h3>Terpenes</h3>
 
@@ -73,8 +73,7 @@
         <ul class="container">
           <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click.prevent="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
-            {{ terpene }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedTerpenes.includes(terpene)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
+            {{ terpene }} 
           </li>
           <li @click.prevent="store.selectAllTerpeneFilters()" class="shadowy-button selected" title="All ">
             All
@@ -84,7 +83,7 @@
           </li>
         </ul>
       </div>
-
+    
       <div class="header" @click.prevent="toggleCollapse('cannabinoids')">
         <h3>Cannabinoids</h3>
 
@@ -101,8 +100,7 @@
           <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
             @click.prevent="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
             :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
-            {{ cannabinoid }} <!-- <font-awesome-icon :icon="['fas', 'leaf']" v-if="checkedCannabinoids.includes(cannabinoid)"/>
-          <font-awesome-icon :icon="['fas', 'star-of-life']" v-else/>-->
+            {{ cannabinoid }} 
           </li>
           <li @click.prevent="store.selectAllCannabinoidFilters()" class="shadowy-button selected" title="All ">
             All
@@ -112,17 +110,16 @@
           </li>
         </ul>
       </div>
-
+    -->
       <div class="container slim">
         <div>
           <!-- TODO: only sort terpenes in filtered products -->
           <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
-            <option value="all">Terpene ▼</option>
+            <option value="all" disabled="true">Sort by Terpene</option>
             <option v-for=" chemical  in  store.filteredProductsTerpenes ">{{ chemical }}</option>
-            <font-awesome-icon :icon="['fas', 'sort']" />
           </select>
           <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
-            <option value="all">Cannabinoid ▼</option>
+            <option value="all" disabled="true">Sort by Cannabinoid</option>
             <option v-for=" chemical  in  store.filteredProductsCannabinoids ">{{ chemical }}</option>
           </select>
         </div>
@@ -224,7 +221,7 @@ export default {
   methods: {
     toggleCollapse(name) {
 
-      // toggle "collapsed" class on element with classes name and "container"
+      // toggle "collapsed" class on element with classes name and "containe
       const element = document.querySelector(`.${name}.filter`);
       element.classList.toggle('collapsed');
 

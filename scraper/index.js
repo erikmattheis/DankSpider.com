@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { fixProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName } = require('./firebase.js')
+const { getProductsByBatchId, fixProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, normalizeCannabinoids, getProductsByPPM, getProductsByTerpene, normalizeTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
 const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
@@ -90,6 +90,7 @@ async function run (batchId, vendor) {
   console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 
   startTime = performance.now()
+
   await cleanProductsCollections()
 
   endTime = performance.now()
@@ -103,17 +104,22 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-//run('o24-2')
+//run('o3')
 
 async function utils () {
   // await fixProducts();
-  // await normalizeTerpenes()
+  /*
+  await normalizeTerpenes()
 
-  normalizeCannabinoids()
-
+  await normalizeCannabinoids()
+  await cleanProductsCollection()
   await makeProductsFile()
-
-  console.log('Done utils')
+*/
+ // const products = await getProductsByBatchId('o1');
+  await cleanProductsCollections()
+  await makeProductsFile()
+// await saveProducts(products, 'o2');
+  //console.log('Done utils', products.length)
 }
 
 utils()

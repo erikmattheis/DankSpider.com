@@ -92,7 +92,7 @@ async function parseSingleProduct (html, url) {
       break
     }
   }
-  await saveProducts([{ title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }], 'aaa')
+  
   return { title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
 }
 

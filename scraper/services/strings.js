@@ -104,7 +104,7 @@ function normalizeTerpene (terpene) {
     '1.8-Cinecle': 'Eucalyptol',
     'a-Bisabolol': 'Bisabolol',
     'a-Bsabolol': 'Bisabolol',
-    'a-Finene': 'α-Pinene',
+    'a-Finene': 'Pinene',
     'a-Humulene': 'Humulene',
     'a-Pinene': 'Pinene',
     'a-Terpinene': 'Terpinene',
@@ -113,7 +113,7 @@ function normalizeTerpene (terpene) {
     'B-Myrcene': 'Myrcene',
     'Mentho!': 'Menthol',
     'o-Humulene': 'Humulene',
-    'y-Terpinene': 'γ-Terpinene',
+    'y-Terpinene': 'Terpinene',
     'α-Bisabolol': 'Bisabolol',
     'α-Humulene': 'Humulene',
     'α-Pinene': 'Pinene',
@@ -356,8 +356,9 @@ function normalizeCannabinoid (name) {
   if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
     return cannabinoidSpellings[name].name
   }
-
-  return 'Unreadable'
+  const fs = require('fs')
+  fs.appendFileSync('unknownCannabinoidSpellings.txt', `${name}\n`)
+  return name
 }
 
 async function collectionIdExists (id, collectionRef) {

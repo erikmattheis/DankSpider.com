@@ -192,8 +192,8 @@ async function fixProducts() {
   for (const product of data) {
     if (product.terpenes) {
       const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene));
-      const cannabinoids = product.cannabinoids.map(terpene => normalizeCannabinoid(terpene));
-      const fixed = { ...product, variants };
+      const cannabinoids = product.cannabinoids.map(cannabinoid => normalizeCannabinoid(cannabinoid));
+      const fixed = { ...product, terpenes, cannabinoids, variants };
 
       fixedProducts.push(fixed)
 
@@ -334,7 +334,7 @@ async function getProductsByTitle(substring) {
 
 async function cleanProductsCollections() {
   const productsRef = db.collection('products');
-  const archiveRef = db.collection('productArchive');
+  const archiveRef = db.collection('product');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
@@ -362,21 +362,20 @@ async function cleanProductsCollection() {
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
-  const products = [];
-  const dels = [];
+  const actions = [];
   const uniqueUrls = new Set();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueUrls.has(product.url)) {
+    if (true || uniqueUrls.has(product.url)) {
       const archiveDoc = archiveRef.doc(doc.id);
-      products.push(archiveDoc.set(product));
-      dels.push(doc.ref.delete());
+      actions.push(archiveDoc.set(product));
+      actions.push(doc.ref.delete());
     }
     uniqueUrls.add(product.url);
   });
 
-  await Promise.all(dels);
+  await Promise.all(actions);
 }
 
 async function getProductsByVendor(vendor, limit, useDev) {
@@ -570,6 +569,20 @@ if (require.main === module) {
 )();
 */
 
+async function getProductsByBatchId(batchId) {
+  const productsRef = db.collection('productsArchive');
+  const snapshot = await productsRef.where('batchId', '==', batchId).get();
+
+  const products = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data()
+    products.push(product);
+  });
+  console.log('products length', products.length)
+  return products;
+}
+
 
 module.exports = {
   getTerpenes,
@@ -596,5 +609,6 @@ module.exports = {
   getProductsByPPM,
   normalizeCannabinoids,
   deleteProductsWithObjectsInVariants,
-  fixProducts
+  fixProducts,
+  getProductsByBatchId
 };
