@@ -43,24 +43,27 @@ export const useSpiderStore = defineStore('spider', {
       return [...cannabinoids]
     },
     filteredProducts (state) {
-      if (!state.products?.filter) return state.products
+      if (!state.products?.filter || !state.checkedCannabinoids?.filter && !state.checkedTerpenes?.filter ) return state.products
 
       const products = state.products.filter((product) => {
-        return (this.checkedVendors.includes(product.vendor) &&
-        product.variants.some((variant) => this.checkedVariants.includes(variant)) &&
-        (state.checkedCannabinoids.length === state.cannabinoids.length || (product.cannabinoids && product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))) &&
-        (state.checkedTerpenes.length === state.terpenes.length || (product.terpenes && product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name))))
+        return (state.checkedVendors.includes(product.vendor) /* &&
+        product.variants.some((variant) => state.checkedVariants.includes(variant)) &&
+        (state.checkedCannabinoids.length === state.filteredProductsCannabinoids.length || (product.cannabinoids && product.cannabinoids.some((cannabinoid) => state.checkedCannabinoids.includes(cannabinoid.name)))) &&
+        (state.checkedTerpenes.length === state.filteredProductsTerpenes.length || (product.terpenes && product.terpenes.some((terpene) => state.checkedTerpenes.includes(terpene.name)))) */
         )
       })
 
       return [...products]
     },
     filteredProductsTerpenes (state) {
+
+      if (!state.filteredProducts) return []
+
       const terpenes = new Set()
+
       state.filteredProducts.forEach((product) => {
         if (!product.terpenes) return
         product.terpenes.forEach((terpene) => {
-          if (parseFloat(terpene.pct) === 7) return
           terpenes.add(terpene.name)
         })
       })
@@ -68,6 +71,8 @@ export const useSpiderStore = defineStore('spider', {
       return [...terpenes].sort()
     },
     filteredProductsCannabinoids (state) {
+
+      if (!state.filteredProducts) return []
 
       const cannabinoids = new Set()
 
@@ -77,10 +82,7 @@ export const useSpiderStore = defineStore('spider', {
           cannabinoids.add(cannabinoid.name)
         })
       })
-
-      const s = [...cannabinoids].sort().join('\n');
       
-      console.log(JSON.stringify([...cannabinoids], null, 2));
       return [...cannabinoids].sort()
     },
     numProducts (state) {

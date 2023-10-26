@@ -111,16 +111,16 @@
         </ul>
       </div>
     -->
-      <div class="container slim">
+      <div class="container">
         <div>
           <!-- TODO: only sort terpenes in filtered products -->
           <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
-            <option value="all" disabled="true">Sort by Terpene</option>
-            <option v-for=" chemical  in  store.filteredProductsTerpenes ">{{ chemical }}</option>
+            <option selected="true" disabled="true">Sort by Terpene</option>
+            <option v-for="chemical in store.filteredProductsTerpenes">{{ chemical }}</option>
           </select>
           <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
             <option value="all" disabled="true">Sort by Cannabinoid</option>
-            <option v-for=" chemical  in  store.filteredProductsCannabinoids ">{{ chemical }}</option>
+            <option v-for="chemical in store.filteredProductsCannabinoids">{{ chemical }}</option>
           </select>
         </div>
       </div>
@@ -312,10 +312,6 @@ export default {
   margin-right: 8px;
 }
 
-.container {
-  padding: 6px;
-}
-
 h3 {
   margin: 0 0 0 8px;
   align-self: flex-start;
@@ -351,7 +347,6 @@ h3 {
   align-self: flex-end;
 }
 
-
 .hidden {
   opacity: 0;
 }
@@ -362,6 +357,7 @@ h3 {
 
 .container {
   width: 100%;
+  padding: 6px;
 }
 
 h3 {
@@ -401,6 +397,7 @@ ul {
   margin: 0;
 }
 
+.sort-by,
 ul li {
   display: inline-block;
   font-weight: 300;
@@ -437,7 +434,7 @@ ul li::after {
 
 .sort-by {
   margin-right: 80px;
-  padding: 4px 10px;
+  padding: 4px 30px;
 }
 
 .collapsed {

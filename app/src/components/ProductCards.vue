@@ -57,7 +57,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 @media (min-width: 768px) {
