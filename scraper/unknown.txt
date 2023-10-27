@@ -1,0 +1,380 @@
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/401/3760/Indoor_-_THCa_Blue_Sunset_Sherbert_Hydro_Potency__92496.1697725247.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/401/3761/Indoor_-_THCa_Blue_Sunset_Sherbert_Hydro_Terpenes__16264.1697725247.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/371/3382/Indoor_-_THCa_Blueberry_Apple_Fritter_Potency__10720.1695144443.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/371/3381/Indoor_-_THCa_Blueberry_Apple_Fritter_Terpenes__26336.1695144443.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/388/3602/Indoor_-_THCa_Dragon_Breath_Living_Soil_Potency__87781.1696438150.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/388/3601/Indoor_-_THCa_Dragon_Breath_Living_Soil_Terpenes__06503.1696438150.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/374/3425/Indoor_-_THCa_Frozen_Gelato_Potency__80792.1695311151.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/374/3426/Indoor_-_THCa_Frozen_Gelato_Terpenes__69358.1695311151.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/400/3749/Indoor_-_THCa_Glitter_Bomb_Living_Soil_Potency__99065.1697568279.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/400/3748/Indoor_-_THCa_Glitter_Bomb_Living_Soil_Terpenes__78370.1697568279.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/141/798/Indoor-THCaMAC1__97205.1692208393.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/141/797/Indoor-MAC12__55423.1692208393.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/380/3509/Indoor_-_THCa_Pixie_Stix_Potency__01323.1695738602.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/380/3510/Indoor_-_THCa_Pixie_Stix_Terpenes__43926.1695738602.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/402/3772/Indoor_-_THCa_Purple_Runtz_Living_Soil_Potency__21027.1698077366.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/402/3773/Indoor_-_THCa_Purple_Runtz_Living_Soil_Terpenes__65751.1698077366.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/377/3462/Indoor_-_THCa_Purple_Star_Diesel_Potency__29868.1695328778.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/377/3463/Indoor_-_THCa_Purple_Star_Diesel_Terpenes__75338.1695328778.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/398/3723/Indoor_-_THCa_Snow_Man_Living_Soil_Potency__79510.1697134190.jpg?c=1
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/398/3724/Indoor_-_THCa_Snow_Man_Living_Soil_Terpenes__86667.1697134190.jpg?c=1
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/649f06b29afdc40231737f71_img_9113.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038743daf405020500f49c_Jack%20H.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65206e641659e3772d3256f7_IMG_1781.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/650386f2623861f662690fb4_RS11%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038711ff31a7387798ff22_Lemon%20Pound%20Cake%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038711ff31a7387798ff22_Lemon%20Pound%20Cake%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038711ff31a7387798ff22_Lemon%20Pound%20Cake%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038711ff31a7387798ff22_Lemon%20Pound%20Cake%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/6503871a4622b7253bda5fed_White%20Truffle%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038739eb598f0ddd0acaee_41%20Cherry%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/6503874d6876380504911d4f_Bacio%20Gelato%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/65038757eb598f0ddd0b058c_Reign%20Man%20coa.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/64e84c1083ac339a37f641be_IceCreamCake_COA.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/64e84c1083ac339a37f641be_IceCreamCake_COA.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/64e84c1083ac339a37f641be_IceCreamCake_COA.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/64e84c1083ac339a37f641be_IceCreamCake_COA.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/648349b8cbadf50f8a26c1b6_SuperLemonCherryGelatoCOA.jpg
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/642714a17740d25eb013b775_Mixed%20Smalls_COA.jpg
+configWNCCannabinoids 
+

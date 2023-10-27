@@ -37,16 +37,16 @@ export default {
       return this.store.filteredProducts;
     },
     missingTerps() {
-      return this.store.filteredProducts.filter(product => !product.terpenes || product.terpenes.length === 0);
+      return this.store.filteredProducts?.filter(product => !product.terpenes || product.terpenes.length === 0);
     },
     missingCanns() {
-      return this.store.filteredProducts.filter(product => !product.cannabinoids || product.cannabinoids.length === 0);
+      return this.store.filteredProducts?.filter(product => !product.cannabinoids || product.cannabinoids.length === 0);
     },
     missingBoth() {
-      return this.store.filteredProducts.filter(product => (!product.terpenes || product.terpenes.length === 0) && (!product.cannabinoids || product.cannabinoids.length === 0));
+      return this.store.filteredProducts?.filter(product => (!product.terpenes || product.terpenes.length === 0) && (!product.cannabinoids || product.cannabinoids.length === 0));
     },
     completeProducts() {
-      return this.store.filteredProducts.filter(product => product.terpenes && product.terpenes.length > 0 && product.cannabinoids && product.cannabinoids.length > 0);
+      return this.store.filteredProducts?.filter(product => product.terpenes && product.terpenes.length > 0 && product.cannabinoids && product.cannabinoids.length > 0);
     },
   }
 }

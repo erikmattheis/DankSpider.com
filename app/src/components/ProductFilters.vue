@@ -112,17 +112,17 @@
       </div>
     -->
       <div class="container">
-        <div>
-          <!-- TODO: only sort terpenes in filtered products -->
-          <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
-            <option selected="true" disabled="true">Sort by Terpene</option>
-            <option v-for="chemical in store.filteredProductsTerpenes">{{ chemical }}</option>
-          </select>
-          <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
-            <option value="all" disabled="true">Sort by Cannabinoid</option>
-            <option v-for="chemical in store.filteredProductsCannabinoids">{{ chemical }}</option>
-          </select>
-        </div>
+
+        <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
+          <option selected="true" disabled="true">Sort by Terpene</option>
+          <option v-for="chemical in store.filteredProductsTerpenes">{{ chemical }}</option>
+        </select>
+
+        <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
+          <option vselected="true" disabled="true">Sort by Cannabinoid</option>
+          <option v-for="chemical in store.filteredProductsCannabinoids">{{ chemical }}</option>
+        </select>
+
       </div>
     </div>
   </form>
@@ -198,18 +198,6 @@ export default {
     },
     checkedVendors() {
       return this.store.checkedVendors;
-    },
-    selectedVendors() {
-      return this.vendors.filter(vendor => this.checkedVendors.includes(vendor));
-    },
-    unselectedVendors() {
-      return this.vendors.filter(vendor => !this.checkedVendors.includes(vendor));
-    },
-    selectedVariants() {
-      return this.normalizedVariants.filter(variant => this.checkedVariants.includes(variant));
-    },
-    unselectedVariants() {
-      return this.normalizedVariants.filter(variant => !this.checkedVariants.includes(variant));
     },
     numProducts() {
       return this.store.numProducts;
