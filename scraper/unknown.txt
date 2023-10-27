@@ -498,3 +498,103 @@ configWNCTerpenesTitle
 https://flowgardens.com/cdn/shop/files/BordeauxTerps_1800x1800.jpg?v=1695226728
 configWNCTerpenesTitle
 
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/OrangeGlazeTerps_1800x1800.jpg?v=1695226514
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/09/mendoBreath9-13-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/10/sourAppleDieselLab9-13-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/09/whiteTruffleLab7-14-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/10/honeyBananaLab9-13-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/10/whiteRuntzLab9-13-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/09/supremeOGLab7-14-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/10/purpleHazeLab9-13-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/09/gmoCookiesLab7-14-23P1.png
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://aretehemp.com/wp-content/uploads/2023/09/candyGelatoLab9-13-23P1.png
+configWNCCannabinoids 
+

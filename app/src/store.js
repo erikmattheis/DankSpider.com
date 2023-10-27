@@ -34,6 +34,7 @@ console.log('this.products', this.products.length)
           terpenes.add(terpene.name)
         })
       })
+      this.numSortableTerpenes = terpenes.size;
       return [...terpenes]
     },
     cannabinoidNames () {
@@ -48,16 +49,18 @@ console.log('this.products', this.products.length)
           cannabinoids.add(cannabinoid.name)
         })
       })
+      this.numSortableCannabinoids = cannabinoids.size;
       return [...cannabinoids]
     },
     filteredProducts () {
       if (!this.products?.filter || !this.checkedCannabinoids?.filter && !this.checkedTerpenes?.filter ) return this.products
-
+      console.log('cannabinoids', this.checkedCannabinoids.length, this.numSortableCannabinoids)
+      console.log('terps', this.checkedTerpenes.length, this.numSortableTerpenes)
       const products = this.products.filter((product) => {
         return (this.checkedVendors.includes(product.vendor) &&
-        product.variants.some((variant) => this.checkedVariants.includes(variant)) &&
-        (this.checkedCannabinoids.length === this.numSortableCannabinoids.length || (!product.cannabinoids || product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))) &&
-        (this.checkedTerpenes.length === this.numSortableTerpenes || (!product.terpenes || product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name))))
+        product.variants.some((variant) => this.checkedVariants.includes(variant))  &&
+        (this.checkedCannabinoids.length === this.numSortableCannabinoids || (!product.cannabinoids || product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))) &&
+        (this.checkedTerpenes.length === this.numSortableTerpenes || (!product.terpenes || product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name)))) 
         )
       })
 
@@ -244,7 +247,8 @@ console.log('this.products', this.products.length)
           }
         })
       })
-
+      console.log('terps', this.checkedTerpenes.length, this.numSortableTerpenes)
+      
       cannabinoids.sort()
       
       const totalIndex = cannabinoids.findIndex((element) => element === 'Total')
