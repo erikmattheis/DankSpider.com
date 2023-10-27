@@ -3,7 +3,7 @@ import jsonData from './assets/data/products.json'
 
 export const useSpiderStore = defineStore('spider', {
   id: 'spider',
-  this: () => ({
+  state: () => ({
     queryString: '?utm_source=shockingelk%40gmail.com&utm_medium=directory',
     products: jsonData.products,
     updatedAt: jsonData.updatedAt,
@@ -24,7 +24,7 @@ export const useSpiderStore = defineStore('spider', {
   getters: {
     terpeneNames () {
       // unique values in product.terpenes[].name
-
+console.log('this.products', this.products.length)
       if (!this.products) return []
 
       const terpenes = new Set()
@@ -247,10 +247,11 @@ export const useSpiderStore = defineStore('spider', {
 
       cannabinoids.sort()
       
-      const totalIndex = cannabinoids.findIndex((element) => element.name === 'Total')
+      const totalIndex = cannabinoids.findIndex((element) => element === 'Total')
 console.log('totalIndex', totalIndex)
       const deltaIndexes = cannabinoids.reduce((acc, element, index) => {
-        if (element.name.startsWith('∆')) {
+        console.log('element', element);
+        if (element.startsWith('∆')) {
           acc.push(index)
         }
         return acc

@@ -378,3 +378,123 @@ configWNCCannabinoids
 https://assets-global.website-files.com/5dc43d4dd174016331f27c2b/642714a17740d25eb013b775_Mixed%20Smalls_COA.jpg
 configWNCCannabinoids 
 
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/SourTsunamiTerps_1800x1800.jpg?v=1667572241
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/OrangeDreamsicleTerps_1800x1800.jpg?v=1678145683
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/friedbananasterp_1800x1800.jpg?v=1697213874
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/RS-11Terps_1800x1800.jpg?v=1697820273
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/LVOGTerps_1800x1800.jpg?v=1694193290
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/FabledTerps_1800x1800.jpg?v=1685122145
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/CherryMuffinsTerps_1800x1800.jpg?v=1675190813
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/SourSexWaxTerps_1800x1800.jpg?v=1692978914
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/PurpleHazeCOA_1800x1800.jpg?v=1692382629
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": 0,
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/products/PurpleHazeCOA_1800x1800.jpg?v=1692382629
+configWNCCannabinoids 
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/LemonCherrySherbertTerps_1800x1800.jpg?v=1692036883
+configWNCTerpenesTitle
+
+
+{
+  "name": "Unknown",
+  "pct": "NaN",
+  "mgg": "Unknown",
+  "originalText": "Unknown"
+}
+https://flowgardens.com/cdn/shop/files/BordeauxTerps_1800x1800.jpg?v=1695226728
+configWNCTerpenesTitle
+
