@@ -14,7 +14,6 @@ async function recognize (url) {
       user_patterns_file: './tessdata/eng.user-patterns',
       "tessdata-dir": './tessdata',
       userPatterns: './tessdata/eng.user-patterns',
-      tessedit_write_images: true,
       errorHandler: (err) => { console.error('Error:', err) },
     })
 
@@ -62,13 +61,12 @@ async function recognize (url) {
             const line = getCannabinoidObjCannalyze(text)
 
             if (line && line.name === 'Unknown') {
-              fs.appendFileSync('unknown.txt', '=========')
-              fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigCannalyzeCannabinoids\n\n`)
-              fs.appendFileSync('unknown.txt', `${title.data.text}`)
-              fs.appendFileSync('unknown.txt', '=========')
+              fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
             }
-
-            cannabinoids.push(line)
+            else {
+              cannabinoids.push(line)
+            }
+            
           }
         }
 
@@ -90,13 +88,14 @@ async function recognize (url) {
             const line = getTerpeneObj(text)
 
             if (line && line.name === 'Unknown') {
-              fs.appendFileSync('unknown.txt', '=========')
-              fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigCannalyzeCannabinoids terpenes\n\n`)
-              fs.appendFileSync('unknown.txt', `${title.data.text}`)
-              fs.appendFileSync('unknown.txt', '=========')
+              fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
             }
+            else {
+              terpenes.push(line)
+            }
+            
 
-            terpenes.push(line)
+            
           }
         }
 
@@ -121,10 +120,13 @@ async function recognize (url) {
         const line = getCannabinoidObj(text)
 
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCCannabinoids \n\n`)
+          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids\n\n`)
         }
+        else {
+          cannabinoids.push(line)
+        }
+        
 
-        cannabinoids.push(line)
       }
 
       await worker.terminate()
@@ -147,10 +149,12 @@ async function recognize (url) {
         const line = getCannabinoidObj2(text)
 
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCCannabinoids2\n\n`)
+          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids2\n\n`)
         }
-
-        cannabinoids.push(line)
+        else {
+          cannabinoids.push(line)
+        }
+        
       }
 
       await worker.terminate()
@@ -172,10 +176,11 @@ async function recognize (url) {
       for (const text of textArray) {
         const line = getTerpeneObj(text)
 
-        terpenes.push(line)
-
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `${text}\n${JSON.stringify(line, null, 2)}\n${url}\nconfigWNCTerpenesTitle\n\n`)
+          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nconfigWNCTerpenesTitle\n\n`)
+        }
+        else {
+          terpenes.push(line)
         }
       }
 
@@ -187,7 +192,7 @@ async function recognize (url) {
 
     console.error(`Failed to recognize image: ${error}`)
 
-    fs.appendFileSync('errors.txt', `\n${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 
     return null
   }
@@ -244,7 +249,7 @@ async function gmToBuffer (data) {
     })
   } catch (error) {
     console.error(`Failed to convert image to buffer: ${error}`)
-    fs.appendFileSync('errors.txt', `\n${error}\n`)
+    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
     return null
   }
 }
@@ -279,7 +284,7 @@ const getAndProcessJpg = async (url) => {
   } catch (error) {
     console.error('Failed to process image 2', error)
 
-    fs.appendFileSync('errors.txt', `\n${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 
     return null
   }
