@@ -57,7 +57,7 @@
           </li>
         </ul>
       </div>
-      <!--
+
       <div class="header" @click.prevent="toggleCollapse('terpenes')">
         <h3>Terpenes</h3>
 
@@ -73,7 +73,7 @@
         <ul class="container">
           <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click.prevent="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
-            {{ terpene }} 
+            {{ terpene }}
           </li>
           <li @click.prevent="store.selectAllTerpeneFilters()" class="shadowy-button selected" title="All ">
             All
@@ -83,7 +83,7 @@
           </li>
         </ul>
       </div>
-    
+
       <div class="header" @click.prevent="toggleCollapse('cannabinoids')">
         <h3>Cannabinoids</h3>
 
@@ -100,7 +100,7 @@
           <li v-for="( cannabinoid, i ) in  store.cannabinoidNames " :key="i"
             @click.prevent="toggleSelectedCannabinoid(cannabinoid)" class="shadowy-button"
             :class="{ selected: checkedCannabinoids.includes(cannabinoid) }" :title="cannabinoid">
-            {{ cannabinoid }} 
+            {{ cannabinoid }}
           </li>
           <li @click.prevent="store.selectAllCannabinoidFilters()" class="shadowy-button selected" title="All ">
             All
@@ -110,7 +110,7 @@
           </li>
         </ul>
       </div>
-    -->
+
       <div class="container">
 
         <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
@@ -119,7 +119,7 @@
         </select>
 
         <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
-          <option vselected="true" disabled="true">Sort by Cannabinoid</option>
+          <option selected="true" disabled="true">Sort by Cannabinoid</option>
           <option v-for="chemical in store.filteredProductsCannabinoids">{{ chemical }}</option>
         </select>
 
@@ -245,7 +245,7 @@ export default {
       }
       else {
         this.store.toggleSelectedVariant(decodeURIComponent(variant));
-        if (this.unselectedVariants.length === 0) {
+        if (this.checkedVariants.length === this.numSortedVariants) {
           this.aVariantWasClicked = false;
         }
       }
@@ -258,7 +258,7 @@ export default {
       }
       else {
         this.store.toggleSelectedVendor(decodeURIComponent(vendor));
-        if (this.unselectedVendors.length === 0) {
+        if (this.checkedVendors.length === this.numVendors) {
           this.aVendorWasClicked = false;
         }
       }

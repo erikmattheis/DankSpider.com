@@ -12,6 +12,7 @@ export const useSpiderStore = defineStore('spider', {
     numSortableTerpenes: 0,
     cannabinoids: [],
     numSortableCannabinoids: 0,
+    sortByChemical: '',
     vendors: [],
     checkedVendors: [],
     checkedVariants: [],
@@ -24,7 +25,6 @@ export const useSpiderStore = defineStore('spider', {
   getters: {
     terpeneNames () {
       // unique values in product.terpenes[].name
-console.log('this.products', this.products.length)
       if (!this.products) return []
 
       const terpenes = new Set()
@@ -127,7 +127,7 @@ console.log('this.products', this.products.length)
         classes[variant] = 'selected'
       })
       return classes
-    }
+    },
   },
   actions: {
     toggleFilterByCannabinoids () {
@@ -150,6 +150,7 @@ console.log('this.products', this.products.length)
         return 0
       })
       this.products = [...sortedProducts]
+      this.sortByChemical = chemicalName
     },
     sortProductsByTerpene (chemicalName) {
       const sortedProducts = this.products.sort((a, b) => {
@@ -164,6 +165,7 @@ console.log('this.products', this.products.length)
         return 0
       })
       this.products = [...sortedProducts]
+      this.sortByChemical = chemicalName
     },
     resetFilters () {
       this.selectAllSizeFilters()

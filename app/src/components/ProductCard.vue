@@ -52,15 +52,18 @@
         <div class="assay">
           <h3>Terpenes</h3>
           <ul>
-            <li v-for="terpene in product.terpenes" class="chemical terpene"><span>{{ terpene.name }} ({{ terpene.pct
-            }}%)</span></li>
+            <li v-for="terpene in product.terpenes" class="chemical terpene" :class="isChemicalSelected(terpene)">
+              <span>{{ terpene.name }} ({{ terpene.pct
+              }}%)</span>
+            </li>
           </ul>
         </div>
         <div class="assay">
           <h3>Cannabinoids</h3>
           <ul clss="right">
-            <li v-for="cannabinoid in product.cannabinoids" class="chemical cannabinoid"><span>{{ cannabinoid.name }} ({{
-              cannabinoid.pct }}%)</span></li>
+            <li v-for="cannabinoid in product.cannabinoids" class="chemical cannabinoid"
+              :class="isChemicalSelected(cannabinoid)"><span>{{ cannabinoid.name }} ({{
+                cannabinoid.pct }}%)</span></li>
           </ul>
         </div>
       </div>
@@ -124,6 +127,9 @@ export default {
       beauty?.style.setProperty('--duration', `${duration}ms`);
       const rotation = 50 + Math.floor(Math.random() * 31) - 13;
       beauty?.style.setProperty('--rotation', `${rotation}deg`);
+    },
+    isChemicalSelected(chemical) {
+      return this.store.sortByChemical === chemical.name ? 'selected' : '';
     },
   },
 
@@ -256,7 +262,7 @@ ul li::after {
 ul li.selected {
   font-weight: 700;
   background-color: #eee;
-  color: #333;
+  color: #f71c08;
 }
 
 li span {
