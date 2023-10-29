@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 
 let currentPage = 1;
-const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
+const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 
 const uniqueVariants = [];
 
@@ -16,9 +16,9 @@ function addUniqueVariant(variant) {
 }
 
 async function getProduct(url) {
-console.log('getProduct called with', url)
+
   const response = await axios.get(url);
-  fs.writeFileSync('wnc-product.html', response.data);
+  fs.writeFileSync('ehh-product.html', response.data);
   const $ = cheerio.load(response.data);
 
   const variants = [];
@@ -106,18 +106,77 @@ console.log('getProduct called with', url)
     variants,
     terpenes,
     cannabinoids,
-    vendor: 'WNC',
+    vendor: 'EHH',
   };
 }
 
+/*
+
+  <entry>
+    <id>https://eighthorseshemp.com/products/8004179624153</id>
+    <published>2023-06-02T13:59:26-04:00</published>
+    <updated>2023-06-02T13:59:26-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://eighthorseshemp.com/products/purple-kush-21-thca-3-cbga-greenhouse"/>
+    <title>Purple Kush - Greenhouse</title>
+    <s:type>Hemp Flower</s:type>
+    <s:vendor>Eight Horses</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0276/5019/5596/products/image_8e631588-dd45-4e3c-8c48-e96aeeba8cb7.jpg?v=1669054142"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eight Horses<br>
+        <strong>Type: </strong>Hemp Flower<br>
+        <strong>Price: </strong>
+            10.00 - 60.00
+            <a href="https://eighthorseshemp.com/products/purple-kush-21-thca-3-cbga-greenhouse">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p class="p1"><span class="s1">This greenhouse flower is exclusive to us, grown by another farm. Post harvest COA reports shown. Perfect for mixing with our regular CBD and the ideal budget option.</span></p>
+<p class="p1"><span class="s1"><br><strong>Bud size:</strong><span> </span>Small to medium.</span></p>
+<p class="p1"><span class="s1"><strong>Bag Appeal Grade:</strong><span> </span>B</span></p>
+<p class="p1"><span class="s1"><strong>Grow Conditions:</strong><span> </span>Greenhouse</span></p>
+<p class="p1"><span class="s1"><strong>Trim:</strong><span> </span>Hand Trimmed</span></p>
+<p class="p1"><span class="s2">NOT shipping internationally or to SD, ID, MS, AR, MN, OR, RI</span></p>
+<p class="p1"><span class="s1">For quality control purposes, as well as minimal stem, flower is broken into smaller pieces. Size varies based on batch.</span></p>
+<p class="p1"><span class="s1">Shipped in sealed mylar bag, within a sealed foodsaver bag. Only shipped in boxes. Includes letter to law enforcement and lab reports.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:variant>
+      <id>https://eighthorseshemp.com/products/8004179624153</id>
+      <title>3.5g</title>
+      <s:price currency="USD">18.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>25</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://eighthorseshemp.com/products/8004179624153</id>
+      <title>3.5g</title>
+      <s:price currency="USD">17.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>27</s:grams>
+    </s:variant>
+  
+  </entry>
+
+  */
+
+
+  
 async function scrapePage(url, currentPage, productLinks) {
 
   //try {
   const response = await axios.get(url);
-  fs.writeFileSync(`wnc-page-${currentPage}.html`, response.data);
-  const $ = cheerio.load(response.data);
 
-  const cards = $('.card');
+  const $ = cheerio.load(response.data, { xmlMode: true })
+
+  const cards = $('entry');
 
   for (const card of cards) {
     const anchorElement = $(card).find('a.card-figure__link');
@@ -160,7 +219,7 @@ function isDesiredProduct(productTitle) {
   );
 }
 
-async function getWNCProductsInfo(productLinks) {
+async function getEHHProductsInfo(productLinks) {
 
   const products = [];
   for (const productLink of productLinks) {
@@ -168,7 +227,7 @@ async function getWNCProductsInfo(productLinks) {
     if (!product) {
       continue;
     }
-    product.vendor = 'WNC';
+    product.vendor = 'EIGHT HORSES';
 
     if (product.variants.length > 0) {
 
@@ -186,7 +245,7 @@ async function getAvailableLeafProducts() {
 
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
-  const products = await getWNCProductsInfo(productLinks);
+  const products = await getEHHProductsInfo(productLinks);
 
   return products;
 

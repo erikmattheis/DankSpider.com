@@ -34,8 +34,6 @@ async function run (batchId, vendor) {
     }
   }
 
-
-
   if (!vendor || vendor === 'WNC') {
     try {
       const wncProducts = await wnc.getAvailableLeafProducts()
@@ -95,6 +93,7 @@ async function run (batchId, vendor) {
       logErrorToFile(error)
     }
   }
+  
 /*
   if (!vendor || vendor === 'TopCola') {
 

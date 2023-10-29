@@ -152,8 +152,8 @@ export default {
     this.store = useSpiderStore();
     this.store.normalizeVariants(this.store.variants);
     this.store.normalizeVendors(this.store.variants);
-    this.store.normalizeCannabinoids();
-    this.store.normalizeTerpenes();
+    this.store.thinkAboutCannabinoids();
+    this.store.thinkAboutTerpenes();
     this.variants = this.store.normalizedVariants;
     this.terpenes = this.store.terpeneNames;
     this.cannabinoids = this.store.cannabinoidNames;

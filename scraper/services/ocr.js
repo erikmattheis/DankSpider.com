@@ -38,6 +38,13 @@ async function recognize (url) {
       return null
     }
 
+    const name = jpgNameFromUrl(url)
+
+    // get domain from url
+    const domain = url.split('/')[2] ? url.split('/')[2] : 'unknown'
+
+    fs.writeFileSync(`./scan/${domain}-${name}`, jpgBuffer)
+
     const terpenes = []
 
     const cannabinoids = []

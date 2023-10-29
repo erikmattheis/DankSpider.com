@@ -3,6 +3,9 @@
 serviceAccountKey.json
 .env
 
+# Dev junk
+/scraper/temp
+
 # Tesseract
 *.traineddata
 *.user-words
@@ -75,3 +78,12 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+# JPEGs other than in /app/public folder
+*.jpg
+*.jpeg
+!/app/public/**/*.jpg
+!/app/public/**/*.jpeg
+# PNGs other than in /app/public folder
+*.png
+!/app/public/**/*.png
+

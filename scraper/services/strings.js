@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 function normalizeProductTitle (title) {
   let replaceString = title
   const find = ['Hemp Flower', '(Indoor)', '(Greenhouse)', 'High THCa', 'THCa', 'Hydro', 'Indoor', 'Living Soil', 'Hemp', '  ']
@@ -135,6 +137,8 @@ function normalizeTerpene (terpene) {
   if (spellings[terpene]) {
     return spellings[terpene]
   }
+  
+  fs.appendFileSync('unknownTerpinoidSpellings.txt', `${name}\n`)
   return terpene
 }
 
@@ -356,7 +360,7 @@ function normalizeCannabinoid (name) {
   if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
     return cannabinoidSpellings[name].name
   }
-  const fs = require('fs')
+
   fs.appendFileSync('unknownCannabinoidSpellings.txt', `${name}\n`)
   return name
 }

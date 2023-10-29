@@ -230,7 +230,7 @@ export const useSpiderStore = defineStore('spider', {
       this.checkedVariants = [...variants]
       this.normalizedVariants = [...variants]
     },
-    normalizeCannabinoids () {
+    thinkAboutCannabinoids () {
 
       if (!this.products) return
 
@@ -274,7 +274,7 @@ console.log('totalIndex', totalIndex)
       this.checkedCannabinoids = [...cannabinoids]
       this.normalizedCannabinoids = [...cannabinoids]
     },
-    normalizeTerpenes () {
+    thinkAboutTerpenes () {
 
       if (!this.products) return
 

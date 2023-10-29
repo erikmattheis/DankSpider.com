@@ -92,7 +92,7 @@ async function normalizeVariants() {
 
 }
 
-async function normalizeTerpenes() {
+async function thinkAboutTerpenes() {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
   snapshot.forEach(doc => {
@@ -110,7 +110,7 @@ async function normalizeTerpenes() {
 
 }
 
-async function normalizeCannabinoids() {
+async function thinkAboutCannabinoids() {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
   snapshot.forEach(doc => {
@@ -586,7 +586,7 @@ async function getProductsByBatchId(batchId) {
 
 module.exports = {
   getTerpenes,
-  normalizeTerpenes,
+  thinkAboutTerpenes,
   saveArticles,
   saveProducts,
   getAllProducts,
@@ -607,7 +607,7 @@ module.exports = {
   getProductsByVariant,
   getProductsByTerpene,
   getProductsByPPM,
-  normalizeCannabinoids,
+  thinkAboutCannabinoids,
   deleteProductsWithObjectsInVariants,
   fixProducts,
   getProductsByBatchId
