@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { getProductsByBatchId, fixProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, thinkAboutCannabinoids, getProductsByPPM, getProductsByTerpene, thinkAboutTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
+const { deleteProductsByVendor,getExampleRecordWithUniqueChemicalAsCannabinoid, getProductsByBatchId, fixProducts, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, thinkAboutCannabinoids, getProductsByPPM, getProductsByTerpene, thinkAboutTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
 const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
@@ -104,14 +104,65 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-run('o5')
+//run('o5')
+
+const uniqueChemicalNames = [
+  'Tatal',
+  '%',
+  '&3',/*
+  '&8',
+  '&9-Tetrabwdrocamazinolic',
+  '&9-Tetratwdrocamavaniz',
+  '&P',
+  '-8',
+  'Cannabinolic Acid',
+  'Cannabynod',
+  'Carnaby',
+  'Carnuatx',
+  'Carvubirolic',
+  'Carvubschromernic',
+  'Carvuby',
+  'Carvuds',
+  'Cornaly',
+  'FR-Hetred',
+  'P5-Hexatydrocarrabizcl',
+  'R-∆-10-THC',
+  'S-A-10-Tetrahydrocannabinol',
+  'S-∆-10-THC',
+  'S8',
+  'T',
+  'Tatal',
+  'Tetrabwdvoranmadng',
+  'Tetsl',
+  'Toal',
+  "{8;;:_8-3'8",
+  '{8;;:‘2;8',
+  '{8;_2:‘238',
+  '{8@:}38',
+  '{8_:;_:‘2;5',
+  '{g:_g:_ggg',
+  '{g:‘g{_ygg',
+  `{g;g:—"(l':lgg`,
+  '{gg:}gg',
+  '{gg_:‘ygg',
+  '}g:_g:_ggg',
+  '}g:g:_ygg',
+  '}g;_g:}gg',
+  '}g;_g:‘ggg',
+  '}gg:}gg',
+'}gg{;‘gg' */ ]
 
 async function utils () {
- // const products = await getProductsByBatchId('o1');
-  await cleanProductsCollections()
-  await makeProductsFile()
-// await saveProducts(products, 'o2');
-  //console.log('Done utils', products.length)
+  
+  //const cans = await getUniqueCannabinoids();
+
+  //console.log(JSON.stringify(cans, null, 2));
+  
+ // await cleanProductsCollections()
+ await makeProductsFile()
+console.log('done')
 }
 
-// utils()
+utils()
+
+

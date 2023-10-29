@@ -137,7 +137,7 @@ function normalizeTerpene (terpene) {
   if (spellings[terpene]) {
     return spellings[terpene]
   }
-  
+
   fs.appendFileSync('unknownTerpinoidSpellings.txt', `${name}\n`)
   return terpene
 }
@@ -279,6 +279,7 @@ const cannabinoidSpellings = {
   'Cannabigerolic Acid': { name: 'CBGA', confidence: 0.99 },
   'Cannabinol (CBN)': { name: 'CBN', confidence: 0.99 },
   'Cannabinolic Acid (CBNA)': { name: 'CBNA', confidence: 0.99 },
+
   'Carvubzdizl(CHDY': { name: 'CBD', confidence: 0.9 },
   'Delta 8-Tetrahydrocannabinol': { name: '∆-8-THC', confidence: 0.99 },
   'Delta 9-Tetrahydrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
@@ -294,7 +295,9 @@ const cannabinoidSpellings = {
   'R-A-10-Tetrahydrocannabinol': { name: 'R-∆-10-THC', confidence: 1 },
   'R-Delta 10-THC': { name: 'R-∆-10-THC', confidence: 0.99 },
   'S-A-10-Tetrahydrocannabinol (S-A-10-THC)': { name: 'S-∆-10-THC', confidence: 0.99 },
+  'S-A-10-Tetrahydrocannabinol': { name: 'S-∆-10-THC', confidence: 0.99 },
   'S-Delta 10-THC': { name: 'S-∆-10-THC', confidence: 0.99 },
+  'cannabigerol': { name: 'CBG', confidence: 0.99 },
   'Tetrahwdrocannabinol:': { name: '∆-9-THC', confidence: 1 },
   'Tetrahydrocannabivarin (THCV)': { name: 'THCV', confidence: 0.99 },
   'Tetrahydrocannabivarinic Acid': { name: '∆-9-THCVA', confidence: 0.99 },
@@ -354,6 +357,7 @@ const cannabinoidSpellings = {
   "∆ 9-THCA": { name: '∆-9-THCA', confidence: 0.99 },
   "∆ 9-THC": { name: '∆-9-THC', confidence: 0.99 },
   "∆ 9-THCVA": { name: '∆-9-THCVA', confidence: 0.99 },
+
 }
 
 function normalizeCannabinoid (name) {

@@ -15,6 +15,7 @@
     "cheerio": "^1.0.0-rc.12",
     "firebase-admin": "^11.11.0",
     "openai": "^4.11.0",
+    "spellchecker": "^3.7.1",
     "tesseract.js": "^4.1.1",
     "xml2js": "^0.6.2"
   },

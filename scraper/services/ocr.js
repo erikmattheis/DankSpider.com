@@ -41,9 +41,9 @@ async function recognize (url) {
     const name = jpgNameFromUrl(url)
 
     // get domain from url
-    const domain = url.split('/')[2] ? url.split('/')[2] : 'unknown'
+    // const domain = url.split('/')[2] ? url.split('/')[2] : 'unknown'
 
-    fs.writeFileSync(`./scan/${domain}-${name}`, jpgBuffer)
+    //fs.writeFileSync(`./scan/${domain}-${name}`, jpgBuffer)
 
     const terpenes = []
 
@@ -263,6 +263,12 @@ async function gmToBuffer (data) {
 
 const getAndProcessJpg = async (url) => {
   try {
+
+    const img = fs.readFileSync(`./scan/${jpgNameFromUrl(url)}`)
+
+    if (img) {
+      return img
+    }
 
     const response = await axios.get(url, { responseType: 'arraybuffer' })
 

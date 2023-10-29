@@ -266,8 +266,7 @@ console.log('totalIndex', totalIndex)
       // Move delta members to the front and Total as to beginning
       deltaIndexes.forEach((index) => {
         cannabinoids.unshift(cannabinoids.splice(index, 1)[0])
-      }
-      )
+      })
       console.log('cannabinoids', cannabinoids)
       cannabinoids.unshift(cannabinoids.splice(totalIndex, 1)[0])
       console.log('cannabinoids', cannabinoids)

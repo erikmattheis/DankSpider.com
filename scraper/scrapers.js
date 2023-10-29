@@ -10,9 +10,9 @@ const drGanja = require('./vendors/drganja.js')
 
 const fs = require('fs')
 
-fs.writeFileSync('errors.txt', '')
-fs.writeFileSync('unknown.txt', '')
-fs.writeFileSync('no-buffer.txt', '')
+fs.writeFileSync('./temp/errors.txt', '')
+fs.writeFileSync('./temp/unknown.txt', '')
+fs.writeFileSync('./temp/no-buffer.txt', '')
 
 function logErrorToFile (str) {
   if (process.env.NODE_ENV !== 'production') {

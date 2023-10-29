@@ -57,7 +57,7 @@
           </li>
         </ul>
       </div>
-
+      <!--
       <div class="header" @click.prevent="toggleCollapse('terpenes')">
         <h3>Terpenes</h3>
 
@@ -110,8 +110,8 @@
           </li>
         </ul>
       </div>
-
-      <div class="container">
+    -->
+      <div class="container header">
 
         <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
           <option selected="true" disabled="true">Sort by Terpene</option>

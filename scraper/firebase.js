@@ -126,19 +126,27 @@ async function thinkAboutCannabinoids() {
     }
   });
 }
+
 async function getUniqueCannabinoids() {
   const productsRef = db.collection('products');
-  const snapshot = await productsRef.get();
 
-  const cannabinoids = new Set();
+  const unique = new Set();
+  const examples = [];
+
+  const snapshot = await productsRef.get();
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    product.cannabinoids?.forEach(cannabinoid => cannabinoids.add(cannabinoid.name));
-    //doc.set(product);
+
+    product.cannabinoids?.forEach(cannabinoid => {
+      if (!unique.has(cannabinoid.name)) {
+        unique.add(cannabinoid.name);
+        examples.push({ name: cannabinoid.name, url: product.url });
+      }
+    });
   });
 
-  return Array.from(cannabinoids).sort();
+  return examples;
 }
 
 async function saveChemicals(products, batchId, useDev) {
@@ -583,6 +591,19 @@ async function getProductsByBatchId(batchId) {
   return products;
 }
 
+async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+  const products = [];
+  const product = snapshot.forEach(doc => {
+    const data = doc.data();
+    if (data.cannabinoids && data.cannabinoids.some(cannabinoid => cannabinoid.name === name)) {
+      products.push(data);
+    }
+  });
+
+  return product
+}
 
 module.exports = {
   getTerpenes,
@@ -610,5 +631,6 @@ module.exports = {
   thinkAboutCannabinoids,
   deleteProductsWithObjectsInVariants,
   fixProducts,
-  getProductsByBatchId
+  getProductsByBatchId,
+  getExampleRecordWithUniqueChemicalAsCannabinoid
 };
