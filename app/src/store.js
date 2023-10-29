@@ -68,11 +68,11 @@ export const useSpiderStore = defineStore('spider', {
     },
     filteredProductsTerpenes () {
 
-      if (!this.filteredProducts) return []
+      if (!this.products) return []
 
       const terpenes = new Set()
 
-      this.filteredProducts.forEach((product) => {
+      this.products.forEach((product) => {
         if (!product.terpenes) return
         product.terpenes.forEach((terpene) => {
           terpenes.add(terpene.name)
@@ -83,11 +83,11 @@ export const useSpiderStore = defineStore('spider', {
     },
     filteredProductsCannabinoids () {
 
-      if (!this.filteredProducts) return []
+      if (!this.products) return []
 
       const cannabinoids = new Set()
 
-      this.filteredProducts.forEach((product) => {
+      this.products.forEach((product) => {
         if (!product.cannabinoids) return
         product.cannabinoids.forEach((cannabinoid) => {
           cannabinoids.add(cannabinoid.name)

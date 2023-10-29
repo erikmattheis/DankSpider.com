@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push({ name: 'Product' });
+      this.$router.push('/');
       this.store.resetFilters();
     }
   }
