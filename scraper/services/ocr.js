@@ -8,6 +8,11 @@ setLogging(false)
 const { getCannabinoidObjCannalyze, getCannabinoidObj, getCannabinoidObj2, getTerpeneObj } = require('./strings.js')
 
 async function recognize (url) {
+
+  if (!url) {
+    fs.appendFileSync('./temp/vendors/errors.txt', `\nNo Image at Url: ${url}\n\n`)
+    return  null;
+  }
   try {
 
     const worker = await createWorker("eng", 1, {
@@ -33,7 +38,7 @@ async function recognize (url) {
       console.log('skipping empty', url)
       await worker.terminate()
 
-      fs.appendFileSync('no-buffer.txt', `\nNo image buffer\n${url}\n\n`)
+      fs.appendFileSync('./temp/vendors/errors.txt', `\nNo image buffer\n${url}\n\n`)
 
       return null
     }
@@ -43,7 +48,7 @@ async function recognize (url) {
     // get domain from url
     // const domain = url.split('/')[2] ? url.split('/')[2] : 'unknown'
 
-    //fs.writeFileSync(`./scan/${domain}-${name}`, jpgBuffer)
+    //fs.writeFileSync(`.temp/vendors/scan/${domain}-${name}`, jpgBuffer)
 
     const terpenes = []
 
@@ -65,10 +70,10 @@ async function recognize (url) {
 
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
-            const line = getCannabinoidObjCannalyze(text)
+            const line = getCannabinoidObjCannalyze(text, url)
 
             if (line && line.name === 'Unknown') {
-              fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
+              fs.appendFileSync('unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
             }
             else {
               cannabinoids.push(line)
@@ -92,10 +97,10 @@ async function recognize (url) {
 
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
-            const line = getTerpeneObj(text)
+            const line = getTerpeneObj(text, url)
 
             if (line && line.name === 'Unknown') {
-              fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
+              fs.appendFileSync('./temp/vendors/unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
             }
             else {
               terpenes.push(line)
@@ -124,15 +129,14 @@ async function recognize (url) {
       const textArray = result.data.text.split('\n')
 
       for (const text of textArray) {
-        const line = getCannabinoidObj(text)
+        const line = getCannabinoidObj(text, url)
 
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids\n\n`)
+          fs.appendFileSync('./temp/vendors/unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids\n\n`)
         }
         else {
           cannabinoids.push(line)
         }
-        
 
       }
 
@@ -153,10 +157,11 @@ async function recognize (url) {
       const textArray = result.data.text.split('\n')
 
       for (const text of textArray) {
-        const line = getCannabinoidObj2(text)
+
+        const line = getCannabinoidObj2(text, url)
 
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids2\n\n`)
+          fs.appendFileSync('./temp/vendors/unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\configWNCCannabinoids2\n\n`)
         }
         else {
           cannabinoids.push(line)
@@ -174,6 +179,7 @@ async function recognize (url) {
     title = await worker.recognize(jpgBuffer, configWNCTerpenesTitle)
 
     if (title.data.text.toLowerCase().includes('terpenes')) {
+      console.log('made it to terpenes:', url)
       console.log('----- terpenes -----')
 
       const result = await worker.recognize(jpgBuffer, configWNCTerpenes)
@@ -181,10 +187,10 @@ async function recognize (url) {
       const textArray = result.data.text.split('\n')
 
       for (const text of textArray) {
-        const line = getTerpeneObj(text)
+        const line = getTerpeneObj(text, url)
 
         if (line && line.name === 'Unknown') {
-          fs.appendFileSync('unknown.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nconfigWNCTerpenesTitle\n\n`)
+          fs.appendFileSync('unknownTerpinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nconfigWNCTerpenesTitle\n\n`)
         }
         else {
           terpenes.push(line)
@@ -195,11 +201,19 @@ async function recognize (url) {
 
       return { terpenes }
     }
+
+    await worker.terminate()
+
+    console.log('reached end!!!!!!!!!!!:', url)
+
+    fs.appendFileSync('reached-end.txt', `URl: ${url}\n\n`)
+
+
   } catch (error) {
 
-    console.error(`Failed to recognize image: ${error}`)
+    console.error(`Error in recognize: ${error}: ${url}`)
 
-    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('./temp/vendors/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 
     return null
   }
@@ -214,7 +228,7 @@ const configCannalyzeCannabinoids = {
 }
 
 const configWNCTerpenesTitle = {
-  rectangle: { top: 1352, left: 284, width: 400, height: 188 }
+  rectangle: { top: 1265, left: 252, width: 420, height: 420 }
 }
 
 const configWNCTerpenes = {
@@ -256,40 +270,48 @@ async function gmToBuffer (data) {
     })
   } catch (error) {
     console.error(`Failed to convert image to buffer: ${error}`)
-    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('./temp/vendors/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
     return null
   }
 }
 
 const getAndProcessJpg = async (url) => {
   try {
-
+/*
     const img = fs.readFileSync(`./scan/${jpgNameFromUrl(url)}`)
 
     if (img) {
       return img
     }
-
+*/
     const response = await axios.get(url, { responseType: 'arraybuffer' })
 
     if (response.status !== 200) {
-      // console.log(`Failed to download image 1`);
-      fs.appendFileSync('errors.txt', `\nNo image buffer\n${url}\n\n`)
+      console.log(`Failed to download image 1`);
+      fs.appendFileSync('./temp/vendors/errors.txt', `\nNo image buffer\n${url}\n\n`)
       return null
     }
 
     const contentType = response.headers['content-type']
     const contentTypeStr = response.headers['content-type'].split('/')[1]
-/*
+
     if (contentType !== 'image/jpeg') {
-      // console.log(`Invalid content type: ${contentType}`);
-      fs.appendFileSync('errors.txt', `\n${url}\nInvalid content type: ${contentType}\n\n`)
-      return null
+      console.log(`Converting content type: ${contentType}`);
+      try {
+        const buffer = await gm(response.data)
+          
+        return
+      }
+      catch {
+        console.log(`Failed to convert content type: ${contentType}`);
+        fs.appendFileSync('./temp/vendors/errors.txt', `\nNo image buffer\n${url}\n\n`)
+        return null
+      }
     }
-*/
+
     const jpgName = jpgNameFromUrl(url)
 
-    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100)
+    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100).setFormat('jpeg').toBuffer('JPEG');
 
     const jpgBuffer = await gmToBuffer(gmResponse)
 
@@ -297,7 +319,7 @@ const getAndProcessJpg = async (url) => {
   } catch (error) {
     console.error('Failed to process image 2', error)
 
-    fs.appendFileSync('errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('./temp/vendors/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 
     return null
   }

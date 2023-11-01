@@ -23,7 +23,7 @@ async function getPrestonProductInfo(product) {
   // try {
 
   const response = await axios.get(product.url);
-  fs.writeFileSync('preston-product.html', response.data);
+  fs.writeFileSync('./temp/vendors/preston-product.html', response.data);
 
   if (response.status < 400) {
     const $ = cheerio.load(response.data);
@@ -109,7 +109,7 @@ async function scrapePage(url, currentPage) {
   try {
 
     const response = await axios.get(url);
-    fs.writeFileSync('preston.html', response.data);
+    fs.writeFileSync('./temp/vendors/preston.html', response.data);
     const $ = cheerio.load(response.data);
 
     const cards = $('.w-dyn-item');

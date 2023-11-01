@@ -18,7 +18,7 @@ function addUniqueVariant(variant) {
 async function getProduct(url) {
 console.log('getProduct called with', url)
   const response = await axios.get(url);
-  fs.writeFileSync('wnc-product.html', response.data);
+  fs.writeFileSync('./temp/vendors/wnc-product.html', response.data);
   const $ = cheerio.load(response.data);
 
   const variants = [];
@@ -114,7 +114,7 @@ async function scrapePage(url, currentPage, productLinks) {
 
   //try {
   const response = await axios.get(url);
-  fs.writeFileSync(`wnc-page-${currentPage}.html`, response.data);
+  fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
   const $ = cheerio.load(response.data);
 
   const cards = $('.card');

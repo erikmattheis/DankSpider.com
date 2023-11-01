@@ -12,7 +12,11 @@ let currentPage = 1;
 
 async function getProducts() {
   const response = await axios.get(atomFeedUrl);
+
+  fs.writeFileSync('./temp/vendors/flow.xml', response.data);
+
   const $ = cheerio.load(response.data, { xmlMode: true });
+
   const products = [];
 
   $('entry').each((_, entry) => {
@@ -48,7 +52,7 @@ async function addVariants(product, $) {
   const variants = labels.map(label => strings.normalizeVariantName(label.text()));
 
   if (variants.some(variant => variant === 'Name')) {
-    console.log('ooops', product);
+ 
     throw new Error('ooops');
   }
 
@@ -58,9 +62,11 @@ async function addVariants(product, $) {
 async function addDetails(products) {
   const result = [];
   for (const product of products) {
-    console.log('product', product.url)
 
     const response = await axios.get(product.url);
+
+    fs.writeFileSync('./temp/vendors/flow-product.html', response.data);
+
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
 

@@ -159,9 +159,16 @@ export const useSpiderStore = defineStore('spider', {
         const aChemical = a.terpenes?.find((chemical) => chemical.name === chemicalName)
     
         const bChemical = b.terpenes?.find((chemical) => chemical.name === chemicalName)
-    
-        if (parseFloat(aChemical?.pct) < parseFloat(bChemical?.pct)) return 1
-        if (parseFloat(aChemical?.pct) > parseFloat(bChemical?.pct)) return -1
+        
+        if (relativeTerpenes) {
+          if (parseFloat(aChemical?.relativePct) < parseFloat(bChemical?.relativePct)) return 1
+          if (parseFloat(aChemical?.relativePct) > parseFloat(bChemical?.relativePct)) return -1
+        }
+        else {
+          if (parseFloat(aChemical?.pct) < parseFloat(bChemical?.pct)) return 1
+          if (parseFloat(aChemical?.pct) > parseFloat(bChemical?.pct)) return -1
+        }
+
         return 0
       })
       this.products = [...sortedProducts]
@@ -249,12 +256,11 @@ export const useSpiderStore = defineStore('spider', {
           }
         })
       })
-      console.log('terps', this.checkedTerpenes.length, this.numSortableTerpenes)
       
       cannabinoids.sort()
       
-      const totalIndex = cannabinoids.findIndex((element) => element === 'Total')
-console.log('totalIndex', totalIndex)
+      
+
       const deltaIndexes = cannabinoids.reduce((acc, element, index) => {
         console.log('element', element);
         if (element.startsWith('∆')) {
@@ -267,7 +273,9 @@ console.log('totalIndex', totalIndex)
       deltaIndexes.forEach((index) => {
         cannabinoids.unshift(cannabinoids.splice(index, 1)[0])
       })
-      console.log('cannabinoids', cannabinoids)
+      
+      const totalIndex = cannabinoids.findIndex((element) => element === 'Total')
+      
       cannabinoids.unshift(cannabinoids.splice(totalIndex, 1)[0])
       console.log('cannabinoids', cannabinoids)
       this.checkedCannabinoids = [...cannabinoids]
@@ -286,7 +294,7 @@ console.log('totalIndex', totalIndex)
 
         product.terpenes.forEach((terpene) => {
           if (!terpene.name) return
-
+            terpAvergeNumerator
           if (!terpenes.includes(terpene.name)) {
             terpenes.push(terpene.name)
           }

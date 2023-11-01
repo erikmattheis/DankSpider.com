@@ -5,7 +5,7 @@ const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 
-const batchId = 'a'
+const batchId = 'a7'
 
 async function makeProductsFile (vendor, limit, useDevCollection) {
   console.log('makeProductsFile', vendor, limit, useDevCollection)
@@ -104,7 +104,7 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-//run('o5')
+run('o6', 'drGanja')
 
 const uniqueChemicalNames = [
   'Tatal',
@@ -163,6 +163,6 @@ async function utils () {
 console.log('done')
 }
 
-utils()
+//utils()
 
 

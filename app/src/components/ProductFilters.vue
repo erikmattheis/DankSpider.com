@@ -6,7 +6,7 @@
           : 's' }}
       </div>
       <h3 class="filters-title">Filters</h3>
-      <div class="collapse-button filters">
+      <div class="collapse-button filters down">
         <font-awesome-icon :icon="['fas', 'right-long']" />
       </div>
     </div>
@@ -207,6 +207,9 @@ export default {
     }
   },
   methods: {
+    toggleRelativeTerpenes() {
+      this.store.toggleRelativeTerpenes();
+    },
     toggleCollapse(name) {
 
       // toggle "collapsed" class on element with classes name and "containe

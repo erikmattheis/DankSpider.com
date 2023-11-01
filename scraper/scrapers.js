@@ -11,12 +11,14 @@ const drGanja = require('./vendors/drganja.js')
 const fs = require('fs')
 
 fs.writeFileSync('./temp/errors.txt', '')
-fs.writeFileSync('./temp/unknown.txt', '')
 fs.writeFileSync('./temp/no-buffer.txt', '')
+fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
+fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
+fs.writeFileSync('./temp/reached-end.txt', '')
 
 function logErrorToFile (str) {
   if (process.env.NODE_ENV !== 'production') {
-    fs.appendFileSync('errors.txt', str + '\n\n\n')
+    fs.appendFileSync('errors.txt', str + '\n\n')
   }
 }
 
@@ -33,6 +35,7 @@ async function run (batchId, vendor) {
       logErrorToFile(error)
     }
   }
+
 
   if (!vendor || vendor === 'WNC') {
     try {
@@ -94,8 +97,7 @@ async function run (batchId, vendor) {
     }
   }
   
-/*
-  if (!vendor || vendor === 'TopCola') {
+  if (false && (!vendor || vendor === 'TopCola')) {
 
     try {
       const topcolaProducts = await topcola.getAvailableLeafProducts()
@@ -108,8 +110,8 @@ async function run (batchId, vendor) {
 
     console.log('Data has been written to Firebase for all vendors.')
   }
-  */
 }
+
 
 module.exports = {
   run

@@ -117,7 +117,7 @@ async function thinkAboutCannabinoids() {
     const product = doc.data();
     if (product.cannabinoids) {
       product.cannabinoids.forEach(cannabinoid => {
-        const name = normalizeCannabinoid(cannabinoid.name);
+        const name = normalizeCannabinoid(cannabinoid.name, product.url);
         if (name) {
           cannabinoid.name = name;
         }
@@ -195,16 +195,15 @@ async function getProductById(id) {
 // find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
 async function fixProducts() {
   const data = await getProductsByVendor('WNC');
-  console.log('fiximg products', data.length);
+  console.log('fixing products', data.length);
   const fixedProducts = [];
   for (const product of data) {
     if (product.terpenes) {
-      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene));
-      const cannabinoids = product.cannabinoids.map(cannabinoid => normalizeCannabinoid(cannabinoid));
+      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene. product.url));
+      const cannabinoids = product.cannabinoids.map(cannabinoid => normalizeCannabinoid(cannabinoid, product.url));
       const fixed = { ...product, terpenes, cannabinoids, variants };
 
-      fixedProducts.push(fixed)
-
+      fixedProducts.push(fixed);
     }
   }
   await saveProducts(fixedProducts, 'z0');

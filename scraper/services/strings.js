@@ -138,15 +138,17 @@ function normalizeTerpene (terpene) {
     return spellings[terpene]
   }
 
-  fs.appendFileSync('unknownTerpinoidSpellings.txt', `${name}\n`)
+  fs.appendFileSync('unknownTerpinoidSpellings.txt', `${terpene}\n`)
   return terpene
 }
 
-function getTerpeneObj (line) {
+function getTerpeneObj (line, url) {
+  console.log('cleaning line', line)
+
   const cleanedLine = line.replace(/\s+/g, ' ')
   const parts = cleanedLine.split(' ')
 
-  const name = normalizeTerpene(parts[0]) || 'Unknown'
+  const name = normalizeTerpene(parts[0], url) || 'Unknown'
 
   let pct = parts[parts.length - 1] || 'Unknown'
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct
@@ -162,11 +164,11 @@ function getTerpeneObj (line) {
   return { name, pct, mgg, originalText }
 }
 
-function getCannabinoidObj (line) {
+function getCannabinoidObj (line, url) {
   const cleanedLine = line.replace(/\s+/g, ' ')
   const parts = cleanedLine.split(' ')
 
-  const name = normalizeCannabinoid(parts[0]) || 'Unknown'
+  const name = normalizeCannabinoid(parts[0], url) || 'Unknown'
 
   let pct = parts[parts.length - 2] || 'Unknown'
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct
@@ -183,11 +185,11 @@ function getCannabinoidObj (line) {
   return { name, pct, mgg, originalText }
 }
 
-function getCannabinoidObj2 (line) {
+function getCannabinoidObj2 (line, url) {
   const cleanedLine = line.replace(/\s+/g, ' ')
   const parts = cleanedLine.split(' ')
 
-  const name = normalizeCannabinoid(`${parts[0]} ${parts[1]}`)
+  const name = normalizeCannabinoid(`${parts[0]} ${parts[1]}`, url) || 'Unknown'
 
   let pct = parts[parts.length - 2] || 0
   pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct
@@ -204,7 +206,7 @@ function getCannabinoidObj2 (line) {
   return { name, pct, mgg, originalText }
 }
 
-function getCannabinoidObjCannalyze (line) {
+function getCannabinoidObjCannalyze (line, url) {
   const cleanedLine = line.replace(/\s+/g, ' ')
   const parts = cleanedLine.split(' ')
 
@@ -212,7 +214,7 @@ function getCannabinoidObjCannalyze (line) {
     return { name: 'Unknown', pct: 0, mgg: 0, originalText: cleanedLine }
   }
 
-  const name = normalizeCannabinoid(parts[0])
+  const name = normalizeCannabinoid(parts[0], url) || 'Unknown'
 
   let pct = parts[parts.length - 2] || 'Unknown'
 
@@ -360,12 +362,14 @@ const cannabinoidSpellings = {
 
 }
 
-function normalizeCannabinoid (name) {
+function normalizeCannabinoid (name, url) {
   if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
     return cannabinoidSpellings[name].name
   }
 
-  fs.appendFileSync('unknownCannabinoidSpellings.txt', `${name}\n`)
+  if (!cannabinoidSpellings[name]) {
+    fs.appendFileSync('unknownCannabinoidSpellings.txt', `\n${name}\n${url}\n`)
+  }
   return name
 }
 

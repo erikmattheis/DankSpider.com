@@ -31,7 +31,7 @@ async function getAvailableLeafProducts() {
 
 async function getProducts() {
   const response = await axios.get(atomFeedUrl);
-  fs.writeFileSync('drganja.html', response.data);
+  fs.writeFileSync('./temp/vendors/drganja.html', response.data);
 
   const $ = cheerio.load(response.data);
 
@@ -53,7 +53,7 @@ async function addDetails(products) {
   const result = [];
   for (const product of products) {
     const response = await axios.get(product.url);
-    fs.writeFileSync('drganja-product.html', response.data);
+    fs.writeFileSync('./temp/vendors/drganja-product.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
     const productWithAssays = await addAssays(productWithVariants, $);
