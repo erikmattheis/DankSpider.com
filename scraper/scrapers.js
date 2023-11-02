@@ -18,7 +18,7 @@ fs.writeFileSync('./temp/reached-end.txt', '')
 
 function logErrorToFile (str) {
   if (process.env.NODE_ENV !== 'production') {
-    fs.appendFileSync('errors.txt', str + '\n\n')
+    fs.appendFileSync('./temp/errors.txt', str + '\n\n')
   }
 }
 

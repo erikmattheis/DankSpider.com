@@ -277,31 +277,6 @@ async function gmToBuffer (data) {
   }
 }
 
-const imageUrl = 'https://example.com/your-image.webp'; // Replace with your WebP image URL
-
-// Function to download the WebP image from the URL and convert it to a JPEG buffer
-const convertWebPtoJPEG = async (imageUrl) => {
-  try {
-    // Make an Axios HTTP request to fetch the WebP image
-    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-
-    // Create a GraphicsMagick image from the buffer
-    return new Promise((resolve, reject) => {
-      gm(response.data)
-        .setFormat('jpeg') // Set the output format to JPEG
-        .toBuffer('JPEG', (err, buffer) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(buffer);
-          }
-        });
-    });
-  } catch (error) {
-    throw error;
-  }
-};
-
 async function getAndProcessJpg(url) {
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });

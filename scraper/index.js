@@ -84,7 +84,9 @@ async function makeTerpenesFile () {
 async function run (batchId, vendor) {
 
   let startTime = performance.now()
+
   await scrapers.run(batchId, vendor)
+  
   let endTime = performance.now()
 
   console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
@@ -104,7 +106,7 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-run('o6', 'drGanja')
+run('o7', 'drGanja')
 
 const uniqueChemicalNames = [
   'Tatal',
