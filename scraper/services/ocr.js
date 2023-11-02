@@ -38,7 +38,7 @@ async function recognize (url) {
       console.log('skipping empty', url)
       await worker.terminate()
 
-      fs.appendFileSync('./temp/vendors/errors.txt', `\nNo image buffer\n${url}\n\n`)
+      fs.appendFileSync('./temp/vendors/errors.txt', `\ngetAndProcessJpg\nNo image buffer\n${url}\n\n`)
 
       return null
     }
@@ -67,7 +67,9 @@ async function recognize (url) {
         const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids)
 
         const textArray = result.data.text.split('\n')
-
+        console.log('textArray', JSON.stringify(textArray, null,2))
+console.log('texturlArray',url)
+process.exit('halt')
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
             const line = getCannabinoidObjCannalyze(text, url)
@@ -224,7 +226,7 @@ const configCannalyzeCannabinoidsTitle = {
 }
 
 const configCannalyzeCannabinoids = {
-  rectangle: { top: 1461, left: 420, width: 3137, height: 2262 }
+  rectangle: { top: 1410, left: 322, width: 3411, height: 2362 }
 }
 
 const configWNCTerpenesTitle = {
@@ -275,15 +277,59 @@ async function gmToBuffer (data) {
   }
 }
 
+const imageUrl = 'https://example.com/your-image.webp'; // Replace with your WebP image URL
+
+// Function to download the WebP image from the URL and convert it to a JPEG buffer
+const convertWebPtoJPEG = async (imageUrl) => {
+  try {
+    // Make an Axios HTTP request to fetch the WebP image
+    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+
+    // Create a GraphicsMagick image from the buffer
+    return new Promise((resolve, reject) => {
+      gm(response.data)
+        .setFormat('jpeg') // Set the output format to JPEG
+        .toBuffer('JPEG', (err, buffer) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(buffer);
+          }
+        });
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+async function getAndProcessJpg(url) {
+  try {
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(response.data, 'binary');
+
+    return new Promise((resolve, reject) => {
+      gm(buffer)
+        .resize(4000, 4000)
+        .toBuffer('JPG', function (err, resizedBuffer) {
+          if (err) {
+            console.error(`Error resizing image: ${err}`);
+            reject(err);
+          } else {
+            console.log(`Resized image buffer`);
+            resolve(resizedBuffer);
+          }
+        });
+    });
+  } catch (error) {
+    console.error(`Error getting or processing JPG: ${error}`);
+    fs.appendFileSync('./temp/vendors/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+  }
+}
+
+  /*
 const getAndProcessJpg = async (url) => {
   try {
-/*
-    const img = fs.readFileSync(`./scan/${jpgNameFromUrl(url)}`)
 
-    if (img) {
-      return img
-    }
-*/
     const response = await axios.get(url, { responseType: 'arraybuffer' })
 
     if (response.status !== 200) {
@@ -293,13 +339,13 @@ const getAndProcessJpg = async (url) => {
     }
 
     const contentType = response.headers['content-type']
-    const contentTypeStr = response.headers['content-type'].split('/')[1]
 
     if (contentType !== 'image/jpeg') {
       console.log(`Converting content type: ${contentType}`);
       try {
-        const buffer = await gm(response.data)
-          
+        const buffer = gm(response.data).toBuffer('JPEG')
+          console.log(buffer)
+          process.exit();
         return
       }
       catch {
@@ -311,19 +357,31 @@ const getAndProcessJpg = async (url) => {
 
     const jpgName = jpgNameFromUrl(url)
 
-    const gmResponse = await gm(response.data, jpgName).resize(4000).sharpen(5, 5).quality(100).setFormat('jpeg').toBuffer('JPEG');
-
-    const jpgBuffer = await gmToBuffer(gmResponse)
-
-    return jpgBuffer
-  } catch (error) {
+    const jpgBuffer = gm(response.data, jpgName)
+    return new Promise((resolve, reject) => {
+      gm(response.data)
+        .quality(100)
+        .resize(4000)
+        .sharpen(5, 5)
+        .setFormat('jpeg')
+        .toBuffer('JPEG', (err, buffer) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(buffer);
+          }
+        });
+    });
+    //const jpgBuffer = await gmToBuffer(gmResponse)
+    
+  }
+  catch (error) {
     console.error('Failed to process image 2', error)
 
-    fs.appendFileSync('./temp/vendors/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    
 
     return null
-  }
-}
+  */
 
 module.exports = {
   recognize

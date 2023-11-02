@@ -58,19 +58,19 @@ console.log('getProduct called with', url)
   for (const image of images) {
 
     if (skippableImages.includes(image)) {
-      console.log('Skipping', image);
+      console.log('Skipping', url);
       continue;
     }
 
     const result = await recognize(image);
 
     if (!result) {
-      console.log('nothing interesting, continuing ...', image);
+      console.log('nothing interesting, continuing ...');
       continue;
     }
 
     if (result instanceof String) {
-      console.log('image rejected', image);
+      console.log('image rejected', url);
       badImages.push(image);
       console.error(result);
       continue;

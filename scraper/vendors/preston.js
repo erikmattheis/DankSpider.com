@@ -60,7 +60,7 @@ async function getPrestonProductInfo(product) {
       }
 
       if (result instanceof String) {
-        console.log('image rejected', image);
+        console.log('image rejected', url);
         continue;
       }
 

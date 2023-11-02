@@ -20,7 +20,8 @@ export const useSpiderStore = defineStore('spider', {
     checkedTerpenes: [],
     normalizedVariants: [],
     filterByCannabinoids: false,
-    filterByTerpenes: false
+    filterByTerpenes: false,
+    relativeTerpenes: false,
   }),
   getters: {
     terpeneNames () {
@@ -262,13 +263,12 @@ export const useSpiderStore = defineStore('spider', {
       
 
       const deltaIndexes = cannabinoids.reduce((acc, element, index) => {
-        console.log('element', element);
         if (element.startsWith('∆')) {
           acc.push(index)
         }
         return acc
       }, [])
-      console.log('deltaIndexes', deltaIndexes)
+
       // Move delta members to the front and Total as to beginning
       deltaIndexes.forEach((index) => {
         cannabinoids.unshift(cannabinoids.splice(index, 1)[0])
@@ -294,7 +294,6 @@ export const useSpiderStore = defineStore('spider', {
 
         product.terpenes.forEach((terpene) => {
           if (!terpene.name) return
-            terpAvergeNumerator
           if (!terpenes.includes(terpene.name)) {
             terpenes.push(terpene.name)
           }
