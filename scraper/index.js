@@ -93,7 +93,7 @@ async function run (batchId, vendor) {
 
   startTime = performance.now()
 
-  await cleanProductsCollections()
+  //await cleanProductsCollections()
 
   endTime = performance.now()
 
@@ -106,7 +106,7 @@ async function run (batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-run('o7', 'drGanja')
+run('o9')
 
 const uniqueChemicalNames = [
   'Tatal',

@@ -131,6 +131,9 @@ export const useSpiderStore = defineStore('spider', {
     },
   },
   actions: {
+    toggleRelativeTerpenes() {
+      this.relativeTerpenes = !this.relativeTerpenes;
+    },
     toggleFilterByCannabinoids () {
       this.filterByCannabinoids = !this.filterByCannabinoids
     },
@@ -161,7 +164,7 @@ export const useSpiderStore = defineStore('spider', {
     
         const bChemical = b.terpenes?.find((chemical) => chemical.name === chemicalName)
         
-        if (relativeTerpenes) {
+        if (this.relativeTerpenes) {
           if (parseFloat(aChemical?.relativePct) < parseFloat(bChemical?.relativePct)) return 1
           if (parseFloat(aChemical?.relativePct) > parseFloat(bChemical?.relativePct)) return -1
         }

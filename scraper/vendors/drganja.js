@@ -109,7 +109,7 @@ async function addAssays(product, $) {
     const result = await recognize(image);
 
     if (!result) {
-      console.log('nothing interesting, continuing ...', image);
+      console.log('\n\n${imgStr}\nnothing interesting, continuing ...', image);
       continue;
     }
 

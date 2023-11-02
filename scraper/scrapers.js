@@ -24,6 +24,7 @@ function logErrorToFile (str) {
 
 async function run (batchId, vendor) {
 
+  /*
   if (!vendor || vendor === 'drGanja') {
 
     try {
@@ -34,8 +35,10 @@ async function run (batchId, vendor) {
       console.error(error)
       logErrorToFile(error)
     }
-  }
 
+
+  }
+    */
 
   if (!vendor || vendor === 'WNC') {
     try {
@@ -97,7 +100,7 @@ async function run (batchId, vendor) {
     }
   }
   
-  if (false && (!vendor || vendor === 'TopCola')) {
+  if ((!vendor || vendor === 'TopCola')) {
 
     try {
       const topcolaProducts = await topcola.getAvailableLeafProducts()

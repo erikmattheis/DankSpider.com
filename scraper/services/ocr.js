@@ -67,9 +67,7 @@ async function recognize (url) {
         const result = await worker.recognize(jpgBuffer, configCannalyzeCannabinoids)
 
         const textArray = result.data.text.split('\n')
-        console.log('textArray', JSON.stringify(textArray, null,2))
-console.log('texturlArray',url)
-process.exit('halt')
+
         for (const text of textArray) {
           if (text.split && text.split(' ').length === 4) {
             const line = getCannabinoidObjCannalyze(text, url)
@@ -242,7 +240,7 @@ const configWNCCannabinoidsTitle = {
 }
 
 const configWNCCannabinoids = {
-  rectangle: { top: 2471, left: 292, width: 2764, height: 1744 }
+  rectangle: { top: 2471, left: 202, width: 3094, height: 1744 }
 }
 
 const configWNCCannabinoidsTitle2 = {

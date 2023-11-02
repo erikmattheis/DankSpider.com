@@ -32,7 +32,6 @@ exports.handler = async function (event, context) {
   try {
     const email = JSON.parse(event.body).email;
 
-    console.log('email', email)
     await addEmail(email);
     return {
       statusCode: 200,
