@@ -15,7 +15,6 @@ let worker;
   worker = await createWorker('eng', OEM.DEFAULT, {
     cachePath: './tessdata',
     languagePath: './tessdata',
-    logger: m => console.log(m),
     errorHandler: (err) => { console.error('Tesseract Error:', err) },
   });
   console.log('worker created', JSON.stringify(worker, null, 2));
