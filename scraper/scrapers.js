@@ -7,6 +7,7 @@ const enlighten = require('./vendors/enlighten-weebly-few-products.js')
 const topcola = require('./vendors/topcola.js')
 const arete = require('./vendors/arete.js')
 const drGanja = require('./vendors/drganja.js')
+const { recognize } = require('./services/ocr.js')
 
 const fs = require('fs')
 
@@ -16,13 +17,41 @@ fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
 fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
 fs.writeFileSync('./temp/reached-end.txt', '')
 
-function logErrorToFile (str) {
+const scan = [
+  // Dr Ganja Cannabinoids
+  'https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Cannabinoids-Certificate-of-Analysis.jpg',
+  // Dr Ganja Terpenes
+  'https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg',
+  // Dr Ganja Terpenes 2
+  'https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg',
+  //wnc cannabinoids
+  'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3613/Indoor_-_THCa_Fiji_Sunset_Hydro_Potency__20263.1696444987.jpg?c=1',
+  //wnc terpenes
+  'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1'
+];
+
+(async () => {
+  setTimeout(() => {
+    doIt()
+  }, 1000)
+})();
+
+async function doIt() {
+  for (url of scan) {
+    console.log('url', url)
+    const result = await recognize(url);
+    console.log(result?.length);
+    const buffer = result;
+  }
+}
+
+function logErrorToFile(str) {
   if (process.env.NODE_ENV !== 'production') {
     fs.appendFileSync('./temp/errors.txt', str + '\n\n')
   }
 }
 
-async function run (batchId, vendor) {
+async function run(batchId, vendor) {
 
   /*
   if (!vendor || vendor === 'drGanja') {
@@ -38,7 +67,7 @@ async function run (batchId, vendor) {
 
 
   }
-    */
+    
 
   if (!vendor || vendor === 'WNC') {
     try {
@@ -51,6 +80,8 @@ async function run (batchId, vendor) {
     }
 
   }
+  
+  */
 
   if (!vendor || vendor === 'Preston') {
     try {
@@ -61,7 +92,7 @@ async function run (batchId, vendor) {
       console.error(error)
       logErrorToFile(error)
     }
-  } 
+  }
 
   if (!vendor || vendor === 'Flow') {
 
@@ -88,7 +119,7 @@ async function run (batchId, vendor) {
     }
   }
 
-  if(!vendor || vendor === 'Enlighten') {
+  if (!vendor || vendor === 'Enlighten') {
 
     try {
       const enlightenProducts = await enlighten.getAvailableLeafProducts()
@@ -99,7 +130,7 @@ async function run (batchId, vendor) {
       logErrorToFile(error)
     }
   }
-  
+
   if ((!vendor || vendor === 'TopCola')) {
 
     try {

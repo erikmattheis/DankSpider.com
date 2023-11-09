@@ -95,10 +95,6 @@ function variantNameContainsWeightUnitString (variantName) {
 
 function normalizeTerpene (terpene) {
 
-  if (!terpene) {
-    return 'Unknown'
-  }
-
   const spellings = {
     '«-Bisabolol': 'Bisabolol',
     '«-Pinene': 'Pinene',
@@ -139,7 +135,7 @@ function normalizeTerpene (terpene) {
   }
 
   fs.appendFileSync('unknownTerpinoidSpellings.txt', `${terpene}\n`)
-  return terpene
+  return "Unknown"
 }
 
 function getTerpeneObj (line, url) {
@@ -370,7 +366,7 @@ function normalizeCannabinoid (name, url) {
   if (!cannabinoidSpellings[name]) {
     fs.appendFileSync('unknownCannabinoidSpellings.txt', `\n${name}\n${url}\n`)
   }
-  return name
+  return "Unknown"
 }
 
 async function collectionIdExists (id, collectionRef) {
