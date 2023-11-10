@@ -19,6 +19,9 @@
   </div>
 </template>
 
+
+
+
 <script>
 import AgeGate from './components/AgeGate.vue';
 import Navigation from './components/Navigation.vue';

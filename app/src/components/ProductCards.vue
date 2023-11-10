@@ -9,6 +9,7 @@
     <div class="horizontal-cards">
       <template v-for="(product, i) in filteredProducts" :key="i">
         <ProductCard :product="product" />
+        <AdCard v-if="(i - 3) / 7 === 0" />
       </template>
     </div>
   </div>
@@ -18,11 +19,13 @@
 import { useSpiderStore } from '../store';
 
 import ProductCard from './ProductCard.vue';
+import AdCard from './AdCard.vue';
 
 export default {
   name: 'ProductCards',
   components: {
     ProductCard,
+    AdCard
   },
   data() {
     return {
