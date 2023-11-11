@@ -10,98 +10,54 @@ setLogging(false)
 const { getConfig } = require('../config/config.ocr.js')
 
 let worker;
-/*
+
 (async () => {
   worker = await createWorker('eng', OEM.DEFAULT, {
     cachePath: './tessdata',
     languagePath: './tessdata',
-    errorHandler: (err) => { console.error('Tesseract Error:', err) },
+    errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
   });
 
-  console.log('worker created', JSON.stringify(worker, null, 2));
-})();
-*/
-(async () => {
-  worker = await createWorker('eng', OEM.DEFAULT, {
-    logger: m => console.log(m),
+  await worker.setParameters({
+    tessedit_pageseg_mode: PSM.SPARSE_TEXT
   });
-  console.log('worker created', worker);
 })();
 
 async function recognize(url) {
+
   try {
     const buffer = await getImageBuffer(url);
-    console.log('buffer.length', buffer.length);
-    console.log('worker.recognize', JSON.stringify(worker.recognize, null, 2));
-    const data = await worker.recognize(buffer, configFirstLook, {});
-    console.log('DATA:', data);
-    return data.text;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-/*
+    const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
 
-let worker;
-
-
-(async () => {
-  worker = await createWorker('eng', 1, {
-    cachePath: './tessdata',
-    languagePath: './tessdata',
-    logger: m => console.log(m),
-    errorHandler: (err) => { console.error('Tesseract Error:', err) },
-  });
-  console.log('worker created', JSON.stringify(worker, null, 2))
-})();
-
-async function recognize(url) {
-
-  try {
-
-
-    const buffer = await getImageBuffer(url)
-
-    console.log('buffer.length', buffer.length)
-
-    console.log('worker.recognize', JSON.stringify(worker.recognize, null, 2));
-
-    const data = await worker.recognize(buffer, configFirstLook)
-
-    const headingText = data.data.text
-
-    console.log('here', headingText)
-
-    const config = getConfig(headingText, url)
-
-    console.log('config', config)
-
-    worker = await getWorker(4).finally(async () => {
-      await worker.terminate();
+    await worker.setParameters({
+      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
+    console.log('headline', headline.data.text)
+    const config = await getConfig(headline.data.text, url);
+    console.log('assal', buffer.length, config)
+    const assay = await worker.recognize(buffer, config);
 
-    const { data: { text: bodyText } } = await worker.recognize(buffer, config);
+    console.log('assay', JSON.stringify(assay.data.text, null, 2))
 
-    const assay = await getAssay(bodyText, config)
-
-
-
-    return assay
-
+    return assay.data.text;
 
   } catch (error) {
 
-    console.error(`Error in recognize: ${error}: ${url}`)
+    console.error(error);
 
     fs.appendFileSync('./temp/errors.txt', `\nError in recognize: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+  }
 
-    return null
+  finally {
+
+    await worker.terminate();
 
   }
 
+
 }
-*/
+
 
 const configFirstLook = {
   rectangle: { top: 222, left: 1217, width: 1648, height: 777 }
@@ -136,17 +92,6 @@ function getConfig(headingText, url) {
 }
 */
 
-async function getAssay(url, config) {
-
-  const result = await worker.recognize(buffer, config)
-
-  const textArray = result.data.text.split('\n')
-
-  const assay = getCannalyzeAssay(textArray, url)
-
-  return assay;
-
-}
 
 function getCannalyzeAssay(textArray, url) {
 
@@ -178,9 +123,9 @@ const getWorker = async (PSM) => {
 
   if (worker) {
 
-    worker.reinitialize()
+    // await worker.reinitialize()
 
-    worker.setParameters({
+    await worker.setParameters({
       tessedit_pageseg_mode: PSM
     });
 
@@ -189,16 +134,17 @@ const getWorker = async (PSM) => {
   }
 
   try {
-    console.log('GETTING WORKER')
+
     const worker = await createWorker("eng", OEM.DEFAULT, {
       cachePath: './tessdata',
       logger: m => console.log(m),
       errorHandler: (err) => { console.error('Tesseract Error:', err) },
     })
-    console.log('worker created', JSON.stringify(worker, null, 2))
+
     await worker.setParameters({
-      tessedit_pageseg_mode: PSM,
+      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
+
     console.log('params set')
     await worker.loadLanguage('eng');
     console.log('lang loaded')
@@ -264,7 +210,6 @@ async function getImageBuffer(url) {
 
           } else {
 
-            console.log(`Resized image buffer`, Object.keys(resizedBuffer));
             resolve(resizedBuffer);
 
           }

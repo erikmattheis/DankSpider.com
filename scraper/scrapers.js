@@ -8,7 +8,7 @@ const topcola = require('./vendors/topcola.js')
 const arete = require('./vendors/arete.js')
 const drGanja = require('./vendors/drganja.js')
 const { recognize } = require('./services/ocr.js')
-
+const { transcribeAssay } = require('./services/cortex.js')
 const fs = require('fs')
 
 fs.writeFileSync('./temp/errors.txt', '')
@@ -30,6 +30,7 @@ const scan = [
   'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1'
 ];
 
+
 (async () => {
   setTimeout(() => {
     doIt()
@@ -39,8 +40,9 @@ const scan = [
 async function doIt() {
   for (url of scan) {
     console.log('url', url)
-    const result = await recognize(url);
-    console.log('result:', result);
+    const result = await recognize(url)
+    const assay = transcribeAssay(result, url)
+    console.log('result:', result)
   }
 }
 
