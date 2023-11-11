@@ -10,14 +10,22 @@ setLogging(false)
 const { getConfig } = require('../config/config.ocr.js')
 
 let worker;
-
+/*
 (async () => {
   worker = await createWorker('eng', OEM.DEFAULT, {
     cachePath: './tessdata',
     languagePath: './tessdata',
     errorHandler: (err) => { console.error('Tesseract Error:', err) },
   });
+
   console.log('worker created', JSON.stringify(worker, null, 2));
+})();
+*/
+(async () => {
+  worker = await createWorker('eng', OEM.DEFAULT, {
+    logger: m => console.log(m),
+  });
+  console.log('worker created', worker);
 })();
 
 async function recognize(url) {
@@ -25,8 +33,9 @@ async function recognize(url) {
     const buffer = await getImageBuffer(url);
     console.log('buffer.length', buffer.length);
     console.log('worker.recognize', JSON.stringify(worker.recognize, null, 2));
-    const data = await worker.recognize(buffer, configFirstLook);
-    // rest of your code
+    const data = await worker.recognize(buffer, configFirstLook, {});
+    console.log('DATA:', data);
+    return data.text;
   } catch (error) {
     console.error(error);
   }
@@ -94,10 +103,10 @@ async function recognize(url) {
 }
 */
 
-
 const configFirstLook = {
   rectangle: { top: 222, left: 1217, width: 1648, height: 777 }
 }
+
 /*
 function getConfig(headingText, url) {
 
@@ -255,7 +264,7 @@ async function getImageBuffer(url) {
 
           } else {
 
-            console.log(`Resized image buffer`);
+            console.log(`Resized image buffer`, Object.keys(resizedBuffer));
             resolve(resizedBuffer);
 
           }

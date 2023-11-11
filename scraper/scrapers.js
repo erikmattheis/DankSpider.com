@@ -40,8 +40,7 @@ async function doIt() {
   for (url of scan) {
     console.log('url', url)
     const result = await recognize(url);
-    console.log(result?.length);
-    const buffer = result;
+    console.log('result:', result);
   }
 }
 
