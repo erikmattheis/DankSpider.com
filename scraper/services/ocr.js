@@ -9,8 +9,8 @@ setLogging(false)
 
 const { getConfig } = require('../config/config.ocr.js')
 
-let worker;
 
+/*
 (async () => {
   worker = await createWorker('eng', OEM.DEFAULT, {
     cachePath: './tessdata',
@@ -22,21 +22,42 @@ let worker;
     tessedit_pageseg_mode: PSM.SPARSE_TEXT
   });
 })();
-
+*/
 async function recognize(url) {
 
+  console.log('\n\nrecognize', url)
+
   try {
+
+    const worker = await createWorker('eng', OEM.DEFAULT, {
+      cachePath: './tessdata',
+      languagePath: './tessdata',
+      errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
+    });
+
     const buffer = await getImageBuffer(url);
+
+    console.log('buffer', buffer.length)
 
     const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
 
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
-    console.log('headline', headline.data.text)
-    const config = await getConfig(headline.data.text, url);
-    console.log('assal', buffer.length, config)
-    const assay = await worker.recognize(buffer, config);
+
+    console.log('headline:\n', headline.data.text)
+
+    const config = await getConfig(headline.data.text, url)
+
+    if (!config) {
+      console.log('no config')
+      fs.appendFileSync('./temp/errors.txt', `\nNo config\n${url}\n\n`)
+      return null
+    }
+
+    console.log('config:', config.name)
+
+    const assay = await worker.recognize(buffer, config)
 
     console.log('assay', JSON.stringify(assay.data.text, null, 2))
 
@@ -51,7 +72,7 @@ async function recognize(url) {
 
   finally {
 
-    await worker.terminate();
+    // await worker.terminate();
 
   }
 

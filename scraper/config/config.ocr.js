@@ -16,25 +16,39 @@ const configMapping = [
     titleKeywords: ['terpenes', 'terps'],
     name: "NEW_BLOOM_TERPENES",
     configs: [{
-      urlKeywords: ['cannabinoid'],
+      urlKeywords: ['https'],
       config: {
         rectangle: { top: 1410, left: 322, width: 3411, height: 2362 }
       }
     }]
   },
+  {
+    titleKeywords: ['certificate'],
+    configs: [
+      {
+        urlKeywords: ['terpene'],
+        name: "OTHER_TERPENE",
+        rectangle: { top: 1410, left: 322, width: 3411, height: 2362 }
+      },
+      {
+        urlKeywords: ['https'],
+        name: "OTHER_CANNABINOID",
+        rectangle: { top: 1410, left: 322, width: 3411, height: 2362 }
+      },]
+  },
 ];
 
 async function getConfig(text, url) {
-  console.log('getConfig', text)
+  console.log('getConfig')
   if (!text) {
     return null;
   }
 
   for (const entry of configMapping) {
     if (entry.titleKeywords.some(word => text.toLowerCase().includes(word))) {
-
+      console.log('found word', entry)
       for (const config of entry.configs) {
-        console.log('config', config)
+
         if (config.urlKeywords.some(word => url.toLowerCase().includes(word))) {
           console.log('yes', config)
           return config
