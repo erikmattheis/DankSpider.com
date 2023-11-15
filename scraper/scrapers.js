@@ -17,6 +17,8 @@ fs.writeFileSync('./temp/no-buffer.txt', '')
 fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
 fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
 fs.writeFileSync('./temp/reached-end.txt', '')
+fs.writeFileSync('./temp/assay.txt', '')
+fs.writeFileSync('./temp/no-config.txt', '')
 
 const scan = [
   // Dr Ganja Cannabinoids
@@ -31,18 +33,12 @@ const scan = [
   'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1'
 ];
 
-/*
-(async () => {
-  setTimeout(() => {
-    doIt()
-  }, 1000)
-})();
-*/
-async function doIt() {
+async function testOCR() {
   for (url of scan) {
     console.log('url', url)
     const result = await recognize(url)
-    const assay = transcribeAssay(result, url)
+
+    fs.appendFileSync('./temp/assay.txt', `${url}\n${result?.length}\n\n`, null, 2)
     console.log('result:', result)
   }
 }
@@ -54,7 +50,6 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-
 
   if (!vendor || vendor === 'ppm') {
 
@@ -166,5 +161,6 @@ async function run(batchId, vendor) {
 
 
 module.exports = {
-  run
+  run,
+  testOCR
 }

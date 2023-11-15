@@ -9,6 +9,8 @@ setLogging(false)
 
 const { getConfig } = require('../config/config.ocr.js')
 
+const { transcribeAssay } = require('./cortex.js')
+
 
 /*
 (async () => {
@@ -23,27 +25,23 @@ const { getConfig } = require('../config/config.ocr.js')
   });
 })();
 */
+
+let worker;
 async function recognize(url) {
 
   console.log('\n\nrecognize', url)
 
   try {
 
-    const worker = await createWorker('eng', OEM.DEFAULT, {
+    worker = await createWorker('eng', OEM.DEFAULT, {
       cachePath: './tessdata',
       languagePath: './tessdata',
       errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
     });
 
-    const buffer = await getImageBuffer(url);
-
-    console.log('buffer', buffer.length)
+    const buffer = await getBuffer(url);
 
     const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
-
-    await worker.setParameters({
-      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
-    });
 
     console.log('headline:\n', headline.data.text)
 
@@ -51,17 +49,23 @@ async function recognize(url) {
 
     if (!config) {
       console.log('no config')
-      fs.appendFileSync('./temp/errors.txt', `\nNo config\n${url}\n\n`)
+      fs.appendFileSync('./temp/no-config.txt', `\nNo config\n${url}\n\n`)
       return null
     }
 
+    await worker.setParameters({
+      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
+    });
+
     console.log('config:', config.name)
 
-    const assay = await worker.recognize(buffer, config)
+    const result = await worker.recognize(buffer, config)
 
-    console.log('assay', JSON.stringify(assay.data.text, null, 2))
+    // console.log('assay', JSON.stringify(assay.data.text, null, 2))
 
-    return assay.data.text;
+    const assay = transcribeAssay(result.data.text, config, url)
+
+    return assay;
 
   } catch (error) {
 
@@ -72,7 +76,9 @@ async function recognize(url) {
 
   finally {
 
-    // await worker.terminate();
+
+    await worker?.terminate();
+
 
   }
 
@@ -81,7 +87,7 @@ async function recognize(url) {
 
 
 const configFirstLook = {
-  rectangle: { top: 222, left: 1217, width: 1648, height: 777 }
+  rectangle: { top: 182, left: 940, width: 1900, height: 817 }
 }
 
 /*
@@ -113,32 +119,6 @@ function getConfig(headingText, url) {
 }
 */
 
-
-function getCannalyzeAssay(textArray, url) {
-
-  for (const text of textArray) {
-
-    if (text.split && text.split(' ').length === 4) {
-
-      const line = getCannalyzeAssayLine(text, url)
-
-      if (line && line.name === 'Unknown') {
-
-        fs.appendFileSync('unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
-      }
-      else {
-        cannabinoids.push(line)
-      }
-    }
-
-  }
-
-  if (cannabinoids.length) {
-    cannabinoids.sort((a, b) => b.pct - a.pct)
-  }
-
-  return { cannabinoids }
-}
 
 const getWorker = async (PSM) => {
 
@@ -184,70 +164,6 @@ const getWorker = async (PSM) => {
 
 }
 
-async function getImageBuffer(url) {
-
-  try {
-
-
-    let response;
-    let buffer;
-
-
-    if (url.startsWith('http')) {
-
-      response = await axios.get(url, { responseType: 'arraybuffer' });
-      buffer = Buffer.from(response.data, 'binary');
-
-    } else {
-
-      buffer = fs.readFileSync(url);
-
-    }
-
-
-    if (!buffer || buffer.length === 0) {
-
-      console.log('skipping empty', url)
-
-      fs.appendFileSync('./temp/no-buffer.txt', `\ngetImageBuffer\nNo image buffer\n${url}\n\n`)
-
-    }
-
-    console.log('resolved getImageBuffer')
-
-    return new Promise((resolve, reject) => {
-
-      gm(buffer)
-
-        .quality(100)
-        .resize(4000)
-        .sharpen(5, 5)
-        .toBuffer('JPEG', function (err, resizedBuffer) {
-
-          if (err) {
-
-            console.error(`Error resizing image: ${err}`);
-            reject(err);
-
-          } else {
-
-            resolve(resizedBuffer);
-
-          }
-
-        });
-
-    });
-
-  } catch (error) {
-
-    console.error(`Error around getImageBuffer: ${error}`);
-
-    fs.appendFileSync('./temp/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
-
-  }
-
-}
 
 module.exports = {
 

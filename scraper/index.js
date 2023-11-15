@@ -50,7 +50,6 @@ async function makeArticles() {
     'Eucalyptol',
     'Bisabolol',
     'Borneol',
-    'Borreol',
     'Camphene',
     'Carene',
     'Caryophyllene',
@@ -86,7 +85,7 @@ async function makeArticles() {
     'Black Truffle',
     'Black Velvet',
     'Blockberry',
-    'Blue Cheese A3',
+    'Blue Cheese #3',
     'Blue Sunset Sherbert',
     'Blue Unicorn',
     'Blueberry Apple Fritter',
@@ -123,7 +122,6 @@ async function makeArticles() {
     'Gasteroids',
     'GBJ',
     'Gelato',
-    'Gelato',
     'Georgia Pie',
     'GG #4',
     'Glitter Bomb',
@@ -136,7 +134,6 @@ async function makeArticles() {
     'Grape Pie',
     'Greenhouse Mixed Smalls (MT)',
     'Gush Mints',
-    'Gush Mintz',
     'Han Solo',
     'Hard Cider',
     'Headband',
@@ -160,7 +157,6 @@ async function makeArticles() {
     'Lemon Pound Cake',
     'Lemon Vanilla OG (LVOG)',
     'London Pound Cake',
-    'MAC 1 -',
     'MAC 1',
     'Magic Knight',
     'Mellow Melons',
@@ -168,8 +164,6 @@ async function makeArticles() {
     'Mendo Breath',
     'Milk',
     'Moon Berry',
-    'Moon Rocks',
-    'Mystery OZ',
     'Northern Lights',
     'Olympus Mons Greenhouse',
     'Orange Creamsicle',
@@ -189,7 +183,6 @@ async function makeArticles() {
     'Purple Galaxy',
     'Purple Gas',
     'Purple Haze',
-    'Purple Haze',
     'Purple Ice',
     'Purple Kush',
     'Purple Moon Dog',
@@ -204,7 +197,6 @@ async function makeArticles() {
     'Royal Octane',
     'Royal Skywalker OG',
     'RS-11',
-    'RS11',
     'Sex Panther',
     'Shamrock Shake',
     'Sherb Cake',
@@ -285,21 +277,25 @@ async function run(batchId, vendor) {
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-run(batchId, 'ppm')
+// run(batchId, 'ppm')
 
 
 async function utils() {
 
-  //const cans = await getUniqueCannabinoids();
+  // await thinkAboutCannabinoids()
+
+  await scrapers.testOCR()
+
+  // const cans = await getUniqueCannabinoids();
 
   //console.log(JSON.stringify(cans, null, 2));
 
   // await cleanProductsCollections()
   // await makeProductsFile()
-  await makeArticles();
+  //await makeArticles();
   console.log('done')
 }
 
-//utils()
+utils()
 
 
