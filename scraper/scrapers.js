@@ -1,5 +1,6 @@
 const { saveProducts } = require('./firebase.js')
 
+const ppm = require('./vendors/ppm.js')
 const preston = require('./vendors/preston.js')
 const flow = require('./vendors/flow.js')
 const wnc = require('./vendors/wnc.js')
@@ -30,13 +31,13 @@ const scan = [
   'https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1'
 ];
 
-
+/*
 (async () => {
   setTimeout(() => {
     doIt()
   }, 1000)
 })();
-
+*/
 async function doIt() {
   for (url of scan) {
     console.log('url', url)
@@ -54,7 +55,23 @@ function logErrorToFile(str) {
 
 async function run(batchId, vendor) {
 
+
+  if (!vendor || vendor === 'ppm') {
+
+    try {
+      const ppmProducts = await ppm.getAvailableLeafProducts()
+      console.log('PPM products', ppmProducts.length)
+      await saveProducts(ppmProducts, batchId)
+    } catch (error) {
+      console.error(error)
+      logErrorToFile(error)
+    }
+
+
+  }
+
   /*
+
   if (!vendor || vendor === 'drGanja') {
 
     try {
