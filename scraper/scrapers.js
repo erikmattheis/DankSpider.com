@@ -12,13 +12,7 @@ const { recognize } = require('./services/ocr.js')
 const { transcribeAssay } = require('./services/cortex.js')
 const fs = require('fs')
 
-fs.writeFileSync('./temp/errors.txt', '')
-fs.writeFileSync('./temp/no-buffer.txt', '')
-fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
-fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
-fs.writeFileSync('./temp/reached-end.txt', '')
-fs.writeFileSync('./temp/assay.txt', '')
-fs.writeFileSync('./temp/no-config.txt', '')
+// https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
 const scan = [
   // Dr Ganja Cannabinoids
@@ -34,7 +28,7 @@ const scan = [
 ];
 
 async function testOCR() {
-  for (url of scan) {
+  for (const url of scan) {
     console.log('url', url)
     const result = await recognize(url)
 

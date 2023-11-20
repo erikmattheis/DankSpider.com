@@ -5,6 +5,17 @@ const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 
+fs.writeFileSync('./temp/errors.txt', '')
+fs.writeFileSync('./temp/no-buffer.txt', '')
+fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
+fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
+fs.writeFileSync('./temp/reached-end.txt', '')
+fs.writeFileSync('./temp/assay.txt', '')
+fs.writeFileSync('./temp/no-config.txt', '')
+fs.writeFileSync('./temp/no-text.txt', '')
+fs.writeFileSync('./temp/config.txt', '')
+fs.writeFileSync('./temp/tables.txt', '')
+
 const batchId = 'a8'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
@@ -278,7 +289,6 @@ async function run(batchId, vendor) {
 }
 
 // run(batchId, 'ppm')
-
 
 async function utils() {
 

@@ -62,7 +62,6 @@ function normalizeTerpene(terpene) {
 }
 
 function getTerpeneObj(line, url) {
-  console.log('cleaning line', line)
 
   const cleanedLine = line.replace(/\s+/g, ' ')
   const parts = cleanedLine.split(' ')

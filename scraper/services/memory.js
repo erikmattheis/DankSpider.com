@@ -1,4 +1,5 @@
 const gm = require("gm");
+const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
 
 const axios = require("./rateLimitedAxios");
@@ -8,22 +9,23 @@ function jpgNameFromUrl(url) {
   return name.endsWith('.jpg') ? name : `${name}.jpg`;
 }
 
+const path = require('path');
+
 async function getBuffer(url) {
-
   const name = makeImageName(url);
+  const dir = path.join(__dirname, '../temp/scan');
+  const filePath = path.join(dir, name);
 
-  const path = `./temp/${name}`;
-
-  if (fs.existsSync(`./temp/${name}`)) {
-    buffer = await getImageBuffer(path);
-    console.log('Got image from file', name);
-  }
-  else {
+  if (fs.existsSync(filePath)) {
+    buffer = fs.readFileSync(filePath);
+    console.log('Got image from file', buffer.length);
+  } else {
     buffer = await getImageBuffer(url);
-    fs.writeFileSync(path, buffer);
+    fs.writeFileSync(filePath, buffer);
     console.log('Got image from url', url);
   }
 
+  return buffer;
 }
 
 function makeImageName(url) {
@@ -39,20 +41,8 @@ async function getImageBuffer(url) {
   try {
 
 
-    let response;
-    let buffer;
-
-
-    if (url.startsWith('http')) {
-
-      response = await axios.get(url, { responseType: 'arraybuffer' });
-      buffer = Buffer.from(response.data, 'binary');
-
-    } else {
-
-      buffer = fs.readFileSync(url);
-
-    }
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(response.data, 'binary');
 
 
     if (!buffer || buffer.length === 0) {
@@ -63,12 +53,9 @@ async function getImageBuffer(url) {
 
     }
 
-    console.log('resolved getImageBuffer')
-
     return new Promise((resolve, reject) => {
 
       gm(buffer)
-
         .quality(100)
         .resize(4000)
         .sharpen(5, 5)
