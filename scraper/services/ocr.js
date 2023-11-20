@@ -30,19 +30,15 @@ const end = [];
 
 async function recognize(url) {
 
-  for (let psm = 1; psm < 13; psm++) {
+  //for (let psm = 1; psm < 13; psm++) {
 
-    for (let oem = 0; oem < 3; oem++) {
+  //for (let oem = 0; oem < 3; oem++) {
 
-      const result = await recognizeIt(url, psm, oem)
+  const result = await recognizeIt(url, PSM.AUTO, OEM.DEFAULT)
 
-      if (result) {
-        return result
-      }
+  //}
 
-    }
 
-  }
 
   end.sort((a, b) => b.n - a.n)
 
@@ -51,20 +47,20 @@ async function recognize(url) {
 
 }
 
-async function recognizeIt(url, psm, oem) {
+async function recognize(url) {
 
   console.log('\n\nrecognize', url)
 
   try {
 
-    worker = await createWorker('eng', oem, {
+    worker = await createWorker('eng', OEM.DEFAULT, {
       cachePath: './tessdata',
       languagePath: './tessdata',
       errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
     });
 
     await worker.setParameters({
-      tessedit_pageseg_mode: psm
+      tessedit_pageseg_mode: PSM.SINGLE_COLUMN
     });
 
     const buffer = await getBuffer(url);
@@ -77,52 +73,7 @@ async function recognizeIt(url, psm, oem) {
 
     // const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
 
-    const headline = await worker.recognize(buffer);
-    //console.log('./temp/blocks.json', JSON.stringify(headline.data.blocks[0]))
-    console.log(headline.data.blocks.length)
-
-    console.log(Object.keys(headline.data.blocks))
-    const types = headline.data.blocks.map(block => block.blocktype);
-
-    const str = `+++++++++++++++++++++++\n${url}\nOEM:${oem} PSM:${psm} BLOCKS:${types.length}\n${types.join(' ')}\n+++++++++++++++++++++++\n\n`
-
-    end.push({ n: types.length, url, oem, psm, types })
-
-    fs.appendFileSync('./temp/blocks.txt', str);
-
-    console.log(str)
-
-    return
-
-    const tableTexts = tables.map(table => table.paragraphs.map(paragraph => paragraph.lines.map(line => line.words.map(word => word.text).join(' ')).join('\n')).join('\n'));
-
-    const headlineText = JSON.stringify(headline.data.blocks, null, 2);
-
-    fs.writeFileSync('./temp/headline.txt', `${url}\n${headlineText}`)
-
-
-
-    fs.appendFileSync('./temp/final.txt', `${url}\n${headline.data.text}`)
-
-    const config = await getConfig(headline.data.text, url)
-
-    fs.appendFileSync('./temp/final.txt', `${config}`)
-
-    fs.appendFileSync('./temp/config.txt', `${JSON.stringify(config, null, 2)}\n------------------\n\n`)
-
-    if (!config) {
-      console.log('no config')
-      fs.appendFileSync('./temp/no-config.txt', `\nNo config\n${url}\n\n`)
-      return null
-    }
-
-    await worker.setParameters({
-      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
-    });
-
-    console.log('config:', config.name)
-
-    const result = await worker.recognize(buffer, config)
+    const result = await worker.recognize(buffer);
 
     if (!result.data.text || result.data.text.length === 0) {
       console.log('no text')
@@ -130,9 +81,9 @@ async function recognizeIt(url, psm, oem) {
       return null
     }
 
-    const assay = transcribeAssay(result.data.text, config, url)
+    const assay = transcribeAssay(result.data.text, url)
 
-    console.log('assay', JSON.stringify(assay, null, 2))
+    //console.log('assay', JSON.stringify(assay, null, 2))
 
     return assay;
 

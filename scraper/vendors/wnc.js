@@ -16,7 +16,7 @@ function addUniqueVariant(variant) {
 }
 
 async function getProduct(url) {
-console.log('getProduct called with', url)
+  console.log('getProduct called with', url)
   const response = await axios.get(url);
   fs.writeFileSync('./temp/vendors/wnc-product.html', response.data);
   const $ = cheerio.load(response.data);

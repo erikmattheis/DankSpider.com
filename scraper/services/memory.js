@@ -2,8 +2,6 @@ const gm = require("gm");
 const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
 
-const axios = require("./rateLimitedAxios");
-
 function jpgNameFromUrl(url) {
   const name = url.split('/').pop().split('#')[0].split('?')[0];
   return name.endsWith('.jpg') ? name : `${name}.jpg`;
@@ -16,7 +14,7 @@ async function getBuffer(url) {
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
 
-  if (fs.existsSync(filePath)) {
+  if (false || fs.existsSync(filePath)) {
     buffer = fs.readFileSync(filePath);
     console.log('Got image from file', buffer.length);
   } else {

@@ -71,7 +71,6 @@ async function getProductsByTerpene(terpene) {
     const product = doc.data();
     results.push(product);
   });
-  console.log('there are', results.length, 'products with', terpene, 'terpene')
   return results;
 }
 
@@ -182,7 +181,6 @@ async function saveChemicals(products, batchId, useDev) {
 
   await batch.commit();
 
-  // console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 async function getProductById(id) {
@@ -195,11 +193,11 @@ async function getProductById(id) {
 // find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
 async function fixProducts() {
   const data = await getProductsByVendor('WNC');
-  console.log('fixing products', data.length);
+
   const fixedProducts = [];
   for (const product of data) {
     if (product.terpenes) {
-      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene. product.url));
+      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene.product.url));
       const cannabinoids = product.cannabinoids.map(cannabinoid => normalizeCannabinoid(cannabinoid, product.url));
       const fixed = { ...product, terpenes, cannabinoids, variants };
 
@@ -244,7 +242,6 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
-  console.log(`Data has been written to Firebase for ${products.length} ${products[0]?.vendor} products`);
 }
 
 const { performance } = require('perf_hooks');
@@ -586,7 +583,7 @@ async function getProductsByBatchId(batchId) {
     const product = doc.data()
     products.push(product);
   });
-  console.log('products length', products.length)
+
   return products;
 }
 

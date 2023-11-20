@@ -44,22 +44,22 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-
-  if (!vendor || vendor === 'ppm') {
-
-    try {
-      const ppmProducts = await ppm.getAvailableLeafProducts()
-      console.log('PPM products', ppmProducts.length)
-      await saveProducts(ppmProducts, batchId)
-    } catch (error) {
-      console.error(error)
-      logErrorToFile(error)
-    }
-
-
-  }
-
   /*
+    if (!vendor || vendor === 'ppm') {
+  
+      try {
+        const ppmProducts = await ppm.getAvailableLeafProducts()
+        console.log('PPM products', ppmProducts.length)
+        await saveProducts(ppmProducts, batchId)
+      } catch (error) {
+        console.error(error)
+        logErrorToFile(error)
+      }
+  
+  
+    }
+  
+  */
 
   if (!vendor || vendor === 'drGanja') {
 
@@ -74,7 +74,7 @@ async function run(batchId, vendor) {
 
 
   }
-    
+
 
   if (!vendor || vendor === 'WNC') {
     try {
@@ -87,8 +87,8 @@ async function run(batchId, vendor) {
     }
 
   }
-  
-  */
+
+
 
   if (!vendor || vendor === 'Preston') {
     try {
@@ -125,19 +125,19 @@ async function run(batchId, vendor) {
       logErrorToFile(error)
     }
   }
-
-  if (!vendor || vendor === 'Enlighten') {
-
-    try {
-      const enlightenProducts = await enlighten.getAvailableLeafProducts()
-      console.log('Enlighten products', enlightenProducts.length)
-      await saveProducts(enlightenProducts, batchId)
-    } catch (error) {
-      console.error(error)
-      logErrorToFile(error)
+  /*
+    if (!vendor || vendor === 'Enlighten') {
+  
+      try {
+        const enlightenProducts = await enlighten.getAvailableLeafProducts()
+        console.log('Enlighten products', enlightenProducts.length)
+        await saveProducts(enlightenProducts, batchId)
+      } catch (error) {
+        console.error(error)
+        logErrorToFile(error)
+      }
     }
-  }
-
+  */
   if ((!vendor || vendor === 'TopCola')) {
 
     try {

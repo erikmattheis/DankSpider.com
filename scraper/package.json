@@ -17,6 +17,7 @@
     "openai": "^4.11.0",
     "spellchecker": "^3.7.1",
     "tesseract.js": "^5.0.3",
+    "winston": "^3.11.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {

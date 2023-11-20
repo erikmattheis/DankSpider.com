@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-function transcribeAssay(str, config, url) {
+function transcribeAssay(str, url) {
 
   if (!str?.split) {
     return null
@@ -8,12 +8,23 @@ function transcribeAssay(str, config, url) {
 
   const lines = str.split('\n')
 
-  const terps = lines.map(line => getTerpeneObj(line))
-  const canns = lines.map(line => getCannabinoidObj(line))
+  const terpsAndUnknowns = lines.map(line => getTerpeneObj(line))
+  const terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown')
 
-  fs.appendFileSync('./temp/lines.txt', `${url}\n${lines.length}\n\n`, null, 2)
+  const cannsAndUnknowns = lines.map(line => getCannabinoidObj(line))
+  const canns = cannsAndUnknowns.filter(cann => cann.name !== 'Unknown')
 
-  return lines
+
+  const l = `+++++++++++++++++++${url}\nCanns: ${canns.length}\nTerps: ${terps.length}\n\n`
+  fs.appendFileSync('./temp/lines.txt', l)
+  console.log(l)
+
+  if (canns.length > terps) {
+    return { cannabinoids: canns }
+  }
+
+  return { terpenes: terps }
+
 }
 
 function normalizeTerpene(terpene) {
@@ -57,7 +68,9 @@ function normalizeTerpene(terpene) {
     return spellings[terpene]
   }
 
-  fs.appendFileSync('unknownTerpinoidSpellings.txt', `${terpene}\n`)
+
+  fs.appendFileSync('./temp/unknownTerpinoidSpellings.txt', `${terpene}\n`)
+
   return "Unknown"
 }
 
@@ -285,9 +298,9 @@ function normalizeCannabinoid(name, url) {
     return cannabinoidSpellings[name].name
   }
 
-  if (!cannabinoidSpellings[name]) {
-    fs.appendFileSync('unknownCannabinoidSpellings.txt', `\n${name}\n${url}\n`)
-  }
+
+  fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `\n${name}\n${url}\n`)
+
   return "Unknown"
 }
 
@@ -303,7 +316,7 @@ function getCannalyzeAssay(textArray, url) {
 
       if (line && line.name === 'Unknown') {
 
-        fs.appendFileSync('unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
+        fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
       }
       else {
         cannabinoids.push(line)
