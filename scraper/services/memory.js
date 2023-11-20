@@ -1,6 +1,8 @@
 const gm = require("gm");
 const fs = require("fs");
 
+const axios = require("./rateLimitedAxios");
+
 function jpgNameFromUrl(url) {
   const name = url.split('/').pop().split('#')[0].split('?')[0];
   return name.endsWith('.jpg') ? name : `${name}.jpg`;
