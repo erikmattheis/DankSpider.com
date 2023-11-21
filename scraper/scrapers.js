@@ -9,7 +9,6 @@ const topcola = require('./vendors/topcola.js')
 const arete = require('./vendors/arete.js')
 const drGanja = require('./vendors/drganja.js')
 const { recognize } = require('./services/ocr.js')
-const { transcribeAssay } = require('./services/cortex.js')
 const fs = require('fs')
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
@@ -75,19 +74,19 @@ async function run(batchId, vendor) {
 
   }
 
-
-  if (!vendor || vendor === 'WNC') {
-    try {
-      const wncProducts = await wnc.getAvailableLeafProducts()
-      console.log('WNC products', wncProducts.length)
-      await saveProducts(wncProducts, batchId)
-    } catch (error) {
-      console.error(error)
-      logErrorToFile(error)
+  /*
+    if (!vendor || vendor === 'WNC') {
+      try {
+        const wncProducts = await wnc.getAvailableLeafProducts()
+        console.log('WNC products', wncProducts.length)
+        await saveProducts(wncProducts, batchId)
+      } catch (error) {
+        console.error(error)
+        logErrorToFile(error)
+      }
+  
     }
-
-  }
-
+  */
 
 
   if (!vendor || vendor === 'Preston') {

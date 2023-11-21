@@ -27,7 +27,7 @@ const { transcribeAssay } = require('./cortex.js')
 
 let worker;
 const end = [];
-
+/*
 async function recognize(url) {
 
   //for (let psm = 1; psm < 13; psm++) {
@@ -46,7 +46,7 @@ async function recognize(url) {
 
 
 }
-
+*/
 async function recognize(url) {
 
   console.log('\n\nrecognize', url)
@@ -56,11 +56,14 @@ async function recognize(url) {
     worker = await createWorker('eng', OEM.DEFAULT, {
       cachePath: './tessdata',
       languagePath: './tessdata',
+
       errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
     });
 
     await worker.setParameters({
-      tessedit_pageseg_mode: PSM.SINGLE_COLUMN
+      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
+      tessedit_char_whitelist: ' 0123456789.[a-zA-Z]-&\''
+
     });
 
     const buffer = await getBuffer(url);

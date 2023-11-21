@@ -2,7 +2,6 @@ import './style.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import VueGtag from 'vue-gtag'
-import VueMeta from 'vue-meta'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -40,6 +39,5 @@ app.use(VueGtag, {
     id: 'G-1R8ZDWL3XJ'
   }
 }, router)
-app.use(VueMeta)
 
 app.mount('#app')

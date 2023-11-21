@@ -20,7 +20,7 @@ fs.writeFileSync('./temp/tables.txt', '')
 const batchId = 'n'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
-  logger.log('makeProductsFile', vendor, limit, useDevCollection)
+  logger.log('info', { vendor, limit, useDevCollection })
   let products
 
   if (vendor && useDevCollection) {
@@ -69,20 +69,22 @@ async function run(batchId, vendor) {
 
   startTime = performance.now()
 
-  //await cleanProductsCollections()
+  await cleanProductsCollections()
 
   endTime = performance.now()
 
   console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 
   startTime = performance.now()
-  // await makeProductsFile()
+
+  await makeProductsFile()
+
   endTime = performance.now()
 
   console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
-//run(batchId)
+run(batchId)
 
 async function utils() {
 
@@ -100,6 +102,6 @@ async function utils() {
   console.log('done')
 }
 
-utils()
+//utils()
 
 
