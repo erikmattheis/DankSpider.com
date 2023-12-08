@@ -9,14 +9,14 @@ setLogging(false)
 
 const { getConfig } = require('../config/config.ocr.js')
 
-const { transcribeAssay } = require('./cortex.js')
+
 
 /*
 (async () => {
   worker = await createWorker('eng', OEM.DEFAULT, {
     cachePath: './tessdata',
     languagePath: './tessdata',
-    errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
+    errorHandler: (err) => { logger.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
   });
 
   await worker.setParameters({
@@ -26,30 +26,10 @@ const { transcribeAssay } = require('./cortex.js')
 */
 
 let worker;
-const end = [];
-/*
+
 async function recognize(url) {
 
-  //for (let psm = 1; psm < 13; psm++) {
-
-  //for (let oem = 0; oem < 3; oem++) {
-
-  const result = await recognizeIt(url, PSM.AUTO, OEM.DEFAULT)
-
-  //}
-
-
-
-  end.sort((a, b) => b.n - a.n)
-
-  fs.writeFileSync('./temp/results.txt', JSON.stringify(end, null, 2));
-
-
-}
-*/
-async function recognize(url) {
-
-  console.log('\n\nrecognize', url)
+  logger.log('\n\nrecognize', url)
 
   try {
 
@@ -57,20 +37,17 @@ async function recognize(url) {
       cachePath: './tessdata',
       languagePath: './tessdata',
 
-      errorHandler: (err) => { console.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
+      errorHandler: (err) => { logger.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
     });
 
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
-      tessedit_char_whitelist: ' 0123456789.[a-zA-Z]-&\''
-
     });
 
     const buffer = await getBuffer(url);
 
     if (!buffer || buffer.length === 0) {
-      console.log('skipping empty', url)
-      fs.appendFileSync('./temp/no-buffer.txt', `\nNo image buffer\n${url}\n\n`)
+      logger.warn(`No image buffer: ${url}`)
       return null
     }
 
@@ -79,22 +56,21 @@ async function recognize(url) {
     const result = await worker.recognize(buffer);
 
     if (!result.data.text || result.data.text.length === 0) {
-      console.log('no text')
-      fs.appendFileSync('./temp/no-text.txt', `\nNo text\n${url}\n\n`)
+      logger.warn(`No text: ${url}`)
       return null
     }
 
     const assay = transcribeAssay(result.data.text, url)
 
-    //console.log('assay', JSON.stringify(assay, null, 2))
+    //logger.log('assay', JSON.stringify(assay, null, 2))
 
     return assay;
 
   } catch (error) {
 
-    console.error(error);
+    logger.error(error);
 
-    fs.appendFileSync('./temp/errors.txt', `\nError in recognize: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    logger.error(`Error in recognize: ${url}\n${JSON.stringify(error, null, 2)}`)
   }
 
   finally {
@@ -161,24 +137,24 @@ const getWorker = async (PSM) => {
 
     const worker = await createWorker("eng", OEM.DEFAULT, {
       cachePath: './tessdata',
-      logger: m => console.log(m),
-      errorHandler: (err) => { console.error('Tesseract Error:', err) },
+      logger: m => logger.log(m),
+      errorHandler: (err) => { logger.error('Tesseract Error:', err) },
     })
 
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
 
-    console.log('params set')
+    logger.log('params set')
     await worker.loadLanguage('eng');
-    console.log('lang loaded')
+    logger.log('lang loaded')
     await worker.initialize('eng');
-    console.log('worker initialized')
+    logger.log('worker initialized')
     return worker
 
   } catch (error) {
 
-    console.error('Error in getWorker:', error)
+    logger.error('Error in getWorker:', error)
 
     fs.appendFileSync('./temp/errors.txt', `\nError in getWorker\n${JSON.stringify(error, null, 2)}\n\n`)
 

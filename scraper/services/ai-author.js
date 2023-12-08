@@ -11,7 +11,7 @@ async function getOpenAIArticle(topic, length) {
     messages,
     model,
   });
-  console.log('res', gptResponse.choices[0].message.content)
+  logger.log('res', gptResponse.choices[0].message.content)
   return gptResponse.choices[0].message.content;
 
 }
@@ -48,11 +48,11 @@ async function getOpenAIHeadline(topic) {
 }
 
 async function getArticle(chemical, length) {
-  console.log('article', chemical);
+  logger.log('article', chemical);
   const article = await getOpenAIArticle(chemical, length);
-  console.log('description', chemical);
+  logger.log('description', chemical);
   const description = await getOpenAIDescription(`terpene ` + chemical);
-  console.log('headline', chemical);
+  logger.log('headline', chemical);
   const headline = await getOpenAIHeadline(`terpene ` + chemical);
 
   return { name: chemical, article, description, headline }

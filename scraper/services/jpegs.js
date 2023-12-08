@@ -6,6 +6,7 @@ const path = require('path');
 const admin = require('firebase-admin');
 
 const { recognize, recognizeWithSave } = require('./ocr.js');
+const { transcribeAssay } = require('../services/cortex.js');
 const { getCompleteProducts, getIncompleteProducts, getProductsByVendor, getproducts, saveProducts, deleteAllDocumentsInCollection } = require('../firebase.js');
 
 const skippableImages = ["https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/268/1807/1683224189.1280.1280__66714.1683226369.jpg?c=1",
@@ -25,7 +26,7 @@ async function run(batchId) {
   //const complete = await getCompleteProducts('WNC');
   //const products = await getIncompleteProducts('WNC');
 
-  console.log(`looking at ${products.length} products`);
+  logger.log(`looking at ${products.length} products`);
 
   //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
@@ -38,8 +39,8 @@ async function run(batchId) {
     const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
 
     if (best.length === 0) {
-      console.log('No good images found for', product.title);
-      console.log(JSON.stringify(result, null, 2));
+      logger.log('No good images found for', product.title);
+      logger.log(JSON.stringify(result, null, 2));
       continue;
     }
     const images = [...best];
@@ -57,11 +58,12 @@ async function run(batchId) {
     for (const image of product.images) {
 
       if (skippableImages.includes(image)) {
-        console.log('Skipping', image);
+        logger.log('Skipping', image);
         continue;
       }
 
-      const result = await recognize(image);
+      const raw = await recognize(image);
+      const result = await transcribeAssay(raw);
 
       if (!result) {
         continue;
@@ -70,41 +72,41 @@ async function run(batchId) {
       //const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
 
       if (result instanceof String) {
-        console.log('image rejected', image);
+        logger.log('image rejected', image);
         badImages.push(image);
       }
 
 
       if (result.terpenes?.length) {
-        console.log('Terpenes: ', result.terpenes.length)
+        logger.log('Terpenes: ', result.terpenes.length)
         product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
       else if (result.cannabinoids?.length) {
-        console.log('Cannabinoids: ', result.cannabinoids.length)
+        logger.log('Cannabinoids: ', result.cannabinoids.length)
         product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 
       if (product.terpenes?.length && product.cannabinoids?.length) {
-        console.log('both terpenes and cannabinoids found')
+        logger.log('both terpenes and cannabinoids found')
         break;
       }
 
-      console.log('Nothing in', image);
+      logger.log('Nothing in', image);
 
     }
 
     await saveProducts([product], batchId, true);
 
-    console.log('Saved one!')
+    logger.log('Saved one!')
     withOCRedImages.push({ ...product, terpenes, cannabinoids });
 
-    // console.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
+    // logger.log(`Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
 
   }
 
   //await saveProducts(withOCRedImages, batchId, true);
 
-  console.log(`Saved ${withOCRedImages.length} products to Firebase`);
+  logger.log(`Saved ${withOCRedImages.length} products to Firebase`);
 
 }
 

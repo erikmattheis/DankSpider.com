@@ -6,6 +6,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
+
 fs.writeFileSync('./temp/errors.txt', '')
 fs.writeFileSync('./temp/no-buffer.txt', '')
 fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
@@ -44,7 +45,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }))
 
-  console.log(`Wrote ${products.length} products to products.json`)
+  logger.log(`Wrote ${products.length} products to products.json`)
 }
 
 function filterAssay(assay) {
@@ -54,7 +55,7 @@ function filterAssay(assay) {
 async function makeTerpenesFile() {
   const result = await getTerpenes()
   fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
-  // console.log(`Wrote ${result.length} terpenes to terpenes.json`);
+  logger.log(`Wrote ${result.length} terpenes to terpenes.json`);
 }
 
 async function run(batchId, vendor) {
@@ -65,7 +66,7 @@ async function run(batchId, vendor) {
 
   let endTime = performance.now()
 
-  console.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 
   startTime = performance.now()
 
@@ -73,7 +74,7 @@ async function run(batchId, vendor) {
 
   endTime = performance.now()
 
-  console.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 
   startTime = performance.now()
 
@@ -81,7 +82,7 @@ async function run(batchId, vendor) {
 
   endTime = performance.now()
 
-  console.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
 }
 
 run(batchId)
@@ -94,12 +95,12 @@ async function utils() {
 
   // const cans = await getUniqueCannabinoids();
 
-  //console.log(JSON.stringify(cans, null, 2));
+  //logger.log(JSON.stringify(cans, null, 2));
 
   await cleanProductsCollections()
   await makeProductsFile()
   //await makeArticles();
-  console.log('done')
+  logger.log('done')
 }
 
 //utils()

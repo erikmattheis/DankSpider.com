@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
+const { transcribeAssay } = require('../services/cortex.js');
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
 
@@ -52,7 +53,7 @@ async function addVariants(product, $) {
   const variants = labels.map(label => strings.normalizeVariantName(label.text()));
 
   if (variants.some(variant => variant === 'Name')) {
- 
+
     throw new Error('ooops');
   }
 
@@ -85,7 +86,7 @@ async function addAssays(product, $) {
   const images = $('.lazyload').map((_, el) => $(el).attr('data-photoswipe-src')).get();
 
   if (images.length === 0) {
-    console.log('no images', product.url);
+    logger.log('no images', product.url);
     return {
       ...product, cannabinoids: [], terpenes: []
     };
@@ -94,30 +95,31 @@ async function addAssays(product, $) {
   for (const imgStr of images) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
-    const result = await recognize(image);
+    const raw = await recognize(image);
+    const result = await transcribeAssay(raw, 'flow', image);
 
     if (!result) {
-      console.log('nothing interesting, continuing ...', image);
+      logger.log('nothing interesting, continuing ...', image);
       continue;
     }
 
     if (result instanceof String) {
-      console.log('image rejected', image);
-      console.error(result);
+      logger.log('image rejected', image);
+      logger.error(result);
       continue;
     }
 
     if (result.terpenes?.length) {
-      console.log('Terpenes: ', result.terpenes.length)
+      logger.log('Terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      console.log('Cannabinoids: ', result.cannabinoids.length)
+      logger.log('Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      console.log('both terpenes and cannabinoids found')
+      logger.log('both terpenes and cannabinoids found')
       break;
     }
   }
@@ -134,7 +136,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
+const { transcribeAssay } = require('../services/cortex.js');
 
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
@@ -16,7 +17,7 @@ function addUniqueVariant(variant) {
 }
 
 async function getProduct(url) {
-  console.log('getProduct called with', url)
+  logger.log('getProduct called with', url)
   const response = await axios.get(url);
   fs.writeFileSync('./temp/vendors/wnc-product.html', response.data);
   const $ = cheerio.load(response.data);
@@ -48,7 +49,7 @@ async function getProduct(url) {
   const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
   if (images.length === 0) {
-    console.log('No good images found for', title);
+    logger.log('No good images found for', title);
     return null;
   }
 
@@ -58,35 +59,35 @@ async function getProduct(url) {
   for (const image of images) {
 
     if (skippableImages.includes(image)) {
-      console.log('Skipping', url);
+      logger.log('Skipping', url);
       continue;
     }
 
-    const result = await recognize(image);
+    const raw = await recognize(image);
+    const result = await transcribeAssay(raw, 'wnc', image);
 
     if (!result) {
-      console.log('nothing interesting, continuing ...');
+      logger.log('nothing interesting, continuing ...');
       continue;
     }
 
     if (result instanceof String) {
-      console.log('image rejected', url);
+      logger.log('image rejected', url);
       badImages.push(image);
-      console.error(result);
       continue;
     }
 
     if (result.terpenes?.length) {
-      console.log('Terpenes: ', result.terpenes.length)
+      logger.log('Terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      console.log('Cannabinoids: ', result.cannabinoids.length)
+      logger.log('Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      console.log('both terpenes and cannabinoids found')
+      logger.log('both terpenes and cannabinoids found')
       break;
     }
 
@@ -94,9 +95,9 @@ async function getProduct(url) {
 
   // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-  // console.log('Saved ${title}');
+  // logger.log('Saved ${title}');
 
-  console.log(`${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`);
+  logger.log(`${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`);
 
   return {
     title,
@@ -193,7 +194,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

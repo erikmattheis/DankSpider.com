@@ -1,7 +1,7 @@
 const axios = require('../services/rateLimitedAxios')
 const strings = require('../services/strings')
 
-async function getAvailableLeafProducts () {
+async function getAvailableLeafProducts() {
   const url = 'https://cdn5.editmysite.com/app/store/api/v28/editor/users/132525192/sites/370639016370754120/products?page=1&per_page=60&sort_by=shop_all_order&sort_order=asc&include=images,media_files,discounts&preferred_item_order_ids=19,29,28,30,26,25,24,23,22,21,20,15,13,12,11,10,9,6,5,4,3,2&in_stock=1&excluded_fulfillment=dine_in'
   const response = await axios.get(url)
   const products = []
@@ -27,7 +27,7 @@ async function getAvailableLeafProducts () {
   return unchangingVariants
 }
 
-async function addVariants (products) {
+async function addVariants(products) {
   const result = products.map(async (product) => {
     try {
       const url = `https://cdn5.editmysite.com/app/store/api/v28/editor/users/132525192/sites/370639016370754120/store-locations/11eaa54990da063a860a0cc47a2ae3c4/products/${product.theirId}/skus`
@@ -47,7 +47,7 @@ async function addVariants (products) {
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts()
 }
 

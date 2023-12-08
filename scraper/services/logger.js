@@ -23,11 +23,11 @@ const logger = createLogger({
 });
 
 //
-// If we're not in production then **ALSO** log to the `console`
+// If we're not in production then **ALSO** log to the `logger`
 // with the colorized simple format.
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new transports.Console({
+  logger.add(transports.logger({
     format: format.combine(
       format.colorize(),
       format.simple()

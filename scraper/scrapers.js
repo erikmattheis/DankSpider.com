@@ -28,11 +28,11 @@ const scan = [
 
 async function testOCR() {
   for (const url of scan) {
-    console.log('url', url)
+    logger.log('url', url)
     const result = await recognize(url)
 
     fs.appendFileSync('./temp/assay.txt', `${url}\n${result?.length}\n\n`, null, 2)
-    console.log('result:', result)
+    logger.log('result:', result)
   }
 }
 
@@ -48,10 +48,10 @@ async function run(batchId, vendor) {
   
       try {
         const ppmProducts = await ppm.getAvailableLeafProducts()
-        console.log('PPM products', ppmProducts.length)
+        logger.log('PPM products', ppmProducts.length)
         await saveProducts(ppmProducts, batchId)
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         logErrorToFile(error)
       }
   
@@ -64,10 +64,10 @@ async function run(batchId, vendor) {
 
     try {
       const drGanjaProducts = await drGanja.getAvailableLeafProducts()
-      console.log('Dr Ganja products', drGanjaProducts.length)
+      logger.log('Dr Ganja products', drGanjaProducts.length)
       await saveProducts(drGanjaProducts, batchId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       logErrorToFile(error)
     }
 
@@ -78,10 +78,10 @@ async function run(batchId, vendor) {
     if (!vendor || vendor === 'WNC') {
       try {
         const wncProducts = await wnc.getAvailableLeafProducts()
-        console.log('WNC products', wncProducts.length)
+        logger.log('WNC products', wncProducts.length)
         await saveProducts(wncProducts, batchId)
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         logErrorToFile(error)
       }
   
@@ -92,10 +92,10 @@ async function run(batchId, vendor) {
   if (!vendor || vendor === 'Preston') {
     try {
       const prestonProducts = await preston.getAvailableLeafProducts()
-      console.log('Preston products', prestonProducts.length)
+      logger.log('Preston products', prestonProducts.length)
       await saveProducts(prestonProducts, batchId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       logErrorToFile(error)
     }
   }
@@ -104,10 +104,10 @@ async function run(batchId, vendor) {
 
     try {
       const flowProducts = await flow.getAvailableLeafProducts()
-      console.log('Flow products', flowProducts.length)
+      logger.log('Flow products', flowProducts.length)
       await saveProducts(flowProducts, batchId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
 
       logErrorToFile(error)
     }
@@ -115,12 +115,12 @@ async function run(batchId, vendor) {
 
   if (!vendor || vendor === 'Arete') {
     try {
-      console.log('Artete products')
+      logger.log('Artete products')
       const areteProducts = await arete.getAvailableLeafProducts()
-      console.log('Artete products', areteProducts.length)
+      logger.log('Artete products', areteProducts.length)
       await saveProducts(areteProducts, batchId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       logErrorToFile(error)
     }
   }
@@ -129,10 +129,10 @@ async function run(batchId, vendor) {
   
       try {
         const enlightenProducts = await enlighten.getAvailableLeafProducts()
-        console.log('Enlighten products', enlightenProducts.length)
+        logger.log('Enlighten products', enlightenProducts.length)
         await saveProducts(enlightenProducts, batchId)
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         logErrorToFile(error)
       }
     }
@@ -141,14 +141,14 @@ async function run(batchId, vendor) {
 
     try {
       const topcolaProducts = await topcola.getAvailableLeafProducts()
-      // console.log('Top Cola products', topcolaProducts.length);
+      // logger.log('Top Cola products', topcolaProducts.length);
       await saveProducts(topcolaProducts, batchId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       logErrorToFile(error)
     }
 
-    console.log('Data has been written to Firebase for all vendors.')
+    logger.log('Data has been written to Firebase for all vendors.')
   }
 }
 

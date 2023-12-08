@@ -16,11 +16,11 @@ async function getBuffer(url) {
 
   if (false || fs.existsSync(filePath)) {
     buffer = fs.readFileSync(filePath);
-    console.log('Got image from file', buffer.length);
+    logger.log('Got image from file', buffer.length);
   } else {
     buffer = await getImageBuffer(url);
     fs.writeFileSync(filePath, buffer);
-    console.log('Got image from url', url);
+    logger.log('Got image from url', url);
   }
 
   return buffer;
@@ -45,7 +45,7 @@ async function getImageBuffer(url) {
 
     if (!buffer || buffer.length === 0) {
 
-      console.log('skipping empty', url)
+      logger.log('skipping empty', url)
 
       fs.appendFileSync('./temp/no-buffer.txt', `\ngetImageBuffer\nNo image buffer\n${url}\n\n`)
 
@@ -61,7 +61,7 @@ async function getImageBuffer(url) {
 
           if (err) {
 
-            console.error(`Error resizing image: ${err}`);
+            logger.error(`Error resizing image: ${err}`);
             reject(err);
 
           } else {
@@ -76,7 +76,7 @@ async function getImageBuffer(url) {
 
   } catch (error) {
 
-    console.error(`Error around getImageBuffer: ${error}`);
+    logger.error(`Error around getImageBuffer: ${error}`);
 
     fs.appendFileSync('./temp/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 

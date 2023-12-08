@@ -59,13 +59,13 @@ async function getAvailableLeafProducts() {
     }
     return products;
   } catch (error) {
-    console.error(`Error fetching Top Cola data: ${error}`);
+    logger.error(`Error fetching Top Cola data: ${error}`);
     throw new Error(`Error fetching Top Cola data: ${error}`);
   }
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

@@ -79,15 +79,15 @@ async function getConfig(text, url) {
     fs.appendFileSync('./temp/config.txt', `${url}\nno text\n\n`)
     return null;
   }
-  console.log()
+  logger.log()
   for (entry of configMapping) {
-    console.log(entry.titleKeywords, entry.titleKeywords.some(word => text.toLowerCase().includes(word) || word === ''))
+    logger.log(entry.titleKeywords, entry.titleKeywords.some(word => text.toLowerCase().includes(word) || word === ''))
     if (entry.titleKeywords.some(word => text.toLowerCase().includes(word) || word === '')) {
-      console.log('found BANG', entry.titleKeywords)
+      logger.log('found BANG', entry.titleKeywords)
       for (config of entry.configs) {
-        console.log(config.urlKeywords, config.urlKeywords.some(word => url.toLowerCase().includes(word) || word === ''))
+        logger.log(config.urlKeywords, config.urlKeywords.some(word => url.toLowerCase().includes(word) || word === ''))
         if (config.urlKeywords.some(word => url.toLowerCase().includes(word) || word === '')) {
-          console.log('found BOOM', config.urlKeywords)
+          logger.log('found BOOM', config.urlKeywords)
           return config
         }
       }

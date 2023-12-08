@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
+const { transcribeAssay } = require('../services/cortex.js');
 
 const products = [];
 
@@ -51,16 +52,17 @@ async function getPrestonProductInfo(product) {
 
 
 
-      const result = await recognize(image);
+      const raw = await recognize(image);
+      const result = await transcribeAssay(raw, 'preston', image);
 
       if (!result) {
-        console.log('Nothing interesting, continuing ...', image);
-        console.log('');
+        logger.log('Nothing interesting, continuing ...', image);
+        logger.log('');
         continue;
       }
 
       if (result instanceof String) {
-        console.log('image rejected', url);
+        logger.log('image rejected', url);
         continue;
       }
 
@@ -73,15 +75,15 @@ async function getPrestonProductInfo(product) {
       }
 
       if (terpenes?.length && cannabinoids?.length) {
-        console.log('both terpenes and cannabinoids found')
+        logger.log('both terpenes and cannabinoids found')
         break;
       }
     }
     // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-    // console.log('Saved ${title}');
+    // logger.log('Saved ${title}');
 
-    console.log(`${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`);
+    logger.log(`${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`);
 
     return {
       ...product,
@@ -90,13 +92,13 @@ async function getPrestonProductInfo(product) {
     }
   }
   else {
-    console.error(`Error getting product info: ${response.status}`);
+    logger.error(`Error getting product info: ${response.status}`);
     return null;
   }
   /*
     }
     catch (error) {
-      console.error(`Error getting product info2: ${error.message}`);
+      logger.error(`Error getting product info2: ${error.message}`);
       return null;
     }
   */
@@ -125,7 +127,7 @@ async function scrapePage(url, currentPage) {
         const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
 
         productLinks.push({ title: strings.normalizeProductTitle(title), url: url, vendor: 'Preston' });
-        
+
       }
     }
 
@@ -174,7 +176,7 @@ async function getPrestonProductsInfo(products) {
     const info = await getPrestonProductInfo(product);
 
     if (!info || !info.variants || info.variants.length === 0) {
-      console.log('no variants or error, skipping', product.url);
+      logger.log('no variants or error, skipping', product.url);
       continue;
     }
 
@@ -196,7 +198,7 @@ async function getPrestonProductsInfo(products) {
 
 async function getAvailableLeafProducts() {
 
-  // console.log('Getting Preston products');
+  // logger.log('Getting Preston products');
 
   const products = await scrapePage(startUrl, currentPage);
 
@@ -207,7 +209,7 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 

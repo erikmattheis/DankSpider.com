@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
+const { transcribeAssay } = require('../services/cortex.js');
 
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
@@ -11,7 +12,7 @@ const productLinks = [];
 let currentPage = 1;
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts();
 }
 
@@ -45,7 +46,7 @@ async function getProducts() {
     products.push({ title, url, image, vendor });
   });
 
-  console.log('products', products.length);
+  logger.log('products', products.length);
   return products;
 }
 
@@ -97,7 +98,7 @@ async function addAssays(product, $) {
   let cannabinoids = [];
 
   if (assayLinks.length === 0) {
-    console.log('no images', product.url);
+    logger.log('no images', product.url);
     return {
       ...product, cannabinoids, terpenes
     };
@@ -106,30 +107,31 @@ async function addAssays(product, $) {
   for (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
-    const result = await recognize(image);
+    const raw = await recognize(image);
+    const result = await transcribeAssay(raw, 'drganja', image);
 
     if (!result) {
-      console.log('\n\n${imgStr}\nnothing interesting, continuing ...', image);
+      logger.log('\n\n${imgStr}\nnothing interesting, continuing ...', image);
       continue;
     }
 
     if (result instanceof String) {
-      console.log('image rejected', image);
-      console.error(result);
+      logger.log('image rejected', image);
+      logger.error(result);
       continue;
     }
 
     if (result.terpenes?.length) {
-      console.log('Terpenes: ', result.terpenes.length)
+      logger.log('Terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      console.log('Cannabinoids: ', result.cannabinoids.length)
+      logger.log('Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      console.log('both terpenes and cannabinoids found')
+      logger.log('both terpenes and cannabinoids found')
       break;
     }
   }

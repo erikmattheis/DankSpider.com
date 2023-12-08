@@ -559,7 +559,7 @@ async function deleteProductsWithObjectsInVariants() {
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   (async () => {
     await cleanProductsCollections();
     await cleanproductsCollection();
@@ -568,7 +568,7 @@ if (require.main === module) {
 /*
 (async () => {
   const result = await getUniqueChemicals();
-  // console.log(JSON.stringify(result, null, 2));
+  // logger.log(JSON.stringify(result, null, 2));
 }
 )();
 */

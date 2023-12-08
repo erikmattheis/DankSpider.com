@@ -9,7 +9,7 @@ const strings = require('../services/strings')
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
 
-async function parseSingleProduct (html, url) {
+async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim())
@@ -64,7 +64,7 @@ async function parseSingleProduct (html, url) {
   let cannabinoids = []
 
   if (assayLinks.length === 0) {
-    console.log('Arete no images')
+    logger.log('Arete no images')
     return { title, url, cannabinoids, terpenes, image, variants, vendor: 'Arete' }
   }
 
@@ -74,33 +74,33 @@ async function parseSingleProduct (html, url) {
     const result = await recognize(image)
 
     if (!result) {
-      console.log('nothing interesting, continuing ...', image)
+      logger.log('nothing interesting, continuing ...', image)
       continue
     }
 
     if (result.terpenes?.length) {
-      console.log('Found arete terpenes: ', result.terpenes.length)
+      logger.log('Found arete terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      console.log('Found arete cannabinoids: ', result.cannabinoids.length)
+      logger.log('Found arete cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      console.log('arete both terpenes and cannabinoids found')
+      logger.log('arete both terpenes and cannabinoids found')
       break
     }
   }
-  
+
   return { title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
 }
 
-async function getProducts (feedUrl) {
+async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data, { xmlMode: true })
   fs.writeFileSync('./temp/vendors/arete.xml', result.data)
-  
+
   const items = $('item')
   const products = []
 
@@ -124,13 +124,13 @@ async function getProducts (feedUrl) {
   return products
 }
 
-async function getAvailableLeafProducts () {
+async function getAvailableLeafProducts() {
   const products = await getProducts(feedUrl)
   return products
 }
 
 if (require.main === module) {
-  // console.log('This script is being executed directly by Node.js');
+  // logger.log('This script is being executed directly by Node.js');
   getAvailableLeafProducts()
 }
 
