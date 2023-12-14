@@ -1,4 +1,5 @@
 <template>
+  <!--- TODO: https://css-tricks.com/a-dynamically-sized-sticky-sidebar-with-html-and-css/ -->
   <form class="page">
     <div class="header" @click.prevent="toggleCollapse('filters')">
       <div class="stats">
