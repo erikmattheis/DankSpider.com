@@ -30,7 +30,9 @@ let worker;
 
 async function recognize(url) {
 
-  logger.log('\n\nrecognize', url)
+  logger.log({
+  level: 'info',
+  message: `\n\nrecognize', url)
 
   try {
 
@@ -63,7 +65,9 @@ async function recognize(url) {
 
     const assay = transcribeAssay(result.data.text, url)
 
-    //logger.log('assay', JSON.stringify(assay, null, 2))
+    //logger.log({
+  level: 'info',
+  message: `assay', JSON.stringify(assay, null, 2))
 
     return assay;
 
@@ -146,11 +150,17 @@ const getWorker = async (PSM) => {
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
 
-    logger.log('params set')
+    logger.log({
+  level: 'info',
+  message: `params set')
     await worker.loadLanguage('eng');
-    logger.log('lang loaded')
+    logger.log({
+  level: 'info',
+  message: `lang loaded')
     await worker.initialize('eng');
-    logger.log('worker initialized')
+    logger.log({
+  level: 'info',
+  message: `worker initialized')
     return worker
 
   } catch (error) {

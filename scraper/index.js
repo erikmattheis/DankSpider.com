@@ -21,7 +21,7 @@ fs.writeFileSync('./temp/tables.txt', '')
 const batchId = '0J01'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
-  logger.log('info', { vendor, limit, useDevCollection })
+
   let products
 
   if (vendor && useDevCollection) {
@@ -45,7 +45,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }))
 
-  logger.log(`Wrote ${products.length} products to products.json`)
+  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`,});
 }
 
 function filterAssay(assay) {
@@ -55,7 +55,7 @@ function filterAssay(assay) {
 async function makeTerpenesFile() {
   const result = await getTerpenes()
   fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
-  logger.log(`Wrote ${result.length} terpenes to terpenes.json`);
+  logger.log({level:'info', message: `Wrote ${result.length} terpenes to terpenes.json`});
 }
 
 async function run(batchId, vendor) {
@@ -66,7 +66,7 @@ async function run(batchId, vendor) {
 
   let endTime = performance.now()
 
-  logger.log(`Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log({level:'info', message: `Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
 
   startTime = performance.now()
 
@@ -74,7 +74,7 @@ async function run(batchId, vendor) {
 
   endTime = performance.now()
 
-  logger.log(`Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log({level:'info', message: `Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
 
   startTime = performance.now()
 
@@ -82,7 +82,7 @@ async function run(batchId, vendor) {
 
   endTime = performance.now()
 
-  logger.log(`Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`)
+  logger.log({level:'info', message: `Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
 }
 
 run(batchId)
@@ -100,7 +100,10 @@ async function utils() {
   await cleanProductsCollections()
   await makeProductsFile()
   //await makeArticles();
-  logger.log('done')
+  logger.log({
+  level: 'info',
+  message: `done`}
+  )
 }
 
 //utils()

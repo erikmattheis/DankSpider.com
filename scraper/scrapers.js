@@ -29,11 +29,15 @@ const scan = [
 
 async function testOCR() {
   for (const url of scan) {
-    logger.log('url', url)
+    logger.log({
+  level: 'info',
+  message: `url', url)
     const result = await recognize(url)
 
     fs.appendFileSync('./temp/assay.txt', `${url}\n${result?.length}\n\n`, null, 2)
-    logger.log('result:', result)
+    logger.log({
+  level: 'info',
+  message: `result:', result)
   }
 }
 
@@ -49,7 +53,9 @@ async function run(batchId, vendor) {
 
     try {
       const ppmProducts = await ppm.getAvailableLeafProducts()
-      logger.log('PPM products', ppmProducts.length)
+      logger.log({
+  level: 'info',
+  message: `PPM products', ppmProducts.length)
       await saveProducts(ppmProducts, batchId)
     } catch (error) {
       logger.error(error)
@@ -63,7 +69,9 @@ async function run(batchId, vendor) {
 
     try {
       const drGanjaProducts = await drGanja.getAvailableLeafProducts()
-      logger.log('Dr Ganja products', drGanjaProducts.length)
+      logger.log({
+  level: 'info',
+  message: `Dr Ganja products', drGanjaProducts.length)
       await saveProducts(drGanjaProducts, batchId)
     } catch (error) {
       logger.error(error)
@@ -77,7 +85,9 @@ async function run(batchId, vendor) {
     if (!vendor || vendor === 'WNC') {
       try {
         const wncProducts = await wnc.getAvailableLeafProducts()
-        logger.log('WNC products', wncProducts.length)
+        logger.log({
+  level: 'info',
+  message: `WNC products', wncProducts.length)
         await saveProducts(wncProducts, batchId)
       } catch (error) {
         logger.error(error)
@@ -91,7 +101,9 @@ async function run(batchId, vendor) {
   if (!vendor || vendor === 'Preston') {
     try {
       const prestonProducts = await preston.getAvailableLeafProducts()
-      logger.log('Preston products', prestonProducts.length)
+      logger.log({
+  level: 'info',
+  message: `Preston products', prestonProducts.length)
       await saveProducts(prestonProducts, batchId)
     } catch (error) {
       logger.error(error)
@@ -103,7 +115,9 @@ async function run(batchId, vendor) {
 
     try {
       const flowProducts = await flow.getAvailableLeafProducts()
-      logger.log('Flow products', flowProducts.length)
+      logger.log({
+  level: 'info',
+  message: `Flow products', flowProducts.length)
       await saveProducts(flowProducts, batchId)
     } catch (error) {
       logger.error(error)
@@ -114,9 +128,13 @@ async function run(batchId, vendor) {
 
   if (!vendor || vendor === 'Arete') {
     try {
-      logger.log('Artete products')
+      logger.log({
+  level: 'info',
+  message: `Artete products')
       const areteProducts = await arete.getAvailableLeafProducts()
-      logger.log('Artete products', areteProducts.length)
+      logger.log({
+  level: 'info',
+  message: `Artete products', areteProducts.length)
       await saveProducts(areteProducts, batchId)
     } catch (error) {
       logger.error(error)
@@ -128,7 +146,9 @@ async function run(batchId, vendor) {
   
       try {
         const enlightenProducts = await enlighten.getAvailableLeafProducts()
-        logger.log('Enlighten products', enlightenProducts.length)
+        logger.log({
+  level: 'info',
+  message: `Enlighten products', enlightenProducts.length)
         await saveProducts(enlightenProducts, batchId)
       } catch (error) {
         logger.error(error)
@@ -140,14 +160,18 @@ async function run(batchId, vendor) {
 
     try {
       const topcolaProducts = await topcola.getAvailableLeafProducts()
-      // logger.log('Top Cola products', topcolaProducts.length);
+      // logger.log({
+  level: 'info',
+  message: `Top Cola products', topcolaProducts.length);
       await saveProducts(topcolaProducts, batchId)
     } catch (error) {
       logger.error(error)
       logErrorToFile(error)
     }
 
-    logger.log('Data has been written to Firebase for all vendors.')
+    logger.log({
+  level: 'info',
+  message: `Data has been written to Firebase for all vendors.')
   }
 }
 

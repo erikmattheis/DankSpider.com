@@ -40,7 +40,9 @@ if (process.env.NODE_ENV !== 'production') {
 // Allows for parameter-based logging
 // ***************
 
-logger.log('info', 'Pass a message and this works', {
+logger.log({
+  level: 'info',
+  message: `info', 'Pass a message and this works', {
   additional: 'properties',
   are: 'passed along'
 });
@@ -55,11 +57,15 @@ logger.info('Use a helper method if you want', {
 // ***************
 
 // info: test message my string {}
-logger.log('info', 'test message %s', 'my string');
+logger.log({
+  level: 'info',
+  message: `info', 'test message %s', 'my string');
 
 
 // info: test message first second {number: 123}
-logger.log('info', 'test message %s, %s', 'first', 'second', { number: 123 });
+logger.log({
+  level: 'info',
+  message: `info', 'test message %s, %s', 'first', 'second', { number: 123 });
 */
 
 module.exports = logger;

@@ -17,11 +17,15 @@ async function getBuffer(url) {
 
   if (false || fs.existsSync(filePath)) {
     buffer = fs.readFileSync(filePath);
-    logger.log('Got image from file', buffer.length);
+    logger.log({
+  level: 'info',
+  message: `Got image from file', buffer.length);
   } else {
     buffer = await getImageBuffer(url);
     fs.writeFileSync(filePath, buffer);
-    logger.log('Got image from url', url);
+    logger.log({
+  level: 'info',
+  message: `Got image from url', url);
   }
 
   return buffer;
@@ -46,7 +50,9 @@ async function getImageBuffer(url) {
 
     if (!buffer || buffer.length === 0) {
 
-      logger.log('skipping empty', url)
+      logger.log({
+  level: 'info',
+  message: `skipping empty', url)
 
       fs.appendFileSync('./temp/no-buffer.txt', `\ngetImageBuffer\nNo image buffer\n${url}\n\n`)
 

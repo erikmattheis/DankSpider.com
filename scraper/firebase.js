@@ -559,19 +559,17 @@ async function deleteProductsWithObjectsInVariants() {
 }
 
 if (require.main === module) {
-  // logger.log('This script is being executed directly by Node.js');
+  logger.log({
+  level: 'info',
+  message: `This script is being executed directly by Node.js`});
+
   (async () => {
     await cleanProductsCollections();
     await cleanproductsCollection();
   })();
+
 }
-/*
-(async () => {
-  const result = await getUniqueChemicals();
-  // logger.log(JSON.stringify(result, null, 2));
-}
-)();
-*/
+
 
 async function getProductsByBatchId(batchId) {
   const productsRef = db.collection('productsArchive');

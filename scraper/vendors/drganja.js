@@ -13,10 +13,11 @@ const productLinks = [];
 let currentPage = 1;
 
 if (require.main === module) {
-  // logger.log('This script is being executed directly by Node.js');
-  getAvailableLeafProducts();
-}
-
+  logger.log({
+  level: 'info',
+  message: `This script is being executed directly by Node.js`,
+})}
+getAvailableLeafProducts()
 async function getAvailableLeafProducts() {
 
   const products = await getProducts();
@@ -44,7 +45,10 @@ async function getProducts() {
     products.push({ title, url, image, vendor });
   });
 
-  logger.log('products', products.length);
+  logger.log({
+  level: 'info',
+  message: `products: products.length}{
+
   return products;
 }
 
@@ -96,7 +100,9 @@ async function addAssays(product, $) {
   let cannabinoids = [];
 
   if (assayLinks.length === 0) {
-    logger.log('no images', product.url);
+    logger.log({
+  level: 'info',
+  message: `no images', product.url);
     return {
       ...product, cannabinoids, terpenes
     };
@@ -109,27 +115,37 @@ async function addAssays(product, $) {
     const result = await transcribeAssay(raw, 'drganja', image);
 
     if (!result) {
-      logger.log('\n\n${imgStr}\nnothing interesting, continuing ...', image);
+      logger.log({
+  level: 'info',
+  message: `\n\n${imgStr}\nnothing interesting, continuing ...', image);
       continue;
     }
 
     if (result instanceof String) {
-      logger.log('image rejected', image);
+      logger.log({
+  level: 'info',
+  message: `image rejected', image);
       logger.error(result);
       continue;
     }
 
     if (result.terpenes?.length) {
-      logger.log('Terpenes: ', result.terpenes.length)
+      logger.log({
+  level: 'info',
+  message: `Terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      logger.log('Cannabinoids: ', result.cannabinoids.length)
+      logger.log({
+  level: 'info',
+  message: `Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      logger.log('both terpenes and cannabinoids found')
+      logger.log({
+  level: 'info',
+  message: `both terpenes and cannabinoids found')
       break;
     }
   }

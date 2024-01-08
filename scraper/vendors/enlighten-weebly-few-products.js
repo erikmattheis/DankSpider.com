@@ -47,7 +47,9 @@ async function addVariants(products) {
 }
 
 if (require.main === module) {
-  // logger.log('This script is being executed directly by Node.js');
+  // logger.log({
+  level: 'info',
+  message: `This script is being executed directly by Node.js`);
   getAvailableLeafProducts()
 }
 
