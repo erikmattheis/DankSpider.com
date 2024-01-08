@@ -4,6 +4,7 @@ const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
+const logger = require('../services/logger.js');
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
 

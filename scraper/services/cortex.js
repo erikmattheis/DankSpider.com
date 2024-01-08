@@ -22,7 +22,6 @@ function transcribeAssay(str, url) {
 
   const l = `+++++++++++++++++++${url}\nCanns: ${canns.length}\nTerps: ${terps.length}\n\n`
   fs.appendFileSync('./temp/lines.txt', l)
-  logger.log(l)
 
   if (canns.length > terps) {
     return { cannabinoids: canns }

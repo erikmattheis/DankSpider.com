@@ -8,6 +8,7 @@ const logger = require('../services/logger');
 
 let currentPage = 1;
 const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
+const logger = require('../services/logger.js');
 
 const uniqueVariants = [];
 

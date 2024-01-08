@@ -10,7 +10,7 @@ const logger = createLogger({
     format.splat(),
     format.json()
   ),
-  defaultMeta: { service: 'your-service-name' },
+  defaultMeta: { service: 'dankspider' },
   transports: [
     //
     // - Write to all logs with level `info` and below to `quick-start-combined.log`.
@@ -27,7 +27,7 @@ const logger = createLogger({
 // with the colorized simple format.
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(transports.logger({
+  logger.add(new transports.Console({
     format: format.combine(
       format.colorize(),
       format.simple()

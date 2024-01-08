@@ -1,4 +1,5 @@
 const openai = require('Openai');
+const logger = require('../services/logger.js');
 
 const Openai = new openai(process.env.OPENAI_API_KEY);
 

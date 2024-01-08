@@ -8,6 +8,7 @@ const cheerio = require('cheerio')
 const strings = require('../services/strings')
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
+const logger = require('../services/logger.js');
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)

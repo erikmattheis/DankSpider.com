@@ -1,6 +1,7 @@
 const gm = require("gm");
 const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
+const logger = require('../services/logger.js');
 
 function jpgNameFromUrl(url) {
   const name = url.split('/').pop().split('#')[0].split('?')[0];

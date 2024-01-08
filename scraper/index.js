@@ -18,7 +18,7 @@ fs.writeFileSync('./temp/no-text.txt', '')
 fs.writeFileSync('./temp/config.txt', '')
 fs.writeFileSync('./temp/tables.txt', '')
 
-const batchId = 'n'
+const batchId = '0J01'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
   logger.log('info', { vendor, limit, useDevCollection })

@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const strings = require('../services/strings');
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
+const logger = require('../services/logger.js');
 
 const products = [];
 const productLinks = [];

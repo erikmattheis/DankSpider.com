@@ -4,6 +4,7 @@ const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
+const logger = require('../services/logger.js');
 
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
@@ -16,10 +17,6 @@ if (require.main === module) {
   getAvailableLeafProducts();
 }
 
-module.exports = {
-  getAvailableLeafProducts
-}
-
 async function getAvailableLeafProducts() {
 
   const products = await getProducts();
@@ -29,6 +26,7 @@ async function getAvailableLeafProducts() {
   return results;
 
 }
+
 
 async function getProducts() {
   const response = await axios.get(atomFeedUrl);
@@ -138,6 +136,13 @@ async function addAssays(product, $) {
 
   return { ...product, cannabinoids, terpenes };
 }
+
+
+module.exports = {
+  getAvailableLeafProducts
+}
+
+
 
 
 

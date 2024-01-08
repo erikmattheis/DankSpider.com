@@ -1,3 +1,5 @@
+const logger = require('../services/logger.js');
+
 const configMapping = [
   {
     titleKeywords: ['consolidated'],

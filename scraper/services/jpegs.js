@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin');
+const logger = require('../services/logger.js');
 
 const { recognize, recognizeWithSave } = require('./ocr.js');
 const { transcribeAssay } = require('../services/cortex.js');

@@ -4,7 +4,7 @@ const { saveProducts } = require('../firebase')
 
 const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
-
+const logger = require('../services/logger.js');
 const strings = require('../services/strings')
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower.atom'

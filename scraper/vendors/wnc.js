@@ -4,7 +4,7 @@ const strings = require('../services/strings');
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
-
+const logger = require('../services/logger.js');
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 

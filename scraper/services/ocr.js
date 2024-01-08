@@ -8,6 +8,7 @@ const { getBuffer } = require('./memory.js')
 setLogging(false)
 
 const { getConfig } = require('../config/config.ocr.js')
+const logger = require('../services/logger.js');
 
 
 
