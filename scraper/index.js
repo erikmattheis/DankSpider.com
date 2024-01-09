@@ -45,7 +45,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }))
 
-  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`,});
+  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
 }
 
 function filterAssay(assay) {

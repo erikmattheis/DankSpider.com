@@ -17,15 +17,11 @@ async function getBuffer(url) {
 
   if (false || fs.existsSync(filePath)) {
     buffer = fs.readFileSync(filePath);
-    logger.log({
-  level: 'info',
-  message: `Got image from file', buffer.length);
+
   } else {
     buffer = await getImageBuffer(url);
     fs.writeFileSync(filePath, buffer);
-    logger.log({
-  level: 'info',
-  message: `Got image from url', url);
+
   }
 
   return buffer;
@@ -50,37 +46,30 @@ async function getImageBuffer(url) {
 
     if (!buffer || buffer.length === 0) {
 
-      logger.log({
-  level: 'info',
-  message: `skipping empty', url)
 
-      fs.appendFileSync('./temp/no-buffer.txt', `\ngetImageBuffer\nNo image buffer\n${url}\n\n`)
+      return new Promise((resolve, reject) => {
 
+        gm(buffer)
+          .quality(100)
+          .resize(4000)
+          .sharpen(5, 5)
+          .toBuffer('JPEG', function (err, resizedBuffer) {
+
+            if (err) {
+
+              logger.error(`Error resizing image: ${err}`);
+              reject(err);
+
+            } else {
+
+              resolve(resizedBuffer);
+
+            }
+
+          });
+
+      });
     }
-
-    return new Promise((resolve, reject) => {
-
-      gm(buffer)
-        .quality(100)
-        .resize(4000)
-        .sharpen(5, 5)
-        .toBuffer('JPEG', function (err, resizedBuffer) {
-
-          if (err) {
-
-            logger.error(`Error resizing image: ${err}`);
-            reject(err);
-
-          } else {
-
-            resolve(resizedBuffer);
-
-          }
-
-        });
-
-    });
-
   } catch (error) {
 
     logger.error(`Error around getImageBuffer: ${error}`);

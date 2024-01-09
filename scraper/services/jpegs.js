@@ -27,7 +27,7 @@ async function run(batchId) {
   //const complete = await getCompleteProducts('WNC');
   //const products = await getIncompleteProducts('WNC');
 
-  logger.log({level:'info', message: `looking at ${products.length} products`);
+  logger.log({level:'info', message: `looking at ${products.length} products`});
 
   //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
@@ -40,10 +40,7 @@ async function run(batchId) {
     const theRest = result.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency'));
 
     if (best.length === 0) {
-      logger.log({
-  level: 'info',
-  message: `No good images found for', product.title);
-      logger.log(JSON.stringify(result, null, 2));
+
       continue;
     }
     const images = [...best];
@@ -61,9 +58,7 @@ async function run(batchId) {
     for (const image of product.images) {
 
       if (skippableImages.includes(image)) {
-        logger.log({
-  level: 'info',
-  message: `Skipping', image);
+
         continue;
       }
 
@@ -77,53 +72,43 @@ async function run(batchId) {
       //const result = await recognize(image, { lang: 'eng', oem: 1, psm: 4 })
 
       if (result instanceof String) {
-        logger.log({
-  level: 'info',
-  message: `image rejected', image);
         badImages.push(image);
       }
 
 
       if (result.terpenes?.length) {
+
         logger.log({
   level: 'info',
-  message: `Terpenes: ', result.terpenes.length)
+  message: `Terpenes: ${result.terpenes.length}`});
+
         product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
       else if (result.cannabinoids?.length) {
         logger.log({
   level: 'info',
-  message: `Cannabinoids: ', result.cannabinoids.length)
+  message: `Cannabinoids: ${result.cannabinoids.length}`});}
         product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 
       if (product.terpenes?.length && product.cannabinoids?.length) {
-        logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found')
+
         break;
       }
 
-      logger.log({
-  level: 'info',
-  message: `Nothing in', image);
-
-    }
 
     await saveProducts([product], batchId, true);
 
-    logger.log({
-  level: 'info',
-  message: `Saved one!')
+
     withOCRedImages.push({ ...product, terpenes, cannabinoids });
 
-    // logger.log({level:'info', message: `Found ${terpenes.length} terpenes and ${cannabinoids.length}`);
+     logger.log({level:'info', message: `Found ${terpenes.length} terpenes and ${cannabinoids.length}`});
 
   }
 
   //await saveProducts(withOCRedImages, batchId, true);
 
-  logger.log({level:'info', message: `Saved ${withOCRedImages.length} products to Firebase`);
+  logger.log({level:'info', message: `Saved ${withOCRedImages.length} products to Firebase`});
 
 }
 

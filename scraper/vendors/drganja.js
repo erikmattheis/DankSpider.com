@@ -17,6 +17,7 @@ if (require.main === module) {
   level: 'info',
   message: `This script is being executed directly by Node.js`,
 })}
+
 getAvailableLeafProducts()
 async function getAvailableLeafProducts() {
 
@@ -44,10 +45,6 @@ async function getProducts() {
     const vendor = 'Dr Ganja';
     products.push({ title, url, image, vendor });
   });
-
-  logger.log({
-  level: 'info',
-  message: `products: products.length}{
 
   return products;
 }
@@ -99,53 +96,19 @@ async function addAssays(product, $) {
   let terpenes = [];
   let cannabinoids = [];
 
-  if (assayLinks.length === 0) {
-    logger.log({
-  level: 'info',
-  message: `no images', product.url);
-    return {
-      ...product, cannabinoids, terpenes
-    };
-  }
-
   for (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);
     const result = await transcribeAssay(raw, 'drganja', image);
 
-    if (!result) {
-      logger.log({
-  level: 'info',
-  message: `\n\n${imgStr}\nnothing interesting, continuing ...', image);
-      continue;
-    }
+  
 
-    if (result instanceof String) {
-      logger.log({
-  level: 'info',
-  message: `image rejected', image);
-      logger.error(result);
-      continue;
-    }
-
-    if (result.terpenes?.length) {
-      logger.log({
-  level: 'info',
-  message: `Terpenes: ', result.terpenes.length)
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
-    }
-    if (result.cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `Cannabinoids: ', result.cannabinoids.length)
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-    }
 
     if (terpenes?.length && cannabinoids?.length) {
       logger.log({
   level: 'info',
-  message: `both terpenes and cannabinoids found')
+  message: `both terpenes and cannabinoids found`})
       break;
     }
   }

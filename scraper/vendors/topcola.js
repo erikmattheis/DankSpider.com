@@ -66,9 +66,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts();
 }
 

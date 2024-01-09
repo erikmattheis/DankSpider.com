@@ -32,14 +32,13 @@ async function recognize(url) {
 
   logger.log({
   level: 'info',
-  message: `\n\nrecognize', url)
+  message: `\n\nrecognize ${url}`})
 
   try {
 
     worker = await createWorker('eng', OEM.DEFAULT, {
       cachePath: './tessdata',
       languagePath: './tessdata',
-
       errorHandler: (err) => { logger.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
     });
 
@@ -64,10 +63,6 @@ async function recognize(url) {
     }
 
     const assay = transcribeAssay(result.data.text, url)
-
-    //logger.log({
-  level: 'info',
-  message: `assay', JSON.stringify(assay, null, 2))
 
     return assay;
 
@@ -150,17 +145,11 @@ const getWorker = async (PSM) => {
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
 
-    logger.log({
-  level: 'info',
-  message: `params set')
+
     await worker.loadLanguage('eng');
-    logger.log({
-  level: 'info',
-  message: `lang loaded')
+
     await worker.initialize('eng');
-    logger.log({
-  level: 'info',
-  message: `worker initialized')
+
     return worker
 
   } catch (error) {

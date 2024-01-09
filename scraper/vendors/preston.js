@@ -51,25 +51,22 @@ async function getPrestonProductInfo(product) {
 
     for (const image of product.images) {
 
-
-
       const raw = await recognize(image);
-      const result = await transcribeAssay(raw, 'preston', image);
+      const result = transcribeAssay(raw, 'preston', image);
 
       if (!result) {
         logger.log({
-  level: 'info',
-  message: `Nothing interesting, continuing ...', image);
-        logger.log({
-  level: 'info',
-  message: `');
+          level: 'info',
+          message: `Nothing interesting, continuing ... ${image}`});
+
         continue;
       }
 
       if (result instanceof String) {
         logger.log({
-  level: 'info',
-  message: `image rejected', url);
+        level: 'info',
+        message: `image rejected: ${url}`});
+
         continue;
       }
 
@@ -82,24 +79,19 @@ async function getPrestonProductInfo(product) {
       }
 
       if (terpenes?.length && cannabinoids?.length) {
-        logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found')
         break;
       }
-    }
+    
     // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-    // logger.log({
-  level: 'info',
-  message: `Saved ${title}');
 
-    logger.log({level:'info', message: `${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`);
+    logger.log({level:'info', message: `${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`});
 
     return {
       ...product,
       terpenes,
       cannabinoids
+    }
     }
   }
   else {
@@ -189,7 +181,7 @@ async function getPrestonProductsInfo(products) {
     if (!info || !info.variants || info.variants.length === 0) {
       logger.log({
   level: 'info',
-  message: `no variants or error, skipping', product.url);
+  message: `no variants or error, skipping ${product.url}`});
       continue;
     }
 
@@ -211,9 +203,9 @@ async function getPrestonProductsInfo(products) {
 
 async function getAvailableLeafProducts() {
 
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `Getting Preston products');
+  message: `Getting Preston products`});
 
   const products = await scrapePage(startUrl, currentPage);
 
@@ -224,9 +216,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts();
 }
 

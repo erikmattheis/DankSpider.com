@@ -49,73 +49,41 @@ async function getProduct(url) {
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
   const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
-  if (images.length === 0) {
-    logger.log({
-  level: 'info',
-  message: `No good images found for', title);
-    return null;
-  }
+
 
   let terpenes = [];
   let cannabinoids = [];
 
   for (const image of images) {
 
-    if (skippableImages.includes(image)) {
-      logger.log({
-  level: 'info',
-  message: `Skipping', image);
-      continue;
-    }
 
     const raw = await recognize(image);
     const result = await transcribeAssay(raw, 'eighthorses', image);
 
-    if (!result) {
-      logger.log({
-  level: 'info',
-  message: `nothing interesting, continuing ...', image);
-      continue;
-    }
 
-    if (result instanceof String) {
-      logger.log({
-  level: 'info',
-  message: `image rejected', image);
-      badImages.push(image);
-      logger.error(result);
-      continue;
-    }
 
     if (result.terpenes?.length) {
-      logger.log({
-  level: 'info',
-  message: `Terpenes: ', result.terpenes.length)
+
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
       logger.log({
   level: 'info',
-  message: `both terpenes and cannabinoids found')
+  message: `both terpenes and cannabinoids found`})
       break;
     }
 
   }
 
-  // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
+await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-  // logger.log({
+logger.log({
   level: 'info',
-  message: `Saved ${title}');
-
-  logger.log({level:'info', message: `${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`);
+  message: `Saved ${title}`});
 
   return {
     title,
@@ -273,9 +241,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+  logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts();
 }
 

@@ -67,7 +67,7 @@ async function parseSingleProduct(html, url) {
   if (assayLinks.length === 0) {
     logger.log({
   level: 'info',
-  message: `Arete no images')
+  message: `Arete no images`})
     return { title, url, cannabinoids, terpenes, image, variants, vendor: 'Arete' }
   }
 
@@ -79,27 +79,23 @@ async function parseSingleProduct(html, url) {
     if (!result) {
       logger.log({
   level: 'info',
-  message: `nothing interesting, continuing ...', image)
+  message: `nothing interesting, continuing ... ${image}`})
       continue
     }
 
     if (result.terpenes?.length) {
-      logger.log({
-  level: 'info',
-  message: `Found arete terpenes: ', result.terpenes.length)
+ 
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `Found arete cannabinoids: ', result.cannabinoids.length)
+
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
       logger.log({
   level: 'info',
-  message: `arete both terpenes and cannabinoids found')
+  message: `arete both terpenes and cannabinoids found`})
       break
     }
   }
@@ -141,9 +137,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts()
 }
 

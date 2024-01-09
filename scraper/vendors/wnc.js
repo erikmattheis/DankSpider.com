@@ -19,7 +19,8 @@ function addUniqueVariant(variant) {
 async function getProduct(url) {
   logger.log({
   level: 'info',
-  message: `getProduct called with', url)
+  message: `getProduct called with, ${url}`});
+
   const response = await axios.get(url);
   fs.writeFileSync('./temp/vendors/wnc-product.html', response.data);
   const $ = cheerio.load(response.data);
@@ -50,12 +51,7 @@ async function getProduct(url) {
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
   const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
-  if (images.length === 0) {
-    logger.log({
-  level: 'info',
-  message: `No good images found for', title);
-    return null;
-  }
+
 
   let terpenes = [];
   let cannabinoids = [];
@@ -64,46 +60,27 @@ async function getProduct(url) {
 
     if (skippableImages.includes(image)) {
       logger.log({
-  level: 'info',
-  message: `Skipping', url);
+        level: 'info',
+        message: `Skipping: url`});
+      
       continue;
     }
 
     const raw = await recognize(image);
     const result = await transcribeAssay(raw, 'wnc', image);
 
-    if (!result) {
-      logger.log({
-  level: 'info',
-  message: `nothing interesting, continuing ...');
-      continue;
-    }
-
-    if (result instanceof String) {
-      logger.log({
-  level: 'info',
-  message: `image rejected', url);
-      badImages.push(image);
-      continue;
-    }
-
     if (result.terpenes?.length) {
-      logger.log({
-  level: 'info',
-  message: `Terpenes: ', result.terpenes.length)
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
+
     if (result.cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `Cannabinoids: ', result.cannabinoids.length)
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
       logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found')
+        level: 'info',
+        message: `both terpenes and cannabinoids found`});
       break;
     }
 
@@ -111,11 +88,8 @@ async function getProduct(url) {
 
   // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
-  // logger.log({
-  level: 'info',
-  message: `Saved ${title}');
 
-  logger.log({level:'info', message: `${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`);
+  logger.log({level:'info', message: `${title} has ${terpenes.length} terpenes and ${cannabinoids.length} cannabinoids`});
 
   return {
     title,
@@ -130,8 +104,6 @@ async function getProduct(url) {
 }
 
 async function scrapePage(url, currentPage, productLinks) {
-
-  //try {
   const response = await axios.get(url);
   fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
   const $ = cheerio.load(response.data);
@@ -156,11 +128,6 @@ async function scrapePage(url, currentPage, productLinks) {
     currentPage++;
     await scrapePage(nextPageLink, currentPage, productLinks);
   }
-  /*
-} catch (error) {
-  throw new Error(`Error scraping page: ${error.message}`);
-}
-*/
   return productLinks;
 }
 
@@ -212,9 +179,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts();
 }
 

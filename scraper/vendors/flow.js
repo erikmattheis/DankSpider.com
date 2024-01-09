@@ -87,9 +87,6 @@ async function addAssays(product, $) {
   const images = $('.lazyload').map((_, el) => $(el).attr('data-photoswipe-src')).get();
 
   if (images.length === 0) {
-    logger.log({
-  level: 'info',
-  message: `no images', product.url);
     return {
       ...product, cannabinoids: [], terpenes: []
     };
@@ -104,14 +101,14 @@ async function addAssays(product, $) {
     if (!result) {
       logger.log({
   level: 'info',
-  message: `nothing interesting, continuing ...', image);
+  message: `nothing interesting, continuing ... ${image}`})
       continue;
     }
 
     if (result instanceof String) {
       logger.log({
   level: 'info',
-  message: `image rejected', image);
+  message: `image rejected: ${image}`});
       logger.error(result);
       continue;
     }
@@ -119,20 +116,16 @@ async function addAssays(product, $) {
     if (result.terpenes?.length) {
       logger.log({
   level: 'info',
-  message: `Terpenes: ', result.terpenes.length)
+  message: `Terpenes: ${result.terpenes.length}`});
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `Cannabinoids: ', result.cannabinoids.length)
+
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found')
+
       break;
     }
   }
@@ -149,9 +142,9 @@ async function getAvailableLeafProducts() {
 }
 
 if (require.main === module) {
-  // logger.log({
+   logger.log({
   level: 'info',
-  message: `This script is being executed directly by Node.js`);
+  message: `This script is being executed directly by Node.js`});
   getAvailableLeafProducts();
 }
 
