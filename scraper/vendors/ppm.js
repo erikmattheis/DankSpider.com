@@ -17,7 +17,7 @@ async function parseSingleProduct(html, url) {
   const variants = []
 
   const variationsData = $('form.variations_form').attr('data-product_variations')
-  const variations = JSON.parse(variationsData.replace(/&quot;/g, '"')) || []
+  const variations = JSON.parse(variationsData?.replace(/&quot;/g, '"')) || []
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size

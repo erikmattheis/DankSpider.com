@@ -15,13 +15,11 @@ async function getBuffer(url) {
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
 
-  if (false || fs.existsSync(filePath)) {
+  if (fs.existsSync(filePath)) {
     buffer = fs.readFileSync(filePath);
-
   } else {
     buffer = await getImageBuffer(url);
     fs.writeFileSync(filePath, buffer);
-
   }
 
   return buffer;
@@ -45,7 +43,9 @@ async function getImageBuffer(url) {
 
 
     if (!buffer || buffer.length === 0) {
-
+      logger.error(`Error getting image buffer: ${url}`);
+      return ''
+    } else {
 
       return new Promise((resolve, reject) => {
 
@@ -70,6 +70,7 @@ async function getImageBuffer(url) {
 
       });
     }
+
   } catch (error) {
 
     logger.error(`Error around getImageBuffer: ${error}`);

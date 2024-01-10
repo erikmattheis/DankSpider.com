@@ -2,6 +2,7 @@ const axios = require('./rateLimitedAxios.js')
 const fs = require('fs')
 const gm = require('gm').subClass({ imageMagick: true })
 const { createWorker, OEM, PSM, setLogging } = require('tesseract.js')
+const { transcribeAssay } = require('./cortex.js')
 
 const { getBuffer } = require('./memory.js')
 

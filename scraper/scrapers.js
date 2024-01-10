@@ -58,7 +58,7 @@ async function run(batchId, vendor) {
     }
 
   }
-  
+  /*
 
   if (!vendor || vendor === 'drGanja') {
 
@@ -70,10 +70,8 @@ async function run(batchId, vendor) {
       logger.error(error)
       logErrorToFile(error)
     }
-
-
   }
-
+*/
   
     if (!vendor || vendor === 'WNC') {
       try {
