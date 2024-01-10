@@ -83,6 +83,8 @@ async function run(batchId, vendor) {
   endTime = performance.now()
 
   logger.log({level:'info', message: `Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
+
+  process.exit(0)
 }
 
 run(batchId)

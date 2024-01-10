@@ -20,6 +20,7 @@ if (!getApps().length) {
 }
 
 const db = getFirestore();
+db.settings({ ignoreUndefinedProperties: true })P
 
 async function getUniqueTerpenes() {
   const productsRef = db.collection('products');

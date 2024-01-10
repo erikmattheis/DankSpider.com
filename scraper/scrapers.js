@@ -34,13 +34,6 @@ async function testOCR() {
       message: `url: ${url}`,
     });
     const result = await recognize(url);
-
-    fs.appendFileSync(
-      "./temp/assay.txt",
-      `${url}\n${result?.length}\n\n`,
-      null,
-      2
-    );
   }
 }
 

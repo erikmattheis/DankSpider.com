@@ -15,6 +15,10 @@ async function parseSingleProduct(html, url) {
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim())
 
+  logger.log({
+  level: 'info',
+  message: `arete title: ${title}`})
+
   const variants = []
 
   const variationsData = $('form.variations_form').attr('data-product_variations')
@@ -30,26 +34,11 @@ async function parseSingleProduct(html, url) {
     }
   })
 
-  const imgElements = $('img')
+  const imgElements = $('img.wp-post-image')
+  const productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
 
-  let image
 
-  for (let j = 0; j < imgElements.length; j++) {
-    const imgEl = imgElements[j]
-    const srcset = $(imgEl).attr('srcset') || $(imgEl).attr('data-srcset')
-    if (srcset && srcset.includes('768w')) {
-      image = srcset.split(',').find(s => s.includes('768w')).trim().split(' ')[0]
-      break
-    }
-  }
-
-  const images = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get()
-
-  // remove any that contain the words "legal" abd "opinion
-
-  const productImages = images.filter(image => !image.toLowerCase().includes('legal') && !image.toLowerCase().includes('opinion'))
-
-  // move to beginning of array any members that contain the word 'lab' and
+  // move to beginning of array any members that contain the word 'lab'
 
   const assayLinks = productImages.sort((a, b) => {
     if (a.toLowerCase().includes('lab')) {
@@ -68,7 +57,7 @@ async function parseSingleProduct(html, url) {
     logger.log({
   level: 'info',
   message: `Arete no images`})
-    return { title, url, cannabinoids, terpenes, image, variants, vendor: 'Arete' }
+    return { title, url, cannabinoids, terpenes, image:productImages[0], variants, vendor: 'Arete' }
   }
 
   for (const imgStr of assayLinks) {
@@ -108,7 +97,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  return { title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
+  return { title, url, image:productImages[0], variants, cannabinoids, terpenes, vendor: 'Arete' }
 }
 
 async function getProducts(feedUrl) {

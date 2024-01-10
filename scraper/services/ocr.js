@@ -44,7 +44,7 @@ async function recognize(url) {
     });
 
     await worker.setParameters({
-      tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
+      tessedit_pageseg_mode: PSM.DEFAULT
     });
 
     const buffer = await getBuffer(url);
