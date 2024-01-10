@@ -78,16 +78,24 @@ async function parseSingleProduct(html, url) {
 
     if (!result) {
       logger.log({
-  level: 'info',
-  message: `nothing interesting, continuing ... ${image}`})
+        level: 'info',
+        message: `nothing interesting, continuing ... ${image}`})
       continue
     }
 
     if (result.terpenes?.length) {
- 
+
+      logger.log({
+        level: 'info',
+        message: `TERPENES ... ${result.terpenes.length}`})
+
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
+
+      logger.log({
+        level: 'info',
+        message: `CANNABINOIDS ... ${result.cannabinoids.length}`})
 
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
@@ -106,7 +114,7 @@ async function parseSingleProduct(html, url) {
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data, { xmlMode: true })
-  fs.writeFileSync('./temp/vendors/arete.xml', result.data)
+ // fs.writeFileSync('./temp/vendors/arete.xml', result.data)
 
   const items = $('item')
   const products = []
@@ -115,11 +123,15 @@ async function getProducts(feedUrl) {
     const el = items[i]
     const url = $(el).find('link').text()
     const resultP = await axios.get(url)
-    fs.writeFileSync('./temp/vendors/arete-product.html', resultP.data)
+    //fs.writeFileSync('./temp/vendors/arete-product.html', resultP.data)
     const vendor = 'Arete'
     const vendorDate = $(el).find('pubDate').text()
 
     const more = await parseSingleProduct(resultP.data, url)
+
+    logger.log({
+      level: 'info',
+      message: `MORE ARETE: ${JSON.stringify(more)}`})
 
     const product = {
       ...more, vendor, vendorDate
