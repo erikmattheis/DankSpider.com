@@ -18,7 +18,6 @@ if (require.main === module) {
   message: `This script is being executed directly by Node.js`,
 })}
 
-getAvailableLeafProducts()
 async function getAvailableLeafProducts() {
 
   const products = await getProducts();

@@ -20,7 +20,7 @@ if (!getApps().length) {
 }
 
 const db = getFirestore();
-db.settings({ ignoreUndefinedProperties: true })P
+db.settings({ ignoreUndefinedProperties: true });
 
 async function getUniqueTerpenes() {
   const productsRef = db.collection('products');
@@ -190,33 +190,9 @@ async function getProductById(id) {
   return doc.data();
 }
 
-
-// find firebase doc x8-undefined-undefined-0, it is an array, send that array to saveProducts
-async function fixProducts() {
-  const data = await getProductsByVendor('WNC');
-
-  const fixedProducts = [];
-  for (const product of data) {
-    if (product.terpenes) {
-      const terpenes = product.terpenes.map(terpene => normalizeTerpene(terpene.product.url));
-      const cannabinoids = product.cannabinoids.map(cannabinoid => normalizeCannabinoid(cannabinoid, product.url));
-      const fixed = { ...product, terpenes, cannabinoids, variants };
-
-      fixedProducts.push(fixed);
-    }
-  }
-  await saveProducts(fixedProducts, 'z0');
-}
-
 async function saveProducts(products, batchId, useDev) {
   const batch = db.batch();
-  let productsRef;
-  if (useDev) {
-    productsRef = db.collection('products');
-  }
-  else {
-    productsRef = db.collection('products');
-  }
+  const  productsRef = db.collection('products');
 
   const timestamp = admin.firestore.Timestamp.now();
   const idPrefix = batchId || timestamp.toDate().toISOString();
@@ -625,7 +601,6 @@ module.exports = {
   getProductsByPPM,
   thinkAboutCannabinoids,
   deleteProductsWithObjectsInVariants,
-  fixProducts,
   getProductsByBatchId,
   getExampleRecordWithUniqueChemicalAsCannabinoid
 };

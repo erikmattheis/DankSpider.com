@@ -16,7 +16,7 @@ const logger = require("./services/logger.js");
 
 const scan = [
   // Dr Ganja Cannabinoids
-  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Cannabinoids-Certificate-of-Analysis.jpg",
+  "https://wwww.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Cannabinoids-Certificate-of-Analysis.jpg",
   // Dr Ganja Terpenes
   "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
   // Dr Ganja Terpenes 2

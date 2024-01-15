@@ -15,10 +15,6 @@ async function parseSingleProduct(html, url) {
 
   const title = strings.normalizeProductTitle($('h1.product_title').text().trim())
 
-  logger.log({
-  level: 'info',
-  message: `arete title: ${title}`})
-
   const variants = []
 
   const variationsData = $('form.variations_form').attr('data-product_variations')
@@ -27,11 +23,7 @@ async function parseSingleProduct(html, url) {
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size
     const sizeString = strings.normalizeVariantName(size)
-    const availability = $(variation.availability_html).text().trim()
-
-    if (availability.toLowerCase().includes('in stock')) {
       variants.push(sizeString)
-    }
   })
 
   const imgElements = $('img.wp-post-image')
@@ -64,6 +56,8 @@ async function parseSingleProduct(html, url) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const result = await recognize(image)
+
+    fs.writeFileSync('./temp/vendors/arete-raw.js', result)
 
     if (!result) {
       logger.log({
@@ -103,7 +97,7 @@ async function parseSingleProduct(html, url) {
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data, { xmlMode: true })
- // fs.writeFileSync('./temp/vendors/arete.xml', result.data)
+ fs.writeFileSync('./temp/vendors/arete.xml', result.data)
 
   const items = $('item')
   const products = []
@@ -112,7 +106,7 @@ async function getProducts(feedUrl) {
     const el = items[i]
     const url = $(el).find('link').text()
     const resultP = await axios.get(url)
-    //fs.writeFileSync('./temp/vendors/arete-product.html', resultP.data)
+    fs.writeFileSync('./temp/vendors/arete-product.html', resultP.data)
     const vendor = 'Arete'
     const vendorDate = $(el).find('pubDate').text()
 
