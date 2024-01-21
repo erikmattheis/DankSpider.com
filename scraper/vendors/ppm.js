@@ -17,6 +17,11 @@ async function parseSingleProduct(html, url) {
   const variants = []
 
   const variationsData = $('form.variations_form').attr('data-product_variations')
+
+  if (!variationsData) {
+    return { title, url, variants, vendor: 'PPM' }
+  }
+
   const variations = JSON.parse(variationsData?.replace(/&quot;/g, '"')) || []
 
   variations.forEach(variation => {

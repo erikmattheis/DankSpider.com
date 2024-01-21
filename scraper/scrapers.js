@@ -44,7 +44,7 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-  /*
+
   if (!vendor || vendor === 'ppm') {
 
     try {
@@ -57,7 +57,7 @@ async function run(batchId, vendor) {
     }
 
   }
-
+  /*
 
   if (!vendor || vendor === 'drGanja') {
 
@@ -109,7 +109,7 @@ async function run(batchId, vendor) {
       logErrorToFile(error)
     }
   }
-*/
+
   if (!vendor || vendor === "Arete") {
     try {
       const areteProducts = await arete.getAvailableLeafProducts();
@@ -120,7 +120,7 @@ async function run(batchId, vendor) {
       logErrorToFile(error);
     }
   }
-  /*
+  
     if (!vendor || vendor === 'Enlighten') {
   
       try {
