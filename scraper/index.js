@@ -6,19 +6,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
-
-fs.writeFileSync('./temp/errors.txt', '')
-fs.writeFileSync('./temp/no-buffer.txt', '')
-fs.writeFileSync('./temp/unknownCannabinoidSpellings.txt', '')
-fs.writeFileSync('./temp/unknownTerpinoidSpellings.txt', '')
-fs.writeFileSync('./temp/reached-end.txt', '')
-fs.writeFileSync('./temp/assay.txt', '')
-fs.writeFileSync('./temp/no-config.txt', '')
-fs.writeFileSync('./temp/no-text.txt', '')
-fs.writeFileSync('./temp/config.txt', '')
-fs.writeFileSync('./temp/tables.txt', '')
-
-const batchId = '0H'
+const batchId = '0A'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -60,29 +48,15 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
-  let startTime = performance.now()
-
   await scrapers.run(batchId, vendor)
 
-  let endTime = performance.now()
-
-  logger.log({level:'info', message: `Scraping took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
-
-  startTime = performance.now()
-
-  await cleanProductsCollections()
-
-  endTime = performance.now()
-
-  logger.log({level:'info', message: `Deleting old duplicates took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
-
-  startTime = performance.now()
+  // await cleanProductsCollections()
 
   await makeProductsFile()
 
-  endTime = performance.now()
+  //await saveProducts([{'title':'car'}], 'aaa')
 
-  logger.log({level:'info', message: `Making JSON file took ${((endTime - startTime) / 1000).toFixed(2)} seconds`})
+  logger.log({level:'info', message: `Done with batch ${batchId}`})
 
   process.exit(0)
 }
@@ -99,7 +73,7 @@ async function utils() {
 
   //logger.log(JSON.stringify(cans, null, 2));
 
-  await cleanProductsCollections()
+  // await cleanProductsCollections()
   await makeProductsFile()
   //await makeArticles();
   logger.log({
