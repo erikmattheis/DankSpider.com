@@ -26,21 +26,26 @@ async function parseSingleProduct(html, url) {
       variants.push(sizeString)
   })
 
-  const imgElements = $('img.wp-post-image')
+  const imgElements = $('picture')
+
   const productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
+console.log('productImages', productImages.length)
 
+  const filteredLinks = productImages.filter(imgStr => !imgStr?.includes('Legal'))
 
-  // move to beginning of array any members that contain the word 'lab'
+    // move to beginning of array any members that contain the word 'lab'
 
-  const assayLinks = productImages.sort((a, b) => {
+  const assayLinks = filteredLinks.sort((a, b) => {
     if (a.toLowerCase().includes('lab')) {
-      return 1
+      return -1
     }
     if (b.toLowerCase().includes('lab')) {
-      return -1
+      return 1
     }
     return 0
   })
+
+  console.log('assayLinks', assayLinks)
 
   let terpenes = []
   let cannabinoids = []
@@ -57,7 +62,7 @@ async function parseSingleProduct(html, url) {
 
     const result = await recognize(image)
 
-    fs.writeFileSync('./temp/vendors/arete-raw.js', result)
+    //fs.writeFileSync('./temp/vendors/arete-raw.js', JSON.stringify(result, null, 2))
 
     if (!result) {
       logger.log({

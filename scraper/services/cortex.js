@@ -10,18 +10,16 @@ function transcribeAssay(str, url) {
   let terps = []
   let canns = []
 
-  if (['limonine', 'pinene', 'camphene'].includes(str.toLowerCase())) {
+  if (['caryo', 'limonine', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
+
     const terpsAndUnknowns = lines.map(line => getTerpeneObj(line))
     terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown')
   }
 
-  if (['cannabinol', 'thc', 'cbd'].includes(str.toLowerCase())) {
+  if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
     const cannsAndUnknowns = lines.map(line => getCannabinoidObj(line))
     canns = cannsAndUnknowns.filter(cann => cann.name !== 'Unknown')
   }
-
-  const l = `+++++++++++++++++++${url}\nCanns: ${canns.length}\nTerps: ${terps.length}\n\n`
-  fs.appendFileSync('./temp/lines.txt', l)
 
   if (canns.length > terps) {
     return { cannabinoids: canns }

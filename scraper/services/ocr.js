@@ -63,7 +63,13 @@ async function recognize(url) {
       return null
     }
 
+
     const assay = transcribeAssay(result.data.text, url)
+
+    logger.log({
+      level: 'info',
+      message: `assay: ${JSON.stringify(assay, null, 2)}`})
+      
 
     return assay;
 
