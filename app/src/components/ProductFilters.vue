@@ -15,7 +15,7 @@
 
       <div class="header" @click.prevent="toggleCollapse('vendors')">
         <h3>Vendors</h3>
-        <div class="selected-items vendors list"><span v-for="(vendor, i) in checkedVendors">{{ vendor }}</span></div>
+        <div class="selected-items vendors list">{{ checkedVendorsList }}</div>
         <div class="collapse-button vendors arrow">
           <font-awesome-icon :icon="['fas', 'right-long']" />
         </div>
@@ -38,7 +38,7 @@
 
       <div class="header" @click.prevent="toggleCollapse('sizes')">
         <h3>Sizes</h3>
-        <div class="selected-items sizes list"><span v-for="(variant, i) in checkedVariants">{{ variant }}</span></div>
+        <div class="selected-items sizes list">{{ checkedSizesList }}</div>
         <div class="collapse-button sizes arrow">
           <font-awesome-icon :icon="['fas', 'right-long']" />
         </div>
@@ -182,6 +182,12 @@ export default {
     */
   },
   computed: {
+    checkedVendorsList() {
+      return this.store.checkedVendors.join(', ');
+    },
+    checkedSizesList() {
+      return this.store.checkedVariants.join(', ');
+    },
     normalizedVariants() {
       return this.store.normalizedVariants;
     },
