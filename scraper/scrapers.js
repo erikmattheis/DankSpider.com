@@ -44,7 +44,7 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-
+/*
   if (!vendor || vendor === 'ppm') {
 
     try {
@@ -57,7 +57,18 @@ async function run(batchId, vendor) {
     }
 
   }
-  /*
+
+    if (!vendor || vendor === "Arete") {
+    try {
+      const areteProducts = await arete.getAvailableLeafProducts();
+
+      await saveProducts(areteProducts, batchId);
+    } catch (error) {
+      logger.error(error);
+      logErrorToFile(error);
+    }
+  }
+  
 
   if (!vendor || vendor === 'drGanja') {
 
@@ -70,7 +81,7 @@ async function run(batchId, vendor) {
       logErrorToFile(error)
     }
   }
-
+  */
   
     if (!vendor || vendor === 'WNC') {
       try {
@@ -110,16 +121,7 @@ async function run(batchId, vendor) {
     }
   }
 
-  if (!vendor || vendor === "Arete") {
-    try {
-      const areteProducts = await arete.getAvailableLeafProducts();
 
-      await saveProducts(areteProducts, batchId);
-    } catch (error) {
-      logger.error(error);
-      logErrorToFile(error);
-    }
-  }
   
     if (!vendor || vendor === 'Enlighten') {
   
@@ -149,7 +151,7 @@ async function run(batchId, vendor) {
     message: `Data has been written to Firebase for all vendors.`
     })
   }
-    */
+    
 }
 
 module.exports = {

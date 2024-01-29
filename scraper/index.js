@@ -61,7 +61,7 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId)
+//run(batchId)
 
 async function utils() {
 
@@ -82,6 +82,6 @@ async function utils() {
   )
 }
 
-//utils()
+utils()
 
 
