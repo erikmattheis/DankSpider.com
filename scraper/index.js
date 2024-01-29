@@ -17,7 +17,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   } else if (vendor) {
     products = await getProductsByVendor(vendor, limit)
   } else {
-    products = await getAllProducts()
+    products = await getProductsByBatchId(batchId)
   }
 
   products = products.map(product => {
@@ -48,7 +48,7 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
-  await scrapers.run(batchId, vendor)
+  //await scrapers.run(batchId, vendor)
 
   // await cleanProductsCollections()
 

@@ -549,7 +549,7 @@ if (require.main === module) {
 
 
 async function getProductsByBatchId(batchId) {
-  const productsRef = db.collection('productsArchive');
+  const productsRef = db.collection('products');
   const snapshot = await productsRef.where('batchId', '==', batchId).get();
 
   const products = [];

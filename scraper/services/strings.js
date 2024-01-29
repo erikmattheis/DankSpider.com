@@ -27,6 +27,25 @@ function normalizeVariantName(name) {
   if (name === 'Sugar leaf trim - 28 grams') {
     return '28 g'
   }
+  if (name === 'Mixed Dirty Kief 28 grams') {
+    return '28 g'
+  }
+  if (name ==='Mixed+Dirty+Kief+28+grams') {
+    return '28 g'
+  }
+
+  if (name === '3.5 g Pheno 1') {
+    return '3.5 g'
+  }
+  if (name === '3.5 g Pheno 2') {
+    return '3.5 g'
+  }
+  if (name === '3.5 g Pheno 1') {
+    return '3.5 g'
+  }
+  if (name === '7 g Pheno 2') {
+    return '7 g'
+  }
   if (name === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
     return '28 g'
   }
@@ -81,7 +100,7 @@ function normalizeVariantName(name) {
   name = name?.replace(' (1/4 oz)', '')
   name = name?.replace(' (1/2 oz)', '')
   name = name?.replace(' (1 oz)', '')
-  name = name?.replace('(small/minis)', 'smalls/minis')
+  name = name?.replace('(small/minis)', 'smalls')
   name = name?.trim().replace(/\s+/g, ' ')
 
   return name

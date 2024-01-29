@@ -44,7 +44,7 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-/*
+
   if (!vendor || vendor === 'ppm') {
 
     try {
@@ -68,7 +68,7 @@ async function run(batchId, vendor) {
       logErrorToFile(error);
     }
   }
-  
+
 
   if (!vendor || vendor === 'drGanja') {
 
@@ -81,8 +81,8 @@ async function run(batchId, vendor) {
       logErrorToFile(error)
     }
   }
-  */
-  
+
+
     if (!vendor || vendor === 'WNC') {
       try {
         const wncProducts = await wnc.getAvailableLeafProducts()
@@ -92,9 +92,9 @@ async function run(batchId, vendor) {
         logger.error(error)
         logErrorToFile(error)
       }
-  
+
     }
-  
+
 
 
   if (!vendor || vendor === 'Preston') {
@@ -122,9 +122,9 @@ async function run(batchId, vendor) {
   }
 
 
-  
+
     if (!vendor || vendor === 'Enlighten') {
-  
+
       try {
         const enlightenProducts = await enlighten.getAvailableLeafProducts()
 
@@ -151,7 +151,7 @@ async function run(batchId, vendor) {
     message: `Data has been written to Firebase for all vendors.`
     })
   }
-    
+
 }
 
 module.exports = {
