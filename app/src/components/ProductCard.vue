@@ -213,7 +213,7 @@ export default {
 
 .info {
   background-color: #ddd;
-  padding: 5px 0 30px;
+  padding: 5px 10px 30px 10px;
   width: 100%;
   min-height: 149px;
 }
