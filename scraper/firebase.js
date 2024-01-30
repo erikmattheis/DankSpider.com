@@ -92,24 +92,6 @@ async function normalizeVariants() {
 
 }
 
-async function thinkAboutTerpenes() {
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.get();
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    if (product.terpenes) {
-      product.terpenes.forEach(terpene => {
-        const name = normalizeTerpene(terpene.name);
-        if (name) {
-          terpene.name = name;
-        }
-      });
-      doc.ref.update({ terpenes: product.terpenes });
-    }
-  });
-
-}
-
 async function thinkAboutCannabinoids() {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
@@ -578,7 +560,6 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
 
 module.exports = {
   getTerpenes,
-  thinkAboutTerpenes,
   saveArticles,
   saveProducts,
   getAllProducts,
@@ -599,7 +580,6 @@ module.exports = {
   getProductsByVariant,
   getProductsByTerpene,
   getProductsByPPM,
-  thinkAboutCannabinoids,
   deleteProductsWithObjectsInVariants,
   getProductsByBatchId,
   getExampleRecordWithUniqueChemicalAsCannabinoid

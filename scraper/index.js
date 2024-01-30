@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteProductsByVendor, getExampleRecordWithUniqueChemicalAsCannabinoid, getProductsByBatchId, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, thinkAboutCannabinoids, getProductsByPPM, getProductsByTerpene, thinkAboutTerpenes, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
+const { deleteProductsByVendor, getExampleRecordWithUniqueChemicalAsCannabinoid, getProductsByBatchId, deleteAllDocumentsInCollection, cleanProductsCollection, deleteProductsWithObjectsInVariants, getProductsByPPM, getProductsByTerpene, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
 const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
@@ -64,8 +64,6 @@ async function run(batchId, vendor) {
 //run(batchId)
 
 async function utils() {
-
-  // await thinkAboutCannabinoids()
 
   await scrapers.testOCR()
 

@@ -1,3 +1,4 @@
+
 const fs = require('fs')
 
 function transcribeAssay(str, url) {
@@ -10,7 +11,7 @@ function transcribeAssay(str, url) {
   let terps = []
   let canns = []
 
-  if (['caryo', 'limonine', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
+  if (['caryo', 'limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
     const terpsAndUnknowns = lines.map(line => getTerpene(line, url))
     terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
     return { terpenes: terps }
@@ -28,12 +29,6 @@ function transcribeAssay(str, url) {
 
 
 function getCannabinoid(line, url) {
-  if (url.includes('cannalyze')) {
-    return getCannabinoidObjCannalyze(line, url)
-  }
-  if (url.includes('wnc-cbd')) {
-    return getCannabinoidObj2(line, url)
-  }
   return getCannabinoidObj(line, url)
 }
 
@@ -45,18 +40,18 @@ function filterLine(line, normalizationFunction) {
 
   const cleanedLine = line.replace(/\s+/g, ' ')
 
-  const parts = cleanedLine.split(' ')
-
+  let parts = cleanedLine.split(' ')
+  console.log(parts.length)
   const name = normalizationFunction(parts[0]) || 'Unknown';
 
-  parts = parts.filter(part => parseFloat(parts[parts.length - 1]) !== 'NaN');
+  parts = parts.filter(part => !isNaN(parseFloat(part)));
 
   parts.unshift(name)
 
   return parts;
 }
 
-function getMgg(parts) {
+function getMgg(parts, line) {
   let mgg;
   if (parts.length === 4) {
     mgg = parts[parts.length - 1]
@@ -65,7 +60,7 @@ function getMgg(parts) {
     mgg = parts[parts.length - 2]
   }
   else {
-    console.log("ABNORMAL TERP", parts)
+    console.log("ABNORMAL", parts, 'line: ' + line)
   }
 
   mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>0.003' || mgg === '<0.003' ? 0 : parseFloat(mgg)
@@ -79,20 +74,16 @@ function getTerpeneObj(line, url) {
 
   const name = parts[0]
 
-  if (name === 'Unknown') {
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
+  if (name === 'Unknown' || parts.length < 2) {
+    return { name, pct: 0, mgg: 0, originalText: parts }
   }
 
-  if (parts.length < 2) {
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  const mgg = getMgg(parts)
+  const mgg = getMgg(parts, line)
   const pct = (parseFloat(mgg) / 1000).toFixed(3)
 
-  const originalText = cleanedLine || 'Unknown'
+  const originalText = line || 'Unknown'
 
-  return { name, pct, mgg, originalText: line }
+  return { name, pct, mgg, originalText }
 }
 
 
@@ -102,80 +93,14 @@ function getCannabinoidObj(line, url) {
 
   const name = parts[0];
 
-  if (name === 'Unknown') {
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  if (parts.length < 2) {
+  if (name === 'Unknown' || parts.length < 2) {
     return { name, pct: 0, mgg: 0, originalText: line }
   }
 
-  let mgg = parts[n] || 0
-  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' || mgg === '<0.003' ? 0 : mgg
+  const mgg = getMgg(parts, line)
+  const pct = (parseFloat(mgg) / 1000).toFixed(3)
 
-  if (!pct || pct === 'NaN' && mgg) {
-    pct = (mgg / 1000).toFixed(3)
-  }
-
-  const originalText = cleanedLine || 'Unknown'
-
-  return { name, pct, mgg, originalText }
-}
-
-function getCannabinoidObj2(line, url) {
-  const name = normalizeCannabinoid(line.split(' ')[0], url) || 'Unknown'
-
-  if (name === 'Unknown') {
-    fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `${JSON.stringify(line, null, 2)}\n${url}\n`)
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  const parts = filterLine(line, normalizeCannabinoid)
-
-  if (parts.length < 2) {
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  let pct = parts[parts.length - 2] || 0
-  pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct
-  pct = pct + ''
-  pct = pct.replace('.', '')
-  pct = parseInt(pct)
-  pct = (pct / 1000).toFixed(3)
-
-  let mgg = parts[parts.length - 1] || 0
-  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>3.000' ? 0 : mgg
-
-  const originalText = cleanedLine || 'Unknown'
-
-  return { name, pct, mgg, originalText }
-}
-
-function getCannabinoidObjCannalyze(line, url) {
-  const name = normalizeCannabinoid(line.split(' ')[0], url) || 'Unknown'
-
-  if (name === 'Unknown') {
-    fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `${JSON.stringify(line, null, 2)}\n${url}\n`)
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  const parts = filterLine(line, normalizeCannabinoid)
-
-  if (parts.length < 2) {
-    return { name, pct: 0, mgg: 0, originalText: cleanedLine }
-  }
-
-  let pct = parts[parts.length - 2] || 'Unknown'
-
-  pct = pct === 'ND' || pct === '<LOQ' || pct === '<L0Q' || pct === '>3.000' ? 0 : pct
-  pct = pct + ''
-  pct = pct.replace('.', '')
-  pct = parseInt(pct)
-  pct = (pct / 1000).toFixed(3)
-
-  const mgg = parts[parts.length - 1] || 0
-
-  const originalText = cleanedLine
+  const originalText = line || 'Unknown'
 
   return { name, pct, mgg, originalText }
 }
@@ -321,83 +246,53 @@ function normalizeCannabinoid(name, url) {
   return "Unknown"
 }
 
-
-function normalizeTerpene(terpene) {
-
-  const spellings = {
-    '«-Bisabolol': 'Bisabolol',
-    '«-Pinene': 'Pinene',
-    '1,8-Cineole': 'Eucalyptol',
-    '1.8-Cinecle': 'Eucalyptol',
-    'a-Bisabolol': 'Bisabolol',
-    'a-Bsabolol': 'Bisabolol',
-    'a-Finene': 'Pinene',
-    'a-Humulene': 'Humulene',
-    'a-Pinene': 'Pinene',
-    'a-Terpinene': 'Terpinene',
-    'B-Caryophyliene': 'Caryophyllene',
-    'B-Caryophyllene': 'Caryophyllene',
-    'B-Myrcene': 'Myrcene',
-    'Mentho!': 'Menthol',
-    'o-Humulene': 'Humulene',
-    'y-Terpinene': 'Terpinene',
-    'α-Bisabolol': 'Bisabolol',
-    'α-Humulene': 'Humulene',
-    'α-Pinene': 'Pinene',
-    'α-Terpinene': 'Terpinene',
-    'β-Caryophyllene': 'Caryophyllene',
-    'β-Myrcene': 'Myrcene',
-    Bisabolol: 'Bisabolol',
-    Bormwol: 'Borneol',
-    Borreol: 'Borneol',
-    Camphene: 'Camphene',
-    Carene: 'Carene',
-    Caryophyllene: 'Caryophyllene',
-    CaryophylleneOxide: 'Caryophyllene Oxide',
-    Citral: 'Citral',
-    Ferxhone: 'Fenchone',
-    Limonenes: 'Limonene'
-  }
-
-  if (spellings[terpene]) {
-    return spellings[terpene]
-  }
-
-  fs.appendFileSync('./temp/unknownTerpinoidSpellings.txt', `${terpene}\n`)
-
-  return "Unknown"
+const terpeneSpellings = {
+  '«-Bisabolol': 'Bisabolol',
+  '«-Pinene': 'Pinene',
+  '1,8-Cineole': 'Eucalyptol',
+  '1.8-Cinecle': 'Eucalyptol',
+  'a-Bisabolol': 'Bisabolol',
+  'a-Bsabolol': 'Bisabolol',
+  'a-Finene': 'Pinene',
+  'a-Humulene': 'Humulene',
+  'a-Pinene': 'Pinene',
+  'a-Terpinene': 'Terpinene',
+  'B-Caryophyliene': 'Caryophyllene',
+  'B-Caryophyllene': 'Caryophyllene',
+  'B-Myrcene': 'Myrcene',
+  'Mentho!': 'Menthol',
+  'o-Humulene': 'Humulene',
+  'y-Terpinene': 'Terpinene',
+  'α-Bisabolol': 'Bisabolol',
+  'α-Humulene': 'Humulene',
+  'α-Pinene': 'Pinene',
+  'α-Terpinene': 'Terpinene',
+  'β-Caryophyllene': 'Caryophyllene',
+  'β-Myrcene': 'Myrcene',
+  Bisabolol: 'Bisabolol',
+  Bormwol: 'Borneol',
+  Borreol: 'Borneol',
+  Camphene: 'Camphene',
+  Carene: 'Carene',
+  Caryophyllene: 'Caryophyllene',
+  CaryophylleneOxide: 'Caryophyllene Oxide',
+  Citral: 'Citral',
+  Ferxhone: 'Fenchone',
+  Limonenes: 'Limonene'
 }
 
 
-function getCannalyzeAssay(textArray, url) {
+function normalizeTerpene(terpene) {
 
-  for (const text of textArray) {
-
-    if (text.split && text.split(' ').length === 4) {
-
-      const line = getCannalyzeAssayLine(text, url)
-
-      if (line && line.name === 'Unknown') {
-
-        fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `URl: ${url}\n${JSON.stringify(text, null, 2)}\n${url}\nnconfigCannalyzeCannabinoids\n\n`)
-      }
-      else {
-        cannabinoids.push(line)
-      }
-    }
-
+  if (terpeneSpellings[terpene]) {
+    return terpeneSpellings[terpene]
   }
 
-  if (cannabinoids.length) {
-    cannabinoids.sort((a, b) => b.pct - a.pct)
-  }
-
-  return { cannabinoids }
+  return "Unknown"
 }
 
 module.exports = {
   transcribeAssay,
   normalizeTerpene,
   normalizeCannabinoid,
-  getTerpeneObj
 }
