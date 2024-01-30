@@ -16,11 +16,11 @@ const logger = require("./services/logger.js");
 
 const scan = [
   // Dr Ganja Cannabinoids
-  "https://wwww.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Cannabinoids-Certificate-of-Analysis.jpg",
+//   "https://cdn.drganja.com/wp-content/uploads/2023/05/Tropaya-Cannabinoids-Certificate-of-Analysis-1184x1536.jpg",
   // Dr Ganja Terpenes
-  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
+//  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
   // Dr Ganja Terpenes 2
-  "https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg",
+ // "https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg",
   //wnc cannabinoids
   "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3613/Indoor_-_THCa_Fiji_Sunset_Hydro_Potency__20263.1696444987.jpg?c=1",
   //wnc terpenes
@@ -34,6 +34,10 @@ async function testOCR() {
       message: `url: ${url}`,
     });
     const result = await recognize(url);
+    logger.log({
+      level: "info",
+      message: `result: ${JSON.stringify(result, null, 2)}`,
+    });
   }
 }
 

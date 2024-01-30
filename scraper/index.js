@@ -67,14 +67,14 @@ async function utils() {
 
   // await thinkAboutCannabinoids()
 
-  //await scrapers.testOCR()
+  await scrapers.testOCR()
 
   // const cans = await getUniqueCannabinoids();
 
   //logger.log(JSON.stringify(cans, null, 2));
 
   // await cleanProductsCollections()
-  await makeProductsFile()
+ // await makeProductsFile()
   //await makeArticles();
   logger.log({
   level: 'info',
