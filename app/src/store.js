@@ -156,25 +156,28 @@ export const useSpiderStore = defineStore('spider', {
     },
     sortProductsByTerpene(chemicalName) {
       const sortedProducts = this.products.sort((a, b) => {
-        if (!a.terpenes || !a.terpenes.length) return 1
-        if (!b.terpenes || !b.terpenes.length) return -1
-        const aChemical = a.terpenes?.find((chemical) => chemical.name === chemicalName)
+        if (!a.terpenes || !a.terpenes.length) return 1;
+        if (!b.terpenes || !b.terpenes.length) return -1;
 
-        const bChemical = b.terpenes?.find((chemical) => chemical.name === chemicalName)
+        const aChemical = a.terpenes.find((chemical) => chemical.name === chemicalName);
+        const bChemical = b.terpenes.find((chemical) => chemical.name === chemicalName);
 
-        if (this.relativeTerpenes) {
-          if (parseFloat(aChemical?.relativePct) < parseFloat(bChemical?.relativePct)) return 1
-          if (parseFloat(aChemical?.relativePct) > parseFloat(bChemical?.relativePct)) return -1
-        }
-        else {
-          if (parseFloat(aChemical?.pct) < parseFloat(bChemical?.pct)) return 1
-          if (parseFloat(aChemical?.pct) > parseFloat(bChemical?.pct)) return -1
-        }
+        const aPct = this.relativeTerpenes ? aChemical?.relativePct : aChemical?.pct;
+        const bPct = this.relativeTerpenes ? bChemical?.relativePct : bChemical?.pct;
 
-        return 0
-      })
-      this.products = [...sortedProducts]
-      this.sortByChemical = chemicalName
+        if (!aPct && bPct) return 1;
+        if (aPct && !bPct) return -1;
+        if (!aPct && !bPct) return 0;
+
+        if (parseFloat(aPct) < parseFloat(bPct)) return 1;
+        if (parseFloat(aPct) > parseFloat(bPct)) return -1;
+
+        return 0;
+      });
+
+      console.log('sortedProducts 0', JSON.stringify(sortedProducts[1], null, 2));
+      this.products = [...sortedProducts];
+      this.sortByChemical = chemicalName;
     },
     resetFilters() {
       this.selectAllSizeFilters()

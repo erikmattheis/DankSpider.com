@@ -6,7 +6,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
-const batchId = '0A'
+const batchId = '0B'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 

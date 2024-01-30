@@ -2,7 +2,7 @@
   <div v-if="!ageGate">
     <div class="age-gate-overlay"></div>
     <div class="age-gate-container">
-      <img src="/apple-touch-icon.png" alt="DankSpider.com" />
+      <img src="https://storage.googleapis.com/dank-images/apple-touch-icon.png" alt="DankSpider.com" />
       <p>Are you 21 or older?</p>
       <ul>
         <li @click.prevent="setAgeGate(true)" class="enter shadowy-button yes" role="button"><span
