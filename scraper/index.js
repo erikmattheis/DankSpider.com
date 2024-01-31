@@ -2,6 +2,7 @@ const { performance } = require('perf_hooks')
 const fs = require('fs')
 const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
+const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
@@ -63,20 +64,20 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
-  //await scrapers.run(batchId, 'WNC')
+ // await scrapers.run(batchId, vendor)
 
- await makeProductsFile()
+ //await makeProductsFile()
 
   //await saveProducts([{'title':'car'}], 'aaa')
 
   //  await scrapers.testOCR()
 
-  // const cans = await getUniqueCannabinoids();
-
-  //logger.log(JSON.stringify(cans, null, 2));
 
   //await cleanProductsCollections()
-  await makeProductsFile()
+// await makeProductsFile()
+
+
+await makeStats()
   //await makeArticles();
 
  // await makeTerpenesFile();
@@ -90,5 +91,5 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId)
+run(batchId,'WNC')
 

@@ -8,21 +8,12 @@ const logger = require('../services/logger.js');
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
-const uniqueVariants = [];
-
-function addUniqueVariant(variant) {
-  if (!uniqueVariants.includes(variant)) {
-    uniqueVariants.push(variant);
-  }
-}
-
 async function getProduct(url) {
   logger.log({
   level: 'info',
   message: `getProduct called with, ${url}`});
 
   const response = await axios.get(url);
-  fs.writeFileSync('./temp/vendors/wnc-product.html', response.data);
   const $ = cheerio.load(response.data);
 
   const variants = [];
@@ -46,12 +37,16 @@ async function getProduct(url) {
 
   const imageNodes = $('a.productView-thumbnail-link');
 
+  console.log('imageNodes', imageNodes.length);
+
   const imageUrls = imageNodes.map((index, el) => $(el).attr('href')).get();
+
+  console.log('imageUrls', imageUrls.length);
 
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
   const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
-
+  console.log('images', images.length);
 
   let terpenes = [];
   let cannabinoids = [];

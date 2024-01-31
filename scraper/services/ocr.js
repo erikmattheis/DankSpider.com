@@ -11,8 +11,6 @@ setLogging(false)
 const { getConfig } = require('../config/config.ocr.js')
 const logger = require('../services/logger.js');
 
-
-
 /*
 (async () => {
   worker = await createWorker('eng', OEM.DEFAULT, {
@@ -63,11 +61,11 @@ async function recognize(url) {
       return null
     }
 
+//console.log('result.data.text', result.data.text)
 
-    const assay = transcribeAssay(result.data.text, url)
-
-
-    return assay;
+    //const assay = transcribeAssay(result.data.text, url)
+console.log('returning text');
+    return result.data.text;
 
   } catch (error) {
 

@@ -474,9 +474,20 @@ async function deleteAllDocumentsInCollection(collectionPath) {
   await batch.commit();
 }
 
-async function saveArticles(articles) {
+async function saveStats(stats) {
+  const statsRef = db.collection('stats').doc();
+  const timestamp = admin.firestore.Timestamp.now();
+  const statsData = {
+    ...stats,
+    timestamp,
+  };
+
+  await statsRef.set(statsData);
+}
+
+async function saveArticles(articles, collection) {
   const batch = db.batch();
-  const chemicalsRef = db.collection('terpenes');
+  const chemicalsRef = db.collection(collection);
 
   const timestamp = admin.firestore.Timestamp.now();
 
@@ -613,28 +624,27 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
 }
 
 module.exports = {
-  getTerpenes,
-  saveArticles,
-  saveProducts,
-  getAllProducts,
-  getIncompleteProducts,
-  getCompleteProducts,
-  getProductsByTitle,
-  getProductsByVendor,
   cleanProductsCollections,
-  cleanProductsCollection,
-  getNextBatchNumber,
-  saveBatchRecord,
-  getUniqueChemicals,
-  getUniqueCannabinoids,
-  getUniqueTerpenes,
   deleteAllDocumentsInCollection,
   deleteProductsByVendor,
-  normalizeVariants,
-  getProductsByVariant,
-  getProductsByTerpene,
-  getProductsByPPM,
   deleteProductsWithObjectsInVariants,
+  getAllProducts,
+  getCompleteProducts,
+  getIncompleteProducts,
+  getNextBatchNumber,
   getProductsByBatchId,
-  getExampleRecordWithUniqueChemicalAsCannabinoid
+  getProductsByPPM,
+  getProductsByTerpene,
+  getProductsByTitle,
+  getProductsByVariant,
+  getProductsByVendor,
+  getTerpenes,
+  getUniqueCannabinoids,
+  getUniqueChemicals,
+  getUniqueTerpenes,
+  normalizeVariants,
+  saveArticles,
+  saveStats,
+  saveBatchRecord,
+  saveProducts,
 };

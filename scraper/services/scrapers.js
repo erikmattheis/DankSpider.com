@@ -111,7 +111,7 @@ async function run(batchId, vendor) {
       logErrorToFile(error)
     }
   }
-
+/*
   if (!vendor || vendor === 'Flow') {
 
     try {
@@ -138,7 +138,7 @@ async function run(batchId, vendor) {
         logErrorToFile(error)
       }
     }
-
+*/
   if ((!vendor || vendor === 'TopCola')) {
 
     try {

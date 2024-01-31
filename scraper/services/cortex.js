@@ -4,6 +4,7 @@ const fs = require('fs')
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
+    console.log('can not split', str)
     return null
   }
 
@@ -11,16 +12,21 @@ function transcribeAssay(str, url) {
   let terps = []
   let canns = []
 
-  if (['caryo', 'limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
+  if (['limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
+    console.log('---> is terps')
     const terpsAndUnknowns = lines.map(line => getTerpene(line, url))
     terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
     return { terpenes: terps }
   }
 
   else if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
+    console.log('---> is canns')
     const cannsAndUnknowns = lines.map(line => getCannabinoid(line, url))
     canns = cannsAndUnknowns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
     return { cannabinoids: canns }
+  }
+  else {
+    console.log('---> unknown assay!!!!!!!')
   }
 
   return { cannabinoids: [] }
@@ -40,8 +46,9 @@ function filterLine(line, normalizationFunction) {
   let parts = cleanedLine.split(' ');
   const name = normalizationFunction(parts.shift()) || 'Unknown';
 
+
   parts = parts.map(part => {
-    if (/^ND$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/^ND$|^0.0485$|^0.0728$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
@@ -54,18 +61,7 @@ function filterLine(line, normalizationFunction) {
 
 function getMgg(parts, line) {
   // parts is [ 'CBDA', 'Acid', '(CBDA)', '<L0OQ', '<LOQ', '[' ], line is "Cannabidiolic Acid (CBDA) 0.0234 0.0732 <L0OQ <LOQ [""
-  let mgg;
-  if (parts.length === 4) {
-    mgg = parts[parts.length - 1]
-  }
-  else if (parts.length === 5) {
-    mgg = parts[parts.length - 2]
-  }
-  else {
-    console.log("ABNORMAL", parts, 'line: ' + line)
-  }
-
-  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>0.003' || mgg === '<0.003' ? 0 : parseFloat(mgg)
+  const mgg = parts[parts.length - 1]
 
   return mgg;
 }
@@ -82,7 +78,7 @@ function getTerpeneObj(line) {
 
   const mgg = getMgg(parts, line)
 
-  const pct = (parseFloat(mgg) / 1000).toFixed(3)
+  const pct = (parseFloat(mgg) * 10).toFixed(3)
 
   const originalText = line || 'Unknown'
 
@@ -101,7 +97,7 @@ function getCannabinoidObj(line) {
   }
 
   const mgg = getMgg(parts, line)
-  const pct = (parseFloat(mgg) / 1000).toFixed(3)
+  const pct = (parseFloat(mgg) / 10).toFixed(3)
 
   const originalText = line || 'Unknown'
 

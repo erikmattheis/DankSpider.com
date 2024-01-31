@@ -9,6 +9,7 @@ const strings = require('../services/strings')
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
 const logger = require('../services/logger.js');
+const { transcribeAssay } = require('../services/cortex.js')
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
@@ -60,7 +61,8 @@ console.log('productImages', productImages.length)
   for (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
-    const result = await recognize(image)
+    const raw = await recognize(image);
+    const result = transcribeAssay(raw, image);
 
     //fs.writeFileSync('./temp/vendors/arete-raw.js', JSON.stringify(result, null, 2))
 
@@ -102,7 +104,7 @@ console.log('productImages', productImages.length)
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data, { xmlMode: true })
- fs.writeFileSync('./temp/vendors/arete.xml', result.data)
+ //fs.writeFileSync('./temp/vendors/arete.xml', result.data)
 
   const items = $('item')
   const products = []
