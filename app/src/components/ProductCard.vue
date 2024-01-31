@@ -53,8 +53,10 @@
           <h3>Terpenes</h3>
           <ul>
             <li v-for="terpene in product.terpenes" class="chemical terpene" :class="isChemicalSelected(terpene)">
-              <span>{{ terpene.name }} ({{ terpene.pct
-              }}%)</span>
+              <router-link :to="{ name: 'terpene', params: { name: terpene.name.toLowerCase() } }" :title="terpene.name">
+
+              <span>{{ terpene.name }} ({{ terpene.pct }}%)</span>
+              </router-link>
             </li>
           </ul>
         </div>

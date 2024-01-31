@@ -64,7 +64,7 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
- // await scrapers.run(batchId, vendor)
+ await scrapers.run(batchId, vendor)
 
  //await makeProductsFile()
 
@@ -87,5 +87,5 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId,'WNC')
+run(batchId)
 

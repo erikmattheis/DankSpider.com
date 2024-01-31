@@ -2,6 +2,7 @@
   <div class="nav">
     <Menu class="left" />
     <h3 class="center band"><span>Updated {{ updatedString }}</span></h3>
+    <a href="/terpenes" class="center band">Terpenes</a>
     <MailList class="right" />
   </div>
 </template>
