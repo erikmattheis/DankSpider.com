@@ -1,16 +1,16 @@
 const { saveProducts } = require("./firebase.js");
 
-const ppm = require("./vendors/ppm.js");
-const preston = require("./vendors/preston.js");
-const flow = require("./vendors/flow.js");
-const wnc = require("./vendors/wnc.js");
-const enlighten = require("./vendors/enlighten-weebly-few-products.js");
-const topcola = require("./vendors/topcola.js");
-const arete = require("./vendors/arete.js");
-const drGanja = require("./vendors/drganja.js");
-const { recognize } = require("./services/ocr.js");
+const ppm = require("../vendors/ppm.js");
+const preston = require("../vendors/preston.js");
+const flow = require("../vendors/flow.js");
+const wnc = require("../vendors/wnc.js");
+const enlighten = require("../vendors/enlighten-weebly-few-products.js");
+const topcola = require("../vendors/topcola.js");
+const arete = require("../vendors/arete.js");
+const drGanja = require("../vendors/drganja.js");
+const { recognize } = require("./ocr.js");
 const fs = require("fs");
-const logger = require("./services/logger.js");
+const logger = require("./logger.js");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 

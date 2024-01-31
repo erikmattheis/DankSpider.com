@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
-const { saveProducts } = require('../firebase')
+const { saveProducts } = require('../services/firebase.js')
 
 const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
