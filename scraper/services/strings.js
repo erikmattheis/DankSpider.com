@@ -136,6 +136,23 @@ async function makeFirebaseSafeId(prefix, product, collectionRef) {
   return result
 }
 
+function getMgg(parts, line) {
+  let mgg;
+  if (parts.length === 4) {
+    mgg = parts[parts.length - 1]
+  }
+  else if (parts.length === 5) {
+    mgg = parts[parts.length - 2]
+  }
+  else {
+    console.log("ABNORMAL", parts, 'line: ' + line)
+  }
+
+  mgg = mgg === 'ND' || mgg === '<LOQ' || mgg === '<L0Q' || mgg === '>0.003' || mgg === '<0.003' ? 0 : parseFloat(mgg)
+
+  return mgg;
+}
+
 module.exports = {
 
   normalizeProductTitle,

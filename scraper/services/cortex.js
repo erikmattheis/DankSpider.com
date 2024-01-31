@@ -26,8 +26,6 @@ function transcribeAssay(str, url) {
   return { cannabinoids: [] }
 }
 
-
-
 function getCannabinoid(line, url) {
   return getCannabinoidObj(line, url)
 }
@@ -37,16 +35,14 @@ function getTerpene(line, url) {
 }
 
 function filterLine(line, normalizationFunction) {
+  const cleanedLine = line.replace(/\s+/g, ' ');
 
-  const cleanedLine = line.replace(/\s+/g, ' ')
+  let parts = cleanedLine.split(' ');
+  const name = normalizationFunction(parts.shift()) || 'Unknown';
 
-  let parts = cleanedLine.split(' ')
-  console.log(parts.length)
-  const name = normalizationFunction(parts[0]) || 'Unknown';
+  parts = parts.filter(part => isNaN(parseFloat(part)));
 
-  parts = parts.filter(part => !isNaN(parseFloat(part)));
-
-  parts.unshift(name)
+  parts.unshift(name);
 
   return parts;
 }
