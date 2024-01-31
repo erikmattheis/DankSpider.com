@@ -29,11 +29,29 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   const updatedAt = new Date().toISOString()
 
-  const terpenes = await getTerpenes()
+
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }))
 
   logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
+}
+
+async function makeTerpenesFile() {
+  const result = await getTerpenes()
+  fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
+  logger.log({level:'info', message: `Wrote ${result.length} terpenes to terpenes.json`});
+}
+
+async function makeStrainsFile() {
+  const result = await getStrains()
+  fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
+  logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
+}
+
+async function makeCannabinoidsFile() {
+  const result = await getStrains()
+  fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
+  logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
 }
 
 function filterAssay(assay) {
@@ -48,38 +66,32 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
-  //await scrapers.run(batchId, vendor)
+ // await scrapers.run(batchId, vendor)
 
-  // await cleanProductsCollections()
-
-  await makeProductsFile()
+ // await makeProductsFile()
 
   //await saveProducts([{'title':'car'}], 'aaa')
+
+  //  await scrapers.testOCR()
+
+  // const cans = await getUniqueCannabinoids();
+
+  //logger.log(JSON.stringify(cans, null, 2));
+
+  //await cleanProductsCollections()
+  // await makeProductsFile()
+  //await makeArticles();
+
+  await makeTerpenesFile();
+  logger.log({
+    level: 'info',
+    message: `done`}
+    )
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})
 
   process.exit(0)
 }
 
-//run(batchId)
-
-async function utils() {
-
-  await scrapers.testOCR()
-
-  // const cans = await getUniqueCannabinoids();
-
-  //logger.log(JSON.stringify(cans, null, 2));
-
-  await cleanProductsCollections()
-  // await makeProductsFile()
-  //await makeArticles();
-  logger.log({
-  level: 'info',
-  message: `done`}
-  )
-}
-
-utils()
-
+run(batchId)
 

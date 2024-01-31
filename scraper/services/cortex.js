@@ -40,7 +40,7 @@ function filterLine(line, normalizationFunction) {
   let parts = cleanedLine.split(' ');
   const name = normalizationFunction(parts.shift()) || 'Unknown';
 
-  parts = parts.filter(part => isNaN(parseFloat(part)));
+  parts = parts.filter(part => !isNaN(parseFloat(part)));
 
   parts.unshift(name);
 
@@ -48,6 +48,7 @@ function filterLine(line, normalizationFunction) {
 }
 
 function getMgg(parts, line) {
+  // parts is [ 'CBDA', 'Acid', '(CBDA)', '<L0OQ', '<LOQ', '[' ], line is "Cannabidiolic Acid (CBDA) 0.0234 0.0732 <L0OQ <LOQ [""
   let mgg;
   if (parts.length === 4) {
     mgg = parts[parts.length - 1]

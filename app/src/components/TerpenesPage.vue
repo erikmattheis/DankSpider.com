@@ -11,7 +11,7 @@
         taste different, like a spice rack for nature.</p>
 
       <ul v-for="terpene in terpenes">
-        <li><router-link to="{name:'TerpenePage',  }">{{ terpene.name }}</router-link></li>
+        <li><router-link :to="{ name:'TerpenePage',  params: {terpeneName:terpene.name} }">{{ terpene.name }}</router-link></li>
       </ul>
     </div>
 
@@ -21,10 +21,11 @@
 
 
 <script>
+import terpenes from '../assets/data/terpenes.json';
 export default {
   data() {
     return {
-      terpenes: [],
+      terpenes:terpenes.filter((terpene) => { return terpene.name }),
     }
   },
   created() {

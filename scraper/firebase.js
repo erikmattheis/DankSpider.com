@@ -296,8 +296,8 @@ async function getProductsByTitle(substring) {
 }
 
 async function cleanProductsCollections() {
-  const productsRef = db.collection('products');
-  const archiveRef = db.collection('product');
+  const productsRef = db.collection('strainsTemp');
+  const archiveRef = db.collection('strains');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
@@ -307,11 +307,16 @@ async function cleanProductsCollections() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueTitles.has(product.title + product.vendor)) {
-      const archiveDoc = archiveRef.doc(doc.id);
+
+    if (!product.a) {
+   //   return;
+    }
+    const archiveDoc = archiveRef.doc(doc.id);
+
+   //if (uniqueTitles.has(product.title + product.vendor)) {
       products.push(archiveDoc.set(product));
       dels.push(doc.ref.delete());
-    }
+  //  }
     uniqueTitles.add(product.title + product.vendor);
   });
 
