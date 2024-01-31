@@ -7,7 +7,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
-const batchId = '0C'
+const batchId = '0D'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -77,14 +77,10 @@ async function run(batchId, vendor) {
 // await makeProductsFile()
 
 
-await makeStats()
+  // await makeStats()
   //await makeArticles();
 
  // await makeTerpenesFile();
-  logger.log({
-    level: 'info',
-    message: `done`}
-    )
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})
 
