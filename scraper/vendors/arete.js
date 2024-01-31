@@ -71,7 +71,7 @@ console.log('productImages', productImages.length)
       continue
     }
 
-    if (result.terpenes?.length) {
+    if (result?.terpenes?.length) {
 
       logger.log({
         level: 'info',
@@ -79,7 +79,7 @@ console.log('productImages', productImages.length)
 
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
-    if (result.cannabinoids?.length) {
+    if (result?.cannabinoids?.length) {
 
       logger.log({
         level: 'info',

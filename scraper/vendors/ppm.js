@@ -85,7 +85,7 @@ async function parseSingleProduct(html, url) {
       continue
     }
 
-    if (result.terpenes?.length) {
+    if (result?.terpenes?.length) {
 
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }

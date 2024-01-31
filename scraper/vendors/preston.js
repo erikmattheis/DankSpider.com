@@ -52,7 +52,7 @@ async function getPrestonProductInfo(product) {
     for (const image of product.images) {
 
       const raw = await recognize(image);
-      const result = transcribeAssay(raw, 'preston', image);
+      const result = transcribeAssay(raw, image);
 
       if (!result) {
         logger.log({
@@ -70,18 +70,18 @@ async function getPrestonProductInfo(product) {
         continue;
       }
 
-      if (result.terpenes?.length) {
+      if (result?.terpenes?.length) {
         terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
 
-      if (result.cannabinoids?.length) {
+      if (result?.cannabinoids?.length) {
         cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 
       if (terpenes?.length && cannabinoids?.length) {
         break;
       }
-    
+
     // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
 

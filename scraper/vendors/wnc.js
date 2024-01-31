@@ -62,18 +62,18 @@ async function getProduct(url) {
       logger.log({
         level: 'info',
         message: `Skipping: url`});
-      
+
       continue;
     }
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, 'wnc', image);
+    const result = transcribeAssay(raw, image);
 
-    if (result.terpenes?.length) {
+    if (result?.terpenes?.length) {
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
 
-    if (result.cannabinoids?.length) {
+    if (result?.cannabinoids?.length) {
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 

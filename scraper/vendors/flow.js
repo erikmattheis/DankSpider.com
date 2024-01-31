@@ -96,7 +96,7 @@ async function addAssays(product, $) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, 'flow', image);
+    const result = await transcribeAssay(raw, image);
 
     if (!result) {
       logger.log({
@@ -113,7 +113,7 @@ async function addAssays(product, $) {
       continue;
     }
 
-    if (result.terpenes?.length) {
+    if (result?.terpenes?.length) {
       logger.log({
   level: 'info',
   message: `Terpenes: ${result.terpenes.length}`});

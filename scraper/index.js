@@ -1,12 +1,12 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, deleteProductsWithObjectsInVariants, getProductsByPPM, getProductsByTerpene, getProductsByVariant, normalizeVariants, getUniqueTerpenes, getUniqueCannabinoids, getTerpenes, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
+const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./firebase.js')
 const scrapers = require('./scrapers.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
-const batchId = '0B'
+const batchId = '0C'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -17,21 +17,18 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   } else if (vendor) {
     products = await getProductsByVendor(vendor, limit)
   } else {
-    products = await getProductsByBatchId(batchId)
+    products = await getAllProducts(batchId)
   }
 
   products = products.map(product => {
     product.cannabinoids = filterAssay(product.cannabinoids)
     product.terpenes = filterAssay(product.terpenes)
-
     return product
   })
 
   const updatedAt = new Date().toISOString()
 
-
-
-  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, terpenes, updatedAt }))
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
 
   logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
 }
@@ -66,9 +63,9 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
- // await scrapers.run(batchId, vendor)
+  //await scrapers.run(batchId, 'WNC')
 
- // await makeProductsFile()
+ await makeProductsFile()
 
   //await saveProducts([{'title':'car'}], 'aaa')
 
@@ -79,10 +76,10 @@ async function run(batchId, vendor) {
   //logger.log(JSON.stringify(cans, null, 2));
 
   //await cleanProductsCollections()
-  // await makeProductsFile()
+  await makeProductsFile()
   //await makeArticles();
 
-  await makeTerpenesFile();
+ // await makeTerpenesFile();
   logger.log({
     level: 'info',
     message: `done`}

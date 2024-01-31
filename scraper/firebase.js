@@ -4,6 +4,8 @@ const { getApps, initializeApp, applicationDefault, cert } = require('firebase-a
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./services/strings.js');
 
+const cheerio = require('cheerio');
+
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
@@ -294,6 +296,53 @@ async function getProductsByTitle(substring) {
 
   return products;
 }
+
+function getBodyChildren(html) {
+
+  // do same with cheerio
+  const $ = cheerio.load(html);
+  const body = $('body').get(0);
+  const childrenAsString = body.children.map(child => $.html(child)).join('');
+
+  return childrenAsString
+}
+
+async function extractBodyChildren() {
+  console.log('Starting extractBodyChildren...');
+  const contentRef = db.collection('strains');
+  console.log('Got contentRef', contentRef);
+
+  const snapshot = await contentRef.get();
+  console.log('Got snapshot', snapshot);
+
+  const batch = db.batch();
+  console.log('Created batch', batch);
+
+  snapshot.forEach((doc, index) => {
+    console.log(`Processing document ${index}...`);
+    const content = doc.data();
+    console.log('Got content', content);
+
+    const body = content.article;
+    console.log('Got body', body);
+
+    const children = getBodyChildren(body);
+    console.log('Got children', children);
+
+    batch.update(doc.ref, { children });
+    console.log('Updated batch with children');
+  });
+
+  console.log('Committing batch...');
+  await batch.commit();
+  console.log('Batch committed');
+}
+
+(async () => {
+
+// await extractBodyChildren();
+
+})();
 
 async function cleanProductsCollections() {
   const productsRef = db.collection('strainsTemp');

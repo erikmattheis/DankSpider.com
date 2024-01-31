@@ -58,15 +58,15 @@ async function getProduct(url) {
 
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, 'eighthorses', image);
+    const result = await transcribeAssay(raw, image);
 
 
 
-    if (result.terpenes?.length) {
+    if (result?.terpenes?.length) {
 
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
-    if (result.cannabinoids?.length) {
+    if (result?.cannabinoids?.length) {
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
@@ -149,7 +149,7 @@ logger.log({
       <s:sku></s:sku>
       <s:grams>27</s:grams>
     </s:variant>
-  
+
   </entry>
 
   */

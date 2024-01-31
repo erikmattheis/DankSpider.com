@@ -40,7 +40,12 @@ function filterLine(line, normalizationFunction) {
   let parts = cleanedLine.split(' ');
   const name = normalizationFunction(parts.shift()) || 'Unknown';
 
-  parts = parts.filter(part => !isNaN(parseFloat(part)));
+  parts = parts.map(part => {
+    if (/^ND$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+      return "0";
+    }
+    return part;
+  }).filter(part => !isNaN(parseFloat(part)));
 
   parts.unshift(name);
 
@@ -65,7 +70,7 @@ function getMgg(parts, line) {
   return mgg;
 }
 
-function getTerpeneObj(line, url) {
+function getTerpeneObj(line) {
 
   const parts = filterLine(line, normalizeTerpene)
 
@@ -76,6 +81,7 @@ function getTerpeneObj(line, url) {
   }
 
   const mgg = getMgg(parts, line)
+
   const pct = (parseFloat(mgg) / 1000).toFixed(3)
 
   const originalText = line || 'Unknown'
@@ -84,7 +90,7 @@ function getTerpeneObj(line, url) {
 }
 
 
-function getCannabinoidObj(line, url) {
+function getCannabinoidObj(line) {
 
   const parts = filterLine(line, normalizeCannabinoid)
 

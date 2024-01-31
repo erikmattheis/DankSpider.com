@@ -99,9 +99,9 @@ async function addAssays(product, $) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, 'drganja', image);
+    const result = await transcribeAssay(raw, image);
 
-  
+
 
 
     if (terpenes?.length && cannabinoids?.length) {
