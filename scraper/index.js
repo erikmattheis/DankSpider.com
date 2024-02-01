@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { extractBodyChildren, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { thinkAboutTerpenes, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -53,16 +53,16 @@ async function makeCannabinoidsFile() {
 }
 
 function filterAssay(assay) {
-  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown')
+  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
 }
 
 async function run(batchId, vendor) {
 
  // await scrapers.run(batchId, vendor)
-// await extractBodyChildren()
+// await thinkAboutTerpenes();
 //
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
  // await makeTerpenesFile()
 

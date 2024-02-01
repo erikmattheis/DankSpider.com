@@ -136,10 +136,36 @@ async function makeFirebaseSafeId(prefix, product, collectionRef) {
   return result
 }
 
+const cheerio = require('cheerio');
+
+function findLargestImage(htmlString) {
+    const $ = cheerio.load(htmlString);
+    let largestImageUrl = '';
+    let maxImageWidth = 0;
+
+    $('img').each((i, img) => {
+        const srcset = $(img).attr('srcset');
+        if (srcset) {
+            const sources = srcset.split(',').map(s => s.trim());
+            sources.forEach(source => {
+                const [url, width] = source.split(' ');
+                const imageWidth = parseInt(width.replace('w', ''));
+                if (imageWidth > maxImageWidth) {
+                    maxImageWidth = imageWidth;
+                    largestImageUrl = url;
+                }
+            });
+        }
+    });
+
+    return largestImageUrl;
+}
+
 module.exports = {
   normalizeProductTitle,
   normalizeVariantName,
   variantNameContainsWeightUnitString,
   makeFirebaseSafe,
   makeFirebaseSafeId,
+  findLargestImage,
 }

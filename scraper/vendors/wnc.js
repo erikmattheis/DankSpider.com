@@ -37,14 +37,37 @@ async function getProduct(url) {
 
   const imageNodes = $('a.productView-thumbnail-link');
 
-  console.log('imageNodes', imageNodes.length);
+  const imageUrls = imageNodes.map((index, el) => {
 
-  const imageUrls = imageNodes.map((index, el) => $(el).attr('href')).get();
+    const imageSrcsets = $(el).attr('srcset').get();
+
+    imageSrcsets.forEach((srcset) => {
+
+      const sources = srcset.split(',').map(s => s.trim());
+      let maxImageWidth = 0;
+      let largestImageUrl = '';
+      sources.forEach(source => {
+
+        const [url, width] = source.split(' ');
+
+        const imageWidth = parseInt(width.replace('w', ''));
+
+        if (imageWidth > maxImageWidth) {
+
+          maxImageWidth = imageWidth;
+
+          largestImageUrl = url;
+
+        }
+
+      });
+    });
+    return largestImageUrl;
+  });
 
   console.log('imageUrls', imageUrls.length);
 
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
-  const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
 
   console.log('images', images.length);
 

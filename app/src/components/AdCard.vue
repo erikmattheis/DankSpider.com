@@ -1,7 +1,6 @@
 <template>
   <div class="product-card shadowy page" ref="image">
     <h1>Ad</h1>
-    <!-- Square -->
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5873148502738660" data-ad-slot="3189676673"
       data-ad-format="auto" data-full-width-responsive="true"></ins>
 
@@ -11,9 +10,15 @@
 <script>
 export default {
   mounted() {
-    // Load the Google AdSense script when the component is mounted
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }
+    if (window.location.hostname === 'localhost') {
+      doAds()
+    }
+  },
+  methods: {
+    doAds() {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    },
+  },
 }
 </script>
 

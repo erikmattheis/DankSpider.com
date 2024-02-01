@@ -3,6 +3,8 @@ const admin = require('firebase-admin');
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./strings.js');
+const{ getTerpene, getCannabinoid } = require('./cortex.js');
+
 
 const cheerio = require('cheerio');
 
@@ -94,21 +96,66 @@ async function normalizeVariants() {
 
 }
 
-async function thinkAboutCannabinoids() {
+async function thinkAboutTerpenes() {
+  const batch = db.batch();
   const productsRef = db.collection('products');
-  const snapshot = await productsRef.get();
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    if (product.cannabinoids) {
-      product.cannabinoids.forEach(cannabinoid => {
-        const name = normalizeCannabinoid(cannabinoid.name, product.url);
-        if (name) {
-          cannabinoid.name = name;
-        }
-      });
-      doc.ref.update({ cannabinoids: product.cannabinoids });
+  try {
+    const snapshot = await productsRef.get();
+
+    for (const doc of snapshot.docs) {
+      const product = doc.data();
+      if (product.terpenes) {
+        const terpenePromises = product.terpenes.map(async terpene => {
+          return getTerpene(terpene.originalText);
+        });
+        product.terpenes = await Promise.all(terpenePromises);
+        product.terpenes = product.terpenes.filter(terpene => terpene.name !== 'Unknown' && parseFloat(terpene.pct) > 0);
+
+        const cannabinoidPromises = product.cannabinoids.map(async cannabinoid => {
+          return getCannabinoid(cannabinoid.originalText);
+        });
+        product.cannabinoids = await Promise.all(cannabinoidPromises);
+        product.cannabinoids = product.cannabinoids.filter(cannabinoid => cannabinoid.name !== 'Unknown' && parseFloat(cannabinoid.pct) > 0);
+
+        // Correct use of batch.set with doc.ref
+        batch.set(doc.ref, {
+          terpenes: product.terpenes,
+          cannabinoids: product.cannabinoids
+        }, { merge: true }); // Consider using merge to update fields without overwriting the entire document
+      }
     }
-  });
+
+    // Don't forget to commit the batch
+    await batch.commit();
+    console.log('Batch committed successfully.');
+  } catch (error) {
+    console.error('Error processing terpenes:', error);
+  }
+}
+
+const cheerio = require('cheerio');
+
+function findLargestImage(htmlString) {
+    const $ = cheerio.load(htmlString);
+    let largestImageUrl = '';
+    let maxImageWidth = 0;
+
+    $('img').each((i, img) => {
+        const srcset = $(img).attr('srcset');
+        if (srcset) {
+            const sources = srcset.split(',').map(s => s.trim());
+            sources.forEach(source => {
+                const [url, width] = source.split(' ');
+                const imageWidth = parseInt(width.replace('w', ''));
+                if (imageWidth > maxImageWidth) {
+                    maxImageWidth = imageWidth;
+                    largestImageUrl = url;
+                }
+            });
+        }
+    });
+
+    return largestImageUrl;
 }
 
 async function getUniqueCannabinoids() {
@@ -307,9 +354,9 @@ function getBodyChildren(html) {
   return childrenAsString
 }
 
-async function extractBodyChildren() {
-  console.log('Starting extractBodyChildren...');
-  const contentRef = db.collection('terpenes');
+async function fixValues() {
+  console.log('Starting fixValues...');
+  const contentRef = db.collection('products');
 
   try {
     const snapshot = await contentRef.get();
@@ -321,11 +368,24 @@ async function extractBodyChildren() {
 
     snapshot.forEach((doc) => {
       console.log(`Processing document ${doc.id}...`);
-      const content = doc.data();
-      const body = content.article;
-      const children = getBodyChildren(body);
+      const chem = doc.data();
+      chem.cannabinoids?.forEach(cannabinoid => {
+        cannabinoid.pct = parseFloat(cannabinoid.pct);
+      });
+      chem.terpenes?.forEach(terpene => {
+        terpene.pct = parseFloat(terpene.pct);
+      });
 
-      batch.update(doc.ref, { article: children });
+      const terpenes = chem.terpenes?.map(terpene => {
+        return { ...terpene, pct: parseFloat(terpene.pct) };
+      });
+
+      const cannabinoids = chem.cannabinoids?.map(cannabinoid => {
+        return { ...cannabinoid, pct: parseFloat(cannabinoid.pct) };
+      }
+      );
+
+      batch.update(doc.ref, { terpenes, cannabinoids });
 
       operationCount++;
 
@@ -613,7 +673,7 @@ module.exports = {
   deleteAllDocumentsInCollection,
   deleteProductsByVendor,
   deleteProductsWithObjectsInVariants,
-  extractBodyChildren,
+  fixValues,
   getAllProducts,
   getCompleteProducts,
   getIncompleteProducts,
@@ -633,4 +693,5 @@ module.exports = {
   saveStats,
   saveBatchRecord,
   saveProducts,
+  thinkAboutTerpenes,
 };

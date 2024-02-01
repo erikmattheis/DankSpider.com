@@ -117,7 +117,7 @@ export default {
 
 <style scoped>
 div {
-  margin: 80px 0;
+  margin: 80px auto;
   cursor: pointer;
 }
 </style>

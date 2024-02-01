@@ -13,15 +13,15 @@ function transcribeAssay(str, url) {
 
   if (['limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
     console.log('---> is terps')
-    const terpenes = lines.map(line => getTerpene(line, url))
-    //const terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
+    const terps = lines.map(line => getTerpene(line, url))
+    const terpenes = terps.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
     return { terpenes }
   }
 
   else if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
     console.log('---> is canns')
-    const cannabinoids = lines.map(line => getCannabinoid(line, url))
-    //const canns = cannsAndUnknowns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
+    const canns = lines.map(line => getCannabinoid(line, url))
+    const cannabinoids = canns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
     return { cannabinoids }
   }
   else {
@@ -40,6 +40,10 @@ function getTerpene(line, url) {
 }
 
 function filterLine(line, normalizationFunction) {
+  console.log(line, typeof line);
+  if (!line.replace) {
+    return ['Unknown', 0]
+  }
   const cleanedLine = line.replace(/\s+/g, ' ');
 
   let parts = cleanedLine.split(' ');
@@ -47,7 +51,7 @@ function filterLine(line, normalizationFunction) {
 
 
   parts = parts.map(part => {
-    if (/^ND$|^0.0485$|^0.0728$|^0.030$|^3.000$|^0.0750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/^ND$|^0.0485$|^0.0728$|^0.030$|^3.000$|^0.750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
@@ -60,11 +64,11 @@ function filterLine(line, normalizationFunction) {
 
 function getMgg(parts, line) {
   // parts is [ 'CBDA', 'Acid', '(CBDA)', '<L0OQ', '<LOQ', '[' ], line is "Cannabidiolic Acid (CBDA) 0.0234 0.0732 <L0OQ <LOQ [""
-  const mgg = parts[parts.length - 1]
+  let mgg = parts[parts.length - 1]
 
   if (!mgg.includes('.') && !isNaN(parseFloat(mgg))) {
     // insert '.' to make thousandth place
-    parts[parts.length - 1] = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
+    mgg = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
   }
 
   return mgg;
@@ -298,4 +302,6 @@ module.exports = {
   transcribeAssay,
   normalizeTerpene,
   normalizeCannabinoid,
+  getTerpene,
+  getCannabinoid,
 }
