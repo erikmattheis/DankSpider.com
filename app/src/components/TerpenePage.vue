@@ -3,7 +3,7 @@
   <div class="terpene-page page">
     <div v-if="terpene">
       <h2>{{ terpene.name }}</h2>
-      <p>{{ terpene.article }}</p>
+      <div v-html="terpene.article"></div>
     </div>
   </div>
 </template>

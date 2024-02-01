@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { extractBodyChildren, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -56,24 +56,15 @@ function filterAssay(assay) {
   return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown')
 }
 
-async function makeTerpenesFile() {
-  const result = await getTerpenes()
-  fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
-  logger.log({level:'info', message: `Wrote ${result.length} terpenes to terpenes.json`});
-}
-
 async function run(batchId, vendor) {
 
-  await scrapers.run(batchId, vendor)
-
+ // await scrapers.run(batchId, vendor)
+// await extractBodyChildren()
 //
 
-  // await makeProductsFile(vendor, 1000, true)
+  //await makeProductsFile()
 
-
-  // await makeTerpenesFile()
-
-
+ // await makeTerpenesFile()
 
  // await cleanProductsCollection()
 
@@ -82,6 +73,6 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId, 'TopCola')
+run(batchId)
 
 

@@ -309,40 +309,46 @@ function getBodyChildren(html) {
 
 async function extractBodyChildren() {
   console.log('Starting extractBodyChildren...');
-  const contentRef = db.collection('strains');
-  console.log('Got contentRef', contentRef);
+  const contentRef = db.collection('terpenes');
 
-  const snapshot = await contentRef.get();
-  console.log('Got snapshot', snapshot);
+  try {
+    const snapshot = await contentRef.get();
+    console.log('Got snapshot');
 
-  const batch = db.batch();
-  console.log('Created batch', batch);
+    // Handle potentially large collections
+    let batch = db.batch();
+    let operationCount = 0;
 
-  snapshot.forEach((doc, index) => {
-    console.log(`Processing document ${index}...`);
-    const content = doc.data();
-    console.log('Got content', content);
+    snapshot.forEach((doc) => {
+      console.log(`Processing document ${doc.id}...`);
+      const content = doc.data();
+      const body = content.article;
+      const children = getBodyChildren(body);
 
-    const body = content.article;
-    console.log('Got body', body);
+      batch.update(doc.ref, { article: children });
 
-    const children = getBodyChildren(body);
-    console.log('Got children', children);
+      operationCount++;
 
-    batch.update(doc.ref, { children });
-    console.log('Updated batch with children');
-  });
+      if (operationCount === 500) {
+        console.log('Committing batch...');
+        batch.commit();
+        console.log('Batch committed, starting new batch');
+        batch = db.batch();
+        operationCount = 0;
+      }
+    });
 
-  console.log('Committing batch...');
-  await batch.commit();
-  console.log('Batch committed');
+    if (operationCount > 0) {
+      console.log('Committing final batch...');
+      await batch.commit();
+      console.log('Final batch committed');
+    }
+
+  } catch (error) {
+    console.error('Error in extractBodyChildren:', error);
+  }
 }
 
-(async () => {
-
-// await extractBodyChildren();
-
-})();
 
 async function cleanProductsCollection() {
   const productsRef = db.collection('products');
@@ -607,6 +613,7 @@ module.exports = {
   deleteAllDocumentsInCollection,
   deleteProductsByVendor,
   deleteProductsWithObjectsInVariants,
+  extractBodyChildren,
   getAllProducts,
   getCompleteProducts,
   getIncompleteProducts,
