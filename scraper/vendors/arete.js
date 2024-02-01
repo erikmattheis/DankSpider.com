@@ -113,15 +113,10 @@ async function getProducts(feedUrl) {
     const el = items[i]
     const url = $(el).find('link').text()
     const resultP = await axios.get(url)
-    fs.writeFileSync('./temp/vendors/arete-product.html', resultP.data)
     const vendor = 'Arete'
     const vendorDate = $(el).find('pubDate').text()
 
     const more = await parseSingleProduct(resultP.data, url)
-
-    logger.log({
-      level: 'info',
-      message: `MORE ARETE: ${JSON.stringify(more)}`})
 
     const product = {
       ...more, vendor, vendorDate

@@ -6,6 +6,8 @@ const strings = require('../services/strings');
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
 
+const { writeFileSync } = require('fs');
+
 const products = [];
 const productLinks = [];
 let currentPage = 1;
@@ -32,6 +34,10 @@ async function getAvailableLeafProducts() {
 
         if (filteredVariants.length && (productType === 'flower')) {
 
+          if (entry.title?.toLowerCase().includes('sugar leaf')) {
+            return;
+          }
+
           const resolvedVariants = variants.map((variant) => strings.normalizeVariantName(variant.title));
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
@@ -39,6 +45,8 @@ async function getAvailableLeafProducts() {
           const productUrl = entry.link?.$?.href || '';
 
           const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
+
+          writeFileSync('topcola.html', contentHtml);
 
           const $content = cheerio.load(contentHtml);
 

@@ -122,6 +122,39 @@ body {
   width: 100%;
 }
 
+a,
+a:hover,
+a:visited,
+a:focus
+a:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: #333;
+  text-decoration: underline;
+}
+
+a:focus {
+  color: #333;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+  text-decoration: none;
+}
+
+li.selected a {
+  color: #f71c08 ;
+  text-decoration: underline;
+}
+
+
 
 @media (min-width: 768px) {
   .app {

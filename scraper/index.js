@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, cleanProductsCollections, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -64,28 +64,24 @@ async function makeTerpenesFile() {
 
 async function run(batchId, vendor) {
 
- await scrapers.run(batchId, vendor)
+  await scrapers.run(batchId, vendor)
 
- //await makeProductsFile()
+//
 
-  //await saveProducts([{'title':'car'}], 'aaa')
-
-  //  await scrapers.testOCR()
+  // await makeProductsFile(vendor, 1000, true)
 
 
-  //await cleanProductsCollections()
-// await makeProductsFile()
+  // await makeTerpenesFile()
 
 
-  // await makeStats()
-  //await makeArticles();
 
- // await makeTerpenesFile();
+ // await cleanProductsCollection()
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})
 
   process.exit(0)
 }
 
-run(batchId)
+run(batchId, 'TopCola')
+
 

@@ -344,9 +344,9 @@ async function extractBodyChildren() {
 
 })();
 
-async function cleanProductsCollections() {
-  const productsRef = db.collection('strainsTemp');
-  const archiveRef = db.collection('strains');
+async function cleanProductsCollection() {
+  const productsRef = db.collection('products');
+  const archiveRef = db.collection('produtArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 
@@ -357,43 +357,22 @@ async function cleanProductsCollections() {
   snapshot.forEach(doc => {
     const product = doc.data();
 
-    if (!product.a) {
-   //   return;
+    if (product.a) {
+      delete product.a;
     }
+
     const archiveDoc = archiveRef.doc(doc.id);
 
-   //if (uniqueTitles.has(product.title + product.vendor)) {
+   if (uniqueTitles.has(product.title + product.vendor)) {
       products.push(archiveDoc.set(product));
       dels.push(doc.ref.delete());
-  //  }
+    }
     uniqueTitles.add(product.title + product.vendor);
   });
 
   await Promise.all(dels);
 }
 
-async function cleanProductsCollection() {
-
-  const productsRef = db.collection('products');
-  const archiveRef = db.collection('productArchive');
-
-  const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
-
-  const actions = [];
-  const uniqueUrls = new Set();
-
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    if (true || uniqueUrls.has(product.url)) {
-      const archiveDoc = archiveRef.doc(doc.id);
-      actions.push(archiveDoc.set(product));
-      actions.push(doc.ref.delete());
-    }
-    uniqueUrls.add(product.url);
-  });
-
-  await Promise.all(actions);
-}
 
 async function getProductsByVendor(vendor, limit, useDev) {
 
@@ -588,7 +567,7 @@ if (require.main === module) {
   message: `This script is being executed directly by Node.js`});
 
   (async () => {
-    await cleanProductsCollections();
+    await cleanProductsCollection();
     await cleanproductsCollection();
   })();
 
@@ -624,7 +603,7 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
 }
 
 module.exports = {
-  cleanProductsCollections,
+  cleanProductsCollection,
   deleteAllDocumentsInCollection,
   deleteProductsByVendor,
   deleteProductsWithObjectsInVariants,

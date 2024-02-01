@@ -96,11 +96,13 @@ function normalizeVariantName(name) {
   name = name?.replace('MINIS', 'minis')
   name = name?.replace('Smalls', 'smalls')
   name = name?.replace('Minis', 'minis')
+  name = name?.replace('(small/minis)', 'smalls')
   name = name?.replace(' (1/8 oz)', '')
   name = name?.replace(' (1/4 oz)', '')
   name = name?.replace(' (1/2 oz)', '')
   name = name?.replace(' (1 oz)', '')
-  name = name?.replace('(small/minis)', 'smalls')
+  name = name?.replace(' Pheno 1', '')
+  name = name?.replace(' Pheno 2', '')
   name = name?.trim().replace(/\s+/g, ' ')
 
   return name
@@ -111,8 +113,6 @@ const regexMatchingPossibleWeightString = /\d\s(oz|g)/i
 function variantNameContainsWeightUnitString(variantName) {
   return regexMatchingPossibleWeightString.test(variantName)
 }
-
-
 
 async function collectionIdExists(id, collectionRef) {
   const snapshot = await collectionRef.where('id', '==', id).get()
@@ -137,7 +137,6 @@ async function makeFirebaseSafeId(prefix, product, collectionRef) {
 }
 
 module.exports = {
-
   normalizeProductTitle,
   normalizeVariantName,
   variantNameContainsWeightUnitString,

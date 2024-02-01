@@ -1,4 +1,5 @@
 
+
 const fs = require('fs')
 
 function transcribeAssay(str, url) {
@@ -9,27 +10,25 @@ function transcribeAssay(str, url) {
   }
 
   const lines = str.split('\n')
-  let terps = []
-  let canns = []
 
   if (['limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
     console.log('---> is terps')
-    const terpsAndUnknowns = lines.map(line => getTerpene(line, url))
-    terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
-    return { terpenes: terps }
+    const terpenes = lines.map(line => getTerpene(line, url))
+    //const terps = terpsAndUnknowns.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
+    return { terpenes }
   }
 
   else if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
     console.log('---> is canns')
-    const cannsAndUnknowns = lines.map(line => getCannabinoid(line, url))
-    canns = cannsAndUnknowns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
-    return { cannabinoids: canns }
+    const cannabinoids = lines.map(line => getCannabinoid(line, url))
+    //const canns = cannsAndUnknowns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
+    return { cannabinoids }
   }
   else {
     console.log('---> unknown assay!!!!!!!')
   }
 
-  return { cannabinoids: [] }
+  return { cannabinoids: {raw:str }}
 }
 
 function getCannabinoid(line, url) {
@@ -48,7 +47,7 @@ function filterLine(line, normalizationFunction) {
 
 
   parts = parts.map(part => {
-    if (/^ND$|^0.0485$|^0.0728$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/^ND$|^0.0485$|^0.0728$|^0.030$|^3.000$|^0.0750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
@@ -62,6 +61,11 @@ function filterLine(line, normalizationFunction) {
 function getMgg(parts, line) {
   // parts is [ 'CBDA', 'Acid', '(CBDA)', '<L0OQ', '<LOQ', '[' ], line is "Cannabidiolic Acid (CBDA) 0.0234 0.0732 <L0OQ <LOQ [""
   const mgg = parts[parts.length - 1]
+
+  if (!mgg.includes('.') && !isNaN(parseFloat(mgg))) {
+    // insert '.' to make thousandth place
+    parts[parts.length - 1] = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
+  }
 
   return mgg;
 }
