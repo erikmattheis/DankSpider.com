@@ -78,5 +78,94 @@ const stats1 = {
     numCannabinoidsWithValues: NaN,
     numTerpenes: NaN,
     numTerpenesWithValues: NaN
-  }
+  },
+}
+  const stats2 = {
+  'Top Cola': {
+    numProducts: 6,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+  Preston: {
+    numProducts: 10,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+  WNC: {
+    numProducts: 111,
+    numCannabinoids: 716,
+    numCannabinoidsWithValues: 716,
+    numTerpenes: 676,
+    numTerpenesWithValues: 676
+  },
+  'Dr Ganja': {
+    numProducts: 28,
+    numCannabinoids: 183,
+    numCannabinoidsWithValues: 183,
+    numTerpenes: 159,
+    numTerpenesWithValues: 159
+  },
+  Arete: {
+    numProducts: 9,
+    numCannabinoids: 59,
+    numCannabinoidsWithValues: 59,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  PPM: {
+    numProducts: 25,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+}
+
+const stats3 ={
+  PM: {
+  numProducts: 25,
+  numCannabinoids: NaN,
+  numCannabinoidsWithValues: NaN,
+  numTerpenes: NaN,
+  numTerpenesWithValues: NaN
+},
+'Top Cola': {
+  numProducts: 6,
+  numCannabinoids: NaN,
+  numCannabinoidsWithValues: NaN,
+  numTerpenes: NaN,
+  numTerpenesWithValues: NaN
+},
+Preston: {
+  numProducts: 10,
+  numCannabinoids: NaN,
+  numCannabinoidsWithValues: NaN,
+  numTerpenes: NaN,
+  numTerpenesWithValues: NaN
+},
+WNC: {
+  numProducts: 111,
+  numCannabinoids: 716,
+  numCannabinoidsWithValues: 716,
+  numTerpenes: 676,
+  numTerpenesWithValues: 676
+},
+'Dr Ganja': {
+  numProducts: 28,
+  numCannabinoids: 183,
+  numCannabinoidsWithValues: 183,
+  numTerpenes: 159,
+  numTerpenesWithValues: 159
+},
+Arete: {
+  numProducts: 9,
+  numCannabinoids: 59,
+  numCannabinoidsWithValues: 59,
+  numTerpenes: 0,
+  numTerpenesWithValues: 0
+},
 }

@@ -112,6 +112,7 @@ async function run(batchId) {
 
 }
 
+
 async function getProductImages(url) {
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);

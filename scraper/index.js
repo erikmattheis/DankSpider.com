@@ -7,7 +7,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 
-const batchId = '0D'
+const batchId = '0E'
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -58,13 +58,41 @@ function filterAssay(assay) {
 
 async function run(batchId, vendor) {
 
- // await scrapers.run(batchId, vendor)
+//
 // await thinkAboutTerpenes();
 //
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
  // await makeTerpenesFile()
+
+  await makeStats()
+
+  // await makeStrainsFile()
+
+  // await makeCannabinoidsFile()
+
+  // await jpegs.run(batchId)
+
+  // await getArticle()
+
+  // await saveArticles()
+
+  // await getUniqueChemicals()
+
+  // await saveChemical()
+
+  // await getproducts()
+
+  // await getProductsByVendor('WNC')
+
+  // await getProductsByVariant('1/8 oz')
+
+  // await getProductsByTerpene('Myrcene')
+
+  // await getProductsByPPM('Myrcene')
+
+  // await deleteProductsByVendor('WNC')
 
  // await cleanProductsCollection()
 

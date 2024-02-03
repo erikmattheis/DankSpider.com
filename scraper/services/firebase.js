@@ -45,38 +45,13 @@ async function getUniqueTerpenes() {
 // find products with variant
 
 async function getProductsByVariant(variant) {
-  const results = [];
   const productsRef = db.collection('products');
-  const snapshot = await productsRef.where('variants', 'array-contains', variant).get();
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    results.push(product);
-  }
-  );
-  return results;
-}
+  const snapshot = await productsRef.get();
+  const docs = snapshot.docs.map(doc => doc.data());
 
-async function getProductsByPPM() {
-  const results = [];
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.where('terpenes', '==', 'PPM').get();
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    results.push(product);
-  });
+  const filteredDocs = docs.filter(doc => doc.variants && doc.variants.includes(variant));
 
-  return results;
-}
-
-async function getProductsByTerpene(terpene) {
-  const results = [];
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.where('terpenes', 'array-contains', { name: terpene }).get();
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    results.push(product);
-  });
-  return results;
+  return filteredDocs;
 }
 
 // Update all prodproducucts by having all product.variant[n].name match the normalized variant title. use normalizeVariantName() It's firebase
@@ -132,8 +107,6 @@ async function thinkAboutTerpenes() {
     console.error('Error processing terpenes:', error);
   }
 }
-
-const cheerio = require('cheerio');
 
 function findLargestImage(htmlString) {
     const $ = cheerio.load(htmlString);
@@ -255,7 +228,6 @@ async function saveProducts(products, batchId, useDev) {
 const { performance } = require('perf_hooks');
 
 async function getAllProducts() {
-  const startTime = performance.now();
 
   const productsRef = db.collection('products').orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
@@ -278,7 +250,6 @@ async function getAllProducts() {
 }
 
 async function getIncompleteProducts() {
-  const startTime = performance.now();
 
   const productsRef = db.collection('products').orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
@@ -327,31 +298,6 @@ async function getCompleteProducts() {
   const endTime = performance.now();
 
   return products;
-}
-
-
-async function getProductsByTitle(substring) {
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.where('title', '>=', substring).where('title', '<=', substring + '\uf8ff').get();
-
-  const products = [];
-
-  snapshot.forEach(doc => {
-    const product = doc.data()
-    products.push(product);
-  });
-
-  return products;
-}
-
-function getBodyChildren(html) {
-
-  // do same with cheerio
-  const $ = cheerio.load(html);
-  const body = $('body').get(0);
-  const childrenAsString = body.children.map(child => $.html(child)).join('');
-
-  return childrenAsString
 }
 
 async function fixValues() {
@@ -442,7 +388,7 @@ async function cleanProductsCollection() {
 
 async function getProductsByVendor(vendor, limit, useDev) {
 
-  let productRef;
+  let productsRef;
 
   if (useDev) {
     productsRef = db.collection('products');
@@ -465,7 +411,7 @@ async function getProductsByVendor(vendor, limit, useDev) {
   const products = [];
 
   snapshot.forEach(doc => {
-    const product = doc.data()
+    const product = doc.data();
     products.push(product);
   });
 
@@ -592,7 +538,15 @@ async function getUniqueChemicals() {
 
 
 async function deleteProductsByVendor(vendor) {
+async function getProductsByVariant(variant) {
   const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+  const docs = snapshot.docs.map(doc => doc.data());
+
+  const filteredDocs = docs.filter(doc => doc.variants && doc.variants.includes(variant));
+
+  return filteredDocs;
+}
   const snapshot = await productsRef.where('vendor', '==', vendor).get();
 
   const products = [];
@@ -679,9 +633,6 @@ module.exports = {
   getIncompleteProducts,
   getNextBatchNumber,
   getProductsByBatchId,
-  getProductsByPPM,
-  getProductsByTerpene,
-  getProductsByTitle,
   getProductsByVariant,
   getProductsByVendor,
   getTerpenes,

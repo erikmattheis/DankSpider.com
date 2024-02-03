@@ -15,16 +15,14 @@ async function getProduct(url) {
 
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);
-
+fs.writeFileSync(`./temp/vendors/wnc-product.html`, response.data);
   const variants = [];
 
-  // Extract available variant values from BCData object
   const bcDataScript = $('script:contains("var BCData")').html();
   const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
   const availableVariantValues = bcData.product_attributes.available_variant_values;
 
-  // Filter variants by available variant values
-  $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((index, element) => {
+  $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((_, element) => {
     const variantValue = $(element).attr('for').split('_').pop();
     if (availableVariantValues.includes(parseInt(variantValue))) {
       variants.push($(element).text().trim());
@@ -35,39 +33,37 @@ async function getProduct(url) {
 
   const image = $('figure.productView-image img').attr('src');
 
-  const imageNodes = $('a.productView-thumbnail-link');
+  const srcsets = $('img.lazyload').map((index, el) => $(el).attr('data-srcset')).get();
+  console.log('srcsets', srcsets);
 
-  const imageUrls = imageNodes.map((index, el) => {
-
-    const imageSrcsets = $(el).attr('srcset').get();
-
-    imageSrcsets.forEach((srcset) => {
+  const imageUrls = srcsets.map(srcset => {
+      console.log('mapping')
 
       const sources = srcset.split(',').map(s => s.trim());
+
+      console.log('sources', sources.length)
+
       let maxImageWidth = 0;
       let largestImageUrl = '';
+
       sources.forEach(source => {
+          const [url, width] = source.split(' ');
+          console.log(url, width)
 
-        const [url, width] = source.split(' ');
+          const imageWidth = parseInt(width.replace('w', ''));
 
-        const imageWidth = parseInt(width.replace('w', ''));
-
-        if (imageWidth > maxImageWidth) {
-
-          maxImageWidth = imageWidth;
-
-          largestImageUrl = url;
-
-        }
-
+          if (imageWidth > maxImageWidth) {
+              maxImageWidth = imageWidth;
+              largestImageUrl = url;
+          }
       });
-    });
-    return largestImageUrl;
+
+      return largestImageUrl;
   });
 
-  console.log('imageUrls', imageUrls.length);
+  console.log('imageUrls', imageUrls);
 
-  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
+  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency'));
 
   console.log('images', images.length);
 

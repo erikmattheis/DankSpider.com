@@ -87,7 +87,7 @@ async function run(batchId, vendor) {
   }
 
 
-    if (!vendor || vendor === 'WNC') {
+    if (false || !vendor || vendor === 'WNC') {
       try {
         const wncProducts = await wnc.getAvailableLeafProducts()
 
