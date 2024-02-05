@@ -1,38 +1,14 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { thinkAboutTerpenes, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { recordAssays, thinkAboutTerpenes, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
+const {read} = require('./services/pdf.js')
 
 const batchId = '0E'
-
-async function makeProductsFile(vendor, limit, useDevCollection) {
-
-  let products
-
-  if (vendor && useDevCollection) {
-    products = await getProductsByVendor(vendor, limit, useDevCollection)
-  } else if (vendor) {
-    products = await getProductsByVendor(vendor, limit)
-  } else {
-    products = await getAllProducts(batchId)
-  }
-
-  products = products.map(product => {
-    product.cannabinoids = filterAssay(product.cannabinoids)
-    product.terpenes = filterAssay(product.terpenes)
-    return product
-  })
-
-  const updatedAt = new Date().toISOString()
-
-  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
-
-  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
-}
 
 async function makeTerpenesFile() {
   const result = await getTerpenes()
@@ -58,6 +34,8 @@ function filterAssay(assay) {
 
 async function run(batchId, vendor) {
 
+  await scrapers.run(batchId, vendor)
+
 //
 // await thinkAboutTerpenes();
 //
@@ -66,7 +44,7 @@ async function run(batchId, vendor) {
 
  // await makeTerpenesFile()
 
-  await makeStats()
+ // await makeStats()
 
   // await makeStrainsFile()
 
@@ -83,24 +61,16 @@ async function run(batchId, vendor) {
   // await saveChemical()
 
   // await getproducts()
-
-  // await getProductsByVendor('WNC')
-
-  // await getProductsByVariant('1/8 oz')
-
-  // await getProductsByTerpene('Myrcene')
-
-  // await getProductsByPPM('Myrcene')
-
-  // await deleteProductsByVendor('WNC')
+// await read()
 
  // await cleanProductsCollection()
+
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})
 
   process.exit(0)
 }
 
-run(batchId)
+run(batchId, 'PPM')
 
 

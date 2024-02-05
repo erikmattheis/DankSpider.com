@@ -2,6 +2,8 @@
 
 const fs = require('fs')
 
+
+
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
@@ -11,9 +13,10 @@ function transcribeAssay(str, url) {
 
   const lines = str.split('\n')
 
-  if (['limonine', 'ocime', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
-    console.log('---> is terps')
-    const terps = lines.map(line => getTerpene(line, url))
+  if (['limonine', 'ocimene', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
+    console.log('---> is terps', lines)
+    const filteredLines = lines.filter(line => line.includes(' '))
+    const terps = filteredLines.map(line => getTerpene(line, url))
     const terpenes = terps.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
     return { terpenes }
   }
@@ -40,18 +43,18 @@ function getTerpene(line, url) {
 }
 
 function filterLine(line, normalizationFunction) {
-  console.log(line, typeof line);
+  console.log('line', line)
   if (!line.replace) {
     return ['Unknown', 0]
   }
   const cleanedLine = line.replace(/\s+/g, ' ');
 
   let parts = cleanedLine.split(' ');
+
   const name = normalizationFunction(parts.shift()) || 'Unknown';
 
-
   parts = parts.map(part => {
-    if (/^ND$|^0.0485$|^0.0728$|^0.030$|^3.000$|^0.750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/^ND$|^0.0485$|^0.0728$|^0.030|^0.0500$|^3.000$|^0.750$|^3.000$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
@@ -77,7 +80,7 @@ function getMgg(parts, line) {
 function getTerpeneObj(line) {
 
   const parts = filterLine(line, normalizeTerpene)
-
+console.log('parts:', parts)
   const name = parts[0]
 
   if (name === 'Unknown' || parts.length < 2) {
@@ -92,7 +95,6 @@ function getTerpeneObj(line) {
 
   return { name, pct, mgg, originalText }
 }
-
 
 function getCannabinoidObj(line) {
 
@@ -290,7 +292,7 @@ const terpeneSpellings = {
 
 
 function normalizeTerpene(terpene) {
-
+  console.log('terpene', terpene)
   if (terpeneSpellings[terpene]) {
     return terpeneSpellings[terpene]
   }

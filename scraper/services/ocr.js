@@ -2,7 +2,7 @@ const axios = require('./rateLimitedAxios.js')
 const fs = require('fs')
 const gm = require('gm').subClass({ imageMagick: true })
 const { createWorker, OEM, PSM, setLogging } = require('tesseract.js')
-const { transcribeAssay } = require('./cortex.js')
+
 
 const { getBuffer } = require('./memory.js')
 
@@ -63,8 +63,6 @@ async function recognize(url) {
 
 //console.log('result.data.text', result.data.text)
 
-    //const assay = transcribeAssay(result.data.text, url)
-console.log('returning text');
     return result.data.text;
 
   } catch (error) {

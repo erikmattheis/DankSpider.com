@@ -81,7 +81,7 @@ async function getConfig(text, url) {
     fs.appendFileSync('./temp/config.txt', `${url}\nno text\n\n`)
     return null;
   }
-  logger.log()
+
   for (entry of configMapping) {
     logger.log(entry.titleKeywords, entry.titleKeywords.some(word => text.toLowerCase().includes(word) || word === ''))
     if (entry.titleKeywords.some(word => text.toLowerCase().includes(word) || word === '')) {
@@ -89,7 +89,7 @@ async function getConfig(text, url) {
       for (config of entry.configs) {
         logger.log(config.urlKeywords, config.urlKeywords.some(word => url.toLowerCase().includes(word) || word === ''))
         if (config.urlKeywords.some(word => url.toLowerCase().includes(word) || word === '')) {
-          
+
           return config
         }
       }

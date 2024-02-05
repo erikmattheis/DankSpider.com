@@ -1,13 +1,51 @@
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
-const { saveProducts } = require('../services/firebase.js')
+const { saveProducts, saveAssays } = require('../services/firebase.js')
 
 const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const strings = require('../services/strings')
+const { readPDF, addAssays } = require('../services/pdf')
+
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower.atom'
+const url = 'https://perfectplantmarket.com/pages/lab-reports'
+
+async function getListOfTHCAPDFs() {
+console.log('url', url)
+  const htmlContent = await axios.get(url)
+console.log(Object.keys(htmlContent.data))
+  const $ = cheerio.load(htmlContent.data);
+
+  const products = [];
+
+  // Accordion header buttons contain the product name
+  $('.pf-870_').each((index, element) => {
+
+    const name = $(element).find('span').text();
+    console.log('name', name)
+
+    // Find the corresponding URL
+    const url = $(element).parent().next().find('a').last().attr('href');
+
+  products.push({ name, url });
+  });
+
+console.log(products);
+return products;
+/*
+  const $ = cheerio.load(result.data)
+  const links = $('.pf-879_ a').map((_, el) => {
+    const element = $(el);
+    return {
+      url: element.attr('href'),
+      name: element.find('span').text(),
+    };
+  }).get();
+  return links.filter(link => link.url.includes('.pdf'))
+*/
+}
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
@@ -96,18 +134,54 @@ async function parseSingleProduct(html, url) {
 
     if (terpenes?.length && cannabinoids?.length) {
       logger.log({
-  level: 'info',
-  message: `arete both terpenes and cannabinoids found`})
+      level: 'info',
+      message: `arete both terpenes and cannabinoids found`})
       break
     }
   }
 
   return { title, url, image, variants, cannabinoids, terpenes, vendor: 'Arete' }
+
 }
 
+async function readPDFs(pdfs) {
+
+  const results = [];
+
+  for (const pdf of pdfs) {
+    const result = await readPDF(pdf.url)
+    results.push(result)
+  }
+
+
+  return results
+}
+
+async function recordAssays() {
+
+  const pdfs = await getListOfTHCAPDFs();
+
+  console.log('pdfs', pdfs.length)
+
+  const pdfsText = await readPDFs(pdfs);
+
+  console.log('pdfsText', pdfsText.length)
+
+  const assays = addAssays(pdfsText);
+
+  console.log('assays', assays.length)
+
+  saveAssays('PPM', assays);
+
+}
+
+
 async function getProducts(feedUrl) {
+
   const result = await axios.get(feedUrl)
+
   const $ = cheerio.load(result.data, { xmlMode: true })
+
   //fs.writeFileSync('./temp/vendors/ppm.xml', result.data)
 
   const items = $('entry')
@@ -146,5 +220,6 @@ if (require.main === module) {
 }
 
 module.exports = {
-  getAvailableLeafProducts
+  getAvailableLeafProducts,
+  recordAssays
 }

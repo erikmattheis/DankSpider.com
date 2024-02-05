@@ -96,7 +96,7 @@ async function addAssays(product, $) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, image);
+    const result = transcribeAssay(raw, image);
 
     if (!result) {
       logger.log({

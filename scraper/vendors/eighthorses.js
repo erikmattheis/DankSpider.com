@@ -58,7 +58,7 @@ async function getProduct(url) {
 
 
     const raw = await recognize(image);
-    const result = await transcribeAssay(raw, image);
+    const result = transcribeAssay(raw, image);
 
     if (result?.terpenes?.length) {
 

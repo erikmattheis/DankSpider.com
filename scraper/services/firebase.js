@@ -536,8 +536,6 @@ async function getUniqueChemicals() {
 
 }
 
-
-async function deleteProductsByVendor(vendor) {
 async function getProductsByVariant(variant) {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
@@ -547,21 +545,7 @@ async function getProductsByVariant(variant) {
 
   return filteredDocs;
 }
-  const snapshot = await productsRef.where('vendor', '==', vendor).get();
 
-  const products = [];
-  const dels = [];
-
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    products.push(product);
-    dels.push(doc.ref.delete());
-  });
-
-  await Promise.all(dels);
-  return products;
-}
-// select products where variants is an array of objects, the should be String. The objects have a name property.
 
 async function deleteProductsWithObjectsInVariants() {
   const productsRef = db.collection('products');
@@ -622,10 +606,27 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
   return product
 }
 
+function saveAssays(vendor, assays) {
+  const batch = db.batch();
+  const productsRef = db.collection('assays');
+  console.log('assays', assays)
+  console.log('assays', assays.length)
+  for (const assay of assays) {
+    const id = makeFirebaseSafeId(`${vendor}-${assay.name}`);
+    const docRef = productsRef.doc(id);
+    batch.set(docRef, {
+      ...assay,
+      vendor
+    });
+  }
+
+  batch.commit();
+
+}
+
 module.exports = {
   cleanProductsCollection,
   deleteAllDocumentsInCollection,
-  deleteProductsByVendor,
   deleteProductsWithObjectsInVariants,
   fixValues,
   getAllProducts,
@@ -645,4 +646,5 @@ module.exports = {
   saveBatchRecord,
   saveProducts,
   thinkAboutTerpenes,
+  saveAssays
 };

@@ -49,10 +49,11 @@ function logErrorToFile(str) {
 
 async function run(batchId, vendor) {
 
-  if (!vendor || vendor === 'ppm') {
+  if (!vendor || vendor === 'PPM') {
 
     try {
-      const ppmProducts = await ppm.getAvailableLeafProducts()
+
+      const ppmProducts = await ppm.recordAssays()
 
       await saveProducts(ppmProducts, batchId)
     } catch (error) {

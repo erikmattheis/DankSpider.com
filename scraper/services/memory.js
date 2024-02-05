@@ -81,7 +81,33 @@ async function getImageBuffer(url) {
 
 }
 
+async function makeProductsFile(vendor, limit, useDevCollection) {
+
+  let products
+
+  if (vendor && useDevCollection) {
+    products = await getProductsByVendor(vendor, limit, useDevCollection)
+  } else if (vendor) {
+    products = await getProductsByVendor(vendor, limit)
+  } else {
+    products = await getAllProducts(batchId)
+  }
+
+  products = products.map(product => {
+    product.cannabinoids = filterAssay(product.cannabinoids)
+    product.terpenes = filterAssay(product.terpenes)
+    return product
+  })
+
+  const updatedAt = new Date().toISOString()
+
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
+
+  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
+}
+
 
 module.exports = {
-  getBuffer
+  getBuffer,
+  makeProductsFile
 }

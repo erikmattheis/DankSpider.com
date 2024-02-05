@@ -63,7 +63,7 @@ async function run(batchId) {
       }
 
       const raw = await recognize(image);
-      const result = await transcribeAssay(raw);
+      const result = transcribeAssay(raw);
 
       if (!result) {
         continue;
