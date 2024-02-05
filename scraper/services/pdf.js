@@ -2,14 +2,19 @@ const fs = require('fs');
 const axios = require('axios');
 // todo: use something else?
 const pdf = require('pdf-parse');
-const { transcribeAssay } = require('./cortex.js')
+const { transcribeAssay } = require('./cortex.js');
+const { saveAssays } = require('./firebase.js');
 
 async function readPDF(url) {
 
   const buffer = await returnPDFBuffer(url);
-  const text = readPDF(buffer);
-  const fixedText = insertSpaces(text);
-  const assays = transcribeAssay(fixedText);
+  console.log('buffer', buffer.length)
+  const fixedText = insertSpaces(buffer);
+  console.log('fixedText', fixedText.length)
+  const assay = transcribeAssay(fixedText);
+  console.log('assay', assay.length)
+
+  await saveAssays('PPM', assay);
 
 }
 
@@ -17,7 +22,10 @@ function insertSpaces(input) {
 
   // Find numbers with three decimal places or sequences of numbers and periods
   const regex = /(\d+\.\d{3})|(\d+)/g;
-
+  if (!input?.match) {
+    console.log('no match function!', input)
+    return;
+  }
   // Extract all numbers and periods from the input string
   let matches = input.match(regex);
 
@@ -52,9 +60,6 @@ function insertSpaces(input) {
   // Trim the result to remove any leading or trailing spaces
   result = result.trim();
 
-  // Log the transformation for verification
-  console.log("Transformed:", result);
-
   return result;
 }
 
@@ -72,29 +77,11 @@ function returnPDFBuffer(url) {
   })
 }
 
-async function addPDFtext(urls) {
-  const results = [];
-
-  try {
-    for (const url of urls) {
-      console.log('url', url)
-      const result = await returnPDFBuffer(url.url);
-      const fixedResult = insertSpaces(result);
-      const assay = transcribeAssay(fixedResult);
-      console.log('assay', assay)
-      results.push(...url, assay);
-    }
-  }
-  catch (error) {
-    console.log('error', error)
-  }
-
-  return results;
-}
-
 async function addAssays(pdfObjs) {
   const withAssays = [];
   for (const pdf of pdfObjs) {
+
+    const assay = transcribeAssay(pdf.text);
 
     withAssays.push({
       ...pdf,

@@ -13,9 +13,10 @@ const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower.atom'
 const url = 'https://perfectplantmarket.com/pages/lab-reports'
 
 async function getListOfTHCAPDFs() {
-console.log('url', url)
-  const htmlContent = await axios.get(url)
-console.log(Object.keys(htmlContent.data))
+  console.log('url', url)
+
+  const htmlContent = await axios.get(url);
+
   const $ = cheerio.load(htmlContent.data);
 
   const products = [];
@@ -32,7 +33,7 @@ console.log(Object.keys(htmlContent.data))
   products.push({ name, url });
   });
 
-console.log(products);
+
 return products;
 /*
   const $ = cheerio.load(result.data)

@@ -10,8 +10,8 @@
 <script>
 export default {
   mounted() {
-    if (window.location.hostname === 'localhost') {
-      doAds()
+    if (window.location.hostname !== 'localhost') {
+      this.doAds()
     }
   },
   methods: {

@@ -195,6 +195,11 @@ async function getProductById(id) {
 }
 
 async function saveProducts(products, batchId, useDev) {
+
+  if (!products || !products.length) {
+    return;
+  }
+
   const batch = db.batch();
   const  productsRef = db.collection('products');
 
@@ -606,10 +611,13 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
   return product
 }
 
-function saveAssays(vendor, assays) {
+async function saveAssays(vendor, assays) {
+  if (!assays || !assays.length) {
+    console.log('No assays to save');
+    return;
+  }
   const batch = db.batch();
   const productsRef = db.collection('assays');
-  console.log('assays', assays)
   console.log('assays', assays.length)
   for (const assay of assays) {
     const id = makeFirebaseSafeId(`${vendor}-${assay.name}`);

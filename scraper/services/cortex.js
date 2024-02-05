@@ -1,20 +1,16 @@
-
-
 const fs = require('fs')
-
-
 
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
-    console.log('can not split', str)
+    console.log('can not split')
     return null
   }
 
   const lines = str.split('\n')
 
   if (['limonine', 'ocimene', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
-    console.log('---> is terps', lines)
+    console.log('---> is terps', lines.length)
     const filteredLines = lines.filter(line => line.includes(' '))
     const terps = filteredLines.map(line => getTerpene(line, url))
     const terpenes = terps.filter(terp => terp.name !== 'Unknown' && terp.pct > 0)
@@ -22,7 +18,7 @@ function transcribeAssay(str, url) {
   }
 
   else if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
-    console.log('---> is canns')
+    console.log('---> is canns', canns.length)
     const canns = lines.map(line => getCannabinoid(line, url))
     const cannabinoids = canns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
     return { cannabinoids }
@@ -43,7 +39,6 @@ function getTerpene(line, url) {
 }
 
 function filterLine(line, normalizationFunction) {
-  console.log('line', line)
   if (!line.replace) {
     return ['Unknown', 0]
   }
@@ -84,7 +79,7 @@ console.log('parts:', parts)
   const name = parts[0]
 
   if (name === 'Unknown' || parts.length < 2) {
-    return { name, pct: 0, mgg: 0, originalText: parts }
+    return { name, pct: 0, mgg: 0, originalText: line }
   }
 
   const mgg = getMgg(parts, line)
@@ -292,12 +287,11 @@ const terpeneSpellings = {
 
 
 function normalizeTerpene(terpene) {
-  console.log('terpene', terpene)
   if (terpeneSpellings[terpene]) {
     return terpeneSpellings[terpene]
   }
-
-  return "Unknown"
+console.log('unknown terpene:', terpene)
+  return terpene
 }
 
 module.exports = {
