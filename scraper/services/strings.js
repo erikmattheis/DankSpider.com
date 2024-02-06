@@ -119,8 +119,9 @@ async function collectionIdExists(id, collectionRef) {
   return !snapshot.empty
 }
 
-async function makeFirebaseSafe(str) {
-  return str.replace(/[^\w-]+/g, '_')
+function makeFirebaseSafe(str) {
+  const encoded = encodeURI(str);
+  return encoded.replace(/[\/.#[\]*$]/g, '_');
 }
 
 async function makeFirebaseSafeId(prefix, product, collectionRef) {

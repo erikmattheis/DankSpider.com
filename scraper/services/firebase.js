@@ -1,8 +1,8 @@
 const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-const { makeFirebaseSafe, makeFirebaseSafeId, normalizeCannabinoid, normalizeTerpene, normalizeVariantName } = require('./strings.js');
+const { getFirestore } = require('firebase-admin/firestore');
+const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
 const{ getTerpene, getCannabinoid } = require('./cortex.js');
 
 
@@ -617,19 +617,23 @@ async function saveAssays(vendor, assays) {
     return;
   }
   const batch = db.batch();
-  const productsRef = db.collection('assays');
-  console.log('assays', assays.length)
+  const assayssRef = db.collection('assays');
   for (const assay of assays) {
-    const id = makeFirebaseSafeId(`${vendor}-${assay.name}`);
-    const docRef = productsRef.doc(id);
+    const id = makeFirebaseSafe(`${vendor}-${assay.name}`);
+    console.log('id', id);
+    const docRef = assayssRef.doc(id);
     batch.set(docRef, {
       ...assay,
       vendor
     });
   }
 
-  batch.commit();
-
+  try {
+    await batch.commit();
+    console.log('Batch commit successful');
+  } catch (error) {
+    console.error('Error committing batch', error);
+  }
 }
 
 module.exports = {

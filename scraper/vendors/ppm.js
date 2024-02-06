@@ -6,7 +6,7 @@ const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const strings = require('../services/strings')
-const { readPDF, addAssays } = require('../services/pdf')
+const { readPDFs } = require('../services/pdf')
 
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower.atom'
@@ -119,8 +119,8 @@ async function parseSingleProduct(html, url) {
 
     if (!result) {
       logger.log({
-  level: 'info',
-  message: `nothing interesting, continuing ... ${image}`})
+        level: 'info',
+        message: `nothing interesting, continuing ... ${image}`})
       continue
     }
 
@@ -145,32 +145,19 @@ async function parseSingleProduct(html, url) {
 
 }
 
-async function readPDFs(pdfs) {
-
-  const results = [];
-
-  for (const pdf of pdfs) {
-    const result = await readPDF(pdf.url)
-    results.push(result)
-  }
-
-
-  return results
-}
-
 async function recordAssays() {
 
   const pdfs = await getListOfTHCAPDFs();
 
   console.log('pdfs', pdfs.length)
 
-  const pdfsText = await readPDFs(pdfs);
+  const result = await readPDFs(pdfs);
 
-  console.log('pdfsText', pdfsText.length)
+// add to each vandor: 'PPM'
 
-  const assays = addAssays(pdfsText);
+  const assays = result.map(assay => ({ ...assay, vendor: 'PPM' }))
 
-  console.log('assays', assays.length)
+  console.log('assays ->', assays.length)
 
   saveAssays('PPM', assays);
 
