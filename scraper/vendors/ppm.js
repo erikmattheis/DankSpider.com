@@ -153,15 +153,21 @@ async function recordAssays() {
 
   const result = await readPDFs(pdfs);
 
-// add to each vandor: 'PPM'
 
-  const assays = result.map(assay => ({ ...assay, vendor: 'PPM' }))
+const assays = result.map(r => {
+  return {
+    ...r,
 
-  console.log('assays ->', assays.length)
+      vendor: 'PPM'
 
-  saveAssays('PPM', assays);
+}})
+
+  //console.log('assays ->', JSON.stringify(assays))
+
+  await saveAssays('PPM', assays);
 
 }
+
 
 
 async function getProducts(feedUrl) {
