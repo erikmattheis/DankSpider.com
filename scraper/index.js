@@ -8,7 +8,7 @@ const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 const {read} = require('./services/pdf.js')
 
-const batchId = '0E'
+const batchId = '0F'
 
 async function makeTerpenesFile() {
   const result = await getTerpenes()

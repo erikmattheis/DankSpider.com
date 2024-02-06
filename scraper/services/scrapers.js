@@ -52,8 +52,8 @@ async function run(batchId, vendor) {
   if (!vendor || vendor === 'PPM') {
 
     try {
-
-      const ppmProducts = await ppm.recordAssays()
+      const doit = await ppm.recordAssays()
+      const ppmProducts = await ppm.getAvailableLeafProducts()
 
      // await saveProducts(ppmProducts, batchId)
     } catch (error) {

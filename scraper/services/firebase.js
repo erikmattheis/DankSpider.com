@@ -636,6 +636,20 @@ async function saveAssays(vendor, assays) {
   }
 }
 
+async function getAssays() {
+  const assaysRef = db.collection('assays');
+  const snapshot = await assaysRef.get();
+
+  const assays = [];
+
+  snapshot.forEach(doc => {
+    const assay = doc.data();
+    assays.push(assay);
+  });
+
+  return assays;
+}
+
 module.exports = {
   cleanProductsCollection,
   deleteAllDocumentsInCollection,
@@ -658,5 +672,6 @@ module.exports = {
   saveBatchRecord,
   saveProducts,
   thinkAboutTerpenes,
-  saveAssays
+  saveAssays,
+  getAssays
 };
