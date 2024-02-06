@@ -2,6 +2,8 @@ const gm = require("gm");
 const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
 const logger = require('../services/logger.js');
+const { getProductsByVendor, getAllProducts } = require('./firebase.js');
+const { filterAssay } = require('./cortex.js');
 
 function jpgNameFromUrl(url) {
   const name = url.split('/').pop().split('#')[0].split('?')[0];
@@ -90,7 +92,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   } else if (vendor) {
     products = await getProductsByVendor(vendor, limit)
   } else {
-    products = await getAllProducts(batchId)
+    products = await getAllProducts()
   }
 
   products = products.map(product => {

@@ -55,7 +55,7 @@ async function run(batchId, vendor) {
       const doit = await ppm.recordAssays()
       const ppmProducts = await ppm.getAvailableLeafProducts()
 
-     // await saveProducts(ppmProducts, batchId)
+     await saveProducts(ppmProducts, batchId)
     } catch (error) {
       logger.error(error)
       logErrorToFile(error)

@@ -7,6 +7,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
 const {read} = require('./services/pdf.js')
+const { makeProductsFile } = require('./services/memory.js')
 
 const batchId = '0F'
 
@@ -28,19 +29,17 @@ async function makeCannabinoidsFile() {
   logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
 }
 
-function filterAssay(assay) {
-  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
-}
+
 
 async function run(batchId, vendor) {
 
-  await scrapers.run(batchId, vendor)
+ // await scrapers.run(batchId, vendor)
 
 //
 // await thinkAboutTerpenes();
 //
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
  // await makeTerpenesFile()
 

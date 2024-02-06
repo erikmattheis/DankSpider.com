@@ -617,6 +617,7 @@ async function saveAssays(vendor, assays) {
     return;
   }
   const batch = db.batch();
+  const timestamp = admin.firestore.Timestamp.now();
   const assayssRef = db.collection('assays');
   for (const assay of assays) {
     const id = makeFirebaseSafe(`${vendor}-${assay.name}`);
@@ -624,7 +625,8 @@ async function saveAssays(vendor, assays) {
     const docRef = assayssRef.doc(id);
     batch.set(docRef, {
       ...assay,
-      vendor
+      vendor,
+      timestamp
     });
   }
 

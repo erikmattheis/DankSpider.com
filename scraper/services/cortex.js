@@ -355,10 +355,15 @@ function normalizeAnyChemical(str, url) {
   return "Unknown"
 }
 
+function filterAssay(assay) {
+  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
+}
+
 module.exports = {
   transcribeAssay,
   normalizeTerpene,
   normalizeCannabinoid,
   getTerpene,
   getCannabinoid,
+  filterAssay
 }
