@@ -10,18 +10,12 @@ function transcribeAssay(str, url) {
 
   const lines = str.split('\n')
 
-  console.log('lines in transcribe', lines.length)
-
   const filteredLines = lines.filter(line => line.includes(' '))
-
-  console.log('filteredLines', filteredLines.length)
 
   const chems = filteredLines.map(line => getAnyChemical(line, url))
 
-  console.log('chems', chems.length)
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
 
-  console.log('chemicals', chemicals.length)
   return chemicals
 
   if (['limonine', 'ocimene', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {

@@ -12,7 +12,7 @@ export const useSpiderStore = defineStore('spider', {
     numSortableTerpenes: 0,
     cannabinoids: [],
     numSortableCannabinoids: 0,
-    sortByChemical: '',
+    sortByChemical: 'Δ-9-THCA',
     vendors: [],
     checkedVendors: [],
     checkedVariants: [],

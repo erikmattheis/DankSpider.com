@@ -2,7 +2,6 @@ const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
 const { saveProducts, getAssays, saveAssays } = require('../services/firebase.js')
 
-const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const strings = require('../services/strings')
@@ -11,10 +10,10 @@ const { cannabinoids, terpenes } = require('../services/cortex')
 
 const html = require('./data/ppm-pdfs.js');
 
-const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower.atom'
+const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
 const url = 'https://perfectplantmarket.com/pages/lab-reports'
+let allAssays
 
-let allAssays;
 
 async function getListOfTHCAPDFs() {
   console.log('url', url)
@@ -54,15 +53,17 @@ async function parseSingleProduct(html, url) {
 
   let title = $('h1[data-product-type="title"]').text().trim();
   title = strings.normalizeProductTitle(title)
-  console.log('title', title)
+  //console.log('title', title)
 
   // get textvalue of child options
   const variants = $('select[data-option-name="Size"] option').map((_, el) => $(el).text()).get()
+  console.log('variants', variants)
 
+/*
   if (!variants?.length) {
     return { title, url, variants, vendor: 'PPM' }
   }
-
+*/
   const imgElements = $('img')
 
   let image
@@ -79,7 +80,7 @@ async function parseSingleProduct(html, url) {
 
   const assay = allAssays.find(p => {
     const condition = p.name === title && p.vendor === 'PPM';
-   // console.log(p.name, title, p.vendor, 'PPM', condition); // Check each comparison
+   console.log(p.name, title, p.vendor, 'PPM', condition); // Check each comparison
     return condition;
   });
 
@@ -87,7 +88,6 @@ async function parseSingleProduct(html, url) {
     console.log('no assays found for', title)
     return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
   }
-  console.log('assay', cannabinoids)
 
   const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
   const terps = assay.assay.filter(a => terpenes.includes(a.name))
@@ -97,68 +97,99 @@ async function parseSingleProduct(html, url) {
 
 }
 
+function transformProducts(productsArray) {
+  return productsArray.map(product => {
+      // Map each product's offers to an array of variant titles
+      const variants = product.offers.map(offer => offer.title);
+
+      // Return the new format for each product
+      return {
+          title: product.title,
+          variants: variants,
+          image: product.thumbnail_url
+      };
+  });
+}
+
 async function recordAssays() {
 
   try {
 
-  const pdfs = await getListOfTHCAPDFs();
+    const pdfs = await getListOfTHCAPDFs();
 
-  console.log('pdfs', pdfs.length)
+    console.log('pdfs', pdfs.length)
 
-  const result = await readPDFs(pdfs);
+    const result = await readPDFs(pdfs);
 
-  const cannabinoids = result.filter(c => c.name.toLowerCase())
+    const cannabinoids = result.filter(c => c.name.toLowerCase())
 
-  const assays = result.map(r => {
-    return {
-      ...r,
-        vendor: 'PPM'
-  }})
+    const assays = result.map(r => {
+      return {
+        ...r,
+          vendor: 'PPM'
+    }})
 
   //console.log('assays ->', JSON.stringify(assays))
 
-  await saveAssays('PPM', assays);
+    await saveAssays('PPM', assays);
 
-}
-catch (error) {
-  logger.error(error)
-  logErrorToFile(error)
-
-}
-}
-const path = require('path');
-async function getProducts(feedUrl) {
-
-  // const result = await axios.get(feedUrl)
-  const filePath = path.join(__dirname, './data/ppm.atom');
-
-  const result = fs.readFileSync(filePath, 'utf8')
-  const $ = cheerio.load(result, { xmlMode: true })
-
-  //fs.writeFileSync('./temp/vendors/ppm.xml', result.data)
-
-  const items = $('entry')
-  const products = []
-  allAssays = await getAssays()
-
-  for (let i = 0; i < items.length; i++) {
-    const el = items[i]
-    const url = $(el).find('link').attr('href')
-    const resultP = await axios.get(url)
-
-    fs.writeFileSync('./temp/vendors/ppm-product.html', resultP.data)
-
-    const vendor = 'PPM'
-    const vendorDate = $(el).find('pubDate').text()
-
-    const more = await parseSingleProduct(resultP.data, url)
-
-    const product = {
-      ...more, vendor, vendorDate
-    }
-
-    products.push(product)
   }
+  catch (error) {
+    logger.error(error)
+    logErrorToFile(error)
+  }
+}
+
+const products = [];
+
+async function getProducts(feedUrl) {
+  try{
+    const result = await axios.get(feedUrl)
+    fs.writeFileSync('./temp/vendors/ppm.html', result.data)
+    const $ = cheerio.load(result.data, { xmlMode: true })
+    $('.pf-product-form').parent().parent().each(function(_,el) {
+
+      const $element = $(el);
+
+      fs.writeFileSync('./temp/vendors/ppm.html', $element.html())
+      const title = $element.find('[data-pf-type="ProductTitle"]').text().trim();
+      const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
+      console.log('imageSrc', imageSrc)
+
+      const image = `https:${imageSrc}`;
+      const url = `https://perfectplantmarket.com${$element.find('[data-pf-type="MediaMain"]').data('href')}`;
+      const vendor = 'PPM';
+      let vendorDate = $element.find('[data-pf-type="ProductMeta"]').text().trim();
+
+      const str = $element.find('script').text();
+      const regex = /options_with_values:\s*(\[\{[^}]+\}\])/;
+      /* */
+      const matches0 = str.match(regex);
+
+      if (!matches0 || !matches0[1]) {
+        console.log('No variants found');
+      }
+
+      const regex1 = /"values":\s*(\[\s*"[^"\]]*"\s*(?:,\s*"[^"\]]*"\s*)*\])/;
+
+      const matches = str.match(regex1);
+      let variants = []
+      if (matches && matches[1]) {
+        variants = JSON.parse(matches[1]);
+        console.log('varialts = ', variants);
+      } else {
+          console.log("No match found");
+      }
+      products.push({ title, image, url, vendor, vendorDate })
+    });
+
+  } catch (error) {
+    console.error(error)
+  }
+
+
+    // Using regex to extract the JSON part from the scriptContent
+
 
   return products
 }

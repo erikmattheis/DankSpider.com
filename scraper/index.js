@@ -35,7 +35,7 @@ async function run(batchId, vendor) {
 
  await scrapers.run(batchId, vendor)
 
- // await makeProductsFile()
+//  / await makeProductsFile()
 
  // await makeTerpenesFile()
 

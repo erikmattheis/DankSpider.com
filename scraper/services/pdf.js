@@ -10,7 +10,6 @@ async function readPDFs(pdfs) {
   const results = [];
 
   for (const pdf of pdfs) {
-    console.log('reading', pdf)
     const result = await readPDF(pdf.url, pdf.name)
 
     results.push(result)
@@ -22,11 +21,11 @@ async function readPDFs(pdfs) {
 async function readPDF(url, name) {
 
   const buffer = await returnPDFBuffer(url);
-  console.log('buffer', buffer.length);
+
   const fixedText = insertSpaces(buffer);
-  console.log('fixedText', fixedText.length)
+
   const assay = transcribeAssay(fixedText);
-  console.log('assay final', assay.length);
+  console.log('assay transcribed', assay.length);
 
   return {
     url,
@@ -67,7 +66,7 @@ function insertSpaces(input) {
 }
 
 async function returnPDFBuffer(url) {
-  console.log('returnPDFBuffer', url);
+
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const data = await pdf(response.data);

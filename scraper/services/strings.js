@@ -2,7 +2,7 @@ const fs = require('fs')
 
 function normalizeProductTitle(title) {
   let replaceString = title
-  const find = ['Hemp Flower', '(Indoor)', '(Greenhouse)', 'High THCa', 'THCa', 'Hydro', 'Indoor', 'Living Soil', 'Hemp', 'THCa Flower', 'Flower', '  ']
+  const find = ['Pheno 1', 'Pheno 2', 'Hemp Flower', '(Indoor)', '(Greenhouse)', 'High THCa', 'THCa', 'Hydro', 'Indoor', 'Living Soil', 'Hemp', 'THCa Flower', 'Flower', '  ']
   for (let i = 0; i < find.length; i++) {
     replaceString = replaceString.replace(find[i], '')
     replaceString = replaceString.replace(/\s+/g, ' ')
@@ -108,7 +108,9 @@ function normalizeVariantName(name) {
   return name
 }
 
-const regexMatchingPossibleWeightString = /\d\s(oz|g)/i
+function cleanString(str) {
+  return sanitize(str);
+}
 
 function variantNameContainsWeightUnitString(variantName) {
   return regexMatchingPossibleWeightString.test(variantName)
@@ -169,4 +171,5 @@ module.exports = {
   makeFirebaseSafe,
   makeFirebaseSafeId,
   findLargestImage,
+  cleanString,
 }

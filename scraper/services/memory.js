@@ -85,7 +85,7 @@ async function getImageBuffer(url) {
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
-  const products = await getAllProducts()
+  let products = await getAllProducts()
 
   products = products.map(product => {
     product.cannabinoids = filterAssay(product.cannabinoids)
