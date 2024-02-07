@@ -3,7 +3,6 @@ const admin = require('firebase-admin');
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
-const{ getTerpene, getCannabinoid } = require('./cortex.js');
 
 
 const cheerio = require('cheerio');
@@ -69,43 +68,6 @@ async function normalizeVariants() {
     }
   });
 
-}
-
-async function thinkAboutTerpenes() {
-  const batch = db.batch();
-  const productsRef = db.collection('products');
-  try {
-    const snapshot = await productsRef.get();
-
-    for (const doc of snapshot.docs) {
-      const product = doc.data();
-      if (product.terpenes) {
-        const terpenePromises = product.terpenes.map(async terpene => {
-          return getTerpene(terpene.originalText);
-        });
-        product.terpenes = await Promise.all(terpenePromises);
-        product.terpenes = product.terpenes.filter(terpene => terpene.name !== 'Unknown' && parseFloat(terpene.pct) > 0);
-
-        const cannabinoidPromises = product.cannabinoids.map(async cannabinoid => {
-          return getCannabinoid(cannabinoid.originalText);
-        });
-        product.cannabinoids = await Promise.all(cannabinoidPromises);
-        product.cannabinoids = product.cannabinoids.filter(cannabinoid => cannabinoid.name !== 'Unknown' && parseFloat(cannabinoid.pct) > 0);
-
-        // Correct use of batch.set with doc.ref
-        batch.set(doc.ref, {
-          terpenes: product.terpenes,
-          cannabinoids: product.cannabinoids
-        }, { merge: true }); // Consider using merge to update fields without overwriting the entire document
-      }
-    }
-
-    // Don't forget to commit the batch
-    await batch.commit();
-    console.log('Batch committed successfully.');
-  } catch (error) {
-    console.error('Error processing terpenes:', error);
-  }
 }
 
 function findLargestImage(htmlString) {
@@ -505,20 +467,6 @@ async function saveArticles(articles, collection) {
 
 };
 
-async function getTerpenes() {
-  const chemicalsRef = db.collection('terpenes');
-  const snapshot = await chemicalsRef.get();
-
-  const chemicals = [];
-
-  snapshot.forEach(doc => {
-    const chemical = doc.data()
-    chemicals.push(chemical);
-  });
-
-  return chemicals;
-}
-
 async function getUniqueChemicals() {
 
   const productsRef = db.collection('products');
@@ -664,7 +612,6 @@ module.exports = {
   getProductsByBatchId,
   getProductsByVariant,
   getProductsByVendor,
-  getTerpenes,
   getUniqueCannabinoids,
   getUniqueChemicals,
   getUniqueTerpenes,
@@ -673,7 +620,6 @@ module.exports = {
   saveStats,
   saveBatchRecord,
   saveProducts,
-  thinkAboutTerpenes,
   saveAssays,
   getAssays
 };

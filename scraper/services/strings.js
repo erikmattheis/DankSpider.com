@@ -4,7 +4,7 @@ function normalizeProductTitle(title) {
   let replaceString = title
   const find = ['Hemp Flower', '(Indoor)', '(Greenhouse)', 'High THCa', 'THCa', 'Hydro', 'Indoor', 'Living Soil', 'Hemp', 'THCa Flower', 'Flower', '  ']
   for (let i = 0; i < find.length; i++) {
-    replaceString = replaceString.replace(find[i], ' ')
+    replaceString = replaceString.replace(find[i], '')
     replaceString = replaceString.replace(/\s+/g, ' ')
     replaceString = replaceString.trim()
   }

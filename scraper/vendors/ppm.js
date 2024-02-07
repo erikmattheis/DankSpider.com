@@ -7,6 +7,7 @@ const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const strings = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
+const { cannabinoids, terpenes } = require('../services/cortex')
 
 const html = require('./data/ppm-pdfs.js');
 
@@ -53,8 +54,9 @@ async function parseSingleProduct(html, url) {
 
   let title = $('h1[data-product-type="title"]').text().trim();
   title = strings.normalizeProductTitle(title)
+  console.log('title', title)
 
-  // get textvalue of clild options
+  // get textvalue of child options
   const variants = $('select[data-option-name="Size"] option').map((_, el) => $(el).text()).get()
 
   if (!variants?.length) {
@@ -74,25 +76,24 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-console.log('title', title)
-  const product = allAssays.find(p => p.name === title && p.vendor === 'PPM')
 
-  if (!product) {
+  const assay = allAssays.find(p => {
+    const condition = p.name === title && p.vendor === 'PPM';
+   // console.log(p.name, title, p.vendor, 'PPM', condition); // Check each comparison
+    return condition;
+  });
+
+  if (!assay?.assay) {
+    console.log('no assays found for', title)
     return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
   }
+  console.log('assay', cannabinoids)
 
-  let terpenes = [];
-  if (product.terpenes) {
-    terpenes = JSON.parse(JSON.stringify(product.terpenes))
-  }
-
-  let cannabinoids = [];
-  if (product.cannabinoids) {
-    cannabinoids = JSON.parse(JSON.stringify(product.cannabinoids))
-  }
-
-
-  return { title, url, image, variants, cannabinoids, terpenes, vendor: 'PPM' }
+  const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
+  const terps = assay.assay.filter(a => terpenes.includes(a.name))
+  console.log('cannabinoids', canns.length)
+  console.log('terpenes', terps.length)
+  return { title, url, image, variants, cannabinoids:canns, terpenes:terps, vendor: 'PPM' }
 
 }
 
@@ -105,6 +106,8 @@ async function recordAssays() {
   console.log('pdfs', pdfs.length)
 
   const result = await readPDFs(pdfs);
+
+  const cannabinoids = result.filter(c => c.name.toLowerCase())
 
   const assays = result.map(r => {
     return {
@@ -123,12 +126,14 @@ catch (error) {
 
 }
 }
-
+const path = require('path');
 async function getProducts(feedUrl) {
 
-  const result = await axios.get(feedUrl)
+  // const result = await axios.get(feedUrl)
+  const filePath = path.join(__dirname, './data/ppm.atom');
 
-  const $ = cheerio.load(result.data, { xmlMode: true })
+  const result = fs.readFileSync(filePath, 'utf8')
+  const $ = cheerio.load(result, { xmlMode: true })
 
   //fs.writeFileSync('./temp/vendors/ppm.xml', result.data)
 
@@ -140,7 +145,9 @@ async function getProducts(feedUrl) {
     const el = items[i]
     const url = $(el).find('link').attr('href')
     const resultP = await axios.get(url)
+
     fs.writeFileSync('./temp/vendors/ppm-product.html', resultP.data)
+
     const vendor = 'PPM'
     const vendorDate = $(el).find('pubDate').text()
 

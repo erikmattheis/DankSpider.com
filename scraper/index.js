@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { recordAssays, thinkAboutTerpenes, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getProductsByVendor, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -33,13 +33,9 @@ async function makeCannabinoidsFile() {
 
 async function run(batchId, vendor) {
 
- // await scrapers.run(batchId, vendor)
+ await scrapers.run(batchId, vendor)
 
-//
-// await thinkAboutTerpenes();
-//
-
-  await makeProductsFile()
+ // await makeProductsFile()
 
  // await makeTerpenesFile()
 
