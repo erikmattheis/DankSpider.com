@@ -18,6 +18,9 @@ function normalizeVariantName(name) {
   if (name === '28 grams') {
     return '28 g'
   }
+  if (name === '28g') {
+    return '28 g'
+  }
   if (name === '1-oz') {
     return '28 g'
   }
@@ -71,6 +74,9 @@ function normalizeVariantName(name) {
     return '7 g'
   }
   if (name === '7-g') {
+    return '7 g'
+  }
+  if (name === '7 g') {
     return '7 g'
   }
   if (name === '7g') {

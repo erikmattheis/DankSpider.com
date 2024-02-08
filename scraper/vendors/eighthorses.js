@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const strings = require('../services/strings');
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
@@ -38,7 +38,7 @@ async function getProduct(url) {
     }
   });
 
-  const title = strings.normalizeProductTitle($('h1.productView-title').text().trim());
+  const title = normalizeProductTitle($('h1.productView-title').text().trim());
 
   const image = $('figure.productView-image img').attr('src');
 
@@ -218,7 +218,7 @@ async function getEHHProductsInfo(productLinks) {
 
     if (product.variants.length > 0) {
 
-      product.variants = product.variants.map((variant) => strings.normalizeVariantName(variant));
+      product.variants = product.variants.map((variant) => normalizeVariantName(variant));
 
       products.push(product);
 

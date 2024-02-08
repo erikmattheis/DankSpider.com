@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const strings = require('../services/strings');
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
@@ -25,7 +25,7 @@ async function getProducts() {
     const productType = $(entry).find('s\\:type').text();
     if (productType === 'Flower') {
       const image$ = cheerio.load($(entry).html());
-      const title = strings.normalizeProductTitle($(entry).children('title').first().text());
+      const title = normalizeProductTitle($(entry).children('title').first().text());
       if (title?.toLowerCase().includes('sugar leaf')) {
         return;
       }
@@ -51,7 +51,7 @@ async function addVariants(product, $) {
 
   // variants is array from cheerio label text() values
 
-  const variants = labels.map(label => strings.normalizeVariantName(label.text()));
+  const variants = labels.map(label => normalizeVariantName(label.text()));
 
   if (variants.some(variant => variant === 'Name')) {
 

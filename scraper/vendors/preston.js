@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const strings = require('../services/strings');
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
@@ -31,6 +31,7 @@ async function getPrestonProductInfo(product) {
     const $ = cheerio.load(response.data);
     const select = $('.sizes-dropdown .size-dropdown-link');
     product.variants = select.map((i, el) => $(el).text()).get();
+    product.variants = product.variants.map(variant => normalizeVariantName(variant));
 
     product.images = [];
 
@@ -129,7 +130,7 @@ async function scrapePage(url, currentPage) {
 
         const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
 
-        productLinks.push({ title: strings.normalizeProductTitle(title), url: url, vendor: 'Preston' });
+        productLinks.push({ title: normalizeProductTitle(title), url: url, vendor: 'Preston' });
 
       }
     }
@@ -152,18 +153,6 @@ function isDesiredProduct(productTitle) {
   }
 
   return false
-}
-
-function extractNumberFromString(inputString) {
-  const regex = /^(\d+(\.\d+)?)/;
-
-  const match = inputString.match(regex);
-
-  if (match) {
-    return parseFloat(match[0]);
-  } else {
-    return false;
-  }
 }
 
 async function getPrestonProductsInfo(products) {

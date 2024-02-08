@@ -1,11 +1,10 @@
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
-const { saveProducts } = require('../services/firebase.js')
 
 const { recognize } = require('../services/ocr')
 const cheerio = require('cheerio')
 
-const strings = require('../services/strings')
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
 const logger = require('../services/logger.js');
@@ -14,7 +13,7 @@ const { transcribeAssay } = require('../services/cortex.js')
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
 
-  const title = strings.normalizeProductTitle($('h1.product_title').text().trim())
+  const title = normalizeProductTitle($('h1.product_title').text().trim())
 
   const variants = []
 
@@ -23,7 +22,7 @@ async function parseSingleProduct(html, url) {
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size
-    const sizeString = strings.normalizeVariantName(size)
+    const sizeString = normalizeVariantName(size)
       variants.push(sizeString)
   })
 

@@ -1,10 +1,10 @@
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
-const { saveProducts, getAssays, saveAssays } = require('../services/firebase.js')
+const { getAssays, saveAssays } = require('../services/firebase.js')
 
 const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
-const strings = require('../services/strings')
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
 const { cannabinoids, terpenes } = require('../services/cortex')
 const html = require('./data/ppm-pdfs.js');
@@ -85,7 +85,7 @@ async function getProducts(feedUrl) {
       const $element = $(el);
 
       let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
-      title = strings.normalizeProductTitle(title);
+      title = normalizeProductTitle(title);
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
       const image = `${imageSrc}`;
@@ -109,6 +109,8 @@ async function getProducts(feedUrl) {
       let variants = []
       if (matches && matches[1]) {
         variants = JSON.parse(matches[1]);
+        variants = variants.filter(v => !v.includes('PreRolls'));
+        variants = variants.map(v => normalizeVariantName(v));
       } else {
           console.log("No match found");
       }

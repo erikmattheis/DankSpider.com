@@ -12,7 +12,7 @@ async function getAvailableLeafProducts() {
       image = response.data.data[i].images.data[0].urls['640']
       i = i + 1
     }
-    const title = strings.normalizeProductTitle(product.name.split(' - ')[1])
+    const title = normalizeProductTitle(product.name.split(' - ')[1])
 
     products.push({
       theirId: product.id,
@@ -34,7 +34,7 @@ async function addVariants(products) {
       const response = await axios.get(url)
 
       for (const variant of response.data.data) {
-        const name = strings.normalizeVariantName(variant.name)
+        const name = normalizeVariantName(variant.name)
         product.variants.push(name)
       }
 

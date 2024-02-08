@@ -1,7 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
-const strings = require('../services/strings');
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
@@ -38,11 +38,11 @@ async function getAvailableLeafProducts() {
             return;
           }
 
-          let resolvedVariants = variants.map((variant) => strings.normalizeVariantName(variant.title));
+          let resolvedVariants = variants.map((variant) => normalizeVariantName(variant.title));
 
           resolvedVariants = resolvedVariants.filter((variant) => !variant.includes('SL'));
 
-          const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
+          const productTitle = entry.title ? normalizeProductTitle(entry.title) : '';
 
           const productUrl = entry.link?.$?.href || '';
 

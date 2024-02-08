@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios');
 const cheerio = require('cheerio');
-const strings = require('../services/strings');
+const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
@@ -38,7 +38,7 @@ async function getProducts() {
   const products = [];
 
   $('.drganja_products_list').each((_, entry) => {
-    const title = strings.normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
+    const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
     const url = $(entry).find('.drganja_list_product_image').attr('href');
     const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
     const vendor = 'Dr Ganja';
@@ -67,7 +67,7 @@ async function addVariants(product, $) {
 
   // const variants = $('variable-item-span').map((_, el) => $(el).text()).get();
   const values = $('ul[data-attribute_name="attribute_pa_weight"] li').map((_, el) => $(el).attr('data-value')).get();
-  const variants = values.map(value => strings.normalizeVariantName(value));
+  const variants = values.map(value => normalizeVariantName(value));
 
   return { ...product, variants };
 }
