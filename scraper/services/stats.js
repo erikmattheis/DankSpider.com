@@ -8,11 +8,11 @@ async function makeStats() {
 
   const vendors = {};
 
-  let numProducts = 0;
-  let numCannabinoids = 0;
-  let numCannabinoidsWithValues = 0;
-  let numTerpenes = 0;
-  let numTerpenesWithValues = 0;;
+  let totalProducts = 0;
+  let totalCannabinoids = 0;
+  let totalCannabinoidsWithValues = 0;
+  let totalTerpenes = 0;
+  let totalTerpenesWithValues = 0;;
 
   for (const product of products) {
 
@@ -27,25 +27,25 @@ async function makeStats() {
     }
 
     vendors[product.vendor].numProducts += 1
-    numProducts += 1;
-    vendors[product.vendor].numCannabinoids += product.cannabinoids?.length
-    numCannabinoids += numCannabinoids;
-    vendors[product.vendor].numCannabinoidsWithValues += product.cannabinoids && product.cannabinoids.filter? product.cannabinoids?.filter(c => c.pct > 0).length : 0;
-    numCannabinoidsWithValues += product.cannabinoids?.filter(c => c.pct > 0).length;
+    totalProducts += 1;
+    vendors[product.vendor].numCannabinoids += product?.cannabinoids?.length ? product?.cannabinoids?.length : 0;
+    totalCannabinoids += product?.cannabinoids?.length ? product?.cannabinoids?.length : 0;
+    vendors[product.vendor].numCannabinoidsWithValues += product.cannabinoids?.filter ? product.cannabinoids.filter(c => c.pct > 0).length : 0;
+    totalCannabinoidsWithValues += product.cannabinoids?.filter(c => c.pct > 0).length;
     vendors[product.vendor].numTerpenes += product.terpenes?.length;
-    numTerpenes++;
-    vendors[product.vendor].numTerpenesWithValues += product.terpenes && product.terpenes.filter ? product.terpenes?.filter(t => t.pct > 0).length : 0;
-    numTerpenesWithValues++;
+    totalTerpenes += product.terpenes?.filter(t => t.pct > 0).length;
+    vendors[product.vendor].numTerpenesWithValues += product.terpenes?.filter ? product.terpenes?filter(t => t.pct > 0).length : 0;
+    totalTerpenesWithValues += product.terpenes?.filter(c => c.pct > 0).length;
 
   }
 
   console.log( vendors);
 
-  console.log('numProducts', numProducts)
-  console.log('numCannabinoids', numCannabinoids, (numCannabinoids/numProducts).toFixed(2));
-  console.log('numCannabinoidsWithValues', numCannabinoidsWithValues, (numCannabinoidsWithValues/numProducts).toFixed(2));
-  console.log('numTerpenes', numTerpenes);
-  console.log('numTerpenesWithValues', numTerpenesWithValues, (numTerpenesWithValues/numProducts).toFixed(2));
+  console.log('numProducts', totalProducts)
+  console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids/totalProducts).toFixed(2));
+  console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues/totalProducts).toFixed(2));
+  console.log('numTerpenes', totalTerpenes);
+  console.log('numTerpenesWithValues', totalTerpenesWithValues, (totalTerpenesWithValues/Products).toFixed(2));
 
   saveStats(vendors);
 

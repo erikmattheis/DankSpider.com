@@ -325,7 +325,7 @@ async function fixValues() {
 
 async function cleanProductsCollection() {
   const productsRef = db.collection('products');
-  const archiveRef = db.collection('produtArchive');
+  const archiveRef = db.collection('productArchive');
 
   const snapshot = await productsRef.orderBy('timestamp', 'desc').get();
 

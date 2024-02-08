@@ -31,12 +31,12 @@ async function makeCannabinoidsFile() {
 
 async function run(batchId, vendor) {
 
-await scrapers.run(batchId, vendor)
+//await scrapers.run(batchId, vendor)
 
-await makeProductsFile()
+//await makeProductsFile()
 
  // await makeTerpenesFile()
-
+// await cleanProductsCollection()
   await makeStats()
 
   // await makeStrainsFile()
@@ -56,7 +56,7 @@ await makeProductsFile()
   // await getproducts()
 // await read()
 
- // await cleanProductsCollection()
+
 
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})

@@ -38,7 +38,9 @@ async function getAvailableLeafProducts() {
             return;
           }
 
-          const resolvedVariants = variants.map((variant) => strings.normalizeVariantName(variant.title));
+          let resolvedVariants = variants.map((variant) => strings.normalizeVariantName(variant.title));
+
+          resolvedVariants = resolvedVariants.filter((variant) => !variant.includes('SL'));
 
           const productTitle = entry.title ? strings.normalizeProductTitle(entry.title) : '';
 

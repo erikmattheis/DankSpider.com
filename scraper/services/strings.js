@@ -49,17 +49,23 @@ function normalizeVariantName(name) {
   if (name === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
     return '28 g'
   }
+  if (name === 'smalls 28 grams') {
+    return '28 g smalls'
+  }
   if (name === 'Half oz') {
     return '14 g'
   }
   if (name === '14 grams') {
     return '14 g'
   }
+  if (name === 'smalls 14 grams') {
+    return '14 g'
+  }
   if (name === '14-g') {
     return '14 g'
   }
-  if (name === '14g') {
-    return '14 g'
+  if (name === 'smalls 14 grams') {
+    return '14 g smalls'
   }
   if (name === '7 grams') {
     return '7 g'

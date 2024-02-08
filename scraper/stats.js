@@ -159,13 +159,55 @@ WNC: {
   numCannabinoids: 183,
   numCannabinoidsWithValues: 183,
   numTerpenes: 159,
-  numTerpenesWithValues: 159
-},
-Arete: {
-  numProducts: 9,
-  numCannabinoids: 59,
-  numCannabinoidsWithValues: 59,
-  numTerpenes: 0,
-  numTerpenesWithValues: 0
-},
+    numTerpenesWithValues: 159
+  },
+  Arete: {
+    numProducts: 9,
+    numCannabinoids: 59,
+    numCannabinoidsWithValues: 59,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  Preston: {
+    numProducts: 10,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  WNC: {
+    numProducts: 111,
+    numCannabinoids: 59,
+    numCannabinoidsWithValues: 59,
+    numTerpenes: 56,
+    numTerpenesWithValues: 56
+  },
+  Arete: {
+    numProducts: 9,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  'Dr Ganja': {
+    numProducts: 28,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  'Top Cola': {
+    numProducts: 7,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  PPM: {
+    numProducts: 47,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: 332,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  }
 }
