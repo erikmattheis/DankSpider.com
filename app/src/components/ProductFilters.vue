@@ -1,27 +1,30 @@
 <template>
   <!--- TODO: https://css-tricks.com/a-dynamically-sized-sticky-sidebar-with-html-and-css/ -->
   <form class="page">
-    <div class="header" @click.prevent="toggleCollapse('filters')">
+    <div class="header" >
       <div class="stats">
         {{ numProducts }} product{{ numProducts === 1 ? '' : 's' }} from {{ numVendors }} vendor{{ numVendors === 1 ? ''
           : 's' }}
       </div>
       <h3 class="filters-title">Filters</h3>
+      <!--
       <div class="collapse-button filters down">
         <font-awesome-icon :icon="['fas', 'right-long']" />
       </div>
+      -->
     </div>
     <div class="filters filter" id="filters">
 
-      <div class="header" @click.prevent="toggleCollapse('vendors')">
+      <div class="header">
         <h3>Vendors</h3>
-        <div class="selected-items vendors list">{{ checkedVendorsList }}</div>
+        <!--
         <div class="collapse-button vendors arrow">
           <font-awesome-icon :icon="['fas', 'right-long']" />
         </div>
+        -->
       </div>
 
-      <div class="vendors filter collapsed">
+      <div class="vendors filter">
         <ul class="container">
           <li v-for="(vendor, i) in vendors" :key="i" @click.prevent="toggleSelectedVendor(vendor)" class="shadowy-button"
             :class="{ selected: checkedVendors.includes(vendor) }" :title="vendor">
@@ -36,15 +39,16 @@
         </ul>
       </div>
 
-      <div class="header" @click.prevent="toggleCollapse('sizes')">
+      <div class="header">
         <h3>Sizes</h3>
-        <div class="selected-items sizes list">{{ checkedSizesList }}</div>
+        <!--
         <div class="collapse-button sizes arrow">
           <font-awesome-icon :icon="['fas', 'right-long']" />
         </div>
+        -->
       </div>
 
-      <div class="sizes filter collapsed">
+      <div class="sizes filter">
         <ul class="container">
           <li v-for="(variant, i) in variants" :key="i" @click.prevent="toggleSelectedVariant(variant)"
             class="shadowy-button" :class="{ selected: checkedVariants.includes(variant) }" :title="variant">
@@ -302,7 +306,6 @@ export default {
   width: 100%;
   border-top: 1px solid #ccc;
   background-color: #eee;
-  cursor: pointer;
 }
 
 .filters-title {

@@ -89,6 +89,7 @@ function normalizeVariantName(name) {
     return '1 g'
   }
 
+
   name = name + ''
   name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2')
   name = name?.replace(/(\s+)/g, ' ')
@@ -104,6 +105,7 @@ function normalizeVariantName(name) {
   name = name?.replace(' Pheno 1', '')
   name = name?.replace(' Pheno 2', '')
   name = name?.trim().replace(/\s+/g, ' ')
+  name = name?.replace(' Pheno 2', '')
 
   return name
 }

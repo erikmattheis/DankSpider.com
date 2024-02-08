@@ -105,6 +105,7 @@ async function getProducts(feedUrl) {
       const regex1 = /"values":\s*(\[\s*"[^"\]]*"\s*(?:,\s*"[^"\]]*"\s*)*\])/;
 
       const matches = str.match(regex1);
+
       let variants = []
       if (matches && matches[1]) {
         variants = JSON.parse(matches[1]);
@@ -135,9 +136,7 @@ async function getProducts(feedUrl) {
     console.error(error)
   }
 
-
-    // Using regex to extract the JSON part from the scriptContent
-
+  // Using regex to extract the JSON part from the scriptContent
 
   return products
 }
