@@ -9,6 +9,7 @@ const { readPDFs } = require('../services/pdf')
 const { cannabinoids, terpenes } = require('../services/cortex')
 
 const html = require('./data/ppm-pdfs.js');
+const { all } = require('axios');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
 const url = 'https://perfectplantmarket.com/pages/lab-reports'
@@ -48,76 +49,11 @@ async function getListOfTHCAPDFs() {
   return results;
 }
 
-async function parseSingleProduct(html, url) {
-  const $ = cheerio.load(html)
-
-  let title = $('h1[data-product-type="title"]').text().trim();
-  title = strings.normalizeProductTitle(title)
-  //console.log('title', title)
-
-  // get textvalue of child options
-  const variants = $('select[data-option-name="Size"] option').map((_, el) => $(el).text()).get()
-  console.log('variants', variants)
-
-/*
-  if (!variants?.length) {
-    return { title, url, variants, vendor: 'PPM' }
-  }
-*/
-  const imgElements = $('img')
-
-  let image
-
-  for (let j = 0; j < imgElements.length; j++) {
-    const imgEl = imgElements[j]
-    const srcset = $(imgEl).attr('srcset') || $(imgEl).attr('data-srcset')
-    if (srcset && srcset.includes('768w')) {
-      image = srcset.split(',').find(s => s.includes('768w')).trim().split(' ')[0]
-      break
-    }
-  }
-
-
-  const assay = allAssays.find(p => {
-    const condition = p.name === title && p.vendor === 'PPM';
-   console.log(p.name, title, p.vendor, 'PPM', condition); // Check each comparison
-    return condition;
-  });
-
-  if (!assay?.assay) {
-    console.log('no assays found for', title)
-    return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
-  }
-
-  const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
-  const terps = assay.assay.filter(a => terpenes.includes(a.name))
-  console.log('cannabinoids', canns.length)
-  console.log('terpenes', terps.length)
-  return { title, url, image, variants, cannabinoids:canns, terpenes:terps, vendor: 'PPM' }
-
-}
-
-function transformProducts(productsArray) {
-  return productsArray.map(product => {
-      // Map each product's offers to an array of variant titles
-      const variants = product.offers.map(offer => offer.title);
-
-      // Return the new format for each product
-      return {
-          title: product.title,
-          variants: variants,
-          image: product.thumbnail_url
-      };
-  });
-}
-
 async function recordAssays() {
 
   try {
 
     const pdfs = await getListOfTHCAPDFs();
-
-    console.log('pdfs', pdfs.length)
 
     const result = await readPDFs(pdfs);
 
@@ -128,8 +64,6 @@ async function recordAssays() {
         ...r,
           vendor: 'PPM'
     }})
-
-  //console.log('assays ->', JSON.stringify(assays))
 
     await saveAssays('PPM', assays);
 
@@ -144,6 +78,9 @@ const products = [];
 
 async function getProducts(feedUrl) {
   try{
+
+    allAssays = await getAssays();
+
     const result = await axios.get(feedUrl)
     fs.writeFileSync('./temp/vendors/ppm.html', result.data)
     const $ = cheerio.load(result.data, { xmlMode: true })
@@ -151,12 +88,11 @@ async function getProducts(feedUrl) {
 
       const $element = $(el);
 
-      fs.writeFileSync('./temp/vendors/ppm.html', $element.html())
-      const title = $element.find('[data-pf-type="ProductTitle"]').text().trim();
+      let title = $element.find('[data-pf-type="ProductTitle"]').text().trim();
+      title = strings.normalizeProductTitle(title);
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
-      console.log('imageSrc', imageSrc)
 
-      const image = `https:${imageSrc}`;
+      const image = `${imageSrc}`;
       const url = `https://perfectplantmarket.com${$element.find('[data-pf-type="MediaMain"]').data('href')}`;
       const vendor = 'PPM';
       let vendorDate = $element.find('[data-pf-type="ProductMeta"]').text().trim();
@@ -176,10 +112,24 @@ async function getProducts(feedUrl) {
       let variants = []
       if (matches && matches[1]) {
         variants = JSON.parse(matches[1]);
-        console.log('varialts = ', variants);
       } else {
           console.log("No match found");
       }
+
+      const assay = allAssays.find(p => {
+        const condition = p.name === title && p.vendor === 'PPM';
+        return condition;
+      });
+
+      if (!assay?.assay) {
+        console.log('no assays found for2', title)
+        fs.appendFileSync('./temp/no-assay.txt', `no assays found for${p.name.toLowerCase()},  ${title.toLowerCase()}, `)
+        return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
+      }
+
+      const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
+      const terps = assay.assay.filter(a => terpenes.includes(a.name))
+
       products.push({ title, image, url, vendor, vendorDate })
     });
 

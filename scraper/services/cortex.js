@@ -146,14 +146,14 @@ const terpenes = terps.filter((item, index, self) => self.indexOf(item) === inde
 terpenes.sort();
 
 function normalizeCannabinoid(name, url) {
-  if (cannabinoidSpellings[name] && cannabinoidSpellings[name].confidence > 0.7) {
+  if (cannabinoidSpellings[name]) {
     return cannabinoidSpellings[name].name
   }
 
 
   console.log('unknown cann:', name)
   console.log('------------------------------')
-  fs.appendFileSync('./temp/unknownterpenes.txt', `${name}\n`)
+  fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `${name}\n`)
   return "Unknown"
 }
 

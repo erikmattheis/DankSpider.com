@@ -52,10 +52,10 @@
         <div class="assay">
           <h3>Terpenes</h3>
 
-              <router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }" :title="terpene.name">
+              <!--<router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }" :title="terpene.name">-->
 
-              <span>{{ terpene.name }} ({{ terpene.pct }}%)</span>
-              </router-link>
+              <span>{{ terpene }} %)</span>
+              <!--</router-link>-->
 
         </div>
         <div class="assay">

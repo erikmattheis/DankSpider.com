@@ -151,7 +151,6 @@ const cannabinoidSpellings = {
   'Cannabigerolic Acid': { name: 'CBGA', confidence: 0.99 },
   'Cannabinol (CBN)': { name: 'CBN', confidence: 0.99 },
   'Cannabinolic Acid (CBNA)': { name: 'CBNA', confidence: 0.99 },
-
   'Carvubzdizl(CHDY': { name: 'CBD', confidence: 0.9 },
   'Delta 8-Tetrahydrocannabinol': { name: '∆-8-THC', confidence: 0.99 },
   'Delta 9-Tetrahydrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
