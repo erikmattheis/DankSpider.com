@@ -122,8 +122,7 @@ async function getProducts(feedUrl) {
       });
 
       if (!assay?.assay) {
-        console.log('no assays found for2', title)
-        fs.appendFileSync('./temp/no-assay.txt', `no assays found for${p.name.toLowerCase()},  ${title.toLowerCase()}, `)
+        fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, `)
         return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
       }
 
