@@ -124,8 +124,10 @@ async function getProducts(feedUrl) {
 
       const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
       const terps = assay.assay.filter(a => terpenes.includes(a.name))
-console.log('canns', cannabinoids)
-console.log('terps', terpenes)
+/*
+      console.log('canns', canns)
+      console.log('terps', terpenes)
+*/
       products.push({ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate })
     });
 

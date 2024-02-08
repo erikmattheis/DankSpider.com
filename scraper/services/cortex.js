@@ -151,7 +151,6 @@ function normalizeCannabinoid(name, url) {
     return cannabinoidSpellings[name].name
   }
 
-
   console.log('unknown cann:', name)
   console.log('------------------------------')
   fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `${name}\n`)

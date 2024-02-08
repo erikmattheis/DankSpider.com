@@ -56,7 +56,7 @@
 
 
           <ul clss="right">
-            <li v-for="terpene in product.cannabinoids" class="chemical terpene"
+            <li v-for="terpene in product.terpenes" class="chemical terpene"
               :class="isChemicalSelected(terpene)"><span>{{ terpene.name }} ({{
                 terpene.pct }}%)</span></li>
           </ul>
