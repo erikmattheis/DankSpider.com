@@ -139,9 +139,10 @@ function getAnyChemicalObj(line) {
 
 const canns = Object.keys(cannabinoidSpellings).map(key => cannabinoidSpellings[key].name);
 const cannabinoids = canns.filter((item, index, self) => self.indexOf(item) === index);
+console.log('cannabinoids', cannabinoids.length)
 cannabinoids.sort();
 
-const terps = Object.keys(terpeneSpellings).map(key => terpeneSpellings[key].name);
+const terps = Object.keys(terpeneSpellings);
 const terpenes = terps.filter((item, index, self) => self.indexOf(item) === index);
 terpenes.sort();
 

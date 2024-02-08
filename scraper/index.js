@@ -29,13 +29,11 @@ async function makeCannabinoidsFile() {
   logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
 }
 
-
-
 async function run(batchId, vendor) {
 
  await scrapers.run(batchId, vendor)
 
-//  / await makeProductsFile()
+await makeProductsFile()
 
  // await makeTerpenesFile()
 

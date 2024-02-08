@@ -10,13 +10,27 @@
         aroma!' So, terpenes are like the plant's fancy cologne, but for our noses, and they make everything smell and
         taste different, like a spice rack for nature.</p>
 
-      <ul v-for="terpene in terpenes">
-        <li><router-link :to="{ name:'TerpenePage',  params: {terpeneName:terpene.name} }">{{ terpene.name }}</router-link></li>
+      <ul>
+        <li v-for="terpene in terpenes"><router-link :to="{ name:'TerpenePage',  params: {terpeneName:terpene.name} }">{{ terpene.name }}</router-link></li>
       </ul>
     </div>
 
   </div>
 </template>
+
+<style>
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
 
 
 

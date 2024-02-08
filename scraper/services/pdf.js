@@ -18,11 +18,17 @@ async function readPDFs(pdfs) {
   return results
 }
 
+function fixText(str) {
+  let fixedText = insertSpaces(str);
+  fixedText = fixedText.replace(" -", "-");
+  return fixedText;
+}
+
 async function readPDF(url, name) {
 
   const buffer = await returnPDFBuffer(url);
 
-  const fixedText = insertSpaces(buffer);
+  const fixedText = fixText(buffer);
 
   const assay = transcribeAssay(fixedText);
   console.log('assay transcribed', assay.length);

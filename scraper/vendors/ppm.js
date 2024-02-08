@@ -7,9 +7,7 @@ const logger = require('../services/logger.js');
 const strings = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
 const { cannabinoids, terpenes } = require('../services/cortex')
-
 const html = require('./data/ppm-pdfs.js');
-const { all } = require('axios');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
 const url = 'https://perfectplantmarket.com/pages/lab-reports'
@@ -57,8 +55,6 @@ async function recordAssays() {
 
     const result = await readPDFs(pdfs);
 
-    const cannabinoids = result.filter(c => c.name.toLowerCase())
-
     const assays = result.map(r => {
       return {
         ...r,
@@ -88,14 +84,14 @@ async function getProducts(feedUrl) {
 
       const $element = $(el);
 
-      let title = $element.find('[data-pf-type="ProductTitle"]').text().trim();
+      let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
       title = strings.normalizeProductTitle(title);
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
       const image = `${imageSrc}`;
       const url = `https://perfectplantmarket.com${$element.find('[data-pf-type="MediaMain"]').data('href')}`;
       const vendor = 'PPM';
-      let vendorDate = $element.find('[data-pf-type="ProductMeta"]').text().trim();
+      let vendorDate = $element.find('[data-pf-type="ProductMeta"]:first').text().trim();
 
       const str = $element.find('script').text();
       const regex = /options_with_values:\s*(\[\{[^}]+\}\])/;
@@ -128,8 +124,9 @@ async function getProducts(feedUrl) {
 
       const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
       const terps = assay.assay.filter(a => terpenes.includes(a.name))
-
-      products.push({ title, image, url, vendor, vendorDate })
+console.log('canns', cannabinoids)
+console.log('terps', terpenes)
+      products.push({ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate })
     });
 
   } catch (error) {

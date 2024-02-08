@@ -57,7 +57,7 @@ export const useSpiderStore = defineStore('spider', {
       if (!this.products?.filter || !this.checkedCannabinoids?.filter && !this.checkedTerpenes?.filter) return this.products
       const products = this.products.filter((product) => {
         return (this.checkedVendors.includes(product.vendor) &&
-          product.variants.some((variant) => this.checkedVariants.includes(variant)) &&
+          product.variants?.some((variant) => this.checkedVariants.includes(variant)) &&
           (this.checkedCannabinoids.length === this.numSortableCannabinoids || (!product.cannabinoids || product.cannabinoids.some((cannabinoid) => this.checkedCannabinoids.includes(cannabinoid.name)))) &&
           (this.checkedTerpenes.length === this.numSortableTerpenes || (!product.terpenes || product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name))))
         )

@@ -54,7 +54,12 @@
 
               <!--<router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }" :title="terpene.name">-->
 
-              <span>{{ terpene }} %)</span>
+
+          <ul clss="right">
+            <li v-for="terpene in product.cannabinoids" class="chemical terpene"
+              :class="isChemicalSelected(terpene)"><span>{{ terpene.name }} ({{
+                terpene.pct }}%)</span></li>
+          </ul>
               <!--</router-link>-->
 
         </div>
