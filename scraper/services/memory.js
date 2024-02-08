@@ -87,6 +87,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   let products = await getAllProducts()
 
+  products = products.filter(p => p.variants && !p.variants.some(v => v.i))
+
   products = products.map(product => {
     product.cannabinoids = filterAssay(product.cannabinoids)
     product.terpenes = filterAssay(product.terpenes)
@@ -102,6 +104,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
 
 const cannabinoidSpellings = {
+  'A-9-Tetrahydrocannabiphorel': { name: 'THCP', confidence: 0.99 },
   '-A-10-Tetrahydrocannabinol': { name: 'S-∆-10-THC', confidence: 1 },
   '?5-Hexatydrocarrabiacl': { name: '9S-HHC', confidence: 0.9 },
   '∆-9 THC': { name: '∆-9-THC', confidence: 0.99 },

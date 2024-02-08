@@ -115,6 +115,7 @@ function cleanString(str) {
 }
 
 function variantNameContainsWeightUnitString(variantName) {
+  const regexMatchingPossibleWeightString = /(\d+)(\s+)?(g|oz|gram|ounce)/i
   return regexMatchingPossibleWeightString.test(variantName)
 }
 

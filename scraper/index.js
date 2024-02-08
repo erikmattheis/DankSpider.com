@@ -9,7 +9,7 @@ const logger = require('./services/logger.js')
 const {read} = require('./services/pdf.js')
 const { makeProductsFile } = require('./services/memory.js')
 
-const batchId = '0F'
+const batchId = '00z0'
 
 async function makeTerpenesFile() {
   const result = await getTerpenes()
@@ -31,13 +31,13 @@ async function makeCannabinoidsFile() {
 
 async function run(batchId, vendor) {
 
-// await scrapers.run(batchId, vendor)
+await scrapers.run(batchId, vendor)
 
-//await makeProductsFile()
+await makeProductsFile()
 
  // await makeTerpenesFile()
 
- // await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -56,7 +56,7 @@ async function run(batchId, vendor) {
   // await getproducts()
 // await read()
 
- await cleanProductsCollection()
+ // await cleanProductsCollection()
 
 
   logger.log({level:'info', message: `Done with batch ${batchId}`})
@@ -64,6 +64,6 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId, 'PPM')
+run(batchId)
 
 
