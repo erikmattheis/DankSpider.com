@@ -34,7 +34,7 @@ async function makeStats() {
     totalCannabinoidsWithValues += product.cannabinoids?.filter(c => c.pct > 0).length;
     vendors[product.vendor].numTerpenes += product.terpenes?.length;
     totalTerpenes += product.terpenes?.filter(t => t.pct > 0).length;
-    vendors[product.vendor].numTerpenesWithValues += product.terpenes?.filter ? product.terpenes?filter(t => t.pct > 0).length : 0;
+    vendors[product.vendor].numTerpenesWithValues += product.terpenes?.filter ? product.terpenes?.filter(t => t.pct > 0).length : 0;
     totalTerpenesWithValues += product.terpenes?.filter(c => c.pct > 0).length;
 
   }

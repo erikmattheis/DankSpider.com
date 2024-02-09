@@ -1,7 +1,7 @@
 const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
-const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
+const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUnitString } = require('../services/strings')
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
@@ -30,7 +30,7 @@ async function getAvailableLeafProducts() {
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
 
-        const filteredVariants = variants.filter((variant) => strings.variantNameContainsWeightUnitString(variant.title));
+        const filteredVariants = variants.filter((variant) => variantNameContainsWeightUnitString(variant.title));
 
         if (filteredVariants.length && (productType === 'flower')) {
 

@@ -9,7 +9,7 @@ const logger = require('./services/logger.js')
 const {read} = require('./services/pdf.js')
 const { makeProductsFile } = require('./services/memory.js')
 
-const batchId = '00z0'
+const batchId = '00y'
 
 async function makeTerpenesFile() {
   const result = await getTerpenes()
@@ -30,8 +30,8 @@ async function makeCannabinoidsFile() {
 }
 
 async function run(batchId, vendor) {
-
-//await scrapers.run(batchId, vendor)
+  const timer = performance.now()
+  await scrapers.run(batchId, vendor)
 
 //await makeProductsFile()
 
@@ -58,8 +58,8 @@ async function run(batchId, vendor) {
 
 
 
-
-  logger.log({level:'info', message: `Done with batch ${batchId}`})
+  const time = ((performance.now() - timer)/1000).toFixed(2)
+  logger.log({level:'info', message: `Done with batch ${batchId} in ${time} seconds`});
 
   process.exit(0)
 }

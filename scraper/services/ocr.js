@@ -52,6 +52,26 @@ async function recognize(url) {
       return null
     }
 
+    // determine size of image
+    const size = await new Promise((resolve, reject) => {
+      gm(buffer).size((err, size) => {
+        if (err) {
+          reject(err)
+        }
+        else {
+          resolve(size)
+        }
+      })
+    })
+
+    // if smaller than 3 in one dimention
+    if (size.width < 3 || size.height < 3) {
+      logger.warn(`Image too small: ${url}`)
+      return null
+    }
+
+    // deter
+
     // const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
 
     const result = await worker.recognize(buffer);

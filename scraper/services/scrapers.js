@@ -50,7 +50,7 @@ function logErrorToFile(str) {
 async function run(batchId, vendor) {
   const tasks = [];
 
-  if (false && !vendor || vendor === 'PPM') {
+  if (!vendor || vendor === 'PPM') {
     tasks.push(ppm.getAvailableLeafProducts().then(saveProducts));
   }
 
