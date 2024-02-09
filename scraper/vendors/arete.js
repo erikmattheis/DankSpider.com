@@ -6,7 +6,7 @@ const cheerio = require('cheerio')
 
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 
-const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
+const feedUrl = 'https://aretehemp.com/product-category/high-thca/page/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
 
@@ -88,29 +88,28 @@ async function parseSingleProduct(html, url) {
 
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
-  const $ = cheerio.load(result.data, { xmlMode: true })
+  const $ = cheerio.load(result.data)
  //fs.writeFileSync('./temp/vendors/arete.xml', result.data)
 
-  const items = $('item')
+  const items = $('ul.nm-products')
   const products = []
   for (let i = 0; i < items.length; i++) {
 
     const el = items[i]
 
-    let title = $('title').text();
+    let title = $('.nm-shop-loop-title-link').text();
     title = normalizeProductTitle(title.trim());
     if (stringContainsNonFlowerProduct(title)) {
         continue
     }
-    const url = $(el).find('link').text()
+    const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
     const resultP = await axios.get(url)
     const vendor = 'Arete'
-    const vendorDate = $(el).find('pubDate').text()
 
     const more = await parseSingleProduct(resultP.data, url)
 
     const product = {
-      ...more, vendor, vendorDate
+      ...more, title, vendor
     }
 
     products.push(product)
