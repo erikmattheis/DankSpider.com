@@ -108,7 +108,6 @@ function getAnyChemicalObj(line) {
   const name = parts[0];
 
   if (name === 'Unknown' || parts.length < 3) {
-    fs.appendFileSync('./temp/unknownchemicals.txt', `${line}\n`)
     return { name, pct: 0, mgg: 0, originalText: line }
   }
 
@@ -133,8 +132,11 @@ function normalizeCannabinoid(name, url) {
   if (cannabinoidSpellings[name]) {
     return cannabinoidSpellings[name].name
   }
+// regex that makes sure there are five lowercase letters in a row, at least two digits in a row preceeded by a period and at least four spaces
+  if (name && name.length > 16 ) {
+    fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
+  }
 
-  fs.appendFileSync('./temp/unknownchemicals.txt', `${name}\n`)
   return "Unknown"
 }
 
