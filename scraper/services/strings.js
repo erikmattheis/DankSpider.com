@@ -131,36 +131,18 @@ function variantNameContainsWeightUnitString(variantName) {
   return regexMatchingPossibleWeightString.test(variantName)
 }
 
-let collectionIds;
-
-async function initializeCollectionIds(collectionRef) {
-  const snapshot = await collectionRef.get();
-  collectionIds = snapshot.docs.map(doc => doc.data().id);
-}
-
-initializeCollectionIds();
-
-function collectionIdExists(id) {
-  return collectionIds.includes(id);
-}
-
 function makeFirebaseSafe(str) {
   const encoded = encodeURI(str);
   return encoded.replace(/[\/.#[\]*$]/g, '_');
 }
 
 async function makeFirebaseSafeId(suffix, product, collectionRef) {
-  let n = 0
-  let id = ''
-  let idExists = true
-  while (idExists) {
-    id = `${product.vendor}-${suffix}-${product.title}{n}`
-    id = id.replace(/%20/g, '-')
-    idExists = await collectionIdExists(id, collectionRef)
-    n = n + 1
-  }
+
+  let id = `${product.vendor}-${suffix}-${product.title}{n}`
+  id = id.replace(/%20/g, '-')
   const result = makeFirebaseSafe(id)
   return result
+
 }
 
 const cheerio = require('cheerio');

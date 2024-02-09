@@ -87,8 +87,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   let products = await getAllProducts()
 
-  products = products.filter(p => p.variants && !p.variants.some(v => v.i))
-
   products = products.map(product => {
     product.cannabinoids = filterAssay(product.cannabinoids)
     product.terpenes = filterAssay(product.terpenes)

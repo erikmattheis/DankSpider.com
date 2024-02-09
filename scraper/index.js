@@ -43,11 +43,15 @@ async function run(batchId, vendor) {
   const timer = performance.now()
   await scrapers.run(batchId, vendor)
 
-//await makeProductsFile()
+  await cleanProductsCollection()
+
+  await makeProductsFile()
+
+// await makeProductsFile()
 
  // await makeTerpenesFile()
-// await cleanProductsCollection()
-  await makeStats()
+
+  //await makeStats()
 
   // await makeStrainsFile()
 
