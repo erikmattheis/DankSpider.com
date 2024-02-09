@@ -71,7 +71,7 @@ async function recordAssays() {
 
 const products = [];
 
-async function getProducts(feedUrl) {
+async function getProducts() {
   try{
 
     allAssays = await getAssays();
@@ -85,6 +85,7 @@ async function getProducts(feedUrl) {
 
       let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
       title = normalizeProductTitle(title);
+      console.log(title)
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
       const image = `${imageSrc}`;
@@ -114,7 +115,7 @@ async function getProducts(feedUrl) {
       });
 
       if (!assay?.assay) {
-        fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, `)
+        fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
         return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
       }
 
@@ -134,7 +135,7 @@ async function getProducts(feedUrl) {
 }
 
 async function getAvailableLeafProducts() {
-  const products = await getProducts(feedUrl)
+  const products = await getProducts()
   return products
 }
 

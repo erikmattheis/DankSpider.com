@@ -126,10 +126,10 @@ async function saveChemicals(products, batchId, useDev) {
   }
 
   const timestamp = admin.firestore.Timestamp.now();
-  const idPrefix = batchId || timestamp.toDate().toISOString();
+  const idSuffix = batchId || timestamp.toDate().toISOString();
 
   for (product of products) {
-    const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
+    const id = await makeFirebaseSafeId(idSuffix, product, productsRef);
     const docRef = productsRef.doc(id);
     if (batchId) {
       batch.set(docRef, {
@@ -166,11 +166,11 @@ async function saveProducts(products, batchId, useDev) {
   const  productsRef = db.collection('products');
 
   const timestamp = admin.firestore.Timestamp.now();
-  const idPrefix = batchId || timestamp.toDate().toISOString();
+  const idSuffix = batchId || timestamp.toDate().toISOString();
 
   for (const product of products) {
     if (product?.title) {
-      const id = await makeFirebaseSafeId(idPrefix, product, productsRef);
+      const id = await makeFirebaseSafeId(idSuffix, product, productsRef);
       const docRef = productsRef.doc(id);
       if (batchId) {
         batch.set(docRef, {
@@ -313,7 +313,7 @@ async function fixValues() {
     }
 
   } catch (error) {
-    console.error('Error in extractBodyChildren:', error);
+    console.error('Error in fixValues:', error);
   }
 }
 

@@ -45,7 +45,7 @@ async function makeStats() {
   console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids/totalProducts).toFixed(2));
   console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues/totalProducts).toFixed(2));
   console.log('numTerpenes', totalTerpenes);
-  console.log('numTerpenesWithValues', totalTerpenesWithValues, (totalTerpenesWithValues/Products).toFixed(2));
+  console.log('numTerpenesWithValues', totalTerpenesWithValues, (totalTerpenesWithValues/totalProducts).toFixed(2));
 
   saveStats(vendors);
 

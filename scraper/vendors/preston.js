@@ -23,9 +23,10 @@ function getImageSrc(html) {
 
 async function getPrestonProductInfo(product) {
   // try {
-
+  if (!product.url) {
+    return null;
+  }
   const response = await axios.get(product.url);
-  fs.writeFileSync('./temp/vendors/preston-product.html', response.data);
 
   if (response.status < 400) {
     const $ = cheerio.load(response.data);

@@ -34,31 +34,24 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor) {
-  const tasks = [];
 
-  if (!vendor || vendor === 'PPM') {
-    tasks.push(ppm.getAvailableLeafProducts().then(saveProducts));
-  }
+  const vendors = [
+    { name: 'PPM', service: ppm },
+    { name: 'Arete', service: arete },
+    { name: 'drGanja', service: drGanja },
+    { name: 'WNC', service: wnc },
+    { name: 'Preston', service: preston },
+    { name: 'TopCola', service: topcola },
+  ];
 
-  if (!vendor || vendor === "Arete") {
-    tasks.push(arete.getAvailableLeafProducts().then(saveProducts));
-  }
+  const tasks = vendors
+    .filter(({ name }) => !vendor || vendor === name)
+    .map(async ({ service }) => {
+      const products = await service.getAvailableLeafProducts();
+      return saveProducts(products, batchId, vendor);
+    });
 
-  if (!vendor || vendor === 'drGanja') {
-    tasks.push(drGanja.getAvailableLeafProducts().then(saveProducts));
-  }
-
-  if (!vendor || vendor === 'WNC') {
-    tasks.push(wnc.getAvailableLeafProducts().then(saveProducts));
-  }
-
-  if (!vendor || vendor === 'Preston') {
-    tasks.push(preston.getAvailableLeafProducts().then(saveProducts));
-  }
-
-  if (!vendor || vendor === 'TopCola') {
-    tasks.push(topcola.getAvailableLeafProducts().then(saveProducts));
-  }
+  await Promise.all(tasks);
 
   try {
     await Promise.all(tasks);

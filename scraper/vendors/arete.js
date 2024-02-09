@@ -6,12 +6,32 @@ const cheerio = require('cheerio')
 
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 
-const feedUrl = 'https://aretehemp.com/product-category/high-thca/page/'
+const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
+
+  const imgElements = $('picture[data-large_image]')
+
+  let productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
+
+  productImages = Array.from(productImages)
+  console.log(productImages)
+  productImages = productImages.filter(img => img.includes('Lab'))
+  productImages = productImages.map(img => img.startsWith('//') ? `https:${img}` : img)
+
+
+  const assayLinks = filteredLinks.sort((a, b) => {
+    if (a.toLowerCase().includes('lab')) {
+      return -1
+    }
+    if (b.toLowerCase().includes('lab')) {
+      return 1
+    }
+    return 0
+  })
 
   const variants = []
 
@@ -24,32 +44,12 @@ async function parseSingleProduct(html, url) {
       variants.push(sizeString)
   })
 
-  const imgElements = $('picture')
-
-  const productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
-
-  const filteredLinks = productImages.filter(imgStr => !imgStr?.includes('Legal') && !imgStr?.includes('Rosin') && !imgStr?.includes('Resin') && !imgStr?.includes('Full Melt'));
-
-    // move to beginning of array any members that contain the word 'la&&
-
-  const assayLinks = filteredLinks.sort((a, b) => {
-    if (a.toLowerCase().includes('lab')) {
-      return -1
-    }
-    if (b.toLowerCase().includes('lab')) {
-      return 1
-    }
-    return 0
-  })
-
 
   let terpenes = []
   let cannabinoids = []
 
   if (assayLinks.length === 0) {
-    logger.log({
-  level: 'info',
-  message: `Arete no images`})
+
     return { title, url, cannabinoids, terpenes, image:productImages[0], variants, vendor: 'Arete' }
   }
 
@@ -84,6 +84,24 @@ async function parseSingleProduct(html, url) {
   }
 
   return { title, url, image:productImages[0], variants, cannabinoids, terpenes, vendor: 'Arete' }
+}
+
+function get3003image(html) {
+  const $ = cheerio.load(html);
+
+  let desiredImageUrl = '';
+
+  const srcset = $('source, img').first().attr('srcset');
+
+  const sources = srcset.split(', ');
+
+  sources.forEach(source => {
+      if (source.endsWith('300w')) {
+          [desiredImageUrl] = source.split(' ');
+      }
+  });
+
+  return desiredImageUrl;
 }
 
 async function getProducts(feedUrl) {

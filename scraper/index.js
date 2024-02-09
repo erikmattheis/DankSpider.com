@@ -11,6 +11,16 @@ const { makeProductsFile } = require('./services/memory.js')
 
 const batchId = '00y'
 
+process.on('uncaughtException', (err) => {
+  console.error('There was an uncaught error', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at:', p, 'reason:', reason);
+  process.exit(1); //mandatory (as per the Node.js docs)
+});
+
 async function makeTerpenesFile() {
   const result = await getTerpenes()
   fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
@@ -64,6 +74,6 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId)
+run(batchId, 'PPM')
 
 

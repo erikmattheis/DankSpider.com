@@ -131,9 +131,17 @@ function variantNameContainsWeightUnitString(variantName) {
   return regexMatchingPossibleWeightString.test(variantName)
 }
 
-async function collectionIdExists(id, collectionRef) {
-  const snapshot = await collectionRef.where('id', '==', id).get()
-  return !snapshot.empty
+let collectionIds;
+
+async function initializeCollectionIds(collectionRef) {
+  const snapshot = await collectionRef.get();
+  collectionIds = snapshot.docs.map(doc => doc.data().id);
+}
+
+initializeCollectionIds();
+
+function collectionIdExists(id) {
+  return collectionIds.includes(id);
 }
 
 function makeFirebaseSafe(str) {
@@ -141,12 +149,13 @@ function makeFirebaseSafe(str) {
   return encoded.replace(/[\/.#[\]*$]/g, '_');
 }
 
-async function makeFirebaseSafeId(prefix, product, collectionRef) {
+async function makeFirebaseSafeId(suffix, product, collectionRef) {
   let n = 0
   let id = ''
   let idExists = true
   while (idExists) {
-    id = `${prefix}-${product.title}-${product.vendor}-${n}`
+    id = `${product.vendor}-${suffix}-${product.title}{n}`
+    id = id.replace(/%20/g, '-')
     idExists = await collectionIdExists(id, collectionRef)
     n = n + 1
   }

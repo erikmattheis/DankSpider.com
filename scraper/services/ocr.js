@@ -28,77 +28,83 @@ const logger = require('../services/logger.js');
 let worker;
 
 async function recognize(url) {
-
   logger.log({
-  level: 'info',
-  message: `\n\nrecognize ${url}`})
+    level: 'info',
+    message: `\n\nrecognize ${url}`
+  });
+
+  let worker;
 
   try {
-
     worker = await createWorker('eng', OEM.DEFAULT, {
       cachePath: './tessdata',
       languagePath: './tessdata',
-      errorHandler: (err) => { logger.error('Error in worker:', err); fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`) },
+      errorHandler: (err) => {
+        logger.error('Error in worker:', err);
+        fs.appendFileSync('./temp/errors.txt', `\nError in worker: ${url}\n${JSON.stringify(err, null, 2)}\n\n`);
+      },
     });
 
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.DEFAULT
     });
 
-    const buffer = await getBuffer(url);
+    // Add a timeout to the getBuffer function
+    const buffer = await Promise.race([
+      getBuffer(url),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000)) // 5 seconds timeout
+    ]);
 
     if (!buffer || buffer.length === 0) {
-      logger.warn(`No image buffer: ${url}`)
-      return null
+      logger.warn(`No image buffer: ${url}`);
+      return null;
     }
 
-    // determine size of image
-    const size = await new Promise((resolve, reject) => {
-      gm(buffer).size((err, size) => {
-        if (err) {
-          reject(err)
-        }
-        else {
-          resolve(size)
-        }
-      })
-    })
+    // Add error handling to gm
+    let size;
+    try {
+      size = await new Promise((resolve, reject) => {
+        gm(buffer).size((err, size) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(size);
+          }
+        });
+      });
+    } catch (error) {
+      logger.error(`Error in gm: ${error}`);
+      return null;
+    }
 
-    // if smaller than 3 in one dimention
     if (size.width < 3 || size.height < 3) {
-      logger.warn(`Image too small: ${url}`)
-      return null
+      logger.warn(`Image too small: ${url}`);
+      return null;
     }
 
-    // deter
-
-    // const headline = await worker.recognize(buffer, configFirstLook, { textonly: true });
-
-    const result = await worker.recognize(buffer);
+    // Add error handling to tesseract
+    let result;
+    try {
+      result = await worker.recognize(buffer);
+    } catch (error) {
+      logger.error(`Error in tesseract: ${error}`);
+      return null;
+    }
 
     if (!result.data.text || result.data.text.length === 0) {
-      logger.warn(`No text: ${url}`)
-      return null
+      logger.warn(`No text: ${url}`);
+      return null;
     }
 
     return result.data.text;
-
   } catch (error) {
-
     logger.error(error);
-
-    logger.error(`Error in recognize: ${url}\n${JSON.stringify(error, null, 2)}`)
+    logger.error(`Error in recognize: ${url}\n${JSON.stringify(error, null, 2)}`);
+  } finally {
+    if (worker) {
+      await worker.terminate();
+    }
   }
-
-  finally {
-
-
-    await worker?.terminate();
-
-
-  }
-
-
 }
 
 
