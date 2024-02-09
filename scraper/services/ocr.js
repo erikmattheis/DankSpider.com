@@ -52,7 +52,7 @@ async function recognize(url) {
     // Add a timeout to the getBuffer function
     const buffer = await Promise.race([
       getBuffer(url),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000)) // 5 seconds timeout
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 10000)) // 5 seconds timeout
     ]);
 
     if (!buffer || buffer.length === 0) {

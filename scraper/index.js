@@ -51,7 +51,7 @@ async function run(batchId, vendor) {
 
  // await makeTerpenesFile()
 
-  //await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 

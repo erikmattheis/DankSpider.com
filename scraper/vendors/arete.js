@@ -41,15 +41,17 @@ async function parseSingleProduct(html, url) {
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size
+    console.log('size', variation.attributes.attribute_size)
     const sizeString = normalizeVariantName(size)
       variants.push(sizeString)
   })
-
 
   let terpenes = []
   let cannabinoids = []
 
   if (assayLinks.length === 0) {
+
+    console.log('no assay links', url)
 
     return { cannabinoids, terpenes, image:productImages[0], variants }
   }
