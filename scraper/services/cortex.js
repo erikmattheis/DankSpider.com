@@ -132,8 +132,9 @@ function normalizeCannabinoid(name, url) {
   if (cannabinoidSpellings[name]) {
     return cannabinoidSpellings[name].name
   }
-// regex that makes sure there are five lowercase letters in a row, at least two digits in a row preceeded by a period and at least four spaces
-  if (name && name.length > 16 ) {
+  // regex that makes sure there are five lowercase letters in a row, at least two digits in a row preceeded by a period and at least four spaces
+  const regex = /[a-z]{5,}.*\d{2,}.*\d{4,}/g
+  if (name.match(regex) ) {
     fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
   }
 

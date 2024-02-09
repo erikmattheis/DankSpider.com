@@ -43,9 +43,9 @@ async function run(batchId, vendor) {
   const timer = performance.now()
   await scrapers.run(batchId, vendor)
 
-  await cleanProductsCollection()
+  //await cleanProductsCollection()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
 // await makeProductsFile()
 
@@ -78,6 +78,6 @@ async function run(batchId, vendor) {
   process.exit(0)
 }
 
-run(batchId, 'PPM')
+run(batchId, 'Arete')
 
 

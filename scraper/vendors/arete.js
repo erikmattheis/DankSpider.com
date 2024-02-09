@@ -13,21 +13,22 @@ const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
 
+  fs.writeFileSync('./temp/vendors/sarete.html', html)
+
   const imgElements = $('picture[data-large_image]')
 
   let productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
 
   productImages = Array.from(productImages)
-  console.log(productImages)
   productImages = productImages.filter(img => img.includes('Lab'))
   productImages = productImages.map(img => img.startsWith('//') ? `https:${img}` : img)
 
 
-  const assayLinks = filteredLinks.sort((a, b) => {
-    if (a.toLowerCase().includes('lab')) {
+  const assayLinks = productImages.sort((a, b) => {
+    if (a.toLowerCase().includes('labs')) {
       return -1
     }
-    if (b.toLowerCase().includes('lab')) {
+    if (b.toLowerCase().includes('labs')) {
       return 1
     }
     return 0
@@ -50,7 +51,7 @@ async function parseSingleProduct(html, url) {
 
   if (assayLinks.length === 0) {
 
-    return { title, url, cannabinoids, terpenes, image:productImages[0], variants, vendor: 'Arete' }
+    return { cannabinoids, terpenes, image:productImages[0], variants }
   }
 
   for (const imgStr of assayLinks) {
@@ -58,8 +59,6 @@ async function parseSingleProduct(html, url) {
 
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
-
-    //fs.writeFileSync('./temp/vendors/arete-raw.js', JSON.stringify(result, null, 2))
 
     if (!result) {
       logger.log({
@@ -83,7 +82,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  return { title, url, image:productImages[0], variants, cannabinoids, terpenes, vendor: 'Arete' }
+  return { image:productImages[0], variants, cannabinoids, terpenes }
 }
 
 function get3003image(html) {
@@ -107,27 +106,29 @@ function get3003image(html) {
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data)
- //fs.writeFileSync('./temp/vendors/arete.xml', result.data)
+ fs.writeFileSync('./temp/vendors/arete.html', result.data)
 
-  const items = $('ul.nm-products')
+  const items = $('ul.nm-products li.product');
+  console.log('items', items.length)
   const products = []
   for (let i = 0; i < items.length; i++) {
 
+
+
     const el = items[i]
 
-    let title = $('.nm-shop-loop-title-link').text();
+    let title = $(el).find('.nm-shop-loop-title-link').text();
     title = normalizeProductTitle(title.trim());
     if (stringContainsNonFlowerProduct(title)) {
         continue
     }
+    console.log('arete', title)
     const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
     const resultP = await axios.get(url)
-    const vendor = 'Arete'
-
     const more = await parseSingleProduct(resultP.data, url)
-
+    const vendor = 'Arete'
     const product = {
-      ...more, title, vendor
+      ...more, url, title, vendor
     }
 
     products.push(product)
