@@ -27,20 +27,6 @@ const scan = [
   "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1",
 ];
 
-async function testOCR() {
-  for (const url of scan) {
-    logger.log({
-      level: "info",
-      message: `url: ${url}`,
-    });
-    const result = await recognize(url);
-    logger.log({
-      level: "info",
-      message: `result: ${JSON.stringify(result, null, 2)}`,
-    });
-  }
-}
-
 function logErrorToFile(str) {
   if (process.env.NODE_ENV !== "production") {
     fs.appendFileSync("./temp/errors.txt", str + "\n\n");
@@ -86,124 +72,8 @@ async function run(batchId, vendor) {
   }
 
 
-  /*
-
-  if (false && !vendor || vendor === 'PPM') {
-
-    try {
-      //const doit = await ppm.recordAssays()
-      const ppmProducts = await ppm.getAvailableLeafProducts()
-
-     await saveProducts(ppmProducts, batchId)
-    } catch (error) {
-      logger.error(error)
-      logErrorToFile(error)
-    }
-
-  }
-
-  if (!vendor || vendor === "Arete") {
-    try {
-      const areteProducts = await arete.getAvailableLeafProducts();
-
-      await saveProducts(areteProducts, batchId);
-    } catch (error) {
-      logger.error(error);
-      logErrorToFile(error);
-    }
-  }
-
-
-  if (!vendor || vendor === 'drGanja') {
-
-    try {
-      const drGanjaProducts = await drGanja.getAvailableLeafProducts()
-
-      await saveProducts(drGanjaProducts, batchId)
-    } catch (error) {
-      logger.error(error)
-      logErrorToFile(error)
-    }
-  }
-
-
-    if (!vendor || vendor === 'WNC') {
-      try {
-        const wncProducts = await wnc.getAvailableLeafProducts()
-
-        await saveProducts(wncProducts, batchId)
-      } catch (error) {
-        logger.error(error)
-        logErrorToFile(error)
-      }
-
-    }
-
-
-
-  if (!vendor || vendor === 'Preston') {
-    try {
-      const prestonProducts = await preston.getAvailableLeafProducts()
-
-      await saveProducts(prestonProducts, batchId)
-    } catch (error) {
-      logger.error(error)
-      logErrorToFile(error)
-    }
-  }
-
-  if (!vendor || vendor === 'TopCola') {
-
-    try {
-      const topcolaProducts = await topcola.getAvailableLeafProducts()
-
-      await saveProducts(topcolaProducts, batchId)
-    } catch (error) {
-      logger.error(error)
-      logErrorToFile(error)
-    }
-
-    logger.log({
-    level: 'info',
-    message: `Data has been written to Firebase for all vendors.`
-    })
-  }
-
-
-  */
-
-  /*
-  if (!vendor || vendor === 'Flow') {
-
-    try {
-      const flowProducts = await flow.getAvailableLeafProducts()
-
-      await saveProducts(flowProducts, batchId)
-    } catch (error) {
-      logger.error(error)
-
-      logErrorToFile(error)
-    }
-  }
-
-
-
-    if (!vendor || vendor === 'Enlighten') {
-
-      try {
-        const enlightenProducts = await enlighten.getAvailableLeafProducts()
-
-        await saveProducts(enlightenProducts, batchId)
-      } catch (error) {
-        logger.error(error)
-        logErrorToFile(error)
-      }
-    }
-*/
-
 }
 
 module.exports = {
   run,
-  testOCR,
 };

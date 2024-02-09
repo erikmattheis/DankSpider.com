@@ -56,17 +56,12 @@ async function getPrestonProductInfo(product) {
       const result = transcribeAssay(raw, image);
 
       if (!result) {
-        logger.log({
-          level: 'info',
-          message: `Nothing interesting, continuing ... ${image}`});
 
         continue;
       }
 
       if (result instanceof String) {
-        logger.log({
-        level: 'info',
-        message: `image rejected: ${url}`});
+
 
         continue;
       }
@@ -86,7 +81,6 @@ async function getPrestonProductInfo(product) {
     // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
 
-    logger.log({level:'info', message: `${product.title} has ${product.terpenes?.length} terpenes and ${product.cannabinoids?.length} cannabinoids`});
 
     return {
       ...product,
@@ -124,15 +118,18 @@ async function scrapePage(url, currentPage) {
 
       const title = $(card).find('div.product-name').text().trim();
 
-      if (isDesiredProduct(title)) {
-
-        const image = getImageSrc(card);
-
-        const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
-
-        productLinks.push({ title: normalizeProductTitle(title), url: url, vendor: 'Preston' });
-
+      if (['Rosin', 'Resin', 'Full Melt', 'Bubble Hash', 'Sift Hash', 'Macaroons', 'Cannacookies', 'Pre-Rolls', 'Pre Rolls', 'Mixed Smalls', 'Mixed Shake', 'Diamonds', 'Cereal Bars', 'Bundles', 'Vape '].some(s => title.includes(s))) {
+        continue
       }
+      const path = $(card).find('a.product-card').attr('href');
+
+      if (!path) {
+        continue;
+      }
+
+      const url = 'https://www.prestonhempco.com' + $(card).find('a.product-card').attr('href');
+
+      productLinks.push({ title: normalizeProductTitle(title), url, vendor: 'Preston' });
     }
 
     return productLinks;
@@ -140,19 +137,6 @@ async function scrapePage(url, currentPage) {
   } catch (error) {
     throw new Error(`Error scraping page: ${error.message}`);
   }
-}
-
-function isDesiredProduct(productTitle) {
-  if (!productTitle) {
-    return false;
-  }
-  const lowerTitle = productTitle.toLowerCase();
-
-  if (lowerTitle.slice(-4) === 'hemp') {
-    return true;
-  }
-
-  return false
 }
 
 async function getPrestonProductsInfo(products) {
@@ -168,9 +152,7 @@ async function getPrestonProductsInfo(products) {
     const info = await getPrestonProductInfo(product);
 
     if (!info || !info.variants || info.variants.length === 0) {
-      logger.log({
-  level: 'info',
-  message: `no variants or error, skipping ${product.url}`});
+
       continue;
     }
 
@@ -191,10 +173,6 @@ async function getPrestonProductsInfo(products) {
 }
 
 async function getAvailableLeafProducts() {
-
-   logger.log({
-  level: 'info',
-  message: `Getting Preston products`});
 
   const products = await scrapePage(startUrl, currentPage);
 

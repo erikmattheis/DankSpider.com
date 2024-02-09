@@ -8,12 +8,10 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/feed/'
 const logger = require('../services/logger.js');
-const { transcribeAssay } = require('../services/cortex.js')
+const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
-
-  const title = normalizeProductTitle($('h1.product_title').text().trim())
 
   const variants = []
 
@@ -29,11 +27,10 @@ async function parseSingleProduct(html, url) {
   const imgElements = $('picture')
 
   const productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
-console.log('productImages', productImages.length)
 
-  const filteredLinks = productImages.filter(imgStr => !imgStr?.includes('Legal'))
+  const filteredLinks = productImages.filter(imgStr => !imgStr?.includes('Legal') && !imgStr?.includes('Rosin') && !imgStr?.includes('Resin') && !imgStr?.includes('Full Melt'));
 
-    // move to beginning of array any members that contain the word 'lab'
+    // move to beginning of array any members that contain the word 'la&&
 
   const assayLinks = filteredLinks.sort((a, b) => {
     if (a.toLowerCase().includes('lab')) {
@@ -45,7 +42,6 @@ console.log('productImages', productImages.length)
     return 0
   })
 
-  console.log('assayLinks', assayLinks)
 
   let terpenes = []
   let cannabinoids = []
@@ -74,25 +70,15 @@ console.log('productImages', productImages.length)
 
     if (result?.terpenes?.length) {
 
-      logger.log({
-        level: 'info',
-        message: `TERPENES ... ${result.terpenes.length}`})
-
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result?.cannabinoids?.length) {
 
-      logger.log({
-        level: 'info',
-        message: `CANNABINOIDS ... ${result.cannabinoids.length}`})
 
       cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `arete both terpenes and cannabinoids found`})
       break
     }
   }
@@ -107,9 +93,15 @@ async function getProducts(feedUrl) {
 
   const items = $('item')
   const products = []
-
   for (let i = 0; i < items.length; i++) {
+
     const el = items[i]
+
+    let title = $('title').text();
+    title = normalizeProductTitle(title.trim());
+    if (stringContainsNonFlowerProduct(title)) {
+        continue
+    }
     const url = $(el).find('link').text()
     const resultP = await axios.get(url)
     const vendor = 'Arete'

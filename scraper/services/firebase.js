@@ -268,19 +268,16 @@ async function getCompleteProducts() {
 }
 
 async function fixValues() {
-  console.log('Starting fixValues...');
   const contentRef = db.collection('products');
 
   try {
     const snapshot = await contentRef.get();
-    console.log('Got snapshot');
 
     // Handle potentially large collections
     let batch = db.batch();
     let operationCount = 0;
 
     snapshot.forEach((doc) => {
-      console.log(`Processing document ${doc.id}...`);
       const chem = doc.data();
       chem.cannabinoids?.forEach(cannabinoid => {
         cannabinoid.pct = parseFloat(cannabinoid.pct);
@@ -303,9 +300,7 @@ async function fixValues() {
       operationCount++;
 
       if (operationCount === 500) {
-        console.log('Committing batch...');
         batch.commit();
-        console.log('Batch committed, starting new batch');
         batch = db.batch();
         operationCount = 0;
       }

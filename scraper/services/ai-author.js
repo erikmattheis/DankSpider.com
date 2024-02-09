@@ -12,10 +12,7 @@ async function getOpenAIArticle(topic, length) {
     messages,
     model,
   });
-  logger.log({
-    level: 'info',
-    message: `res ${gptResponse.choices[0].message.content}`
-  });
+
   return gptResponse.choices[0].message.content;
 
 }
@@ -60,16 +57,8 @@ async function getArticle(chemical, length) {
 
   const article = await getOpenAIArticle(chemical, length);
 
-  logger.log({
-    level: 'info',
-    message: `article: ${article}`
-  });
   const description = await getOpenAIDescription(`terpene ` + chemical);
 
-  logger.log({
-    level: 'info',
-    message: `description: ${description}`
-  });
 
   return { name: chemical, article, description, headline }
 }

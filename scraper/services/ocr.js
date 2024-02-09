@@ -81,8 +81,6 @@ async function recognize(url) {
       return null
     }
 
-//console.log('result.data.text', result.data.text)
-
     return result.data.text;
 
   } catch (error) {
@@ -157,13 +155,12 @@ const getWorker = async (PSM) => {
     const worker = await createWorker("eng", OEM.DEFAULT, {
       cachePath: './tessdata',
       logger: m => logger.log(m),
-      errorHandler: (err) => { logger.error('Tesseract Error:', err) },
+      errorHandler: (err) => { logger.error('Tesseract Error:', err); fs.appendFileSync('./temp/errors.txt', `\nError in Tesseract worker\n${JSON.stringify(err, null, 2)}\n\n`) },
     })
 
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.SINGLE_COLUMN,
     });
-
 
     await worker.loadLanguage('eng');
 

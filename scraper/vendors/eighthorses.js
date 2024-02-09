@@ -69,19 +69,11 @@ async function getProduct(url) {
     }
 
     if (terpenes?.length && cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found`})
+
       break;
     }
 
   }
-
-await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
-
-logger.log({
-  level: 'info',
-  message: `Saved ${title}`});
 
   return {
     title,
@@ -158,7 +150,6 @@ async function scrapePage(url, currentPage, productLinks) {
 
   //try {
   const response = await axios.get(url);
-  fs.writeFileSync('./temp/vendors/ehh.html', response.data);
 
 
   const $ = cheerio.load(response.data, { xmlMode: true })
@@ -183,11 +174,7 @@ async function scrapePage(url, currentPage, productLinks) {
     currentPage++;
     await scrapePage(nextPageLink, currentPage, productLinks);
   }
-  /*
-} catch (error) {
-  throw new Error(`Error scraping page: ${error.message}`);
-}
-*/
+
   return productLinks;
 }
 

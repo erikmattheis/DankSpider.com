@@ -15,7 +15,6 @@ let allAssays
 
 
 async function getListOfTHCAPDFs() {
-  console.log('url', url)
 
  // await axios.get(url);
 
@@ -98,10 +97,6 @@ async function getProducts(feedUrl) {
       /* */
       const matches0 = str.match(regex);
 
-      if (!matches0 || !matches0[1]) {
-        console.log('No variants found');
-      }
-
       const regex1 = /"values":\s*(\[\s*"[^"\]]*"\s*(?:,\s*"[^"\]]*"\s*)*\])/;
 
       const matches = str.match(regex1);
@@ -111,8 +106,6 @@ async function getProducts(feedUrl) {
         variants = JSON.parse(matches[1]);
         variants = variants.filter(v => !v.includes('PreRolls'));
         variants = variants.map(v => normalizeVariantName(v));
-      } else {
-          console.log("No match found");
       }
 
       const assay = allAssays.find(p => {
@@ -127,10 +120,7 @@ async function getProducts(feedUrl) {
 
       const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
       const terps = assay.assay.filter(a => terpenes.includes(a.name))
-/*
-      console.log('canns', canns)
-      console.log('terps', terpenes)
-*/
+
       products.push({ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate })
     });
 

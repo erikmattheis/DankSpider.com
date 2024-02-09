@@ -39,6 +39,7 @@ async function getProducts() {
 
   $('.drganja_products_list').each((_, entry) => {
     const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
+
     const url = $(entry).find('.drganja_list_product_image').attr('href');
     const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
     const vendor = 'Dr Ganja';
@@ -112,9 +113,6 @@ async function addAssays(product, $) {
 
 
     if (terpenes?.length && cannabinoids?.length) {
-      logger.log({
-  level: 'info',
-  message: `both terpenes and cannabinoids found`})
       break;
     }
   }

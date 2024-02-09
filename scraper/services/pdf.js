@@ -31,7 +31,6 @@ async function readPDF(url, name) {
   const fixedText = fixText(buffer);
 
   const assay = transcribeAssay(fixedText);
-  console.log('assay transcribed', assay.length);
 
   return {
     url,

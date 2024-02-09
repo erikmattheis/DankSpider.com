@@ -27,7 +27,6 @@ async function run(batchId) {
   //const complete = await getCompleteProducts('WNC');
   //const products = await getIncompleteProducts('WNC');
 
-  logger.log({level:'info', message: `looking at ${products.length} products`});
 
   //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
@@ -78,37 +77,31 @@ async function run(batchId) {
 
       if (result.terpenes?.length) {
 
-        logger.log({
-  level: 'info',
-  message: `Terpenes: ${result.terpenes.length}`});
+
 
         product.terpenes = JSON.parse(JSON.stringify(result.terpenes))
       }
       else if (result.cannabinoids?.length) {
-        logger.log({
-  level: 'info',
-  message: `Cannabinoids: ${result.cannabinoids.length}`});}
+
         product.cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
       }
 
       if (product.terpenes?.length && product.cannabinoids?.length) {
-
         break;
       }
-
+    }
 
     await saveProducts([product], batchId, true);
 
 
     withOCRedImages.push({ ...product, terpenes, cannabinoids });
 
-     logger.log({level:'info', message: `Found ${terpenes.length} terpenes and ${cannabinoids.length}`});
 
   }
 
   //await saveProducts(withOCRedImages, batchId, true);
 
-  logger.log({level:'info', message: `Saved ${withOCRedImages.length} products to Firebase`});
+
 
 }
 

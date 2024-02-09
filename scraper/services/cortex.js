@@ -4,7 +4,7 @@ const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
-    console.log('can not split')
+    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
     return null
   }
 
@@ -18,22 +18,6 @@ function transcribeAssay(str, url) {
 
   return chemicals
 
-  if (['limonine', 'ocimene', 'pinene', 'camphene'].some(v => str.toLowerCase().includes(v))) {
-    console.log('---> is terps', lines.length)
-
-  }
-
-  else if (['cannabinol', 'thc', 'cbd'].some(v => str.toLowerCase().includes(v))) {
-    console.log('---> is canns', canns.length)
-    const canns = lines.map(line => getCannabinoid(line, url))
-    const cannabinoids = canns.filter(cann => cann?.name !== 'Unknown' && cann?.pct > 0)
-    return { cannabinoids }
-  }
-  else {
-    console.log('---> unknown assay!!!!!!!')
-  }
-
-  return { cannabinoids: {raw:str }}
 }
 
 function getCannabinoid(line, url) {
@@ -95,7 +79,7 @@ function getTerpeneObj(line) {
   const pct = (parseFloat(mgg) * 10).toFixed(3)
 
   const originalText = line || 'Unknown'
-  //console.log({ name, pct, mgg, originalText })
+
   return { name, pct, mgg, originalText }
 }
 
@@ -139,7 +123,6 @@ function getAnyChemicalObj(line) {
 
 const canns = Object.keys(cannabinoidSpellings).map(key => cannabinoidSpellings[key].name);
 const cannabinoids = canns.filter((item, index, self) => self.indexOf(item) === index);
-console.log('cannabinoids', cannabinoids.length)
 cannabinoids.sort();
 
 const terps = Object.keys(terpeneSpellings);
@@ -151,9 +134,7 @@ function normalizeCannabinoid(name, url) {
     return cannabinoidSpellings[name].name
   }
 
-  console.log('unknown cann:', name)
-  console.log('------------------------------')
-  fs.appendFileSync('./temp/unknownCannabinoidSpellings.txt', `${name}\n`)
+  fs.appendFileSync('./temp/unknownchemicals.txt', `${name}\n`)
   return "Unknown"
 }
 
@@ -168,21 +149,23 @@ function normalizeTerpene(terpene) {
 
 function normalizeAnyChemical(str, url) {
   if (cannabinoidSpellings[str] && cannabinoidSpellings[str].confidence > 0.7) {
-    //console.log('cannabinoid: spelling', str, cannabinoidSpellings[str].name)
     return cannabinoidSpellings[str].name
   }
 
   if (terpeneSpellings[str]) {
-    //console.log('terpene: spelling', str, terpeneSpellings[str])
     return terpeneSpellings[str].name
   }
-  //console.log('unknown chemical:', str)
-  //console.log('------------------------------')
+
   fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
   return "Unknown"
 }
 
-
+function stringContainsNonFlowerProduct(str) {
+  if (['Rosin', 'Resin', 'Full Melt', 'Bubble Hash', 'Sift Hash', 'Macaroons', 'Cannacookies', 'Pre-Rolls', 'Pre Rolls', 'Mixed Smalls', 'Mixed Shake', 'Diamonds', 'Cereal Bars', 'Bundles', 'Vape '].some(s => str.includes(s))) {
+    return true
+  }
+  return false
+}
 
 
 module.exports = {
@@ -192,5 +175,6 @@ module.exports = {
   getTerpene,
   getCannabinoid,
   cannabinoids,
-  terpenes
+  terpenes,
+  stringContainsNonFlowerProduct
 }

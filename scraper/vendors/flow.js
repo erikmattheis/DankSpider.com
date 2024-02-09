@@ -99,24 +99,17 @@ async function addAssays(product, $) {
     const result = transcribeAssay(raw, image);
 
     if (!result) {
-      logger.log({
-  level: 'info',
-  message: `nothing interesting, continuing ... ${image}`})
       continue;
     }
 
     if (result instanceof String) {
-      logger.log({
-  level: 'info',
-  message: `image rejected: ${image}`});
+
       logger.error(result);
       continue;
     }
 
     if (result?.terpenes?.length) {
-      logger.log({
-  level: 'info',
-  message: `Terpenes: ${result.terpenes.length}`});
+
       terpenes = JSON.parse(JSON.stringify(result.terpenes))
     }
     if (result.cannabinoids?.length) {
