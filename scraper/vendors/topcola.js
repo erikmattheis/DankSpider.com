@@ -83,5 +83,6 @@ if (require.main === module) {
 }
 
 module.exports = {
-  getAvailableLeafProducts
+  getAvailableLeafProducts,
+
 }

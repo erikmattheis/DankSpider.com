@@ -9,6 +9,16 @@ const logger = require('./services/logger.js')
 const {read} = require('./services/pdf.js')
 const { makeProductsFile } = require('./services/memory.js')
 
+
+const ppm = require("./vendors/ppm.js");
+const preston = require("./vendors/preston.js");
+const flow = require("./vendors/flow.js");
+const wnc = require("./vendors/wnc.js");
+const enlighten = require("./vendors/enlighten-weebly-few-products.js");
+const topcola = require("./vendors/topcola.js");
+const arete = require("./vendors/arete.js");
+const drGanja = require("./vendors/drganja.js");
+
 const batchId = '00y'
 
 process.on('uncaughtException', (err) => {
@@ -39,9 +49,11 @@ async function makeCannabinoidsFile() {
   logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
 }
 
-async function run(batchId, vendor) {
+async function run(batchId, vendor, vendorList) {
+
   const timer = performance.now()
-  await scrapers.run(batchId, vendor)
+
+  await scrapers.run(batchId, vendor, vendorList)
 
   //await cleanProductsCollection()
 
@@ -77,7 +89,17 @@ async function run(batchId, vendor) {
 
   process.exit(0)
 }
+/*
+[{ name: 'PPM', service: ppm },
+{ name: 'Arete', service: arete },
+{ name: 'drGanja', service: drGanja },
+{ name: 'WNC', service: wnc },
+{ name: 'Preston', service: preston },
+{ name: 'TopCola', service: topcola },]*/
 
-run(batchId, 'Arete')
+run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
+{ name: 'WNC', service: wnc },
+{ name: 'Preston', service: preston },
+{ name: 'TopCola', service: topcola },])
 
 

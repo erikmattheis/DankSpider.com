@@ -33,9 +33,14 @@ function logErrorToFile(str) {
   }
 }
 
-async function run(batchId, vendor) {
-
-  const vendors = [
+async function run(batchId, vendor, vendorList) {
+console.log('vendor', batchId, vendor, vendorList)
+  let vendors;
+  if (false && vendorList && vendorList.length) {
+    vendors = vendorList
+  }
+  else {
+   vendors = [
     { name: 'PPM', service: ppm },
     { name: 'Arete', service: arete },
     { name: 'drGanja', service: drGanja },
@@ -43,26 +48,29 @@ async function run(batchId, vendor) {
     { name: 'Preston', service: preston },
     { name: 'TopCola', service: topcola },
   ];
-
-  const tasks = vendors
-    .filter(({ name }) => !vendor || vendor === name)
-    .map(async ({ service }) => {
-      const products = await service.getAvailableLeafProducts();
-      return saveProducts(products, batchId, vendor);
-    });
-
-  await Promise.all(tasks);
-
-  try {
-    await Promise.all(tasks);
-    logger.log({
-      level: 'info',
-      message: `Data has been written to Firebase for all vendors.`
-    });
-  } catch (error) {
-    logger.error(error);
-    logErrorToFile(error);
   }
+console.log(vendor, vendorList)
+let tasks;
+if (vendorList && vendorList.length) {
+  tasks = vendorList.map(async (vendor) => {
+    console.log('vendor!!!!!!!?!!!!!!!!', vendor)
+    const products = await vendor.service.getAvailableLeafProducts();
+    console.log('Calling saveProducts for', vendor);
+    return saveProducts(products, batchId, vendor);
+  });
+} else {
+  tasks = vendors
+    .filter(({ name }) => !vendor || vendor === name)
+    .map(({ service }) => {
+      return (async () => {
+        console.log('vendor!!!!!!!!!!!!!!!!', service)
+        const products = await service.getAvailableLeafProducts();
+        console.log('Calling saveProducts for', service);
+        return saveProducts(products, batchId, vendor);
+      })();
+    });
+}
+await Promise.all(tasks);
 
 
 }

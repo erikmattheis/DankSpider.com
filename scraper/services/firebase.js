@@ -162,6 +162,8 @@ async function saveProducts(products, batchId, useDev) {
     return;
   }
 
+    console.log('saveProducts', products.length, products[0].vendor)
+
   const batch = db.batch();
   const  productsRef = db.collection('products');
 
