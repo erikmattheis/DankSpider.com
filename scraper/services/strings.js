@@ -36,7 +36,6 @@ function normalizeVariantName(name) {
   if (name ==='Mixed+Dirty+Kief+28+grams') {
     return '28 g'
   }
-
   if (name === '3.5 g Pheno 1') {
     return '3.5 g'
   }
@@ -115,8 +114,6 @@ function normalizeVariantName(name) {
   name = name?.replace(' (1/2 oz)', '')
   name = name?.replace(' (1 oz)', '')
   name = name?.replace(' Pheno 1', '')
-  name = name?.replace(' Pheno 2', '')
-  name = name?.trim().replace(/\s+/g, ' ')
   name = name?.replace(' Pheno 2', '')
 
   return name

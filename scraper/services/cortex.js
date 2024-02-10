@@ -135,7 +135,7 @@ cannabinoidList.sort();
 
 const terps = Object.keys(terpeneSpellings);
 const terpeneList = terps.filter((item, index, self) => self.indexOf(item) === index);
-terpenes.sort();
+terpeneList.sort();
 
 function normalizeCannabinoid(name, url) {
   if (cannabinoidSpellings[name]) {

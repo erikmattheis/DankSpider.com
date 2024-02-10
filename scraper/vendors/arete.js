@@ -8,9 +8,9 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
-const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
+const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
 
-import { cannabinoidList, terpeneList } from '../services/memory.js'
+let count = 0;
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
@@ -54,7 +54,6 @@ async function parseSingleProduct(html, url) {
   if (assayLinks.length === 0) {
 
     console.log('no assay links', url)
-
     return { cannabinoids, terpenes, image:productImages[0], variants }
 
   }
@@ -72,16 +71,32 @@ async function parseSingleProduct(html, url) {
       continue
     }
 
-    if (result?.assay?.length) {
-      console.log('terpenes', result.assay.length)
-      const cannabinoids = assay.assay.filter(a => cannabinoidList.includes(a.name))
-      const terpenes = assay.assay.filter(a => terpeneList.includes(a.name))
+    console.log('result', result)
+
+    let cannabinoids;
+    let terpenes;
+
+    if (result.length) {
+      console.log('result', result.length)
+      cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      terpenes = result.filter(a => terpeneList.includes(a.name))
+      console.log('terpenes', terpenes.length)
+      console.log('cannabinoids', cannabinoids.length)
     }
 
     if (terpenes?.length && cannabinoids?.length) {
       break
     }
+
+    console.log('cannabis', cannabinoids, terpenes)
+
+    count++
+
+    if (count > 1) {
+      break
+    }
   }
+
 
   return { image:productImages[0], variants, cannabinoids, terpenes }
 }
@@ -114,8 +129,6 @@ async function getProducts(feedUrl) {
   const products = []
   for (let i = 0; i < items.length; i++) {
 
-
-
     const el = items[i]
 
     let title = $(el).find('.nm-shop-loop-title-link').text();
@@ -127,6 +140,7 @@ async function getProducts(feedUrl) {
     const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
     const resultP = await axios.get(url)
     const more = await parseSingleProduct(resultP.data, url)
+    console.log('more', JSON.stringify(more));
     const vendor = 'Arete'
     const product = {
       ...more, url, title, vendor

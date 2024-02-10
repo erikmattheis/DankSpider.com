@@ -68,11 +68,11 @@ async function run(batchId, vendor) {
   // await saveChemical()
 
   // await getproducts()
-// await read()
 
-
+  // await read()
 
   const time = ((performance.now() - timer)/1000).toFixed(2)
+
   logger.log({level:'info', message: `Done with batch ${batchId} in ${time} seconds`});
 
   process.exit(0)
