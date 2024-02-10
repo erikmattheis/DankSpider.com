@@ -17,7 +17,32 @@ async function parseSingleProduct(html, url) {
 
   fs.writeFileSync('./temp/vendors/sarete.html', html)
 
+  const variants = []
+
+
+// Iterate over each option element within the select
+$('#size option').each(function() {
+  const value = $(this).attr('value');
+  // Skip the placeholder option
+  if (value) {
+    variants.push(value);
+  }
+});
+/*
+  const variationsData = $('#size option').text()
+  console.log('variationsData', variationsData)
+  const variations = JSON.parse(variationsData.replace(/&quot;/g, '"'))
+
+  variations.forEach(variation => {
+    const size = variation.attributes.attribute_size
+    console.log('size', size)
+    const sizeString = normalizeVariantName(size)
+    console.log('sizeString', sizeString)
+    variants.push(sizeString)
+  })
+*/
   const imgElements = $('picture[data-large_image]')
+
 
   let productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
 
@@ -37,20 +62,6 @@ async function parseSingleProduct(html, url) {
 
   console.log('assayLinks', assayLinks.length)
 
-  const variants = []
-
-  const variationsData = $('form.variations_form').attr('data-product_variations')
-  const variations = JSON.parse(variationsData.replace(/&quot;/g, '"'))
-
-  variations.forEach(variation => {
-    const size = variation.attributes.attribute_size
-    const sizeString = normalizeVariantName(size)
-      variants.push(sizeString)
-  })
-
-  let terpenes = []
-  let cannabinoids = []
-
   if (assayLinks.length === 0) {
 
     console.log('no assay links', url)
@@ -58,7 +69,11 @@ async function parseSingleProduct(html, url) {
 
   }
 
+  let terpenes = []
+  let cannabinoids = []
+
   for (const imgStr of assayLinks) {
+
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const raw = await recognize(image);
@@ -71,34 +86,28 @@ async function parseSingleProduct(html, url) {
       continue
     }
 
-    console.log('result', result)
-
-    let cannabinoids;
-    let terpenes;
-
     if (result.length) {
       console.log('result', result.length)
       cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      console.log('cannabinoids', cannabinoids.length)
       terpenes = result.filter(a => terpeneList.includes(a.name))
       console.log('terpenes', terpenes.length)
-      console.log('cannabinoids', cannabinoids.length)
     }
 
     if (terpenes?.length && cannabinoids?.length) {
       break
     }
 
-    console.log('cannabis', cannabinoids, terpenes)
+    console.log('cannabinoids', cannabinoids, terpenes)
+    console.log('terpenes', terpenes)
 
-    count++
-
-    if (count > 1) {
-      break
-    }
   }
 
+  const properties = { image:productImages[0], variants, cannabinoids, terpenes }
+  console.log('WE ARE DONE ')
+  console.log('more', properties)
 
-  return { image:productImages[0], variants, cannabinoids, terpenes }
+  return properties
 }
 
 function get3003image(html) {
@@ -147,6 +156,7 @@ async function getProducts(feedUrl) {
     }
 
     products.push(product)
+
   }
 
   return products
