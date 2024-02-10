@@ -131,10 +131,10 @@ function get3003image(html) {
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data)
- fs.writeFileSync('./temp/vendors/arete.html', result.data)
+ //fs.writeFileSync('./temp/vendors/arete.html', result.data)
 
   const items = $('ul.nm-products li.product');
-  console.log('items', items.length)
+
   const products = []
   for (let i = 0; i < items.length; i++) {
 
@@ -145,11 +145,11 @@ async function getProducts(feedUrl) {
     if (stringContainsNonFlowerProduct(title)) {
         continue
     }
-    console.log('arete', title)
+
     const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
     const resultP = await axios.get(url)
     const more = await parseSingleProduct(resultP.data, url)
-    console.log('more', JSON.stringify(more));
+
     const vendor = 'Arete'
     const product = {
       ...more, url, title, vendor

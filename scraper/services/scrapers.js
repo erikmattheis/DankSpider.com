@@ -36,7 +36,7 @@ function logErrorToFile(str) {
 async function run(batchId, vendor, vendorList) {
 console.log('vendor', batchId, vendor, vendorList)
   let vendors;
-  if (false && vendorList && vendorList.length) {
+  if (vendorList && vendorList.length) {
     vendors = vendorList
   }
   else {

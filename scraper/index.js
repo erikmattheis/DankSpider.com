@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -63,6 +63,9 @@ async function run(batchId, vendor, vendorList) {
 
   // await makeTerpenesFile()
 
+  //const keepBatchIds = ['00y']
+  //await copyAndDeleteProducts(keepBatchIds);
+
   await makeStats()
 
   // await makeStrainsFile()
@@ -97,9 +100,12 @@ async function run(batchId, vendor, vendorList) {
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
 
+/*
 run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },])
+*/
 
+run(batchId, 'x', [{ name: 'drGanja', service: drGanja }])
 

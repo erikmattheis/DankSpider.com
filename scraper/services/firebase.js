@@ -269,7 +269,7 @@ async function getCompleteProducts() {
   return products;
 }
 
-async function fixValues() {
+async function recalculateChemicalValues() {
   const contentRef = db.collection('products');
 
   try {
@@ -281,21 +281,16 @@ async function fixValues() {
 
     snapshot.forEach((doc) => {
       const chem = doc.data();
-      chem.cannabinoids?.forEach(cannabinoid => {
-        cannabinoid.pct = parseFloat(cannabinoid.pct);
-      });
-      chem.terpenes?.forEach(terpene => {
-        terpene.pct = parseFloat(terpene.pct);
+
+      const cannabinoids = chem.cannabinoids?.map(c => {
+        const obj = getAnyChemical(c.originalLine, doc.name)
+        return { ...obj, pct: parseFloat(obj.pct) };
       });
 
-      const terpenes = chem.terpenes?.map(terpene => {
-        return { ...terpene, pct: parseFloat(terpene.pct) };
+      const terpenes = chem.terpenes?.map(t => {
+        const obj = getAnyChemical(t.originalLine, doc.name)
+        return { ...obj, pct: parseFloat(obj.pct) };
       });
-
-      const cannabinoids = chem.cannabinoids?.map(cannabinoid => {
-        return { ...cannabinoid, pct: parseFloat(cannabinoid.pct) };
-      }
-      );
 
       batch.update(doc.ref, { terpenes, cannabinoids });
 
@@ -496,25 +491,6 @@ async function getProductsByVariant(variant) {
   return filteredDocs;
 }
 
-
-async function deleteProductsWithObjectsInVariants() {
-  const productsRef = db.collection('products');
-  const snapshot = await productsRef.get();
-
-  const products = [];
-  const dels = [];
-
-  snapshot.forEach(doc => {
-    const product = doc.data();
-    if (product.variants && product.variants.some(variant => typeof variant !== 'string')) {
-      products.push(product);
-      dels.push(doc.ref.delete());
-    }
-  });
-  await Promise.all(dels);
-  return products;
-}
-
 if (require.main === module) {
   logger.log({
   level: 'info',
@@ -540,6 +516,27 @@ async function getProductsByBatchId(batchId) {
   });
 
   return products;
+}
+
+async function copyAndDeleteProducts(keepBatchIds) {
+  const productsRef = db.collection('products');
+  const secondCollectionRef = db.collection('productsArchive');
+
+  const snapshot = await productsRef.get();
+
+  const batch = db.batch();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+
+    if (!keepBatchIds.includes(product.batchId)) {
+      const newDocRef = secondCollectionRef.doc(doc.id);
+      batch.set(newDocRef, product);
+      batch.delete(doc.ref);
+    }
+  });
+
+  await batch.commit();
 }
 
 async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
@@ -599,11 +596,8 @@ async function getAssays() {
 module.exports = {
   cleanProductsCollection,
   deleteAllDocumentsInCollection,
-  deleteProductsWithObjectsInVariants,
-  fixValues,
+  recalculateChemicalValues,
   getAllProducts,
-  getCompleteProducts,
-  getIncompleteProducts,
   getNextBatchNumber,
   getProductsByBatchId,
   getProductsByVariant,

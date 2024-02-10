@@ -3,8 +3,10 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
+
+const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
+
 
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
@@ -102,22 +104,25 @@ async function addAssays(product, $) {
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
-
-    if (result?.terpenes?.length) {
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+    if (result.length) {
+      console.log('result', result.length)
+      cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      console.log('cannabinoids', cannabinoids.length)
+      terpenes = result.filter(a => terpeneList.includes(a.name))
+      console.log('terpenes', terpenes.length)
     }
-
-    if (result?.cannabinoids?.length) {
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-    }
-
 
     if (terpenes?.length && cannabinoids?.length) {
-      break;
+      break
     }
+
+    console.log('cannabinoids', cannabinoids, terpenes)
+    console.log('terpenes', terpenes)
+
+    console.log('WE ARE DONE ')
   }
 
-  return { ...product, cannabinoids, terpenes };
+  return { ...product, variants, cannabinoids, terpenes  };
 }
 
 
