@@ -62,8 +62,6 @@ async function getPrestonProductInfo(product) {
       }
 
       if (result instanceof String) {
-
-
         continue;
       }
 

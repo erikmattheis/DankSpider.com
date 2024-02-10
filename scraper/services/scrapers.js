@@ -34,7 +34,6 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor, vendorList) {
-console.log('vendor', batchId, vendor, vendorList)
   let vendors;
   if (vendorList && vendorList.length) {
     vendors = vendorList
@@ -53,7 +52,6 @@ console.log(vendor, vendorList)
 let tasks;
 if (vendorList && vendorList.length) {
   tasks = vendorList.map(async (vendor) => {
-    console.log('vendor!!!!!!!?!!!!!!!!', vendor)
     const products = await vendor.service.getAvailableLeafProducts();
     console.log('Calling saveProducts for', vendor);
     return saveProducts(products, batchId, vendor);
@@ -63,7 +61,6 @@ if (vendorList && vendorList.length) {
     .filter(({ name }) => !vendor || vendor === name)
     .map(({ service }) => {
       return (async () => {
-        console.log('vendor!!!!!!!!!!!!!!!!', service)
         const products = await service.getAvailableLeafProducts();
         console.log('Calling saveProducts for', service);
         return saveProducts(products, batchId, vendor);

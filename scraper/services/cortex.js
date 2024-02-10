@@ -137,13 +137,20 @@ const terps = Object.keys(terpeneSpellings);
 const terpeneList = terps.filter((item, index, self) => self.indexOf(item) === index);
 terpeneList.sort();
 
+function linePasses(line) {
+  const hasFiveLetters = /[a-z]{5,}/.test(line);
+  const hasTwoDigits = /\d{2,}/.test(line);
+  const hasFourDigits = /\d{4,}/.test(line);
+
+  return hasFiveLetters && hasTwoDigits && hasFourDigits
+}
+
 function normalizeCannabinoid(name, url) {
   if (cannabinoidSpellings[name]) {
     return cannabinoidSpellings[name].name
   }
-  // regex that makes sure there are five lowercase letters in a row, at least two digits in a row preceeded by a period and at least four spaces
-  const regex = /[a-z]{5,}.*\d{2,}.*\d{4,}/g
-  if (name.match(regex) ) {
+
+  if (linePasses(line)) {
     fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
   }
 

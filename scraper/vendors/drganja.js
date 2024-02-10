@@ -75,20 +75,6 @@ async function addVariants(product, $) {
   return { ...product, variants };
 }
 
-function addImage(product, $) {
-  const imageDataSrc = $('img.photoswipe__image').data('src');
-
-  const image = imageDataSrc?.startsWith('//') ? `https:${imageDataSrc}` : imageDataSrc;
-
-  if (image) {
-    const image_360x = image.replace('{width}', '360');
-    product.image = image_360x;
-  }
-
-  return { ...product, image };;
-
-}
-
 async function addAssays(product, $) {
 
   const imgSrcs = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get();
@@ -116,21 +102,12 @@ async function addAssays(product, $) {
       break
     }
 
-    console.log('cannabinoids', cannabinoids, terpenes)
-    console.log('terpenes', terpenes)
-
-    console.log('WE ARE DONE ')
   }
 
-  return { ...product, variants, cannabinoids, terpenes  };
+  return { ...product, cannabinoids, terpenes  };
 }
-
 
 module.exports = {
   getAvailableLeafProducts
 }
-
-
-
-
 
