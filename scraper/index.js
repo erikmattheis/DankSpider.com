@@ -107,5 +107,5 @@ run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
 { name: 'TopCola', service: topcola },])
 */
 
-run(batchId, 'x', [{ name: 'drGanja', service: drGanja }])
+run(batchId, 'x', [{ name: 'Preston', service: preston }])
 

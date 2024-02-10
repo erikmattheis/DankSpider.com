@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay } = require('../services/cortex.js');
+const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
 const logger = require('../services/logger.js');
 
 const products = [];
@@ -65,17 +65,19 @@ async function getPrestonProductInfo(product) {
         continue;
       }
 
-      if (result?.terpenes?.length) {
-        terpenes = JSON.parse(JSON.stringify(result.terpenes))
-      }
-
-      if (result?.cannabinoids?.length) {
-        cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+      if (result.length) {
+        console.log('result', result.length)
+        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+        console.log('cannabinoids', cannabinoids.length)
+        terpenes = result.filter(a => terpeneList.includes(a.name))
+        console.log('terpenes', terpenes.length)
       }
 
       if (terpenes?.length && cannabinoids?.length) {
-        break;
+        break
       }
+
+
 
     // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 

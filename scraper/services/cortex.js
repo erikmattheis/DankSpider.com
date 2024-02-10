@@ -19,7 +19,7 @@ function transcribeAssay(str, url) {
 
   const chems = filteredLines.map(line => getAnyChemical(line, url))
 
-  console.log('chems', chems.length)
+  console.log('chems', chems)
 
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
 

@@ -33,8 +33,6 @@ async function getProduct(url) {
   });
 
 
-
-
   const image = $('figure.productView-image img').attr('src');
 
   const srcsets = $('img.lazyload').map((index, el) => $(el).attr('data-srcset')).get();
@@ -60,7 +58,7 @@ async function getProduct(url) {
       return largestImageUrl;
   });
 
-  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency'));
+  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('certificate'));
 
   let terpenes = [];
   let cannabinoids = [];

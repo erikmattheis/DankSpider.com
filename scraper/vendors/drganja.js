@@ -79,7 +79,7 @@ async function addAssays(product, $) {
 
   const imgSrcs = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get();
 
-  const assayLinks = imgSrcs.filter((el) => el.toLowerCase().includes('certificate'));
+  const assayLinks = imgSrcs.filter((el) => el.toLowerCase().includes('certificate') || image.toLowerCase().includes('labs'))
 
   let terpenes = [];
   let cannabinoids = [];
