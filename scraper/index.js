@@ -59,14 +59,14 @@ async function run(batchId, vendor, vendorList) {
 
   //await makeProductsFile()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   // await makeTerpenesFile()
 
   //const keepBatchIds = ['00y']
   //await copyAndDeleteProducts(keepBatchIds);
 
-  await makeStats()
+  //await makeStats()
 
   // await makeStrainsFile()
 
@@ -107,5 +107,5 @@ run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
 { name: 'TopCola', service: topcola },])
 */
 
-run(batchId, 'x', [{ name: 'Preston', service: preston }])
+run(batchId, 'x', [{ name: 'WNC', service: wnc }])
 

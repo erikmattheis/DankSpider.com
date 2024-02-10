@@ -3,7 +3,8 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+const { transcribeAssay, cannabinoidList, terpeneList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+
 const logger = require('../services/logger.js');
 let currentPage = 1;
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
@@ -66,27 +67,22 @@ async function getProduct(url) {
   for (const image of images) {
 
     if (skippableImages.includes(image)) {
-
       continue;
     }
 
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
-    if (result?.terpenes?.length) {
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+
+    if (result.length) {
+      console.log('result', result.length)
+      cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      console.log('cannabinoids', cannabinoids.length)
+      terpenes = result.filter(a => terpeneList.includes(a.name))
+      console.log('terpenes', terpenes.length)
     }
-
-    if (result?.cannabinoids?.length) {
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-    }
-
-    if (terpenes?.length && cannabinoids?.length) {
-
-      break;
-    }
-
   }
+
 
   // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
