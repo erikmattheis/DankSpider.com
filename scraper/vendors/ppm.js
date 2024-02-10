@@ -6,7 +6,7 @@ const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
-const { cannabinoids, terpenes } = require('../services/cortex')
+const { cannabinoidSpellings, terpeneSpellings } = require('../services/cortex')
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
@@ -119,8 +119,8 @@ async function getProducts() {
         return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
       }
 
-      const canns = assay.assay.filter(a => cannabinoids.includes(a.name))
-      const terps = assay.assay.filter(a => terpenes.includes(a.name))
+      const canns = assay.assay.filter(a => cannabinoidSpellings.includes(a.name))
+      const terps = assay.assay.filter(a => terpeneSpellings.includes(a.name))
 
       products.push({ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate })
     });

@@ -4,17 +4,26 @@ const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
+    console.log('can\'t split', url)
     fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
     return null
   }
 
   const lines = str.split('\n')
 
+  console.log('lines', lines.length)
+
   const filteredLines = lines.filter(line => line.includes(' '))
+
+  console.log('filteredLines', filteredLines.length)
 
   const chems = filteredLines.map(line => getAnyChemical(line, url))
 
+  console.log('chems', chems.length)
+
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
+
+  console.log('chemicals', chemicals.length)
 
   return chemicals
 
@@ -121,11 +130,11 @@ function getAnyChemicalObj(line) {
 
 
 const canns = Object.keys(cannabinoidSpellings).map(key => cannabinoidSpellings[key].name);
-const cannabinoids = canns.filter((item, index, self) => self.indexOf(item) === index);
-cannabinoids.sort();
+const cannabinoidList = canns.filter((item, index, self) => self.indexOf(item) === index);
+cannabinoidList.sort();
 
 const terps = Object.keys(terpeneSpellings);
-const terpenes = terps.filter((item, index, self) => self.indexOf(item) === index);
+const terpeneList = terps.filter((item, index, self) => self.indexOf(item) === index);
 terpenes.sort();
 
 function normalizeCannabinoid(name, url) {
@@ -177,7 +186,7 @@ module.exports = {
   normalizeCannabinoid,
   getTerpene,
   getCannabinoid,
-  cannabinoids,
-  terpenes,
+  cannabinoidList,
+  terpeneList,
   stringContainsNonFlowerProduct
 }

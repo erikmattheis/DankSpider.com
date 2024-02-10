@@ -10,6 +10,8 @@ const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
 
+import { cannabinoidList, terpeneList } from '../services/memory.js'
+
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
 
@@ -23,7 +25,6 @@ async function parseSingleProduct(html, url) {
   productImages = productImages.filter(img => img.includes('Lab'))
   productImages = productImages.map(img => img.startsWith('//') ? `https:${img}` : img)
 
-
   const assayLinks = productImages.sort((a, b) => {
     if (a.toLowerCase().includes('labs')) {
       return -1
@@ -34,6 +35,8 @@ async function parseSingleProduct(html, url) {
     return 0
   })
 
+  console.log('assayLinks', assayLinks.length)
+
   const variants = []
 
   const variationsData = $('form.variations_form').attr('data-product_variations')
@@ -41,7 +44,6 @@ async function parseSingleProduct(html, url) {
 
   variations.forEach(variation => {
     const size = variation.attributes.attribute_size
-    console.log('size', variation.attributes.attribute_size)
     const sizeString = normalizeVariantName(size)
       variants.push(sizeString)
   })
@@ -54,6 +56,7 @@ async function parseSingleProduct(html, url) {
     console.log('no assay links', url)
 
     return { cannabinoids, terpenes, image:productImages[0], variants }
+
   }
 
   for (const imgStr of assayLinks) {
@@ -69,14 +72,10 @@ async function parseSingleProduct(html, url) {
       continue
     }
 
-    if (result?.terpenes?.length) {
-
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
-    }
-    if (result?.cannabinoids?.length) {
-
-
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
+    if (result?.assay?.length) {
+      console.log('terpenes', result.assay.length)
+      const cannabinoids = assay.assay.filter(a => cannabinoidList.includes(a.name))
+      const terpenes = assay.assay.filter(a => terpeneList.includes(a.name))
     }
 
     if (terpenes?.length && cannabinoids?.length) {
