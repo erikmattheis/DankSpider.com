@@ -5,6 +5,9 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
+const { saveProducts } = require('../services/firebase.js');
+let numProductsToSave = 1;
+let numSavedProducts = 0;
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
 
@@ -22,6 +25,10 @@ async function getProducts() {
   const products = [];
 
   $('entry').each((_, entry) => {
+
+    if (numSavedProducts > numProductsToSave) {
+      return;
+    }
     const productType = $(entry).find('s\\:type').text();
     if (productType === 'Flower') {
       const image$ = cheerio.load($(entry).html());
@@ -38,6 +45,8 @@ async function getProducts() {
         vendor: 'Flow',
       }
 
+      numSavedProducts++;
+      saveProducts([product]);
       products.push(product);
     }
   });

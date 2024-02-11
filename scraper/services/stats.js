@@ -39,8 +39,6 @@ async function makeStats() {
 
   }
 
-  console.log( vendors);
-
   console.log('numProducts', totalProducts)
   console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids/totalProducts).toFixed(2));
   console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues/totalProducts).toFixed(2));

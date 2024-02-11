@@ -6,12 +6,20 @@ const fs = require('fs');
 const { transcribeAssay, cannabinoidList, terpeneList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
 
 const logger = require('../services/logger.js');
+
+let numProductsToSave = 1;
+let numSavedProducts = 0;
+
 let currentPage = 1;
+
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
 async function getProduct(url) {
+console.log('getting product', url);
+try {
 
   const response = await axios.get(url);
+
   const $ = cheerio.load(response.data);
 
   const variants = [];
@@ -33,7 +41,6 @@ async function getProduct(url) {
     }
   });
 
-
   const image = $('figure.productView-image img').attr('src');
 
   const srcsets = $('img.lazyload').map((index, el) => $(el).attr('data-srcset')).get();
@@ -41,18 +48,21 @@ async function getProduct(url) {
   const imageUrls = srcsets.map(srcset => {
 
       const sources = srcset.split(',').map(s => s.trim());
-
       let maxImageWidth = 0;
       let largestImageUrl = '';
 
       sources.forEach(source => {
+
           const [url, width] = source.split(' ');
 
           const imageWidth = parseInt(width.replace('w', ''));
 
           if (imageWidth > maxImageWidth) {
+
               maxImageWidth = imageWidth;
+
               largestImageUrl = url;
+
           }
       });
 
@@ -73,18 +83,11 @@ async function getProduct(url) {
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
-
     if (result.length) {
-      console.log('result', result.length)
       cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-      console.log('cannabinoids', cannabinoids.length)
       terpenes = result.filter(a => terpeneList.includes(a.name))
-      console.log('terpenes', terpenes.length)
     }
   }
-
-
-  // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
 
   return {
     title,
@@ -95,12 +98,18 @@ async function getProduct(url) {
     terpenes,
     cannabinoids,
     vendor: 'WNC',
-  };
+  }
+}
+  catch (e) {
+    logger.error(e);
+
+  }
 }
 
 async function scrapePage(url, currentPage, productLinks) {
+
   const response = await axios.get(url);
-  fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
+  //fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
   const $ = cheerio.load(response.data);
 
   const cards = $('.card');
@@ -147,17 +156,31 @@ function isDesiredProduct(productTitle) {
 
 async function getWNCProductsInfo(productLinks) {
 
+
   const products = [];
   for (const productLink of productLinks) {
+
+    if (numSavedProducts > numProductsToSave) {
+      continue;
+    }
+
     const product = await getProduct(productLink);
+
     if (!product) {
       continue;
     }
+
+    if (numSavedProducts > numProductsToSave) {
+      continue;
+    }
+
     product.vendor = 'WNC';
 
     if (product.variants.length > 0) {
 
       product.variants = product.variants.map((variant) => normalizeVariantName(variant));
+
+      numSavedProducts++;
 
       products.push(product);
 

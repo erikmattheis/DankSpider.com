@@ -48,12 +48,12 @@ async function run(batchId, vendor, vendorList) {
     { name: 'TopCola', service: topcola },
   ];
   }
-console.log(vendor, vendorList)
+
 let tasks;
 if (vendorList && vendorList.length) {
   tasks = vendorList.map(async (vendor) => {
     const products = await vendor.service.getAvailableLeafProducts();
-    console.log('Calling saveProducts for', vendor);
+
     return saveProducts(products, batchId, vendor);
   });
 } else {
@@ -62,7 +62,7 @@ if (vendorList && vendorList.length) {
     .map(({ service }) => {
       return (async () => {
         const products = await service.getAvailableLeafProducts();
-        console.log('Calling saveProducts for', service);
+
         return saveProducts(products, batchId, vendor);
       })();
     });

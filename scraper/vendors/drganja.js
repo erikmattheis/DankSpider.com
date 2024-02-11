@@ -4,9 +4,12 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
+const { saveProducts } = require('../services/firebase.js');
+
+let numProductsToSave = 1;
+let numSavedProducts = 0;
 
 const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
-
 
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
@@ -40,6 +43,11 @@ async function getProducts() {
   const products = [];
 
   $('.drganja_products_list').each((_, entry) => {
+
+    if (numSavedProducts > numProductsToSave) {
+      return;
+    }
+
     const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
 
     const url = $(entry).find('.drganja_list_product_image').attr('href');
@@ -54,12 +62,18 @@ async function getProducts() {
 async function addDetails(products) {
   const result = [];
   for (const product of products) {
+    if (numSavedProducts > numProductsToSave) {
+      break;
+    }
     const response = await axios.get(product.url);
-    fs.writeFileSync('./temp/vendors/drganja-product.html', response.data);
+    //fs.writeFileSync('./temp/vendors/drganja-product.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
     const productWithAssays = await addAssays(productWithVariants, $);
 
+    numSavedProducts++;
+
+    await saveProducts([productWithAssays]);
     result.push(productWithAssays);
 
   }
@@ -79,7 +93,7 @@ async function addAssays(product, $) {
 
   const imgSrcs = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get();
 
-  const assayLinks = imgSrcs.filter((el) => el.toLowerCase().includes('certificate') || image.toLowerCase().includes('labs'))
+  const assayLinks = imgSrcs.filter((el) => el.toLowerCase().includes('certificate') || el.toLowerCase().includes('labs'))
 
   let terpenes = [];
   let cannabinoids = [];
@@ -91,11 +105,10 @@ async function addAssays(product, $) {
     const result = transcribeAssay(raw, image);
 
     if (result.length) {
-      console.log('result', result.length)
+
       cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-      console.log('cannabinoids', cannabinoids.length)
       terpenes = result.filter(a => terpeneList.includes(a.name))
-      console.log('terpenes', terpenes.length)
+
     }
 
     if (terpenes?.length && cannabinoids?.length) {

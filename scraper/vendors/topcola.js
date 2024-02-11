@@ -5,12 +5,16 @@ const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUn
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
+const { saveProducts } = require('../services/firebase.js');
 
 const { writeFileSync } = require('fs');
 
 const products = [];
 const productLinks = [];
 let currentPage = 1;
+
+let numProductsToSave = 1;
+let numSavedProducts = 0;
 
 async function getAvailableLeafProducts() {
 
@@ -24,8 +28,11 @@ async function getAvailableLeafProducts() {
 
     if (parsedData.feed && parsedData.feed.entry) {
       const entries = parsedData.feed.entry;
+      for (const entry of entries) {
 
-      entries.forEach((entry) => {
+        if (numSavedProducts > numProductsToSave) {
+          break;
+        }
 
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
@@ -48,7 +55,7 @@ async function getAvailableLeafProducts() {
 
           const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 
-          writeFileSync('topcola.html', contentHtml);
+         // writeFileSync('topcola.html', contentHtml);
 
           const $content = cheerio.load(contentHtml);
 
@@ -64,9 +71,11 @@ async function getAvailableLeafProducts() {
             vendor: 'Top Cola',
           };
 
+          numSavedProducts++;
+          await saveProducts([product]);
           products.push(product);
         }
-      });
+      }
     }
     return products;
   } catch (error) {

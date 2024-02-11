@@ -6,7 +6,10 @@ const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
-const { cannabinoidSpellings, terpeneSpellings } = require('../services/cortex')
+const { cannabinoidList, terpeneList } = require('../services/cortex')
+const { saveProducts } = require('../services/firebase.js')
+let numberSavedProducts = 0;
+let numProductsToSave = 1;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
@@ -79,13 +82,19 @@ async function getProducts() {
     const result = await axios.get(feedUrl)
     fs.writeFileSync('./temp/vendors/ppm.html', result.data)
     const $ = cheerio.load(result.data, { xmlMode: true })
-    $('.pf-product-form').parent().parent().each(function(_,el) {
+    let els = $('.pf-product-form').parent().parent().get()
+    els = Array.from(els);
+      for (el of els) {
+
+        if (numberSavedProducts >= numProductsToSave) {
+          break;
+        }
 
       const $element = $(el);
 
       let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
       title = normalizeProductTitle(title);
-      console.log(title)
+
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
       const image = `${imageSrc}`;
@@ -105,7 +114,7 @@ async function getProducts() {
       let variants = []
       if (matches && matches[1]) {
         variants = JSON.parse(matches[1]);
-        variants = variants.filter(v => !v.includes('PreRolls'));
+        variants = variants.filter(v => !v?.includes('PreRolls'));
         variants = variants.map(v => normalizeVariantName(v));
       }
 
@@ -119,11 +128,15 @@ async function getProducts() {
         return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
       }
 
-      const canns = assay.assay.filter(a => cannabinoidSpellings.includes(a.name))
-      const terps = assay.assay.filter(a => terpeneSpellings.includes(a.name))
+      const canns = assay.assay.filter(a => cannabinoidList.includes(a.name))
+      const terps = assay.assay.filter(a => terpeneList.includes(a.name))
 
+      numberSavedProducts = numberSavedProducts + 1;
+
+
+      await saveProducts([{ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate }]);
       products.push({ title, image, url, vendor, cannabinoids:canns, terpenes:terps, variants, vendorDate })
-    });
+    }
 
   } catch (error) {
     console.error(error)

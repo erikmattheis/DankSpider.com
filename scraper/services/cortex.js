@@ -4,26 +4,18 @@ const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
-    console.log('can\'t split', url)
-    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
+    console.log('can\'t split', url, 'type:', typeof str, str)
+    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`, url, 'type:', typeof str, str)
     return null
   }
 
   const lines = str.split('\n')
 
-  console.log('lines', lines.length)
-
   const filteredLines = lines.filter(line => line.includes(' '))
-
-  console.log('filteredLines', filteredLines.length)
 
   const chems = filteredLines.map(line => getAnyChemical(line, url))
 
-  console.log('chems', chems)
-
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
-
-  console.log('chemicals', chemicals.length)
 
   return chemicals
 
@@ -47,12 +39,18 @@ function filterLine(line, normalizationFunction) {
   }
   const cleanedLine = line.replace(/\s+/g, ' ');
 
+  // while last character is a space or a space followed by a singe character and a space or a since character, remove it
+
+  while (cleanedLine.slice(-1) === ' ' || cleanedLine.slice(-2) === ' ' || cleanedLine.slice(-3) === ' ') {
+    cleanedLine = cleanedLine.slice(0, cleanedLine.length - 1)
+  }
+
   let parts = cleanedLine.split(' ');
 
   const name = normalizationFunction(parts.shift()) || 'Unknown';
 
   parts = parts.map(part => {
-    if (/^ND$|^0.0485$|^0.0728$|^0.030|^0.0500$|^3.000$|^0.750$|^3.000$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/^ND$|^0.0485$|^0.0728$|^>3.000$|^0.030|^0.0500$|^3.000$|^0.750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;

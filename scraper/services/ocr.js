@@ -98,8 +98,7 @@ async function recognize(url) {
 
     return result.data.text;
   } catch (error) {
-    logger.error(error);
-    logger.error(`Error in recognize: ${url}\n${JSON.stringify(error, null, 2)}`);
+    logger.error(error.message);
   } finally {
     if (worker) {
       await worker.terminate();
@@ -111,36 +110,6 @@ async function recognize(url) {
 const configFirstLook = {
   rectangle: { top: 182, left: 940, width: 1900, height: 817 }
 }
-
-/*
-function getConfig(headingText, url) {
-
-  if (['certificate','analysis','consolidated'].some(word => headingText.toLowerCase().includes(word))) {
-
-    // Cannalyze Cannabinoids
-    return { rectangle: { top: 1410, left: 322, width: 3411, height: 2362 }}
-
-  }
-
-  if (['terps', 'terpene'].some(word => headingText.toLowerCase().includes(word))) {
-  // New Bloom Terpenes
-    return { rectangle: { top: 1722, left: 320, width: 1939, height: 1361 } }
-  }
-
-
-  if (url.toLowerCase().includes('canna')) {
-    // New Bloom Cannabinoids
-    return { rectangle: { top: 2471, left: 202, width: 3094, height: 1744 } }
-  }
-
-
-  // New Bloom Cannabinoids
-  return { rectangle: { top: 1756, left: 108, width: 3181, height: 1556 } }
-
-
-}
-*/
-
 
 const getWorker = async (PSM) => {
 

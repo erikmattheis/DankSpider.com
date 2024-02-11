@@ -91,7 +91,7 @@ async function run(batchId) {
       }
     }
 
-    await saveProducts([product], batchId, true);
+    await saveProducts([product]);
 
 
     withOCRedImages.push({ ...product, terpenes, cannabinoids });
@@ -99,7 +99,7 @@ async function run(batchId) {
 
   }
 
-  //await saveProducts(withOCRedImages, batchId, true);
+  //await saveProducts(withOCRedImages);
 
 
 

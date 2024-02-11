@@ -5,8 +5,11 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
 const logger = require('../services/logger.js');
-
+const { saveProducts } = require('../services/firebase.js');
 const products = [];
+
+let numProductsToSave = 1;
+let numSavedProducts = 0;
 
 let currentPage = 1;
 const startUrl = 'https://www.prestonhempco.com/categories/high-thca';
@@ -66,28 +69,23 @@ async function getPrestonProductInfo(product) {
       }
 
       if (result.length) {
-        console.log('result', result.length)
         cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-        console.log('cannabinoids', cannabinoids.length)
         terpenes = result.filter(a => terpeneList.includes(a.name))
-        console.log('terpenes', terpenes.length)
       }
 
       if (terpenes?.length && cannabinoids?.length) {
         break
       }
 
+      if(numSavedProducts > numProductsToSave) {
+        break;
+      }
 
-
-    // await saveProducts([{ title, url, image, terpenes, cannabinoids }], batchId, true);
-
-
-
-    return {
-      ...product,
-      terpenes,
-      cannabinoids
-    }
+      return {
+        ...product,
+        terpenes,
+        cannabinoids
+      }
     }
   }
   else {
@@ -146,6 +144,10 @@ async function getPrestonProductsInfo(products) {
 
   for (const product of products) {
 
+    if (numSavedProducts > numProductsToSave) {
+      break;
+    }
+
     if (!product?.url) {
       continue;
     }
@@ -164,6 +166,10 @@ async function getPrestonProductsInfo(products) {
     product.images = [...info.images];
 
     const size = parseFloat(product.variants[0].trim());
+
+    numSavedProducts++;
+
+    saveProducts([product]);
 
     if (size) {
       finalProducts.push(product);

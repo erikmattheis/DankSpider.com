@@ -19,7 +19,13 @@ const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 
-const batchId = '00y'
+const batchId = '000w'
+
+function showBatch() {
+  const products = getProductsByBatchId(batchId)
+  console.log('batch', products)
+  fs.writeFileSync(`./temp/batch${batchId}.json`, JSON.stringify(products))
+}
 
 process.on('uncaughtException', (err) => {
   console.error('There was an uncaught error', err);
@@ -53,20 +59,20 @@ async function run(batchId, vendor, vendorList) {
 
   const timer = performance.now()
 
-  await scrapers.run(batchId, vendor, vendorList)
+   await scrapers.run(batchId, vendor, vendorList)
 
   //await cleanProductsCollection()
 
   //await makeProductsFile()
 
-  await makeProductsFile()
+ // await makeProductsFile()
 
   // await makeTerpenesFile()
 
   //const keepBatchIds = ['00y']
   //await copyAndDeleteProducts(keepBatchIds);
 
-  //await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -107,5 +113,5 @@ run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
 { name: 'TopCola', service: topcola },])
 */
 
-run(batchId, 'x', [{ name: 'WNC', service: wnc }])
+run(batchId)
 

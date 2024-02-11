@@ -300,3 +300,98 @@ stats5 = {
     numTerpenesWithValues: 0
   }
 }
+
+
+{
+  WNC: {
+    numProducts: 118,
+    numCannabinoids: 63,
+    numCannabinoidsWithValues: 63,
+    numTerpenes: 56,
+    numTerpenesWithValues: 56
+  },
+  Preston: {
+    numProducts: 30,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  'Dr Ganja': {
+    numProducts: 28,
+    numCannabinoids: 36,
+    numCannabinoidsWithValues: 36,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  'Top Cola': {
+    numProducts: 7,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  Arete: {
+    numProducts: 33,
+    numCannabinoids: 133,
+    numCannabinoidsWithValues: 133,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  PPM: {
+    numProducts: 47,
+    numCannabinoids: 332,
+    numCannabinoidsWithValues: 332,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  }
+}
+numProducts 263
+numCannabinoids 564 2.14
+numCannabinoidsWithValues NaN NaN
+numTerpenes NaN
+numTerpenesWithValues NaN NaN
+
+{
+  WNC: {
+    numProducts: 118,
+    numCannabinoids: 234,
+    numCannabinoidsWithValues: 234,
+    numTerpenes: 56,
+    numTerpenesWithValues: 56
+  },
+  Preston: {
+    numProducts: 30,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  'Dr Ganja': {
+    numProducts: 29,
+    numCannabinoids: 37,
+    numCannabinoidsWithValues: 37,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  Arete: {
+    numProducts: 37,
+    numCannabinoids: 158,
+    numCannabinoidsWithValues: 158,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+  },
+  PPM: {
+    numProducts: 50,
+    numCannabinoids: 358,
+    numCannabinoidsWithValues: 358,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  },
+  'Top Cola': {
+    numProducts: 7,
+    numCannabinoids: 0,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: NaN,
+    numTerpenesWithValues: 0
+  }

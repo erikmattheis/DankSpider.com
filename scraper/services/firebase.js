@@ -156,7 +156,36 @@ async function getProductById(id) {
   return doc.data();
 }
 
-async function saveProducts(products, batchId, useDev) {
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const vendors = [{
+  'Arete': 0,
+  'DrGanja': 0,
+  'Enlighten': 0,
+  'TopCola': 0,
+  'WNC': 0
+}];
+
+function numVendors() {
+  let num = 0;
+  for (const vendor in vendors) {
+    num += vendors[vendor] > 0 ? 1 : 0;
+  }
+  return num;
+}
+
+async function saveProducts(products, batchId = '00x',  useDev) {
+  if (!products || !products.length) {
+    console.log('No products to save');
+    return;
+  }
+  const vendor = products[0].vendor;
+  vendors[vendor] += products.length;
 
   if (!products || !products.length) {
     return;
@@ -192,7 +221,14 @@ async function saveProducts(products, batchId, useDev) {
 
   await batch.commit();
 
+ if (numVendors() === 5) {
+    console.log('All vendors have been processed');
+    rl.close();
+    process.exit(0);
+  }
 }
+
+
 
 const { performance } = require('perf_hooks');
 
@@ -304,7 +340,6 @@ async function recalculateChemicalValues() {
     });
 
     if (operationCount > 0) {
-      console.log('Committing final batch...');
       await batch.commit();
       console.log('Final batch committed');
     }
