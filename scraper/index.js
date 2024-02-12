@@ -61,7 +61,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await scrapers.run(batchId, vendor, vendorList)
+await scrapers.run(batchId, vendor, vendorList)
 
   await cleanProductsCollection()
 
@@ -107,5 +107,5 @@ async function run(batchId, vendor, vendorList) {
 { name: 'TopCola', service: topcola },]*/
 
 
-run(batchId, 'x', [{ name: 'PPM', service: ppm }])
+run(batchId, 'x', [{ name: 'Preston', service: preston }])
 

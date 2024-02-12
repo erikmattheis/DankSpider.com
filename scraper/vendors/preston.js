@@ -8,7 +8,7 @@ const logger = require('../services/logger.js');
 const { saveProducts } = require('../services/firebase.js');
 const products = [];
 
-let numProductsToSave = 1;
+let numProductsToSave = 100;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -36,6 +36,7 @@ async function getPrestonProductInfo(product) {
     const select = $('.sizes-dropdown .size-dropdown-link');
     product.variants = select.map((i, el) => $(el).text()).get();
     product.variants = product.variants.map(variant => normalizeVariantName(variant));
+    product.variants = product.variants.map(variant => variant.replace(product.title, '').trim());
 
     product.images = [];
 
