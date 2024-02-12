@@ -61,11 +61,11 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  await scrapers.run(batchId, vendor, vendorList)
+  //await scrapers.run(batchId, vendor, vendorList)
 
-  //await cleanProductsCollection()
+  await cleanProductsCollection()
 
-  // await makeProductsFile()
+   await makeProductsFile()
 
   // await makeTerpenesFile()
 
