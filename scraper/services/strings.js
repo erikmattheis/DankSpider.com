@@ -11,7 +11,9 @@ function normalizeProductTitle(title) {
   return replaceString
 }
 
-function normalizeVariantName(name) {
+function normalizeVariantName(nameStr) {
+  let name = nameStr.trim()
+
   if (!name) {
     return name
   }
@@ -116,6 +118,7 @@ function normalizeVariantName(name) {
   name = name?.replace(' Pheno 1', '')
   name = name?.replace(' Pheno 2', '')
 
+console.log(nameStr, name);
   return name
 }
 
@@ -129,16 +132,17 @@ function variantNameContainsWeightUnitString(variantName) {
 }
 
 function makeFirebaseSafe(str) {
-  const encoded = encodeURI(str);
-  return encoded.replace(/[\/.#[\]*$]/g, '_');
+  id = str.replace(/\s/g, '-')
+  id = id.replace(/%20/g, '-')
+  id = id.replace(/[\/\'.#[\]*$]/g, '');
+  return id
 }
 
 async function makeFirebaseSafeId(suffix, product, collectionRef) {
 
-  let id = `${product.vendor}-${suffix}-${product.title}{n}`
-  id = id.replace(/%20/g, '-')
-  const result = makeFirebaseSafe(id)
-  return result
+  let id = `${product.vendor}-${suffix}-${product.title}`
+  id = makeFirebaseSafe(id)
+  return id
 
 }
 

@@ -59,15 +59,20 @@ async function normalizeVariants() {
   const productsRef = db.collection('products');
   const snapshot = await productsRef.get();
 
+  const updatePromises = [];
+
   snapshot.forEach(doc => {
     const product = doc.data();
     if (product.variants) {
       product.variants.forEach(variant => normalizeVariantName(variant));
 
-      doc.ref.update({ variants: product.variants });
+      // Push the update operation into the array
+      updatePromises.push(doc.ref.update({ variants: product.variants }));
     }
   });
 
+  // Wait for all update operations to complete
+  await Promise.all(updatePromises);
 }
 
 function findLargestImage(htmlString) {
@@ -172,8 +177,6 @@ async function saveProducts(products, batchId = '00x',  useDev) {
     console.log('No products to save');
     return;
   }
-
-
 
   if (!products || !products.length) {
     return;
@@ -546,11 +549,17 @@ async function copyAndDeleteProducts(keepBatchIds) {
   snapshot.forEach(doc => {
     const product = doc.data();
 
-    if (!keepBatchIds.includes(product.batchId)) {
+    let id = decodeURIComponent(doc.id);
+    id = id.replace(/-/g, ' ');
+    console.log('doc id', doc.id, id)
+
+    if (doc && !keepBatchIds.some(s => id.includes(s))) {
+      console.log('saving...')
       const newDocRef = secondCollectionRef.doc(doc.id);
       batch.set(newDocRef, product);
       batch.delete(doc.ref);
     }
+
   });
 
   await batch.commit();
@@ -612,6 +621,7 @@ async function getAssays() {
 
 module.exports = {
   cleanProductsCollection,
+  copyAndDeleteProducts,
   deleteAllDocumentsInCollection,
   recalculateChemicalValues,
   getAllProducts,

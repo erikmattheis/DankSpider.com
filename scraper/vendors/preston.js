@@ -8,7 +8,7 @@ const logger = require('../services/logger.js');
 const { saveProducts } = require('../services/firebase.js');
 const products = [];
 
-let numProductsToSave = 100;
+let numProductsToSave = 1;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -25,6 +25,7 @@ function getImageSrc(html) {
 }
 
 async function getPrestonProductInfo(product) {
+
   // try {
   if (!product.url) {
     return null;
@@ -78,9 +79,7 @@ async function getPrestonProductInfo(product) {
         break
       }
 
-      if(numSavedProducts > numProductsToSave) {
-        break;
-      }
+
 
       return {
         ...product,

@@ -44,10 +44,6 @@ async function getProducts() {
 
   $('.drganja_products_list').each((_, entry) => {
 
-    if (numSavedProducts > numProductsToSave) {
-      return;
-    }
-
     const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
 
     const url = $(entry).find('.drganja_list_product_image').attr('href');

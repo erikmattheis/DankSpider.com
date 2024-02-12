@@ -137,10 +137,8 @@ terpeneList.sort();
 
 function linePasses(line) {
   const hasFiveLetters = /[a-z]{5,}/.test(line);
-  const hasTwoDigits = /\d{2,}/.test(line);
-  const hasFourDigits = /\d{4,}/.test(line);
-
-  return hasFiveLetters && hasTwoDigits && hasFourDigits
+  const hasThreeDigits = /\d{2,}/.test(line);
+  return hasFiveLetters && hasThreeDigits
 }
 
 function normalizeCannabinoid(name, url) {

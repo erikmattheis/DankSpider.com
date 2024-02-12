@@ -73,7 +73,7 @@ async function run(batchId, vendor, vList) {
       return saveProducts(products, batchId, vendorName);
     });
   } else {
-    tasks = vendors
+    tasks = vList
       .filter(({ name }) => !vendor || vendor === name)
       .map(({ service }) => {
         return (async () => {

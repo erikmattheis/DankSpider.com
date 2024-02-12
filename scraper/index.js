@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -19,7 +19,7 @@ const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 
-const batchId = '000w'
+
 
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
@@ -61,16 +61,19 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
   await cleanProductsCollection()
 
-   await makeProductsFile()
+  //await normalizeVariants();
+
+  await makeProductsFile()
 
   // await makeTerpenesFile()
 
-  //const keepBatchIds = ['00y']
-  //await copyAndDeleteProducts(keepBatchIds);
+  // const keepBatchIds = ['00y']
+
+  //await copyAndDeleteProducts([batchId]);
 
   //await makeStats()
 
@@ -105,7 +108,12 @@ await scrapers.run(batchId, vendor, vendorList)
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
+const batchId = '998'
 
-
-run(batchId, 'x', [{ name: 'Preston', service: preston }])
+run(batchId, 'x', [{ name: 'PPM', service: ppm },
+{ name: 'Arete', service: arete },
+{ name: 'drGanja', service: drGanja },
+{ name: 'WNC', service: wnc },
+{ name: 'Preston', service: preston },
+{ name: 'TopCola', service: topcola }])
 

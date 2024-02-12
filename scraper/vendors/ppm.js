@@ -98,7 +98,7 @@ async function getProducts() {
 
       console.log('el')
       if (numberSavedProducts >= numProductsToSave) {
-        //     break;
+        break;
       }
 
 
@@ -144,7 +144,7 @@ async function getProducts() {
       const canns = assay.assay.filter(a => cannabinoidList.includes(a.name))
       const terps = assay.assay.filter(a => terpeneList.includes(a.name))
 
-      numberSavedProducts = numberSavedProducts + 1;
+      numberSavedProducts++;
 
       const product = { title, image, url, vendor, cannabinoids: canns, terpenes: terps, variants, vendorDate }
       products.push(product)

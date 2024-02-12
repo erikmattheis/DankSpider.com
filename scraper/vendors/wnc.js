@@ -149,6 +149,10 @@ function isDesiredProduct(productTitle) {
     return false;
   }
 
+  if (lowerTitle.includes('sampler')) {
+    return false;
+  }
+
   return ['living soil', 'indoor', 'greenhouse'].some((keyword) =>
     lowerTitle.includes(keyword)
   );
@@ -167,10 +171,6 @@ async function getWNCProductsInfo(productLinks) {
     const product = await getProduct(productLink);
 
     if (!product) {
-      continue;
-    }
-
-    if (numSavedProducts > numProductsToSave) {
       continue;
     }
 
