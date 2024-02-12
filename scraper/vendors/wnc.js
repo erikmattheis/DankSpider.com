@@ -71,8 +71,8 @@ try {
 
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('certificate'));
 
-  let terpenes = [];
   let cannabinoids = [];
+  let terpenes = [];
 
   for (const image of images) {
 
@@ -84,8 +84,16 @@ try {
     const result = transcribeAssay(raw, image);
 
     if (result.length) {
+      if (cannabinoidList[result[0].name]) {
       cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      }
+      if (terpeneList[result[0].name]) {
       terpenes = result.filter(a => terpeneList.includes(a.name))
+      }
+    }
+
+    if (terpenes.length && cannabinoids.length) {
+      break;
     }
   }
 
@@ -95,8 +103,8 @@ try {
     image,
     images,
     variants,
-    terpenes,
     cannabinoids,
+    terpenes,
     vendor: 'WNC',
   }
 }
