@@ -21,10 +21,10 @@ const drGanja = require("./vendors/drganja.js");
 
 const batchId = '000w'
 
-function showBatch() {
-  const products = getProductsByBatchId(batchId)
+async function showBatch() {
+  const products = await getProductsByBatchId(batchId)
   console.log('batch', products)
-  fs.writeFileSync(`./temp/batch${batchId}.json`, JSON.stringify(products))
+  fs.writeFileSync(`./temp/batch${batchId}.json`, JSON.stringify(products, null, 2))
 }
 
 process.on('uncaughtException', (err) => {
@@ -59,20 +59,20 @@ async function run(batchId, vendor, vendorList) {
 
   const timer = performance.now()
 
-   await scrapers.run(batchId, vendor, vendorList)
+  //await showBatch()
+
+  await scrapers.run(batchId, vendor, vendorList)
 
   //await cleanProductsCollection()
 
-  //await makeProductsFile()
-
- // await makeProductsFile()
+  // await makeProductsFile()
 
   // await makeTerpenesFile()
 
   //const keepBatchIds = ['00y']
   //await copyAndDeleteProducts(keepBatchIds);
 
-  await makeStats()
+  //await makeStats()
 
   // await makeStrainsFile()
 
@@ -106,12 +106,6 @@ async function run(batchId, vendor, vendorList) {
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
 
-/*
-run(batchId, 'x', [{ name: 'drGanja', service: drGanja },
-{ name: 'WNC', service: wnc },
-{ name: 'Preston', service: preston },
-{ name: 'TopCola', service: topcola },])
-*/
 
-run(batchId)
+run(batchId, 'x', [{ name: 'PPM', service: ppm }])
 

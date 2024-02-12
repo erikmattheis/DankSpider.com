@@ -16,11 +16,11 @@ const logger = require("./logger.js");
 
 const scan = [
   // Dr Ganja Cannabinoids
-//   "https://cdn.drganja.com/wp-content/uploads/2023/05/Tropaya-Cannabinoids-Certificate-of-Analysis-1184x1536.jpg",
+  //   "https://cdn.drganja.com/wp-content/uploads/2023/05/Tropaya-Cannabinoids-Certificate-of-Analysis-1184x1536.jpg",
   // Dr Ganja Terpenes
-//  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
+  //  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
   // Dr Ganja Terpenes 2
- // "https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg",
+  // "https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg",
   //wnc cannabinoids
   "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3613/Indoor_-_THCa_Fiji_Sunset_Hydro_Potency__20263.1696444987.jpg?c=1",
   //wnc terpenes
@@ -39,35 +39,35 @@ async function run(batchId, vendor, vendorList) {
     vendors = vendorList
   }
   else {
-   vendors = [
-    { name: 'PPM', service: ppm },
-    { name: 'Arete', service: arete },
-    { name: 'drGanja', service: drGanja },
-    { name: 'WNC', service: wnc },
-    { name: 'Preston', service: preston },
-    { name: 'TopCola', service: topcola },
-  ];
+    vendors = [
+      { name: 'PPM', service: ppm },
+      { name: 'Arete', service: arete },
+      { name: 'drGanja', service: drGanja },
+      { name: 'WNC', service: wnc },
+      { name: 'Preston', service: preston },
+      { name: 'TopCola', service: topcola },
+    ];
   }
 
-let tasks;
-if (vendorList && vendorList.length) {
-  tasks = vendorList.map(async (vendor) => {
-    const products = await vendor.service.getAvailableLeafProducts();
+  let tasks;
+  if (vendorList && vendorList.length) {
+    tasks = vendorList.map(async (vendor) => {
+      const products = await vendor.service.getAvailableLeafProducts();
 
-    return saveProducts(products, batchId, vendor);
-  });
-} else {
-  tasks = vendors
-    .filter(({ name }) => !vendor || vendor === name)
-    .map(({ service }) => {
-      return (async () => {
-        const products = await service.getAvailableLeafProducts();
-
-        return saveProducts(products, batchId, vendor);
-      })();
+      return saveProducts(products, batchId, vendor);
     });
-}
-await Promise.all(tasks);
+  } else {
+    tasks = vendors
+      .filter(({ name }) => !vendor || vendor === name)
+      .map(({ service }) => {
+        return (async () => {
+          const products = await service.getAvailableLeafProducts();
+
+          return saveProducts(products, batchId, vendor);
+        })();
+      });
+  }
+  await Promise.all(tasks);
 
 
 }

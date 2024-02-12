@@ -170,7 +170,7 @@ function normalizeAnyChemical(str, url) {
   }
 
   if (terpeneSpellings[str]) {
-    return terpeneSpellings[str].name
+    return terpeneSpellings[str]
   }
 
   fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
