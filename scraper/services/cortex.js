@@ -160,7 +160,9 @@ function normalizeTerpene(terpene) {
     return terpeneSpellings[terpene]
   }
 
-  fs.appendFileSync('./temp/unknownterpenes.txt', `${terpene}\n`)
+  if (linePasses(line)) {
+    fs.appendFileSync('./temp/unknownterpenes.txt', `${terpene}\n`)
+  }
   return terpene
 }
 
@@ -172,8 +174,9 @@ function normalizeAnyChemical(str, url) {
   if (terpeneSpellings[str]) {
     return terpeneSpellings[str]
   }
-
-  fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+  if (linePasses(str)) {
+    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+  }
   return "Unknown"
 }
 

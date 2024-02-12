@@ -75,31 +75,32 @@ async function recordAssays() {
   }
 }
 
-const products = [];
 
 async function getProducts() {
   console.log('getting products')
+  const products = [];
   try {
 
     allAssays = await getAssays();
 
     const result = await axios.get(feedUrl)
-    // fs.writeFileSync('./temp/vendors/ppm.html', result.data)
-    const $ = cheerio.load(result.data, { xmlMode: true })
+
+    const $ = cheerio.load(result.data)
+
+    fs.writeFileSync('./temp/vendors/ppm.html', result.data)
+
     let els = $('.pf-product-form').parent().parent().get()
     els = Array.from(els);
 
 
     for (let element of els) {
-
-      const el = $(element).text();
+      let $element = $(element);
 
       console.log('el')
       if (numberSavedProducts >= numProductsToSave) {
         //     break;
       }
 
-      const $element = $(el);
 
       let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
 
@@ -107,7 +108,7 @@ async function getProducts() {
       console.log('title', title)
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
-      const image = `${imageSrc}`;
+      const image = `https://${imageSrc}`;
       const url = `https://perfectplantmarket.com${$element.find('[data-pf-type="MediaMain"]').data('href')}`;
       const vendor = 'PPM';
       let vendorDate = $element.find('[data-pf-type="ProductMeta"]:first').text().trim();
@@ -135,10 +136,11 @@ async function getProducts() {
       });
 
       if (!assay?.assay) {
+        const partialProduct = { title, image, url, vendor, variants, vendorDate }
         fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
-        return { title, url, variants, cannabinoids: [], terpenes: [], vendor: 'PPM' }
+        products.push(partialProduct)
+        continue
       }
-      console.log('assay', assay)
       const canns = assay.assay.filter(a => cannabinoidList.includes(a.name))
       const terps = assay.assay.filter(a => terpeneList.includes(a.name))
 
@@ -153,14 +155,14 @@ async function getProducts() {
     console.error(error)
   }
 
-  // Using regex to extract the JSON part from the scriptContent
-  console.log('returning products', products)
   return products
+  console.log('returning products1', products)
+
 }
 
 async function getAvailableLeafProducts() {
   const products = await getProducts()
-  console.log('returning products', products.length)
+  console.log('returning products2', products.length)
   return products
 }
 

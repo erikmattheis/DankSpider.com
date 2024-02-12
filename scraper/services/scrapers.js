@@ -27,19 +27,28 @@ const scan = [
   "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1",
 ];
 
+function numVendors() {
+  let num = 0;
+  for (const vendor in vendors) {
+    num += vendorList[vendor] > 0 ? 1 : 0;
+  }
+  return num;
+}
+
+
 function logErrorToFile(str) {
   if (process.env.NODE_ENV !== "production") {
     fs.appendFileSync("./temp/errors.txt", str + "\n\n");
   }
 }
 
-async function run(batchId, vendor, vendorList) {
-  let vendors;
-  if (vendorList && vendorList.length) {
-    vendors = vendorList
+async function run(batchId, vendor, vList) {
+  let vendorList;
+  if (vList && vList.length) {
+    vendorList = vList
   }
   else {
-    vendors = [
+    vendorList = [
       { name: 'PPM', service: ppm },
       { name: 'Arete', service: arete },
       { name: 'drGanja', service: drGanja },
@@ -49,12 +58,19 @@ async function run(batchId, vendor, vendorList) {
     ];
   }
 
+
+
   let tasks;
   if (vendorList && vendorList.length) {
     tasks = vendorList.map(async (vendor) => {
       const products = await vendor.service.getAvailableLeafProducts();
+      if (!products || !products.length) {
+        logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
+        return; // Return early if no products
+      }
+      const vendorName = products[0].vendor;
 
-      return saveProducts(products, batchId, vendor);
+      return saveProducts(products, batchId, vendorName);
     });
   } else {
     tasks = vendors
@@ -62,6 +78,9 @@ async function run(batchId, vendor, vendorList) {
       .map(({ service }) => {
         return (async () => {
           const products = await service.getAvailableLeafProducts();
+          if (!products || !products.length) {
+            return; // Return early if no products
+          }
 
           return saveProducts(products, batchId, vendor);
         })();
