@@ -170,7 +170,7 @@ async function getWNCProductsInfo(productLinks) {
 
 
   const products = [];
-  for (const productLink of productLinks) {
+  for await (const productLink of productLinks) {
 
     if (numSavedProducts >= numProductsToSave) {
       continue;

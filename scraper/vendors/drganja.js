@@ -94,7 +94,7 @@ async function addAssays(product, $) {
   let terpenes = [];
   let cannabinoids = [];
 
-  for (const imgStr of assayLinks) {
+  for await (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);

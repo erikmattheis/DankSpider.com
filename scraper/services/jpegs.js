@@ -31,7 +31,7 @@ async function run(batchId) {
   //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
 
-  for (const product of products) {
+  for await (const product of products) {
 
     const result = await getProductImages(product.url);
 
@@ -49,12 +49,12 @@ async function run(batchId) {
 
   const withOCRedImages = [];
 
-  for (const product of withImages) {
+  for await (const product of withImages) {
 
     let terpenes = [];
     let cannabinoids = [];
 
-    for (const image of product.images) {
+    for await (const image of product.images) {
 
       if (skippableImages.includes(image)) {
 

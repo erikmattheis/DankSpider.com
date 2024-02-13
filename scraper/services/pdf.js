@@ -9,7 +9,7 @@ async function readPDFs(pdfs) {
 
   const results = [];
 
-  for (const pdf of pdfs) {
+  for await (const pdf of pdfs) {
     const result = await readPDF(pdf.url, pdf.name)
 
     results.push(result)
@@ -85,7 +85,7 @@ async function addAssays(pdfObjs) {
   const withAssays = [];
   for (const pdf of pdfObjs) {
 
-    const result = transcribeAssay(pdf.text);    if (result.length) {
+    const result = await transcribeAssay(pdf.text);    if (result.length) {
 
       if (cannabinoidList[result[0].name]) {
         cannabinoids = result.filter(a => cannabinoidList.includes(a.name))

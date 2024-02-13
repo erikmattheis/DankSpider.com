@@ -27,7 +27,7 @@ const scan = [
   "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1",
 ];
 
-function numVendors() {
+function numVendors(vendors) {
   let num = 0;
   for (const vendor in vendors) {
     num += vendorList[vendor] > 0 ? 1 : 0;
