@@ -11,6 +11,7 @@ function normalizeProductTitle(title) {
   return replaceString
 }
 
+
 function normalizeVariantName(nameStr) {
   let name = nameStr.trim()
 

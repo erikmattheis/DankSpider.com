@@ -7,7 +7,7 @@ const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
 const { cannabinoidList, terpeneList } = require('../services/cortex')
-const { saveProducts } = require('../services/firebase.js')
+
 let numberSavedProducts = 0;
 let numProductsToSave = 1;
 const html = require('./data/ppm-pdfs.js');
@@ -147,7 +147,7 @@ async function getProducts() {
       numberSavedProducts++;
 
       const product = { title, image, url, vendor, cannabinoids: canns, terpenes: terps, variants, vendorDate }
-      await saveProducts([product], batchId, 'PPM');
+
       products.push(product)
       console.log('products', products.length)
     }
@@ -157,7 +157,6 @@ async function getProducts() {
   }
 
   return products
-  console.log('returning products1', products)
 
 }
 

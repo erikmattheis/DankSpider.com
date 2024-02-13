@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
 const logger = require('../services/logger.js');
-const { saveProducts } = require('../services/firebase.js');
+
 const products = [];
 let batchId = 'test';
 
@@ -163,7 +163,7 @@ async function getPrestonProductsInfo(products) {
 
     numSavedProducts++;
 
-    await saveProducts([product], batchId, 'Preston');
+
 
     if (size) {
       finalProducts.push(product);

@@ -5,7 +5,7 @@ const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUn
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
-const { saveProducts } = require('../services/firebase.js');
+
 
 const { writeFileSync } = require('fs');
 
@@ -74,7 +74,7 @@ async function getAvailableLeafProducts(id, vendor) {
           };
 
           numSavedProducts++;
-          await saveProducts([product], batchId, 'Top Cola');
+
           products.push(product);
         }
       }

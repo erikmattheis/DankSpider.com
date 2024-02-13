@@ -9,7 +9,6 @@ const logger = require('../services/logger');
 let currentPage = 1;
 const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 const logger = require('../services/logger.js');
-const { saveProducts } = require('../services/firebase.js');
 
 const uniqueVariants = [];
 let batchId;
@@ -208,8 +207,6 @@ async function getEHHProductsInfo(productLinks) {
     if (product.variants.length > 0) {
 
       product.variants = product.variants.map((variant) => normalizeVariantName(variant));
-
-      saveProducts([product], batchId, 'EEHH');
 
       products.push(product);
 

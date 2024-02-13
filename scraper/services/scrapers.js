@@ -61,6 +61,7 @@ async function run(batchId, vendor, vList) {
   if (vendorList && vendorList.length) {
     tasks = vendorList.map(async (vendor) => {
       const products = await vendor.service.getAvailableLeafProducts(batchId, vendor);
+      console.log("products end", vendor.name, products.length);
       if (!products || !products.length) {
         logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
         return; // Return early if no products
@@ -75,6 +76,7 @@ async function run(batchId, vendor, vList) {
       .map(({ service }) => {
         return (async () => {
           const products = await service.getAvailableLeafProducts(batchId, vendor);
+          console.log("products end", vendor.name, products.length);
           if (!products || !products.length) {
             return; // Return early if no products
           }

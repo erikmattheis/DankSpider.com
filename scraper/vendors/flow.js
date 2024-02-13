@@ -5,7 +5,6 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
-const { saveProducts } = require('../services/firebase.js');
 let numProductsToSave = 1;
 let numSavedProducts = 0;
 
@@ -46,7 +45,6 @@ async function getProducts() {
       }
 
       numSavedProducts++;
-      await saveProducts([product]);
       products.push(product);
     }
   }

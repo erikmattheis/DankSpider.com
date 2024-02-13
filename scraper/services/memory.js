@@ -100,9 +100,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
 }
 
-
 const cannabinoidSpellings = {
-  'A-9-Tetrahydrocannabiphorel': { name: 'THCP', confidence: 0.99 },
+  'A-9-Tetrahydrocannabiphorel': { name: '∆-9-THCP', confidence: 0.99 },
   '-A-10-Tetrahydrocannabinol': { name: 'S-∆-10-THC', confidence: 1 },
   '?5-Hexatydrocarrabiacl': { name: '9S-HHC', confidence: 0.9 },
   '∆-9 THC': { name: '∆-9-THC', confidence: 0.99 },
@@ -147,7 +146,7 @@ const cannabinoidSpellings = {
   'Cannabidiolic Acid': { name: 'CBD', confidence: 0.9 },
   'Cannabidivarin (CBDV)': { name: 'CBDV', confidence: 0.99 },
   'Cannabidivarinic Acid (CBDVA)': { name: 'CBDVA', confidence: 0.99 },
-  'Cannabidivarinic Acid': { name: 'THCV', confidence: 0.8 },
+  'Cannabidivarinic Acid': { name: '∆-9-THCV', confidence: 0.8 },
   'Cannabigerol (CBG)': { name: 'CBG', confidence: 0.99 },
   'cannabigerol': { name: 'CBG', confidence: 0.99 },
   'Cannabigerolic Acid (CBGA)': { name: 'CBGA', confidence: 0.99 },
@@ -164,7 +163,7 @@ const cannabinoidSpellings = {
   'FR-Hewtredr': { name: '9R-HHC', confidence: 0.9 },
   'FR-Hexatrd': { name: '9R-HHC', confidence: 0.9 },
   'FR-Hexdrd': { name: '9R-HHC', confidence: 0.9 },
-  'IC=THCa*': { name: 'THCA', confidence: 0.9 },
+  'IC=THCa*': { name: '∆-9 THCA', confidence: 0.9 },
   'R-A-10-Tetrahydrocannabinol (R-A-10-THC)': { name: 'R-∆-10-THC', confidence: 0.99 },
   'R-A-10-Tetrahydrocannabinol': { name: 'R-∆-10-THC', confidence: 1 },
   'R-Delta 10-THC': { name: 'R-∆-10-THC', confidence: 0.99 },
@@ -174,7 +173,6 @@ const cannabinoidSpellings = {
   'Tetrahwdrocannabinol:': { name: '∆-9-THC', confidence: 1 },
   'Tetrahydrocannabivarin (THCV)': { name: 'THCV', confidence: 0.99 },
   'Tetrahydrocannabivarinic Acid': { name: '∆-9-THCVA', confidence: 0.99 },
-  'Total Cannabinoids': { name: 'Total', confidence: 0.99 },
   "∆ 9-THC": { name: '∆-9-THC', confidence: 0.99 },
   "∆ 9-THCA": { name: '∆-9-THCA', confidence: 0.99 },
   "∆ 9-THCVA": { name: '∆-9-THCVA', confidence: 0.99 },
@@ -226,11 +224,20 @@ const cannabinoidSpellings = {
   Tetratwarocamanng: { name: '∆-9-THC', confidence: 1 },
   THC: { name: '∆-9-THC', confidence: 0.99 },
   THCA: { name: '∆-9-THCA', confidence: 0.99 },
-  THCP: { name: 'THCP', confidence: 0.99 },
-  THCV: { name: 'THCV', confidence: 0.99 },
+  THCP: { name: '∆-9-THCP', confidence: 0.99 },
+  THCV: { name: '∆-9-THCV', confidence: 0.99 },
   Total: { name: 'Total', confidence: 1 },
   TOTAL: { name: 'Total', confidence: 1 },
 }
+
+
+function extractNameProperties(cannabinoidSpellings) {
+  return Object.values(cannabinoidSpellings).map(cannabinoid => cannabinoid.name);
+}
+
+const r = extractNameProperties(cannabinoidSpellings).join(', ');
+
+console.log(r)
 
 const terpeneSpellings = {
   '«-Bisabolol': 'Bisabolol',
@@ -277,6 +284,10 @@ const terpeneSpellings = {
   Pulegone: 'Pulegone',
   Terpinolene: 'Terpinolene',
 }
+
+const t = Array.from(terpeneSpellings).map(t => t.name).join(', ')
+
+console.log(t)
 
 function filterAssay(assay) {
   return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));

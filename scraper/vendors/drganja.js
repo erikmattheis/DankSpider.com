@@ -4,7 +4,6 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
-const { saveProducts } = require('../services/firebase.js');
 
 let numProductsToSave = 1;
 let numSavedProducts = 0;
@@ -71,7 +70,6 @@ async function addDetails(products) {
 
     numSavedProducts++;
 
-    await saveProducts([productWithAssays], batchId, 'Dr Ganja');
     result.push(productWithAssays);
 
   }

@@ -9,7 +9,6 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
-const { saveProducts } = require('../services/firebase.js')
 let numProductsToSave = 1;
 let numSavedProducts = 0;
 
@@ -89,10 +88,6 @@ async function parseSingleProduct(html, url) {
     if (terpenes.length && cannabinoids.length) {
       break;
     }
-/*
-    console.log('cannabinoids', cannabinoids, terpenes)
-    console.log('terpenes', terpenes)
-*/
   }
 
   const properties = { image:productImages[0], variants, cannabinoids, terpenes }
@@ -149,8 +144,6 @@ async function getProducts(feedUrl) {
       ...more, url, title, vendor
     }
 
-
-    await saveProducts([product], batchId, 'Arete');
     numSavedProducts++;
     products.push(product)
 
