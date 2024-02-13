@@ -1,7 +1,9 @@
+const { saveProducts } = require('../services/firebase')
 const axios = require('../services/rateLimitedAxios')
 const strings = require('../services/strings')
-
-async function getAvailableLeafProducts() {
+let batchId = 'test'
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id
   const url = 'https://cdn5.editmysite.com/app/store/api/v28/editor/users/132525192/sites/370639016370754120/products?page=1&per_page=60&sort_by=shop_all_order&sort_order=asc&include=images,media_files,discounts&preferred_item_order_ids=19,29,28,30,26,25,24,23,22,21,20,15,13,12,11,10,9,6,5,4,3,2&in_stock=1&excluded_fulfillment=dine_in'
   const response = await axios.get(url)
   const products = []
@@ -13,15 +15,16 @@ async function getAvailableLeafProducts() {
       i = i + 1
     }
     const title = normalizeProductTitle(product.name.split(' - ')[1])
-
-    products.push({
+    const product = {
       theirId: product.id,
       title,
       url: `https://www.enlightenhempco.com/${product.site_link}`,
       image,
       variants: [],
       vendor: 'Enlighten'
-    })
+    }
+    saveProducts([product], batchId, 'Enlighten')
+    products.push(product)
   }
   const unchangingVariants = await addVariants(products)
   return unchangingVariants
@@ -50,7 +53,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts()
+  getAvailableLeafProducts(batchId, vendor)
 }
 
 module.exports = { getAvailableLeafProducts }

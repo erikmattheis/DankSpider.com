@@ -35,7 +35,6 @@ function numVendors(vendors) {
   return num;
 }
 
-
 function logErrorToFile(str) {
   if (process.env.NODE_ENV !== "production") {
     fs.appendFileSync("./temp/errors.txt", str + "\n\n");
@@ -58,31 +57,29 @@ async function run(batchId, vendor, vList) {
     ];
   }
 
-
-
   let tasks;
   if (vendorList && vendorList.length) {
     tasks = vendorList.map(async (vendor) => {
-      const products = await vendor.service.getAvailableLeafProducts();
+      const products = await vendor.service.getAvailableLeafProducts(batchId, vendor);
       if (!products || !products.length) {
         logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
         return; // Return early if no products
       }
       const vendorName = products[0].vendor;
 
-      return saveProducts(products, batchId, vendorName);
+      return await saveProducts(products, batchId, vendorName);
     });
   } else {
     tasks = vList
       .filter(({ name }) => !vendor || vendor === name)
       .map(({ service }) => {
         return (async () => {
-          const products = await service.getAvailableLeafProducts();
+          const products = await service.getAvailableLeafProducts(batchId, vendor);
           if (!products || !products.length) {
             return; // Return early if no products
           }
 
-          return saveProducts(products, batchId, vendor);
+          return await saveProducts(products, batchId, vendor);
         })();
       });
   }

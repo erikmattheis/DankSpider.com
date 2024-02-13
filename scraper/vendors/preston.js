@@ -7,6 +7,7 @@ const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/c
 const logger = require('../services/logger.js');
 const { saveProducts } = require('../services/firebase.js');
 const products = [];
+let batchId = 'test';
 
 let numProductsToSave = 1;
 let numSavedProducts = 0;
@@ -57,7 +58,7 @@ async function getPrestonProductInfo(product) {
     let cannabinoids = [];
 
     for (const image of product.images) {
-
+console.log('image', image)
       const raw = await recognize(image);
       const result = transcribeAssay(raw, image);
 
@@ -73,8 +74,6 @@ async function getPrestonProductInfo(product) {
       if (terpenes?.length && cannabinoids?.length) {
         break
       }
-
-
 
       return {
         ...product,
@@ -164,7 +163,7 @@ async function getPrestonProductsInfo(products) {
 
     numSavedProducts++;
 
-    saveProducts([product]);
+    await saveProducts([product], batchId, 'Preston');
 
     if (size) {
       finalProducts.push(product);
@@ -174,8 +173,8 @@ async function getPrestonProductsInfo(products) {
   return finalProducts;
 }
 
-async function getAvailableLeafProducts() {
-
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
   const products = await scrapePage(startUrl, currentPage);
 
   const finalProducts = await getPrestonProductsInfo(products);
@@ -188,7 +187,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts();
+  getAvailableLeafProducts(batchId, vendor);
 }
 
 module.exports = {

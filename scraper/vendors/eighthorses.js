@@ -9,8 +9,10 @@ const logger = require('../services/logger');
 let currentPage = 1;
 const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 const logger = require('../services/logger.js');
+const { saveProducts } = require('../services/firebase.js');
 
 const uniqueVariants = [];
+let batchId;
 
 function addUniqueVariant(variant) {
   if (!uniqueVariants.includes(variant)) {
@@ -207,6 +209,8 @@ async function getEHHProductsInfo(productLinks) {
 
       product.variants = product.variants.map((variant) => normalizeVariantName(variant));
 
+      saveProducts([product], batchId, 'EEHH');
+
       products.push(product);
 
     }
@@ -215,8 +219,8 @@ async function getEHHProductsInfo(productLinks) {
   return products;
 }
 
-async function getAvailableLeafProducts() {
-
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
   const products = await getEHHProductsInfo(productLinks);
@@ -229,7 +233,7 @@ if (require.main === module) {
   logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts();
+  getAvailableLeafProducts(batchId, vendor);
 }
 
 module.exports = {

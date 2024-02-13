@@ -61,16 +61,11 @@ async function run(batchId, vendor, vendorList) {
 
  await scrapers.run(batchId, vendor, vendorList)
 
-//  / await cleanProductsCollection()
 
-  //await normalizeVariants();
+
+  await copyAndDeleteProducts([batchId]);
+
   await makeProductsFile()
-
-  // await makeTerpenesFile()
-
-  // const keepBatchIds = ['00y']
-
-  // await copyAndDeleteProducts([batchId]);
 
   await makeStats()
 
@@ -105,12 +100,12 @@ async function run(batchId, vendor, vendorList) {
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
-const batchId = '995'
+const batchId = '993'
 
 run(batchId, 'x', [{ name: 'PPM', service: ppm },
 { name: 'Arete', service: arete },
 { name: 'drGanja', service: drGanja },
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
-{ name: 'TopCola', service: topcola }])
+{ name: 'TopCola', service: topcola },])
 

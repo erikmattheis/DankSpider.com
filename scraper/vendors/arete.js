@@ -14,6 +14,7 @@ let numProductsToSave = 1;
 let numSavedProducts = 0;
 
 let count = 0;
+let batchId;
 
 async function parseSingleProduct(html, url) {
   const $ = cheerio.load(html)
@@ -149,7 +150,7 @@ async function getProducts(feedUrl) {
     }
 
 
-    await saveProducts([product]);
+    await saveProducts([product], batchId, 'Arete');
     numSavedProducts++;
     products.push(product)
 
@@ -158,7 +159,8 @@ async function getProducts(feedUrl) {
   return products
 }
 
-async function getAvailableLeafProducts() {
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id
   const products = await getProducts(feedUrl)
   return products
 }
@@ -167,7 +169,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts()
+  getAvailableLeafProducts(batchId, vendor)
 }
 
 module.exports = {

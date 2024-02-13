@@ -16,6 +16,7 @@ const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 const products = [];
 const productLinks = [];
 let currentPage = 1;
+let batchId;
 
 if (require.main === module) {
   logger.log({
@@ -23,7 +24,8 @@ if (require.main === module) {
   message: `This script is being executed directly by Node.js`,
 })}
 
-async function getAvailableLeafProducts() {
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
 
   const products = await getProducts();
 
@@ -69,7 +71,7 @@ async function addDetails(products) {
 
     numSavedProducts++;
 
-    await saveProducts([productWithAssays]);
+    await saveProducts([productWithAssays], batchId, 'Dr Ganja');
     result.push(productWithAssays);
 
   }

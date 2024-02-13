@@ -24,7 +24,7 @@ async function getProducts() {
 
   const products = [];
 
-  $('entry').each((_, entry) => {
+  for await (const entry of $('entry')) {
 
     if (numSavedProducts >= numProductsToSave) {
       return;
@@ -46,10 +46,10 @@ async function getProducts() {
       }
 
       numSavedProducts++;
-      saveProducts([product]);
+      await saveProducts([product]);
       products.push(product);
     }
-  });
+  }
 
   return products;
 }
@@ -135,8 +135,8 @@ async function addAssays(product, $) {
   return { ...product, cannabinoids, terpenes };
 }
 
-async function getAvailableLeafProducts() {
-
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = batchId;
   const products = await getProducts();
   const result = await addDetails(products);
   return result;
@@ -147,7 +147,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts();
+  getAvailableLeafProducts(batchId, vendor);
 }
 
 

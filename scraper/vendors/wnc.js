@@ -3,14 +3,18 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
+const { saveProducts } = require('../services/firebase.js');
 const { transcribeAssay, cannabinoidList, terpeneList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
 
 const logger = require('../services/logger.js');
 
 let numProductsToSave = 1;
 let numSavedProducts = 0;
+let batchId;
 
 let currentPage = 1;
+let cannabinoids = [];
+let terpenes = [];
 
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
@@ -71,8 +75,7 @@ try {
 
   const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('certificate'));
 
-  let cannabinoids = [];
-  let terpenes = [];
+
 
   for (const image of images) {
 
@@ -97,7 +100,7 @@ try {
     }
   }
 
-  return {
+  const product = {
     title,
     url,
     image,
@@ -107,6 +110,9 @@ try {
     terpenes,
     vendor: 'WNC',
   }
+  numSavedProducts++;
+  saveProducts([product], batchId, 'WNC');
+  return product;
 }
   catch (e) {
     logger.error(e);
@@ -198,7 +204,8 @@ async function getWNCProductsInfo(productLinks) {
   return products;
 }
 
-async function getAvailableLeafProducts() {
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
 
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
@@ -212,7 +219,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts();
+  getAvailableLeafProducts(batchId, vendor);
 }
 
 module.exports = {

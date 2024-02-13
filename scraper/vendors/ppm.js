@@ -15,7 +15,7 @@ const html = require('./data/ppm-pdfs.js');
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
 const url = 'https://perfectplantmarket.com/pages/lab-reports'
 let allAssays
-
+let batchId;
 
 async function getListOfTHCAPDFs() {
 
@@ -147,6 +147,7 @@ async function getProducts() {
       numberSavedProducts++;
 
       const product = { title, image, url, vendor, cannabinoids: canns, terpenes: terps, variants, vendorDate }
+      await saveProducts([product], batchId, 'PPM');
       products.push(product)
       console.log('products', products.length)
     }
@@ -160,7 +161,9 @@ async function getProducts() {
 
 }
 
-async function getAvailableLeafProducts() {
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
+
   const products = await getProducts()
   console.log('returning products2', products.length)
   return products
@@ -171,7 +174,7 @@ if (require.main === module) {
     level: 'info',
     message: `This script is being executed directly by Node.js`
   });
-  getAvailableLeafProducts()
+  getAvailableLeafProducts(batchId, vendor)
 }
 
 module.exports = {

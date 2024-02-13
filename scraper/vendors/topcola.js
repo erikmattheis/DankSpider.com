@@ -12,11 +12,13 @@ const { writeFileSync } = require('fs');
 const products = [];
 const productLinks = [];
 let currentPage = 1;
+let batchId;
 
 let numProductsToSave = 1;
 let numSavedProducts = 0;
 
-async function getAvailableLeafProducts() {
+async function getAvailableLeafProducts(id, vendor) {
+  batchId = id;
 
   try {
     const response = await axios.get(atomFeedUrl);
@@ -72,7 +74,7 @@ async function getAvailableLeafProducts() {
           };
 
           numSavedProducts++;
-          await saveProducts([product]);
+          await saveProducts([product], batchId, 'Top Cola');
           products.push(product);
         }
       }
@@ -88,7 +90,7 @@ if (require.main === module) {
    logger.log({
   level: 'info',
   message: `This script is being executed directly by Node.js`});
-  getAvailableLeafProducts();
+  getAvailableLeafProducts(batchId, vendor);
 }
 
 module.exports = {
