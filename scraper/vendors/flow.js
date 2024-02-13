@@ -26,7 +26,7 @@ async function getProducts() {
 
   $('entry').each((_, entry) => {
 
-    if (numSavedProducts > numProductsToSave) {
+    if (numSavedProducts >= numProductsToSave) {
       return;
     }
     const productType = $(entry).find('s\\:type').text();

@@ -19,8 +19,6 @@ const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 
-
-
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
   console.log('batch', products)
@@ -61,21 +59,20 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  await scrapers.run(batchId, vendor, vendorList)
+ await scrapers.run(batchId, vendor, vendorList)
 
-  await cleanProductsCollection()
+//  / await cleanProductsCollection()
 
   //await normalizeVariants();
-
   await makeProductsFile()
 
   // await makeTerpenesFile()
 
   // const keepBatchIds = ['00y']
 
-  //await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
-  //await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -108,7 +105,7 @@ async function run(batchId, vendor, vendorList) {
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
-const batchId = '998'
+const batchId = '995'
 
 run(batchId, 'x', [{ name: 'PPM', service: ppm },
 { name: 'Arete', service: arete },

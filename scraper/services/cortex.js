@@ -138,7 +138,10 @@ terpeneList.sort();
 function linePasses(line) {
   const hasFiveLetters = /[a-z]{5,}/.test(line);
   const hasThreeDigits = /\d{2,}/.test(line);
-  return hasFiveLetters && hasThreeDigits
+  if (!hasFiveLetters || !hasThreeDigits) {
+    fs.appendFileSync('./temp/unknownlines.txt', `${line}\n`)
+  }
+  return true
 }
 
 function normalizeCannabinoid(name, url) {

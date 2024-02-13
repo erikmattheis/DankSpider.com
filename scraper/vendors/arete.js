@@ -21,6 +21,10 @@ async function parseSingleProduct(html, url) {
   fs.writeFileSync('./temp/vendors/sarete.html', html)
 
   const variants = []
+  const images = []
+  let terpenes = []
+  let cannabinoids = []
+
 
   // Iterate over each option element within the select
   $('#size option').each(function() {
@@ -49,8 +53,7 @@ async function parseSingleProduct(html, url) {
     return 0
   })
 
-  let terpenes = []
-  let cannabinoids = []
+
 
   if (assayLinks.length === 0) {
 
@@ -74,12 +77,16 @@ async function parseSingleProduct(html, url) {
     }
 
     if (result.length) {
-      cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-      terpenes = result.filter(a => terpeneList.includes(a.name))
+      if (cannabinoids.length > 0 && cannabinoidList[result[0].name]) {
+        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      }
+      if (terpenes.length > 0 && terpeneList[result[0].name]) {
+        terpenes = result.filter(a => terpeneList.includes(a.name))
+      }
     }
 
-    if (terpenes?.length && cannabinoids?.length) {
-      break
+    if (terpenes.length && cannabinoids.length) {
+      break;
     }
 /*
     console.log('cannabinoids', cannabinoids, terpenes)
@@ -120,7 +127,7 @@ async function getProducts(feedUrl) {
   const products = []
   for (let i = 0; i < items.length; i++) {
 
-    if (numSavedProducts > numProductsToSave) {
+    if (numSavedProducts >= numProductsToSave) {
       break;
     }
 
@@ -141,8 +148,9 @@ async function getProducts(feedUrl) {
       ...more, url, title, vendor
     }
 
-    numSavedProducts++;
+
     await saveProducts([product]);
+    numSavedProducts++;
     products.push(product)
 
   }

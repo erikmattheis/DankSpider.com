@@ -30,7 +30,7 @@ async function getAvailableLeafProducts() {
       const entries = parsedData.feed.entry;
       for (const entry of entries) {
 
-        if (numSavedProducts > numProductsToSave) {
+        if (numSavedProducts >= numProductsToSave) {
           break;
         }
 

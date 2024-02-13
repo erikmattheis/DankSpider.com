@@ -62,11 +62,6 @@ async function getPrestonProductInfo(product) {
       const result = transcribeAssay(raw, image);
 
       if (!result) {
-
-        continue;
-      }
-
-      if (result instanceof String) {
         continue;
       }
 
@@ -144,7 +139,7 @@ async function getPrestonProductsInfo(products) {
 
   for (const product of products) {
 
-    if (numSavedProducts > numProductsToSave) {
+    if (numSavedProducts >= numProductsToSave) {
       break;
     }
 

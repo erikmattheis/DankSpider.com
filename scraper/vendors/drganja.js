@@ -58,7 +58,7 @@ async function getProducts() {
 async function addDetails(products) {
   const result = [];
   for (const product of products) {
-    if (numSavedProducts > numProductsToSave) {
+    if (numSavedProducts >= numProductsToSave) {
       break;
     }
     const response = await axios.get(product.url);
@@ -100,11 +100,14 @@ async function addAssays(product, $) {
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
+
     if (result.length) {
-
+      if (cannabinoidList[result[0].name]) {
       cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      }
+      if (terpeneList[result[0].name]) {
       terpenes = result.filter(a => terpeneList.includes(a.name))
-
+      }
     }
 
     if (terpenes?.length && cannabinoids?.length) {
