@@ -17,8 +17,7 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let terpenes = [];
-let cannabinoids = [];
+
 
 if (require.main === module) {
   logger.log({
@@ -90,6 +89,9 @@ async function addVariants(product, $) {
 }
 
 async function addAssays(product, $) {
+
+  let terpenes = [];
+  let cannabinoids = [];
 
   const imgSrcs = $('meta[property="og:image"]').map((_, el) => $(el).attr('content')).get();
 

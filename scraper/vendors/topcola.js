@@ -14,6 +14,12 @@ const logger = require('../services/logger.js');
 const { writeFileSync } = require('fs');
 
 const products = [];
+let productTitle
+let productUrl
+let productImage
+let cannabinoids
+let terpenes
+
 const productLinks = [];
 let currentPage = 1;
 let batchId;
@@ -55,9 +61,9 @@ async function getAvailableLeafProducts(id, vendor) {
 
           resolvedVariants = resolvedVariants.filter((variant) => !variant.includes('SL'));
 
-          const productTitle = entry.title ? normalizeProductTitle(entry.title) : '';
+          productTitle = entry.title ? normalizeProductTitle(entry.title) : '';
 
-          const productUrl = entry.link?.$?.href || '';
+          productUrl = entry.link?.$?.href || '';
 
           const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 

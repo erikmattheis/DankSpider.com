@@ -36,10 +36,10 @@ async function makeStats() {
     vendors[product.vendor].numTerpenesWithValues += product.terpenes?.filter ? product.terpenes?.filter(t => t.pct > 0).length : 0;
     totalTerpenesWithValues += product.terpenes?.filter(c => c.pct > 0).length;
 
-    console.log(vendors[product.vendor]);
+
 
   }
-
+  console.log(products[0].vendor);
   console.log('numProducts', totalProducts)
   console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids / totalProducts).toFixed(2));
   console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues / totalProducts).toFixed(2));

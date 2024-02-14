@@ -5,9 +5,9 @@ const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
-const logger = require('./services/logger.js')
 const { read } = require('./services/pdf.js')
 const { makeProductsFile } = require('./services/memory.js')
+const logger = require('./services/logger.js')
 
 
 const ppm = require("./vendors/ppm.js");
@@ -18,6 +18,7 @@ const enlighten = require("./vendors/enlighten-weebly-few-products.js");
 const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
+const ehh = require("./vendors/ehh.js");
 
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
@@ -61,7 +62,7 @@ async function run(batchId, vendor, vendorList) {
 
   await scrapers.run(batchId, vendor, vendorList)
 
-  // await copyAndDeleteProducts([batchId]);
+  await copyAndDeleteProducts([batchId]);
 
   await makeProductsFile()
 
@@ -98,11 +99,9 @@ async function run(batchId, vendor, vendorList) {
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },]*/
-const batchId = '992'
+const batchId = '993'
 
 run(batchId, 'x', [
-  { name: 'PPM', service: ppm },
-  { name: 'drGanja', service: drGanja },
-  { name: 'WNC', service: wnc }
+  { name: 'EHH', service: ehh },
 ])
 

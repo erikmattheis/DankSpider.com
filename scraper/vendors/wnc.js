@@ -12,12 +12,15 @@ let numSavedProducts = 0;
 let batchId;
 
 let currentPage = 1;
-let cannabinoids = [];
-let terpenes = [];
+
 
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
 async function getProduct(url) {
+
+  let cannabinoids = [];
+  let terpenes = [];
+
   console.log('getting product', url);
   try {
 

@@ -1,3 +1,4 @@
+/* todo number of terpenes nan, only  */
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
 const { getAssays, saveAssays } = require('../services/firebase.js')

@@ -76,26 +76,26 @@ async function normalizeVariants() {
 }
 
 function findLargestImage(htmlString) {
-    const $ = cheerio.load(htmlString);
-    let largestImageUrl = '';
-    let maxImageWidth = 0;
+  const $ = cheerio.load(htmlString);
+  let largestImageUrl = '';
+  let maxImageWidth = 0;
 
-    $('img').each((i, img) => {
-        const srcset = $(img).attr('srcset');
-        if (srcset) {
-            const sources = srcset.split(',').map(s => s.trim());
-            sources.forEach(source => {
-                const [url, width] = source.split(' ');
-                const imageWidth = parseInt(width.replace('w', ''));
-                if (imageWidth > maxImageWidth) {
-                    maxImageWidth = imageWidth;
-                    largestImageUrl = url;
-                }
-            });
+  $('img').each((i, img) => {
+    const srcset = $(img).attr('srcset');
+    if (srcset) {
+      const sources = srcset.split(',').map(s => s.trim());
+      sources.forEach(source => {
+        const [url, width] = source.split(' ');
+        const imageWidth = parseInt(width.replace('w', ''));
+        if (imageWidth > maxImageWidth) {
+          maxImageWidth = imageWidth;
+          largestImageUrl = url;
         }
-    });
+      });
+    }
+  });
 
-    return largestImageUrl;
+  return largestImageUrl;
 }
 
 async function getUniqueCannabinoids() {
@@ -171,7 +171,7 @@ const rl = readline.createInterface({
 
 
 
-async function saveProducts(products, batchId = '00x',  useDev) {
+async function saveProducts(products, batchId = '00x', useDev) {
 
   if (!products || !products.length) {
     console.log('No products to save');
@@ -185,7 +185,7 @@ async function saveProducts(products, batchId = '00x',  useDev) {
   console.log('saveProducts', products.length, products[0].vendor)
 
   const batch = db.batch();
-  const  productsRef = db.collection('products');
+  const productsRef = db.collection('products');
 
   const timestamp = admin.firestore.Timestamp.now();
   const idSuffix = batchId || timestamp.toDate().toISOString();
@@ -353,7 +353,7 @@ async function cleanProductsCollection() {
 
     const archiveDoc = archiveRef.doc(doc.id);
 
-   if (uniqueTitles.has(product.title + product.vendor)) {
+    if (uniqueTitles.has(product.title + product.vendor)) {
       products.push(archiveDoc.set(product));
       dels.push(doc.ref.delete());
     }
@@ -511,8 +511,9 @@ async function getProductsByVariant(variant) {
 
 if (require.main === module) {
   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
 
   (async () => {
     await cleanProductsCollection();
@@ -546,10 +547,12 @@ async function copyAndDeleteProducts(keepBatchIds) {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-
-    let id = decodeURIComponent(doc.id);
-    id = id.replace(/-/g, ' ');
-    console.log('doc id', doc.id, id)
+    if (!doc.id) {
+      return;
+    }
+    let id = doc.id.replace(/\%/g, '-');
+    id = decodeURIComponent(id);
+    //id = id.replace(/-/g, ' ');
 
     if (doc && !keepBatchIds.some(s => id.includes(s))) {
       console.log('saving...')
