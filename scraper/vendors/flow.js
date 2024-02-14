@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
-let numProductsToSave = 1;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
@@ -142,9 +142,10 @@ async function getAvailableLeafProducts(id, vendor) {
 }
 
 if (require.main === module) {
-   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+  logger.log({
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
   getAvailableLeafProducts(batchId, vendor);
 }
 

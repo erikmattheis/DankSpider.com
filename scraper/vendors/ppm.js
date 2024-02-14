@@ -9,7 +9,7 @@ const { readPDFs } = require('../services/pdf')
 const { cannabinoidNameList, terpeneNameList } = require('../services/cortex')
 
 let numberSavedProducts = 0;
-let numProductsToSave = 1;
+let numProductsToSave = 333333;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'

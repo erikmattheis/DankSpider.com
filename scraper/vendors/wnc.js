@@ -7,7 +7,7 @@ const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNon
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 4;
+let numProductsToSave = 4444;
 let numSavedProducts = 0;
 let batchId;
 
@@ -91,12 +91,12 @@ async function getProduct(url) {
 
       if (result.length) {
         console.log('must say name', result[0].name);
-        if (cannabinoidNameList[result[0].name]) {
+        if (cannabinoidNameList.includes(result[0].name)) {
           console.log('filtering cannabinoids');
           cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
           console.log('cannabinoids', cannabinoids.length)
         }
-        if (terpeneNameList[result[0].name]) {
+        if (terpeneNameList.includes(result[0].name)) {
           terpenes = result.filter(a => terpeneNameList.includes(a.name))
           console.log('terpenes', terpenes.length)
         }

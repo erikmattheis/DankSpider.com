@@ -95,7 +95,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
 
-  logger.log({level:'info', message: `Wrote ${products.length} products to products.json`});
+  logger.log({ level: 'info', message: `Wrote ${products.length} products to products.json` });
 }
 
 const cannabinoidSpellings = {
@@ -234,8 +234,6 @@ function extractNameProperties(spellings) {
 
 const cannabinoidNameList = extractNameProperties(cannabinoidSpellings).map(name => `'${name}'`).join(', ');
 
-console.log(cannabinoidNameList);
-
 const terpeneSpellings = {
   '«-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
   '«-Pinene': { name: 'Pinene', confidence: 0.99 },
@@ -283,8 +281,6 @@ const terpeneSpellings = {
 };
 
 const terpeneNameList = extractNameProperties(terpeneSpellings).map(name => `'${name}'`).join(', ');
-
-console.log(terpeneNameList);
 
 function filterAssay(assay) {
   return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));

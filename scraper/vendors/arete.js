@@ -9,7 +9,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
-let numProductsToSave = 1;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 let count = 0;

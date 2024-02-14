@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 1;
+let numProductsToSave = 33333;
 let numSavedProducts = 0;
 
 const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
@@ -16,6 +16,9 @@ const products = [];
 const productLinks = [];
 let currentPage = 1;
 let batchId;
+
+let terpenes = [];
+let cannabinoids = [];
 
 if (require.main === module) {
   logger.log({
@@ -92,22 +95,24 @@ async function addAssays(product, $) {
 
   const assayLinks = imgSrcs.filter((el) => el.toLowerCase().includes('certificate') || el.toLowerCase().includes('labs'))
 
-  let terpenes = [];
-  let cannabinoids = [];
-
   for await (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
-
+    console.log('result', result.length)
+    console.log(result)
+    console.log('------')
+    console.log(cannabinoidNameList[result[0].name])
     if (result.length) {
-      if (cannabinoidNameList[result[0].name]) {
-        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+      console.log('value', result[0]?.name)
+      if (cannabinoidNameList.includes(result[0].name)) {
+        console.log('cannabinoidNameList', cannabinoidNameList.length)
+        cannabinoids = result//;.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpeneNameList[result[0].name]) {
-        terpenes = result.filter(a => terpeneNameList.includes(a.name))
+      if (terpeneNameList.includes(result[0].name)) {
+        terpenes = result//;.filter(a => terpeneNameList.includes(a.name))
       }
     }
 

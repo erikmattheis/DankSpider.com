@@ -102,5 +102,7 @@ const batchId = '992'
 
 run(batchId, 'x', [
   { name: 'PPM', service: ppm },
+  { name: 'drGanja', service: drGanja },
+  { name: 'WNC', service: wnc }
 ])
 

@@ -86,10 +86,10 @@ async function addAssays(pdfObjs) {
 
     const result = await transcribeAssay(pdf.text); if (result.length) {
 
-      if (cannabinoidNameList[result[0].name]) {
+      if (cannabinoidNameList.includes(result[0].name)) {
         cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpeneNameList[result[0].name]) {
+      if (terpeneNameList.includes(result[0].name)) {
         terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
       if (terpenes.length && cannabinoids.length) {

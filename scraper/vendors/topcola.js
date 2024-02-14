@@ -2,6 +2,10 @@ const axios = require('../services/rateLimitedAxios');
 const xml2js = require('xml2js');
 const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUnitString } = require('../services/strings')
+const { recognize } = require('../services/ocr');
+const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
+
+
 
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
@@ -14,7 +18,7 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let numProductsToSave = 1;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 async function getAvailableLeafProducts(id, vendor) {
@@ -57,18 +61,49 @@ async function getAvailableLeafProducts(id, vendor) {
 
           const contentHtml = entry.summary && entry.summary._ ? entry.summary._ : '';
 
-         // writeFileSync('topcola.html', contentHtml);
+          // writeFileSync('topcola.html', contentHtml);
 
           const $content = cheerio.load(contentHtml);
+          const images = $content('img').map((i, el) => $content(el).attr('src')).get();
 
-          const firstImage = $content('img').attr('src');
+          const firstImage = images[0] || '';
 
           const productImage = firstImage || '';
+
+          for (const image of images) {
+
+            const raw = await recognize(image);
+            const result = transcribeAssay(raw, image);
+
+            if (!result) {
+              continue;
+            }
+
+            if (result.length) {
+
+              if (cannabinoidNameList.includes(result[0].name)) {
+
+                cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+
+              }
+              if (terpeneNameList.includes(result[0].name)) {
+                terpenes = result.filter(a => terpeneNameList.includes(a.name))
+              }
+            }
+          }
+          if (terpenes?.length && cannabinoids?.length) {
+            break
+          }
+        }
+
+        if (productTitle && productUrl && productImage) {
 
           const product = {
             title: productTitle,
             url: productUrl,
             image: productImage,
+            cannabinoids,
+            terpenes,
             variants: resolvedVariants,
             vendor: 'Top Cola',
           };
@@ -76,20 +111,23 @@ async function getAvailableLeafProducts(id, vendor) {
           numSavedProducts++;
 
           products.push(product);
+
         }
       }
     }
     return products;
-  } catch (error) {
+  }
+  catch (error) {
     logger.error(`Error fetching Top Cola data: ${error}`);
     throw new Error(`Error fetching Top Cola data: ${error}`);
   }
 }
 
 if (require.main === module) {
-   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+  logger.log({
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
   getAvailableLeafProducts(batchId, vendor);
 }
 

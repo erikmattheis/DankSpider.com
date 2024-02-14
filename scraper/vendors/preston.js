@@ -9,7 +9,7 @@ const logger = require('../services/logger.js');
 const products = [];
 let batchId = 'test';
 
-let numProductsToSave = 1;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -67,8 +67,16 @@ async function getPrestonProductInfo(product) {
       }
 
       if (result.length) {
-        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-        terpenes = result.filter(a => terpeneNameList.includes(a.name))
+
+        if (cannabinoidNameList.includes(result[0].name)) {
+
+          cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+
+        }
+        if (terpeneNameList.includes(result[0].name)) {
+          terpenes = result.filter(a => terpeneNameList.includes(a.name))
+
+        }
       }
 
       if (terpenes?.length && cannabinoids?.length) {

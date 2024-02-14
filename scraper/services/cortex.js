@@ -1,6 +1,7 @@
 const fs = require('fs')
 const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
-
+fs.writeFileSync('./temp/unknowncannabinoid.txt', ``)
+fs.writeFileSync('./temp/unknownchemicals.txt', ``)
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
@@ -127,7 +128,6 @@ function getAnyChemicalObj(line) {
   return { name, pct, mgg, originalText }
 }
 
-
 const canns = Object.keys(cannabinoidSpellings).map(key => cannabinoidSpellings[key].name);
 const cannabinoidNameList = canns.filter((item, index, self) => self.indexOf(item) === index);
 cannabinoidNameList.sort();
@@ -158,7 +158,6 @@ function normalizeCannabinoid(name, line) {
 }
 
 function normalizeTerpene(terpene, line) {
-  console.log('normalizing terpene', terpene)
   if (terpeneSpellings[terpene]) {
     return terpene
   }
@@ -175,7 +174,7 @@ function normalizeAnyChemical(str, url) {
   }
 
   if (terpeneSpellings[str]) {
-    return terpeneSpellings[str]
+    return terpeneSpellings[str].name
   }
 
   if (linePasses(str)) {
