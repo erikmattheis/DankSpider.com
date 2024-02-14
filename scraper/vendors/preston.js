@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
+const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
 const logger = require('../services/logger.js');
 
 const products = [];
@@ -58,7 +58,7 @@ async function getPrestonProductInfo(product) {
     let cannabinoids = [];
 
     for (const image of product.images) {
-console.log('image', image)
+      console.log('image', image)
       const raw = await recognize(image);
       const result = transcribeAssay(raw, image);
 
@@ -67,8 +67,8 @@ console.log('image', image)
       }
 
       if (result.length) {
-        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-        terpenes = result.filter(a => terpeneList.includes(a.name))
+        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+        terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
 
       if (terpenes?.length && cannabinoids?.length) {
@@ -184,9 +184,10 @@ async function getAvailableLeafProducts(id, vendor) {
 }
 
 if (require.main === module) {
-   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+  logger.log({
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
   getAvailableLeafProducts(batchId, vendor);
 }
 

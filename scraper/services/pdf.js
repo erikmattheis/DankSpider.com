@@ -2,8 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 // todo: use something else?
 const pdf = require('pdf-parse');
-const { transcribeAssay } = require('./cortex.js');
-
+const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('./cortex.js');
 
 async function readPDFs(pdfs) {
 
@@ -85,13 +84,13 @@ async function addAssays(pdfObjs) {
   const withAssays = [];
   for (const pdf of pdfObjs) {
 
-    const result = await transcribeAssay(pdf.text);    if (result.length) {
+    const result = await transcribeAssay(pdf.text); if (result.length) {
 
-      if (cannabinoidList[result[0].name]) {
-        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      if (cannabinoidNameList[result[0].name]) {
+        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpeneList[result[0].name]) {
-        terpenes = result.filter(a => terpeneList.includes(a.name))
+      if (terpeneNameList[result[0].name]) {
+        terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
       if (terpenes.length && cannabinoids.length) {
         break;

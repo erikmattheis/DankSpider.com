@@ -3,11 +3,11 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, cannabinoidList, terpeneList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 1;
+let numProductsToSave = 4;
 let numSavedProducts = 0;
 let batchId;
 
@@ -17,45 +17,40 @@ let terpenes = [];
 
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 
-
-const allCannabinoind = THCP, S-∆-10-THC, 9S-HHC, ∆-9-THC, ∆-9-THCA, S-∆-10-THC, ∆-8-THC, ∆-9-THC, ∆-9-THCA, 9S-HHC, 9S-HHC, 9S-HHC, 9S-HHC, 9S-HHC, 9S-HHC, 9R-HHC, 9R-HHC, 9S-HHC, ∆-8-THC, ∆-8-THC, ∆-9-THC, ∆-9-THCO, ∆-9-THCO, ∆-9-THC, ∆-9-THCA, ∆-9-THCA, ∆-9-THCP, THCP, ∆-9-THCV, THCV, ∆-9-THCVA, ∆-9-THCVA, ∆-8-THC, ∆-9-THC, ∆-9-THCA, ∆-9-THCA, ∆-9-THCVA, CBC, CBC, CBL, CBD, CBDA, CBD, CBDV, CBDVA, THCV, CBG, CBG, CBGA, CBGA, CBN, CBNA, CBD, ∆-8-THC, ∆-9-THC, ∆-9-THCA, ∆-9-THCVA, 9R-HHC, 9R-HHC, 9R-HHC, 9R-HHC, 9R-HHC, THCA, R-∆-10-THC, R-∆-10-THC, R-∆-10-THC, S-∆-10-THC, S-∆-10-THC, S-∆-10-THC, ∆-9-THC, THCV, ∆-9-THCVA, Total, ∆-9-THC, ∆-9-THCA, ∆-9-THCVA, CBC, CBG, CBC, CBCA, CBC, CBC, CBCA, CBD, CBDA, CBDV, CBDVA, CBG, CBG, CBG, CBGA, CBN, CBNA, CBN, CBC, CBD, CBC, CBG, CBG, CBG, CBC, CBC, CBG, CBC, CBC, CBCA, CBCV, CBD, CBDA, CBDV, CBDVA, CBG, CBGA, CBL, CBN, CBNA, CBT, CBL, ∆-9-THC, ∆-9-THC, ∆-9-THC, ∆-9-THCA, THCP, THCV, Total, Total;
-
-
-
 async function getProduct(url) {
-console.log('getting product', url);
-try {
+  console.log('getting product', url);
+  try {
 
-  const response = await axios.get(url);
+    const response = await axios.get(url);
 
-  fs.writeFileSync(`./temp/vendors/wnc-product.html`, response.data);
+    fs.writeFileSync(`./temp/vendors/wnc-product.html`, response.data);
 
-  const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response.data);
 
-  const variants = [];
+    const variants = [];
 
-  const title = normalizeProductTitle($('h1.productView-title').text().trim());
+    const title = normalizeProductTitle($('h1.productView-title').text().trim());
 
-  if (stringContainsNonFlowerProduct(title)) {
-    return null;
-  }
-
-  const bcDataScript = $('script:contains("var BCData")').html();
-  const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
-  const availableVariantValues = bcData.product_attributes.available_variant_values;
-
-  $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((_, element) => {
-    const variantValue = $(element).attr('for').split('_').pop();
-    if (availableVariantValues.includes(parseInt(variantValue))) {
-      variants.push($(element).text().trim());
+    if (stringContainsNonFlowerProduct(title)) {
+      return null;
     }
-  });
 
-  const image = $('figure.productView-image img').attr('src');
+    const bcDataScript = $('script:contains("var BCData")').html();
+    const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
+    const availableVariantValues = bcData.product_attributes.available_variant_values;
 
-  const srcsets = $('img.lazyload').map((index, el) => $(el).attr('data-srcset')).get();
+    $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((_, element) => {
+      const variantValue = $(element).attr('for').split('_').pop();
+      if (availableVariantValues.includes(parseInt(variantValue))) {
+        variants.push($(element).text().trim());
+      }
+    });
 
-  const imageUrls = srcsets.map(srcset => {
+    const image = $('figure.productView-image img').attr('src');
+
+    const srcsets = $('img.lazyload').map((index, el) => $(el).attr('data-srcset')).get();
+
+    const imageUrls = srcsets.map(srcset => {
 
       const sources = srcset.split(',').map(s => s.trim());
       let maxImageWidth = 0;
@@ -63,66 +58,71 @@ try {
 
       sources.forEach(source => {
 
-          const [url, width] = source.split(' ');
+        const [url, width] = source.split(' ');
 
-          const imageWidth = parseInt(width.replace('w', ''));
+        const imageWidth = parseInt(width.replace('w', ''));
 
-          if (imageWidth > maxImageWidth) {
+        if (imageWidth > maxImageWidth) {
 
-              maxImageWidth = imageWidth;
+          maxImageWidth = imageWidth;
 
-              largestImageUrl = url;
+          largestImageUrl = url;
 
-          }
+        }
       });
 
       return largestImageUrl;
-  });
+    });
 
-  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('certificate'));
+    const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('certificate'));
 
-  for (const image of images) {
+    for (const image of images) {
 
-    if (skippableImages.includes(image)) {
-      continue;
-    }
-
-    const raw = await recognize(image);
-    const result = transcribeAssay(raw, image);
-
-    if (result.length) {
-      console.log('result', JSON.stringify(result))
-      if (cannabinoidList[result[0].name]) {
-        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
-        console.log('cannabinoids', cannabinoids.length)
+      if (skippableImages.includes(image)) {
+        continue;
       }
-      if (terpeneList[result[0].name]) {
-        terpenes = result.filter(a => terpeneList.includes(a.name))
-        console.log('terpenes', terpenes.length)
+
+      const raw = await recognize(image);
+      console.log('raw', raw.length);
+
+      const result = transcribeAssay(raw, image);
+      console.log('result', result.length);
+      console.log(JSON.stringify(result));
+
+      if (result.length) {
+        console.log('must say name', result[0].name);
+        if (cannabinoidNameList[result[0].name]) {
+          console.log('filtering cannabinoids');
+          cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+          console.log('cannabinoids', cannabinoids.length)
+        }
+        if (terpeneNameList[result[0].name]) {
+          terpenes = result.filter(a => terpeneNameList.includes(a.name))
+          console.log('terpenes', terpenes.length)
+        }
+      }
+      console.log('using', cannabinoids.length, terpenes.length)
+      if (terpenes.length && cannabinoids.length) {
+        console.log('found terpenes and cannabinoids')
+        break;
       }
     }
 
-    if (terpenes.length && cannabinoids.length) {
-      console.log('found terpenes and cannabinoids')
-      break;
+    const product = {
+      title,
+      url,
+      image,
+      images,
+      variants,
+      cannabinoids,
+      terpenes,
+      vendor: 'WNC',
     }
-  }
 
-  const product = {
-    title,
-    url,
-    image,
-    images,
-    variants,
-    cannabinoids,
-    terpenes,
-    vendor: 'WNC',
+    numSavedProducts++;
+    console.log(`Returning ${product.cannabinoids.length} cannabinoids and ${product.terpenes.length} terpenes`)
+    return product;
   }
-
-  numSavedProducts++;
-  console.log(`Returning ${product.cannabinoids.length} cannabinoids and ${product.terpenes.length} terpenes`)
-  return product;
-}
   catch (e) {
     logger.error(e);
 
@@ -190,7 +190,6 @@ function isDesiredProduct(productTitle) {
 
 async function getWNCProductsInfo(productLinks) {
 
-
   const products = [];
   for await (const productLink of productLinks) {
 
@@ -238,9 +237,10 @@ async function getAvailableLeafProducts(id, vendor) {
 }
 
 if (require.main === module) {
-   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+  logger.log({
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
   getAvailableLeafProducts(batchId, vendor);
 }
 

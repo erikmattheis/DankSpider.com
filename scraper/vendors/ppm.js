@@ -6,7 +6,7 @@ const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
-const { cannabinoidList, terpeneList } = require('../services/cortex')
+const { cannabinoidNameList, terpeneNameList } = require('../services/cortex')
 
 let numberSavedProducts = 0;
 let numProductsToSave = 1;
@@ -96,7 +96,6 @@ async function getProducts() {
     for (let element of els) {
       let $element = $(element);
 
-      console.log('el')
       if (numberSavedProducts >= numProductsToSave) {
         break;
       }
@@ -141,8 +140,8 @@ async function getProducts() {
         products.push(partialProduct)
         continue
       }
-      const canns = assay.assay.filter(a => cannabinoidList.includes(a.name))
-      const terps = assay.assay.filter(a => terpeneList.includes(a.name))
+      const canns = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
+      const terps = assay.assay.filter(a => terpeneNameList.includes(a.name))
 
       numberSavedProducts++;
 

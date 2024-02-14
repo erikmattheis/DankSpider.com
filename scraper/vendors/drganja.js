@@ -8,7 +8,7 @@ const logger = require('../services/logger.js');
 let numProductsToSave = 1;
 let numSavedProducts = 0;
 
-const { transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
+const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
 
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
@@ -19,9 +19,10 @@ let batchId;
 
 if (require.main === module) {
   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`,
-})}
+    level: 'info',
+    message: `This script is being executed directly by Node.js`,
+  })
+}
 
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
@@ -102,11 +103,11 @@ async function addAssays(product, $) {
 
 
     if (result.length) {
-      if (cannabinoidList[result[0].name]) {
-      cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      if (cannabinoidNameList[result[0].name]) {
+        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpeneList[result[0].name]) {
-      terpenes = result.filter(a => terpeneList.includes(a.name))
+      if (terpeneNameList[result[0].name]) {
+        terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
     }
 
@@ -116,7 +117,7 @@ async function addAssays(product, $) {
 
   }
 
-  return { ...product, cannabinoids, terpenes  };
+  return { ...product, cannabinoids, terpenes };
 }
 
 module.exports = {

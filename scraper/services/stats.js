@@ -1,8 +1,6 @@
 const { getAllProducts } = require('./firebase.js');
 const { saveStats } = require('./firebase.js');
 
-
-
 async function makeStats() {
   const products = await getAllProducts();
 
@@ -18,6 +16,7 @@ async function makeStats() {
 
     if (!vendors[product.vendor]) {
       vendors[product.vendor] = {
+        vendor: product.vendor,
         numProducts: 0,
         numCannabinoids: 0,
         numCannabinoidsWithValues: 0,
@@ -37,13 +36,15 @@ async function makeStats() {
     vendors[product.vendor].numTerpenesWithValues += product.terpenes?.filter ? product.terpenes?.filter(t => t.pct > 0).length : 0;
     totalTerpenesWithValues += product.terpenes?.filter(c => c.pct > 0).length;
 
+    console.log(vendors[product.vendor]);
+
   }
 
   console.log('numProducts', totalProducts)
-  console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids/totalProducts).toFixed(2));
-  console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues/totalProducts).toFixed(2));
+  console.log('numCannabinoids', totalCannabinoids, (totalCannabinoids / totalProducts).toFixed(2));
+  console.log('numCannabinoidsWithValues', totalCannabinoidsWithValues, (totalCannabinoidsWithValues / totalProducts).toFixed(2));
   console.log('numTerpenes', totalTerpenes);
-  console.log('numTerpenesWithValues', totalTerpenesWithValues, (totalTerpenesWithValues/totalProducts).toFixed(2));
+  console.log('numTerpenesWithValues', totalTerpenesWithValues, (totalTerpenesWithValues / totalProducts).toFixed(2));
 
   saveStats(vendors);
 

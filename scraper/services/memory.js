@@ -39,10 +39,8 @@ async function getImageBuffer(url) {
 
   try {
 
-
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const buffer = Buffer.from(response.data, 'binary');
-
 
     if (!buffer || buffer.length === 0) {
       logger.error(`Error getting image buffer: ${url}`);
@@ -230,64 +228,63 @@ const cannabinoidSpellings = {
   TOTAL: { name: 'Total', confidence: 1 },
 }
 
-
-function extractNameProperties(cannabinoidSpellings) {
-  return Object.values(cannabinoidSpellings).map(cannabinoid => cannabinoid.name);
+function extractNameProperties(spellings) {
+  return Object.values(spellings).map(cannabinoid => cannabinoid.name);
 }
 
-const r = extractNameProperties(cannabinoidSpellings).join(', ');
+const cannabinoidNameList = extractNameProperties(cannabinoidSpellings).map(name => `'${name}'`).join(', ');
 
-console.log(r)
+console.log(cannabinoidNameList);
 
 const terpeneSpellings = {
-  '«-Bisabolol': 'Bisabolol',
-  '«-Pinene': 'Pinene',
-  '1,8-Cineole': 'Eucalyptol',
-  '1.8-Cinecle': 'Eucalyptol',
-  'a-Bisabolol': 'Bisabolol',
-  'a-Bsabolol': 'Bisabolol',
-  'a-Finene': 'Pinene',
-  'a-Humulene': 'Humulene',
-  'a-Pinene': 'Pinene',
-  'a-Terpinene': 'Terpinene',
-  'B-Caryophyliene': 'Caryophyllene',
-  'B-Caryophyllene': 'Caryophyllene',
-  'B-Myrcene': 'Myrcene',
-  'Mentho!': 'Menthol',
-  'o-Humulene': 'Humulene',
-  'y-Terpinene': 'Terpinolene',
-  'α-Bisabolol': 'Bisabolol',
-  'α-Humulene': 'Humulene',
-  'α-Pinene': 'Pinene',
-  'α-Terpinene': 'Terpinene',
-  'β-Caryophyllene': 'Caryophyllene',
-  'β-Myrcene': 'Myrcene',
-  'γ-Terpinene':'Terpinolene',
-  Bisabolol: 'Bisabolol',
-  Bormwol: 'Borneol',
-  Bornel: 'Borneol',
-  Borreol: 'Borneol',
-  Camphene: 'Camphene',
-  Carene: 'Carene',
-  Caryophyllene: 'Caryophyllene',
-  CaryophylleneOxide: 'Caryophyllene Oxide',
-  Citral: 'Citral',
-  Dihydrocarveol: 'Dihydrocarveol',
-  Fenchone: 'Fenchone',
-  Ferxhone: 'Fenchone',
-  Limonene: 'Limonene',
-  Limonenes: 'Limonene',
-  Linalool: 'Linalool',
-  Menthol: 'Menthol',
-  Nerolidol: 'Nerolidol',
-  Ocimene: 'Ocimene',
-  Pulegone: 'Pulegone',
-  Terpinolene: 'Terpinolene',
-}
+  '«-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
+  '«-Pinene': { name: 'Pinene', confidence: 0.99 },
+  '1,8-Cineole': { name: 'Eucalyptol', confidence: 0.99 },
+  '1.8-Cinecle': { name: 'Eucalyptol', confidence: 0.99 },
+  'a-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
+  'a-Bsabolol': { name: 'Bisabolol', confidence: 0.99 },
+  'a-Finene': { name: 'Pinene', confidence: 0.99 },
+  'a-Humulene': { name: 'Humulene', confidence: 0.99 },
+  'a-Pinene': { name: 'Pinene', confidence: 0.99 },
+  'a-Terpinene': { name: 'Terpinene', confidence: 0.99 },
+  'B-Caryophyliene': { name: 'Caryophyllene', confidence: 0.99 },
+  'B-Caryophyllene': { name: 'Caryophyllene', confidence: 0.99 },
+  'B-Myrcene': { name: 'Myrcene', confidence: 0.99 },
+  'Mentho!': { name: 'Menthol', confidence: 0.99 },
+  'o-Humulene': { name: 'Humulene', confidence: 0.99 },
+  'y-Terpinene': { name: 'Terpinolene', confidence: 0.99 },
+  'α-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
+  'α-Humulene': { name: 'Humulene', confidence: 0.99 },
+  'α-Pinene': { name: 'Pinene', confidence: 0.99 },
+  'α-Terpinene': { name: 'Terpinene', confidence: 0.99 },
+  'β-Caryophyllene': { name: 'Caryophyllene', confidence: 0.99 },
+  'β-Myrcene': { name: 'Myrcene', confidence: 0.99 },
+  'γ-Terpinene': { name: 'Terpinolene', confidence: 0.99 },
+  'Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
+  'Bormwol': { name: 'Borneol', confidence: 0.99 },
+  'Bornel': { name: 'Borneol', confidence: 0.99 },
+  'Borreol': { name: 'Borneol', confidence: 0.99 },
+  'Camphene': { name: 'Camphene', confidence: 0.99 },
+  'Carene': { name: 'Carene', confidence: 0.99 },
+  'Caryophyllene': { name: 'Caryophyllene', confidence: 0.99 },
+  'CaryophylleneOxide': { name: 'Caryophyllene Oxide', confidence: 0.99 },
+  'Citral': { name: 'Citral', confidence: 0.99 },
+  'Dihydrocarveol': { name: 'Dihydrocarveol', confidence: 0.99 },
+  'Fenchone': { name: 'Fenchone', confidence: 0.99 },
+  'Ferxhone': { name: 'Fenchone', confidence: 0.99 },
+  'Limonene': { name: 'Limonene', confidence: 0.99 },
+  'Limonenes': { name: 'Limonene', confidence: 0.99 },
+  'Linalool': { name: 'Linalool', confidence: 0.99 },
+  'Menthol': { name: 'Menthol', confidence: 0.99 },
+  'Nerolidol': { name: 'Nerolidol', confidence: 0.99 },
+  'Ocimene': { name: 'Ocimene', confidence: 0.99 },
+  'Pulegone': { name: 'Pulegone', confidence: 0.99 },
+  'Terpinolene': { name: 'Terpinolene', confidence: 0.99 },
+};
 
-const t = Array.from(terpeneSpellings).map(t => t.name).join(', ')
+const terpeneNameList = extractNameProperties(terpeneSpellings).map(name => `'${name}'`).join(', ');
 
-console.log(t)
+console.log(terpeneNameList);
 
 function filterAssay(assay) {
   return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
@@ -297,5 +294,7 @@ module.exports = {
   getBuffer,
   makeProductsFile,
   cannabinoidSpellings,
-  terpeneSpellings
+  terpeneSpellings,
+  cannabinoidNameList,
+  terpeneNameList,
 }

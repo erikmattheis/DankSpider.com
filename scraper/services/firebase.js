@@ -334,7 +334,6 @@ async function recalculateChemicalValues() {
   }
 }
 
-
 async function cleanProductsCollection() {
   const productsRef = db.collection('products');
   const archiveRef = db.collection('productArchive');
@@ -363,7 +362,6 @@ async function cleanProductsCollection() {
 
   await Promise.all(dels);
 }
-
 
 async function getProductsByVendor(vendor, limit, useDev) {
 

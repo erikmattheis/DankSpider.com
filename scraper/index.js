@@ -1,12 +1,12 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId,  cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant,  getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const logger = require('./services/logger.js')
-const {read} = require('./services/pdf.js')
+const { read } = require('./services/pdf.js')
 const { makeProductsFile } = require('./services/memory.js')
 
 
@@ -38,19 +38,19 @@ process.on('unhandledRejection', (reason, p) => {
 async function makeTerpenesFile() {
   const result = await getTerpenes()
   fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
-  logger.log({level:'info', message: `Wrote ${result.length} terpenes to terpenes.json`});
+  logger.log({ level: 'info', message: `Wrote ${result.length} terpenes to terpenes.json` });
 }
 
 async function makeStrainsFile() {
   const result = await getStrains()
   fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
-  logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
+  logger.log({ level: 'info', message: `Wrote ${result.length} strains to terpenes.json` });
 }
 
 async function makeCannabinoidsFile() {
   const result = await getStrains()
   fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
-  logger.log({level:'info', message: `Wrote ${result.length} strains to terpenes.json`});
+  logger.log({ level: 'info', message: `Wrote ${result.length} strains to terpenes.json` });
 }
 
 async function run(batchId, vendor, vendorList) {
@@ -59,13 +59,13 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
- await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
- // await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
- // await makeProductsFile()
+  await makeProductsFile()
 
- // await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -85,9 +85,9 @@ async function run(batchId, vendor, vendorList) {
 
   // await read()
 
-  const time = ((performance.now() - timer)/1000).toFixed(2)
+  const time = ((performance.now() - timer) / 1000).toFixed(2)
 
-  logger.log({level:'info', message: `Done with batch ${batchId} in ${time} seconds`});
+  logger.log({ level: 'info', message: `Done with batch ${batchId} in ${time} seconds` });
 
   process.exit(0)
 }
@@ -101,6 +101,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = '992'
 
 run(batchId, 'x', [
-{ name: 'WNC', service: wnc },
+  { name: 'PPM', service: ppm },
 ])
 

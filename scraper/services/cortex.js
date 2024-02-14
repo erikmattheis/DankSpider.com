@@ -16,6 +16,7 @@ function transcribeAssay(str, url) {
   const chems = filteredLines.map(line => getAnyChemical(line, url))
 
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
+  console.log('returning chemicals', chemicals.length, url)
 
   return chemicals
 
@@ -30,7 +31,7 @@ function getTerpene(line, url) {
 }
 
 function getAnyChemical(line, url) {
-    return getAnyChemicalObj(line, url)
+  return getAnyChemicalObj(line, url)
 }
 
 function filterLine(line, normalizationFunction) {
@@ -47,7 +48,7 @@ function filterLine(line, normalizationFunction) {
 
   let parts = cleanedLine.split(' ');
 
-  const name = normalizationFunction(parts.shift()) || 'Unknown';
+  const name = normalizationFunction(parts.shift(), line) || 'Unknown';
 
   parts = parts.map(part => {
     if (/^ND$|^0.0485$|^0.0728$|^>3.000$|^0.030|^0.0500$|^3.000$|^0.750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
@@ -128,12 +129,12 @@ function getAnyChemicalObj(line) {
 
 
 const canns = Object.keys(cannabinoidSpellings).map(key => cannabinoidSpellings[key].name);
-const cannabinoidList = canns.filter((item, index, self) => self.indexOf(item) === index);
-cannabinoidList.sort();
+const cannabinoidNameList = canns.filter((item, index, self) => self.indexOf(item) === index);
+cannabinoidNameList.sort();
 
-const terps = Object.keys(terpeneSpellings);
-const terpeneList = terps.filter((item, index, self) => self.indexOf(item) === index);
-terpeneList.sort();
+const terps = Object.keys(terpeneSpellings).map(key => terpeneSpellings[key].name);
+const terpeneNameList = terps.filter((item, index, self) => self.indexOf(item) === index);
+terpeneNameList.sort();
 
 function linePasses(line) {
   const hasFiveLetters = /[a-z]{5,}/.test(line);
@@ -144,9 +145,9 @@ function linePasses(line) {
   return true
 }
 
-function normalizeCannabinoid(name, url) {
+function normalizeCannabinoid(name, line) {
   if (cannabinoidSpellings[name]) {
-    return cannabinoidSpellings[name].name
+    return name
   }
 
   if (linePasses(line)) {
@@ -156,9 +157,10 @@ function normalizeCannabinoid(name, url) {
   return "Unknown"
 }
 
-function normalizeTerpene(terpene) {
+function normalizeTerpene(terpene, line) {
+  console.log('normalizing terpene', terpene)
   if (terpeneSpellings[terpene]) {
-    return terpeneSpellings[terpene]
+    return terpene
   }
 
   if (linePasses(line)) {
@@ -175,9 +177,11 @@ function normalizeAnyChemical(str, url) {
   if (terpeneSpellings[str]) {
     return terpeneSpellings[str]
   }
+
   if (linePasses(str)) {
     fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
   }
+
   return "Unknown"
 }
 
@@ -195,7 +199,7 @@ module.exports = {
   normalizeCannabinoid,
   getTerpene,
   getCannabinoid,
-  cannabinoidList,
-  terpeneList,
+  cannabinoidNameList,
+  terpeneNameList,
   stringContainsNonFlowerProduct
 }

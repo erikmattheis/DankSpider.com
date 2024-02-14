@@ -8,7 +8,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
-const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidList, terpeneList } = require('../services/cortex.js')
+const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
 let numProductsToSave = 1;
 let numSavedProducts = 0;
 
@@ -27,7 +27,7 @@ async function parseSingleProduct(html, url) {
 
 
   // Iterate over each option element within the select
-  $('#size option').each(function() {
+  $('#size option').each(function () {
     const value = $(this).attr('value');
     // Skip the placeholder option
     if (value) {
@@ -58,7 +58,7 @@ async function parseSingleProduct(html, url) {
   if (assayLinks.length === 0) {
 
     console.log('no assay links', url)
-    return { cannabinoids, terpenes, image:productImages[0], variants }
+    return { cannabinoids, terpenes, image: productImages[0], variants }
 
   }
 
@@ -72,16 +72,17 @@ async function parseSingleProduct(html, url) {
     if (!result) {
       logger.log({
         level: 'info',
-        message: `nothing interesting, continuing ... ${image}`})
+        message: `nothing interesting, continuing ... ${image}`
+      })
       continue
     }
 
     if (result.length) {
-      if (cannabinoids.length > 0 && cannabinoidList[result[0].name]) {
-        cannabinoids = result.filter(a => cannabinoidList.includes(a.name))
+      if (cannabinoids.length > 0 && cannabinoidNameList[result[0].name]) {
+        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpenes.length > 0 && terpeneList[result[0].name]) {
-        terpenes = result.filter(a => terpeneList.includes(a.name))
+      if (terpenes.length > 0 && terpeneNameList[result[0].name]) {
+        terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
     }
 
@@ -90,7 +91,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  const properties = { image:productImages[0], variants, cannabinoids, terpenes }
+  const properties = { image: productImages[0], variants, cannabinoids, terpenes }
 
   return properties
 }
@@ -105,9 +106,9 @@ function get3003image(html) {
   const sources = srcset.split(', ');
 
   sources.forEach(source => {
-      if (source.endsWith('300w')) {
-          [desiredImageUrl] = source.split(' ');
-      }
+    if (source.endsWith('300w')) {
+      [desiredImageUrl] = source.split(' ');
+    }
   });
 
   return desiredImageUrl;
@@ -116,7 +117,7 @@ function get3003image(html) {
 async function getProducts(feedUrl) {
   const result = await axios.get(feedUrl)
   const $ = cheerio.load(result.data)
- //fs.writeFileSync('./temp/vendors/arete.html', result.data)
+  //fs.writeFileSync('./temp/vendors/arete.html', result.data)
 
   const items = $('ul.nm-products li.product');
 
@@ -132,7 +133,7 @@ async function getProducts(feedUrl) {
     let title = $(el).find('.nm-shop-loop-title-link').text();
     title = normalizeProductTitle(title.trim());
     if (stringContainsNonFlowerProduct(title)) {
-        continue
+      continue
     }
 
     const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
@@ -159,9 +160,10 @@ async function getAvailableLeafProducts(id, vendor) {
 }
 
 if (require.main === module) {
-   logger.log({
-  level: 'info',
-  message: `This script is being executed directly by Node.js`});
+  logger.log({
+    level: 'info',
+    message: `This script is being executed directly by Node.js`
+  });
   getAvailableLeafProducts(batchId, vendor)
 }
 
