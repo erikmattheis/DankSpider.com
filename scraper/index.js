@@ -64,9 +64,9 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  // await makeProductsFile()
+  await makeProductsFile()
 
-  // await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -102,6 +102,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = '993'
 
 run(batchId, 'x', [
-  { name: 'EHH', service: ehh },
+  { name: 'drGanja', service: drGanja },
 ])
 

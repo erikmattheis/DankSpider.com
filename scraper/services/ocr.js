@@ -63,7 +63,7 @@ async function recognize(url) {
       return null;
     }
 
-    const squareSize = 100;
+    const squareSize = 200;
 
     const left = (4000 - squareSize) / 2;
     const top = (6000 - squareSize) / 2;
@@ -83,7 +83,7 @@ async function recognize(url) {
     let result = await worker.recognize(croppedBuffer);
 
     const lettersAndNumbers = result.data.text.match(/[a-zA-Z0-9]/g);
-
+    console.log('lettersAndNumberslettersAndNumbers', lettersAndNumbers);
     if (lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
       logger.warn(`Image probably not text: ${url}`);
       return null;
@@ -109,7 +109,8 @@ async function recognize(url) {
       logger.error('Error in gm:', error);
       return null;
     }
-    console.log('t buffer', tweakedBuffer instanceof Buffer, buffer.length)
+
+    console.log('tweakedBuffer', tweakedBuffer instanceof Buffer, buffer.length)
     try {
       result = await worker.recognize(tweakedBuffer);
     } catch (error) {

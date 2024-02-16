@@ -4,6 +4,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr.js');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
+const { terpeneNameList, cannabinoidNameList } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
 
 let currentPage = 1;
@@ -33,11 +34,17 @@ async function getProduct(url) {
   image = image?.startsWith('https:') ? image : `https:${image}`;
   console.log('image', image)
 
-  let imageUrls = $('.secondary-slide img').map((i, el) => $(el).attr('data-photoswipe-src')).get();
 
-  imageUrls = imageUrls.map((url) => image?.startsWith('https:') ? image : `https:${image}`);
+  let imageUrls = $('a[data-product-thumb][data-index!="0"]').map((i, el) => $(el).attr('href')).get();
 
-  console.log('imageUrls', imageUrls);
+  imageUrls = imageUrls.map((url) => url.startsWith('https:') ? url : `https:${url}`);
+
+
+
+
+  if (!imageUrls || !imageUrls.length) {
+    fs.writeFileSync(`./temp/vendors/ehh-product-no-image.html`, response.data);
+  }
 
   let terpenes = [];
   let cannabinoids = [];
@@ -47,8 +54,7 @@ async function getProduct(url) {
   for (const image of imageUrls) {
     console.log('image', image)
     const raw = await recognize(image);
-    console.log('raw', raw)
-    process.exit()
+
     const result = transcribeAssay(raw, image);
 
     if (result.length) {
@@ -146,13 +152,13 @@ async function getEHHProductsInfo(productLinks) {
     }
     product.vendor = 'EIGHT HORSES';
 
-    if (product.variants.length > 0) {
+    //if (product.variants.length > 0) {
 
-      product.variants = product.variants.map((variant) => normalizeVariantName(variant));
+    product.variants = product.variants.map((variant) => normalizeVariantName(variant));
 
-      products.push(product);
+    products.push(product);
 
-    }
+    //}
 
   }
   return products;

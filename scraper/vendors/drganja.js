@@ -103,11 +103,10 @@ async function addAssays(product, $) {
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image);
 
-    console.log('result', result.length)
+    console.log('result', result?.length)
     console.log(result)
     console.log('------')
-    console.log(cannabinoidNameList[result[0].name])
-    if (result.length) {
+    if (result?.length) {
       console.log('value', result[0]?.name)
       if (cannabinoidNameList.includes(result[0].name)) {
         console.log('cannabinoidNameList', cannabinoidNameList.length)

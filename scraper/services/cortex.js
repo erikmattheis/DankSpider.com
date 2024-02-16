@@ -6,7 +6,7 @@ function transcribeAssay(str, url) {
 
   if (!str?.split) {
     console.log('can\'t split', url, 'type:', typeof str, str)
-    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`, url, 'type:', typeof str, str)
+    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
     return null
   }
 
