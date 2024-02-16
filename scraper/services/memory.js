@@ -14,6 +14,7 @@ const path = require('path');
 
 async function getBuffer(url) {
   const name = makeImageName(url);
+
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
 
@@ -38,37 +39,16 @@ function makeImageName(url) {
 async function getImageBuffer(url) {
 
   try {
-
+    console.log('buffer img url', utl)
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const buffer = Buffer.from(response.data, 'binary');
 
     if (!buffer || buffer.length === 0) {
       logger.error(`Error getting image buffer: ${url}`);
-      return ''
+      return null
     } else {
+      return buffer
 
-      return new Promise((resolve, reject) => {
-
-        gm(buffer)
-          .quality(100)
-          .resize(4000)
-          .sharpen(5, 5)
-          .toBuffer('JPEG', function (err, resizedBuffer) {
-
-            if (err) {
-
-              logger.error(`Error resizing image: ${err}`);
-              reject(err);
-
-            } else {
-
-              resolve(resizedBuffer);
-
-            }
-
-          });
-
-      });
     }
 
   } catch (error) {

@@ -62,11 +62,11 @@ async function run(batchId, vendor, vendorList) {
 
   await scrapers.run(batchId, vendor, vendorList)
 
-  await copyAndDeleteProducts([batchId]);
+  //await copyAndDeleteProducts([batchId]);
 
-  await makeProductsFile()
+  // await makeProductsFile()
 
-  await makeStats()
+  // await makeStats()
 
   // await makeStrainsFile()
 

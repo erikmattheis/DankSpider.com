@@ -25,68 +25,65 @@ async function getProduct(url) {
   fs.writeFileSync(`./temp/vendors/ehh-product.html`, response.data);
   const $ = cheerio.load(response.data);
 
-  const variants = [];
+  const title = normalizeProductTitle($('.product-section').attr('data-product-title'));
 
-  // Extract available variant values from BCData object
-  const bcDataScript = $('script:contains("var BCData")').html();
-  const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
-  const availableVariantValues = bcData.product_attributes.available_variant_values;
+  let image = $('.starting-slide .product-image-main img').attr('data-photoswipe-src');
+  console.log('image', image)
+  // add http: if not there -
+  image = image?.startsWith('https:') ? image : `https:${image}`;
+  console.log('image', image)
 
-  // Filter variants by available variant values
-  $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((index, element) => {
-    const variantValue = $(element).attr('for').split('_').pop();
-    if (availableVariantValues.includes(parseInt(variantValue))) {
-      variants.push($(element).text().trim());
-    }
-  });
+  let imageUrls = $('.secondary-slide img').map((i, el) => $(el).attr('data-photoswipe-src')).get();
 
-  const title = normalizeProductTitle($('h1.productView-title').text().trim());
+  imageUrls = imageUrls.map((url) => image?.startsWith('https:') ? image : `https:${image}`);
 
-  const image = $('figure.productView-image img').attr('src');
-
-  const imageNodes = $('a.productView-thumbnail-link');
-
-  const imageUrls = imageNodes.map((index, el) => $(el).attr('href')).get();
-
-  const images = imageUrls.filter(image => image.toLowerCase().includes('terpenes') || image.toLowerCase().includes('potency') || image.toLowerCase().includes('indoor'));
-  const theRest = imageUrls.filter(image => !image.toLowerCase().includes('terpenes') && !image.toLowerCase().includes('potency') && image.toLowerCase().includes('indoor'));
-
-
+  console.log('imageUrls', imageUrls);
 
   let terpenes = [];
   let cannabinoids = [];
 
-  for (const image of images) {
+  const variants = [];
 
-
+  for (const image of imageUrls) {
+    console.log('image', image)
     const raw = await recognize(image);
+    console.log('raw', raw)
+    process.exit()
     const result = transcribeAssay(raw, image);
 
-    if (result?.terpenes?.length) {
-
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+    if (result.length) {
+      console.log('must say name', result[0].name);
+      if (cannabinoidNameList.includes(result[0].name)) {
+        console.log('filtering cannabinoids');
+        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+        console.log('cannabinoids', cannabinoids.length)
+      }
+      if (terpeneNameList.includes(result[0].name)) {
+        terpenes = result.filter(a => terpeneNameList.includes(a.name))
+        console.log('terpenes', terpenes.length)
+      }
     }
-    if (result?.cannabinoids?.length) {
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-    }
-
-    if (terpenes?.length && cannabinoids?.length) {
-
+    console.log('using', cannabinoids.length, terpenes.length)
+    if (terpenes.length && cannabinoids.length) {
+      console.log('found terpenes and cannabinoids')
       break;
     }
-
   }
 
-  return {
+  const product = {
     title,
     url,
     image,
-    images,
+    imageUrls,
     variants,
     terpenes,
     cannabinoids,
     vendor: 'EHH',
   };
+
+  console.log('prodtct', product);
+
+  return product;
 }
 
 async function scrapePage(url, currentPage, productLinks) {
@@ -100,17 +97,15 @@ async function scrapePage(url, currentPage, productLinks) {
     const cards = $('entry');
 
     for (const card of cards) {
-      const anchorElement = $(card).find('a.card-figure__link');
-      const productTitle = $(card).find('h3.card-title a').text().trim();
-      const title = $(card).find('title').text().trim();
-      const vendorDate = $(card).find('updated').text().trim();
 
-      const chooseOptionsButton = $(card).find('a.card-figcaption-button');
-      if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text().includes('Choose Options')) {
+      const title = $(card).find('entry > title').text().trim();
 
-        const href = anchorElement.attr('href');
 
+      if (isDesiredProduct(title)) {
+
+        const href = $(card).find('link').attr('href');
         productLinks.push(href);
+
       }
     }
 
@@ -120,9 +115,8 @@ async function scrapePage(url, currentPage, productLinks) {
       await scrapePage(nextPageLink, currentPage, productLinks);
     }
   } catch (e) {
-    logger.error(e);
+    logger.error('scraper:');
   }
-
   return productLinks;
 }
 
@@ -144,6 +138,7 @@ function isDesiredProduct(productTitle) {
 async function getEHHProductsInfo(productLinks) {
 
   const products = [];
+
   for (const productLink of productLinks) {
     const product = await getProduct(productLink);
     if (!product) {
