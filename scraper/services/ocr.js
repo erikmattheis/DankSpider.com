@@ -11,6 +11,8 @@ const logger = require('../services/logger.js');
 
 let worker;
 
+fs.writeFileSync('./ehh-skipped.txt', '')
+
 async function recognize(url) {
 
   console.log('recognize', url)
@@ -23,6 +25,7 @@ async function recognize(url) {
       languagePath: './tessdata',
       errorHandler: (err) => {
         logger.error('Error in worke:', err);
+        fs.appendFileSync('./ehh-skipped.txt', `Error in worker: ${url}\n`)
       },
     });
 
@@ -37,6 +40,7 @@ async function recognize(url) {
 
     if (!buffer || buffer.length === 0) {
       logger.warn(`No image buffer: ${url}`);
+      fs.appendFileSync('./ehh-skipped.txt', `No buffer: ${url}\n`)
       return null;
     }
 
@@ -55,11 +59,14 @@ async function recognize(url) {
       });
     } catch (error) {
       logger.error(`Error in gm: ${error}`);
+      fs.appendFileSync('./ehh-skipped.txt', `Error in gm: ${url}\n`)
       return null;
     }
-    console.log('size', size)
+
     if (size.width < 100 || size.height < 100) {
       logger.warn(`Image too small: ${url}`);
+      fs.appendFileSync('./ehh-skipped.txt', `Too small: ${url}\n`)
+
       return null;
     }
 
@@ -73,6 +80,7 @@ async function recognize(url) {
         .crop(squareSize, squareSize, left, top)
         .toBuffer((err, buffer) => {
           if (err) {
+            fs.appendFileSync('./ehh-skipped.txt', `Error in gm crop: ${url}\n`)
             reject(err);
           } else {
             resolve(buffer);
@@ -83,9 +91,10 @@ async function recognize(url) {
     let result = await worker.recognize(croppedBuffer);
 
     const lettersAndNumbers = result.data.text.match(/[a-zA-Z0-9]/g);
-    console.log('lettersAndNumberslettersAndNumbers', lettersAndNumbers);
+
     if (lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
       logger.warn(`Image probably not text: ${url}`);
+      fs.appendFileSync('./ehh-skipped.txt', `Probably not text: ${url}\n`)
       return null;
     }
 
@@ -95,9 +104,11 @@ async function recognize(url) {
         gm(buffer)
           .quality(100)
           .resize(4000)
-          .sharpen(5, 5)
+          // .sharpen(5, 5)
           .toBuffer(function (err, buffer) {
             if (err) {
+              console.log('Error creating buffer:', err);
+              fs.appendFileSync('./ehh-skipped.txt', `Error creating buffer: ${url}\n`)
               reject('Error creating buffer:' + err);
             } else {
               resolve(buffer);
@@ -107,20 +118,23 @@ async function recognize(url) {
     }
     catch (error) {
       logger.error('Error in gm:', error);
+      fs.appendFileSync('./ehh-skipped.txt', `Error in gm (2): ${url}\n`)
       return null;
     }
 
-    console.log('tweakedBuffer', tweakedBuffer instanceof Buffer, buffer.length)
+
     try {
       result = await worker.recognize(tweakedBuffer);
     } catch (error) {
       console.log(`Error in tesseract: ${error}`);
+      fs.appendFileSync('./ehh-skipped.txt', `Error in tesseract: ${url}\n`)
       return null;
     }
 
     return result.data.text;
   } catch (error) {
     logger.error('Error in recognize', { error: error.toString(), stack: error.stack });
+    fs.appendFileSync('./ehh-skipped.txt', `Error in recognize: ${url}\n`)
     return 'Error in recognize'
   } finally {
     if (worker) {
@@ -129,10 +143,6 @@ async function recognize(url) {
   }
 }
 
-
-const configFirstLook = {
-  rectangle: { top: 182, left: 940, width: 1900, height: 817 }
-}
 
 const getWorker = async (PSM) => {
 

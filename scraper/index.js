@@ -33,26 +33,8 @@ process.on('uncaughtException', (err) => {
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
-  process.exit(1); //mandatory (as per the Node.js docs)
+  process.exit(1);
 });
-
-async function makeTerpenesFile() {
-  const result = await getTerpenes()
-  fs.writeFileSync('../app/src/assets/data/terpenes.json', JSON.stringify(result))
-  logger.log({ level: 'info', message: `Wrote ${result.length} terpenes to terpenes.json` });
-}
-
-async function makeStrainsFile() {
-  const result = await getStrains()
-  fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
-  logger.log({ level: 'info', message: `Wrote ${result.length} strains to terpenes.json` });
-}
-
-async function makeCannabinoidsFile() {
-  const result = await getStrains()
-  fs.writeFileSync('../app/src/assets/data/strains.json', JSON.stringify(result))
-  logger.log({ level: 'info', message: `Wrote ${result.length} strains to terpenes.json` });
-}
 
 async function run(batchId, vendor, vendorList) {
 
@@ -102,6 +84,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = '993'
 
 run(batchId, 'x', [
-  { name: 'drGanja', service: drGanja },
+  { name: 'EHH', service: ehh },
 ])
 

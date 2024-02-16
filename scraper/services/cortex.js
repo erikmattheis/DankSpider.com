@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
-fs.writeFileSync('./temp/unknowncannabinoid.txt', ``)
-fs.writeFileSync('./temp/unknownchemicals.txt', ``)
+fs.writeFileSync('./temp/ehh-unknowncannabinoid.txt', ``)
+fs.writeFileSync('./temp/ehh-unknownchemicals.txt', ``)
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
@@ -136,13 +136,21 @@ const terps = Object.keys(terpeneSpellings).map(key => terpeneSpellings[key].nam
 const terpeneNameList = terps.filter((item, index, self) => self.indexOf(item) === index);
 terpeneNameList.sort();
 
+const lines = new Set();
+
 function linePasses(line) {
-  const hasFiveLetters = /[a-z]{5,}/.test(line);
-  const hasThreeDigits = /\d{2,}/.test(line);
-  if (!hasFiveLetters || !hasThreeDigits) {
-    fs.appendFileSync('./temp/unknownlines.txt', `${line}\n`)
+  const hasLetter = /[a-zA-Z]/.test(line);
+  const hasNumber = /\d/.test(line);
+  if (hasLetter && hasNumber && line.length > 5) {
+    return true
   }
-  return true
+
+  lines.add(line)
+  return false
+}
+
+function writeUnknownLines() {
+  fs.writeFileSync('./temp/unknownlines.txt', Array.from(lines).join('\n'))
 }
 
 function normalizeCannabinoid(name, line) {
@@ -151,7 +159,7 @@ function normalizeCannabinoid(name, line) {
   }
 
   if (linePasses(line)) {
-    fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
+    fs.appendFileSync('./temp/ehh-unknowncannabinoid.txt', `${name}\n`)
   }
 
   return "Unknown"
@@ -178,7 +186,7 @@ function normalizeAnyChemical(str, url) {
   }
 
   if (linePasses(str)) {
-    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+    fs.appendFileSync('./temp/ehh-unknownchemicals.txt', `${str}\n`)
   }
 
   return "Unknown"
@@ -200,5 +208,6 @@ module.exports = {
   getCannabinoid,
   cannabinoidNameList,
   terpeneNameList,
-  stringContainsNonFlowerProduct
+  stringContainsNonFlowerProduct,
+  writeUnknownLines
 }

@@ -4,7 +4,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr.js');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
-const { terpeneNameList, cannabinoidNameList } = require('../services/cortex.js');
+const { terpeneNameList, cannabinoidNameList, writeUnknownLines } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
 
 let currentPage = 1;
@@ -12,12 +12,6 @@ const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 
 const uniqueVariants = [];
 let batchId;
-
-function addUniqueVariant(variant) {
-  if (!uniqueVariants.includes(variant)) {
-    uniqueVariants.push(variant);
-  }
-}
 
 async function getProduct(url) {
 
@@ -29,17 +23,12 @@ async function getProduct(url) {
   const title = normalizeProductTitle($('.product-section').attr('data-product-title'));
 
   let image = $('.starting-slide .product-image-main img').attr('data-photoswipe-src');
-  console.log('image', image)
-  // add http: if not there -
-  image = image?.startsWith('https:') ? image : `https:${image}`;
-  console.log('image', image)
 
+  image = image?.startsWith('https:') ? image : `https:${image}`;
 
   let imageUrls = $('a[data-product-thumb][data-index!="0"]').map((i, el) => $(el).attr('href')).get();
 
   imageUrls = imageUrls.map((url) => url.startsWith('https:') ? url : `https:${url}`);
-
-
 
 
   if (!imageUrls || !imageUrls.length) {
@@ -58,7 +47,6 @@ async function getProduct(url) {
     const result = transcribeAssay(raw, image);
 
     if (result.length) {
-      console.log('must say name', result[0].name);
       if (cannabinoidNameList.includes(result[0].name)) {
         console.log('filtering cannabinoids');
         cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
@@ -169,6 +157,8 @@ async function getAvailableLeafProducts(id, vendor) {
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
   const products = await getEHHProductsInfo(productLinks);
+
+  await writeUnknownLines()
 
   return products;
 
