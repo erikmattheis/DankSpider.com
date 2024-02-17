@@ -78,7 +78,13 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   logger.log({ level: 'info', message: `Wrote ${products.length} products to products.json` });
 }
 
+
 const cannabinoidSpellings = {
+  'CBDA*': { name: 'CBDA', confidence: 0.9 },
+  'CBD*': { name: 'CBD', confidence: 0.99 },
+  'THCA*': { name: '∆-9-THCA', confidence: 0.99 },
+  'THCVa': { name: '∆-9-THCVA', confidence: 0.99 },
+  'THCA*®': { name: '∆-9-THCA', confidence: 0.99 },
   'A-9-Tetrahydrocannabiphorel': { name: '∆-9-THCP', confidence: 0.99 },
   '-A-10-Tetrahydrocannabinol': { name: 'S-∆-10-THC', confidence: 1 },
   '?5-Hexatydrocarrabiacl': { name: '9S-HHC', confidence: 0.9 },

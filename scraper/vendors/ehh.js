@@ -48,16 +48,13 @@ async function getProduct(url) {
 
     if (result.length) {
       if (cannabinoidNameList.includes(result[0].name)) {
-        console.log('filtering cannabinoids');
         cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-        console.log('cannabinoids', cannabinoids.length)
       }
       if (terpeneNameList.includes(result[0].name)) {
         terpenes = result.filter(a => terpeneNameList.includes(a.name))
-        console.log('terpenes', terpenes.length)
       }
     }
-    console.log('using', cannabinoids.length, terpenes.length)
+
     if (terpenes.length && cannabinoids.length) {
       console.log('found terpenes and cannabinoids')
       break;
@@ -158,7 +155,7 @@ async function getAvailableLeafProducts(id, vendor) {
 
   const products = await getEHHProductsInfo(productLinks);
 
-  await writeUnknownLines()
+  writeUnknownLines()
 
   return products;
 

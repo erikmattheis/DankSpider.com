@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, getTerpenes, getCannabinoids, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -40,13 +40,15 @@ async function run(batchId, vendor, vendorList) {
 
   const timer = performance.now()
 
+  //await deleteProductsByVendors(['EIGHT HORSES'])
+
   //await showBatch()
 
-  await scrapers.run(batchId, vendor, vendorList)
+  //await scrapers.run(batchId, vendor, vendorList)
 
-  //await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
-  await makeProductsFile()
+  // /await makeProductsFile()
 
   await makeStats()
 

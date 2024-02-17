@@ -110,20 +110,21 @@ function getCannabinoidObj(line) {
   return { name, pct, mgg, originalText }
 }
 
-function getAnyChemicalObj(line) {
+function getAnyChemicalObj(ln) {
 
-  const parts = filterLine(line, normalizeAnyChemical)
+  const parts = filterLine(ln, normalizeAnyChemical, ln)
 
   const name = parts[0];
 
   if (name === 'Unknown' || parts.length < 3) {
-    return { name, pct: 0, mgg: 0, originalText: line }
+    fs.appendFileSync('./temp/unknownchemicals.txt', `Unknown: ${ln}\n`)
+    return { name, pct: 0, mgg: 0, originalText: ln }
   }
 
-  const mgg = getMgg(parts, line)
+  const mgg = getMgg(parts, ln)
   const pct = (parseFloat(mgg) / 10).toFixed(3)
 
-  const originalText = line || 'Unknown'
+  const originalText = ln || 'Unknown'
 
   return { name, pct, mgg, originalText }
 }
@@ -176,7 +177,7 @@ function normalizeTerpene(terpene, line) {
   return terpene
 }
 
-function normalizeAnyChemical(str, url) {
+function normalizeAnyChemical(str, ln) {
   if (cannabinoidSpellings[str] && cannabinoidSpellings[str].confidence > 0.7) {
     return cannabinoidSpellings[str].name
   }
@@ -186,7 +187,7 @@ function normalizeAnyChemical(str, url) {
   }
 
   if (linePasses(str)) {
-    fs.appendFileSync('./temp/ehh-unknownchemicals.txt', `${str}\n`)
+    fs.appendFileSync('./temp/ehh-unknownchemicals.txt', `${ln}\n`)
   }
 
   return "Unknown"

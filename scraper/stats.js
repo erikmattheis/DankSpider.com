@@ -1,4 +1,4 @@
-const stats0= {
+const stats0 = {
   WNC: {
     numProducts: 111,
     numCannabinoids: 0,
@@ -80,7 +80,7 @@ const stats1 = {
     numTerpenesWithValues: NaN
   },
 }
-  const stats2 = {
+const stats2 = {
   'Top Cola': {
     numProducts: 6,
     numCannabinoids: NaN,
@@ -125,40 +125,40 @@ const stats1 = {
   },
 }
 
-const stats3 ={
+const stats3 = {
   PM: {
-  numProducts: 25,
-  numCannabinoids: NaN,
-  numCannabinoidsWithValues: NaN,
-  numTerpenes: NaN,
-  numTerpenesWithValues: NaN
-},
-'Top Cola': {
-  numProducts: 6,
-  numCannabinoids: NaN,
-  numCannabinoidsWithValues: NaN,
-  numTerpenes: NaN,
-  numTerpenesWithValues: NaN
-},
-Preston: {
-  numProducts: 10,
-  numCannabinoids: NaN,
-  numCannabinoidsWithValues: NaN,
-  numTerpenes: NaN,
-  numTerpenesWithValues: NaN
-},
-WNC: {
-  numProducts: 111,
-  numCannabinoids: 716,
-  numCannabinoidsWithValues: 716,
-  numTerpenes: 676,
-  numTerpenesWithValues: 676
-},
-'Dr Ganja': {
-  numProducts: 28,
-  numCannabinoids: 183,
-  numCannabinoidsWithValues: 183,
-  numTerpenes: 159,
+    numProducts: 25,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+  'Top Cola': {
+    numProducts: 6,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+  Preston: {
+    numProducts: 10,
+    numCannabinoids: NaN,
+    numCannabinoidsWithValues: NaN,
+    numTerpenes: NaN,
+    numTerpenesWithValues: NaN
+  },
+  WNC: {
+    numProducts: 111,
+    numCannabinoids: 716,
+    numCannabinoidsWithValues: 716,
+    numTerpenes: 676,
+    numTerpenesWithValues: 676
+  },
+  'Dr Ganja': {
+    numProducts: 28,
+    numCannabinoids: 183,
+    numCannabinoidsWithValues: 183,
+    numTerpenes: 159,
     numTerpenesWithValues: 159
   },
   Arete: {
@@ -211,49 +211,49 @@ WNC: {
     numTerpenesWithValues: 0
   },
   {
-    Arete: {
-      numProducts: 9,
+  Arete: {
+    numProducts: 9,
       numCannabinoids: 0,
-      numCannabinoidsWithValues: 0,
-      numTerpenes: 0,
-      numTerpenesWithValues: 0
-    },
-    PPM: {
-      numProducts: 47,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
+  },
+  PPM: {
+    numProducts: 47,
       numCannabinoids: 332,
-      numCannabinoidsWithValues: 332,
-      numTerpenes: NaN,
-      numTerpenesWithValues: 0
-    },
-    'Top Cola': {
-      numProducts: 7,
+        numCannabinoidsWithValues: 332,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
+  },
+  'Top Cola': {
+    numProducts: 7,
       numCannabinoids: 0,
-      numCannabinoidsWithValues: 0,
-      numTerpenes: NaN,
-      numTerpenesWithValues: 0
-    },
-    Preston: {
-      numProducts: 10,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
+  },
+  Preston: {
+    numProducts: 10,
       numCannabinoids: 0,
-      numCannabinoidsWithValues: 0,
-      numTerpenes: NaN,
-      numTerpenesWithValues: 0
-    },
-    WNC: {
-      numProducts: 111,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
+  },
+  WNC: {
+    numProducts: 111,
       numCannabinoids: 59,
-      numCannabinoidsWithValues: 59,
-      numTerpenes: 56,
-      numTerpenesWithValues: 56
-    },
-    'Dr Ganja': {
-      numProducts: 28,
+        numCannabinoidsWithValues: 59,
+          numTerpenes: 56,
+            numTerpenesWithValues: 56
+  },
+  'Dr Ganja': {
+    numProducts: 28,
       numCannabinoids: 0,
-      numCannabinoidsWithValues: 0,
-      numTerpenes: 0,
-      numTerpenesWithValues: 0
-    }
+        numCannabinoidsWithValues: 0,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
   }
+}
 }
 
 stats5 = {
@@ -305,45 +305,45 @@ stats5 = {
 {
   WNC: {
     numProducts: 118,
-    numCannabinoids: 63,
-    numCannabinoidsWithValues: 63,
-    numTerpenes: 56,
-    numTerpenesWithValues: 56
+      numCannabinoids: 63,
+        numCannabinoidsWithValues: 63,
+          numTerpenes: 56,
+            numTerpenesWithValues: 56
   },
   Preston: {
     numProducts: 30,
-    numCannabinoids: 0,
-    numCannabinoidsWithValues: 0,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 0,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
   },
   'Dr Ganja': {
     numProducts: 28,
-    numCannabinoids: 36,
-    numCannabinoidsWithValues: 36,
-    numTerpenes: 0,
-    numTerpenesWithValues: 0
+      numCannabinoids: 36,
+        numCannabinoidsWithValues: 36,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
   },
   'Top Cola': {
     numProducts: 7,
-    numCannabinoids: 0,
-    numCannabinoidsWithValues: 0,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 0,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
   },
   Arete: {
     numProducts: 33,
-    numCannabinoids: 133,
-    numCannabinoidsWithValues: 133,
-    numTerpenes: 0,
-    numTerpenesWithValues: 0
+      numCannabinoids: 133,
+        numCannabinoidsWithValues: 133,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
   },
   PPM: {
     numProducts: 47,
-    numCannabinoids: 332,
-    numCannabinoidsWithValues: 332,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 332,
+        numCannabinoidsWithValues: 332,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
   }
 }
 numProducts 263
@@ -355,43 +355,120 @@ numTerpenesWithValues NaN NaN
 {
   WNC: {
     numProducts: 118,
-    numCannabinoids: 234,
-    numCannabinoidsWithValues: 234,
-    numTerpenes: 56,
-    numTerpenesWithValues: 56
+      numCannabinoids: 234,
+        numCannabinoidsWithValues: 234,
+          numTerpenes: 56,
+            numTerpenesWithValues: 56
   },
   Preston: {
     numProducts: 30,
-    numCannabinoids: 0,
-    numCannabinoidsWithValues: 0,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 0,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
   },
   'Dr Ganja': {
     numProducts: 29,
-    numCannabinoids: 37,
-    numCannabinoidsWithValues: 37,
-    numTerpenes: 0,
-    numTerpenesWithValues: 0
+      numCannabinoids: 37,
+        numCannabinoidsWithValues: 37,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
   },
   Arete: {
     numProducts: 37,
-    numCannabinoids: 158,
-    numCannabinoidsWithValues: 158,
-    numTerpenes: 0,
-    numTerpenesWithValues: 0
+      numCannabinoids: 158,
+        numCannabinoidsWithValues: 158,
+          numTerpenes: 0,
+            numTerpenesWithValues: 0
   },
   PPM: {
     numProducts: 50,
-    numCannabinoids: 358,
-    numCannabinoidsWithValues: 358,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 358,
+        numCannabinoidsWithValues: 358,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
   },
   'Top Cola': {
     numProducts: 7,
-    numCannabinoids: 0,
-    numCannabinoidsWithValues: 0,
-    numTerpenes: NaN,
-    numTerpenesWithValues: 0
+      numCannabinoids: 0,
+        numCannabinoidsWithValues: 0,
+          numTerpenes: NaN,
+            numTerpenesWithValues: 0
+  },
+  IGHT HORSES {
+    vendor: 'EIGHT HORSES',
+      numProducts: 14,
+        numCannabinoids: 39,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
   }
+Dr Ganja {
+    vendor: 'Dr Ganja',
+      numProducts: 30,
+        numCannabinoids: 129,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 287,
+              numTerpenesWithValues: 0
+  }
+WNC {
+    vendor: 'WNC',
+      numProducts: 111,
+        numCannabinoids: 612,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 1016,
+              numTerpenesWithValues: 0
+  }
+PPM {
+    vendor: 'PPM',
+      numProducts: 45,
+        numCannabinoids: 358,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+EIGHT HORSES
+numProducts 200
+numCannabinoids 1138 5.69
+numCannabinoidsWithValues 0 0.00
+numTerpenes 0
+numTerpenesWithValues 0 0.00
+
+  const stats6 = IGHT HORSES {
+    vendor: 'EIGHT HORSES',
+    numProducts: 14,
+    numCannabinoids: 39,
+    numCannabinoidsWithValues: 0,
+    numTerpenes: 0,
+    numTerpenesWithValues: 0
+}
+Dr Ganja {
+    vendor: 'Dr Ganja',
+      numProducts: 30,
+        numCannabinoids: 129,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 287,
+              numTerpenesWithValues: 0
+  }
+WNC {
+    vendor: 'WNC',
+      numProducts: 111,
+        numCannabinoids: 612,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 1016,
+              numTerpenesWithValues: 0
+  }
+PPM {
+    vendor: 'PPM',
+      numProducts: 45,
+        numCannabinoids: 358,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+
+numProducts 200
+numCannabinoids 1138 5.69
+numCannabinoidsWithValues 0 0.00
+numTerpenes 0
+numTerpenesWithValues 0 0.00

@@ -227,14 +227,12 @@ async function getAllProducts() {
 
   snapshot.forEach(doc => {
     const product = doc.data();
-    if (uniqueUrls.has(product.url)) {
+    if (product.url && uniqueUrls.has(product.url)) {
       return;
     }
     uniqueUrls.add(product.url);
     products.push(product);
   });
-
-  const endTime = performance.now();
 
   return products;
 }
@@ -477,6 +475,36 @@ async function saveArticles(articles, collection) {
 
 };
 
+async function deleteProductsByVendors(vendorNames, keepBatchIds = []) {
+  for (const vendorName of vendorNames) {
+
+    const productsRef = db.collection('products');
+
+    const snapshot = await productsRef.get();
+
+    const batch = db.batch();
+
+    snapshot.forEach(doc => {
+      const product = doc.data();
+
+      if (keepBatchIds.includes(product.batchId)) {
+        return
+      }
+
+      if (!vendorNames.includes(product.vendor)) {
+        return;
+      }
+
+      batch.delete(doc.ref);
+
+    }
+
+    );
+    console.log(`Deleted ${snapshot.size} products by vendor ${vendorName}`)
+    await batch.commit();
+  }
+}
+
 async function getUniqueChemicals() {
 
   const productsRef = db.collection('products');
@@ -624,6 +652,7 @@ module.exports = {
   cleanProductsCollection,
   copyAndDeleteProducts,
   deleteAllDocumentsInCollection,
+  deleteProductsByVendors,
   recalculateChemicalValues,
   getAllProducts,
   getNextBatchNumber,
