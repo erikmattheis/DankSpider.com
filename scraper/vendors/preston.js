@@ -60,7 +60,7 @@ async function getPrestonProductInfo(product) {
     for (const image of product.images) {
       console.log('image', image)
       const raw = await recognize(image);
-      const result = transcribeAssay(raw, image);
+      const result = transcribeAssay(raw, image, 'Preston');
 
       if (!result) {
         continue;

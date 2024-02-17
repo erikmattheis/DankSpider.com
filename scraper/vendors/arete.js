@@ -67,7 +67,7 @@ async function parseSingleProduct(html, url) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const raw = await recognize(image);
-    const result = transcribeAssay(raw, image);
+    const result = transcribeAssay(raw, image, 'Arete');
 
     if (!result) {
       logger.log({

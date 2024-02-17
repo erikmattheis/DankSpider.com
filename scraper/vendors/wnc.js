@@ -8,6 +8,8 @@ const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNon
 const logger = require('../services/logger.js');
 
 let numProductsToSave = 4444;
+
+const vendor = 'WNC';
 let numSavedProducts = 0;
 let batchId;
 
@@ -88,7 +90,7 @@ async function getProduct(url) {
       const raw = await recognize(image);
       console.log('raw', raw.length);
 
-      const result = transcribeAssay(raw, image);
+      const result = transcribeAssay(raw, image, vendor);
       console.log('result', result.length);
       console.log(JSON.stringify(result));
 
@@ -119,7 +121,7 @@ async function getProduct(url) {
       variants,
       cannabinoids,
       terpenes,
-      vendor: 'WNC',
+      vendor,
     }
 
     numSavedProducts++;

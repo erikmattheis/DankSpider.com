@@ -44,7 +44,7 @@ async function getProduct(url) {
     console.log('image', image)
     const raw = await recognize(image);
 
-    const result = transcribeAssay(raw, image);
+    const result = transcribeAssay(raw, image, 'EHH');
 
     if (result.length) {
       if (cannabinoidNameList.includes(result[0].name)) {

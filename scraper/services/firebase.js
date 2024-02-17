@@ -471,7 +471,7 @@ async function saveArticles(articles, collection) {
 
   await batch.commit();
 
-  //  log(`Data has been written to Firebase for ${articles.length} articles`);
+  console.log(`Data has been written to Firebase for ${articles.length} articles`);
 
 };
 

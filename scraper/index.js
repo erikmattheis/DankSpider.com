@@ -44,7 +44,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
   // await copyAndDeleteProducts([batchId]);
 
@@ -86,6 +86,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = '993'
 
 run(batchId, 'x', [
-  { name: 'WNC', service: ehh },
+  { name: 'EHH', service: ehh },
 ])
 

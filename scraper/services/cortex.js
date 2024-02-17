@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
 
-function transcribeAssay(str, url) {
+function transcribeAssay(str, url, vendor) {
 
   if (!str?.split) {
     console.log('can\'t split', url, 'type:', typeof str, str)
@@ -13,7 +13,7 @@ function transcribeAssay(str, url) {
 
   const filteredLines = lines.filter(line => line.includes(' '))
 
-  const chems = filteredLines.map(line => getAnyChemical(line, url))
+  const chems = filteredLines.map(line => getAnyChemical(line, url, vendor))
 
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
   console.log('returning chemicals', chemicals.length, url)
@@ -30,8 +30,8 @@ function getTerpene(line, url) {
   return getTerpeneObj(line, url)
 }
 
-function getAnyChemical(line, url) {
-  return getAnyChemicalObj(line, url)
+function getAnyChemical(line, vendor) {
+  return getAnyChemicalObj(line, vendor)
 }
 
 function filterLine(line, normalizationFunction) {
@@ -109,12 +109,13 @@ function getCannabinoidObj(line) {
   return { name, pct, mgg, originalText }
 }
 
-function getAnyChemicalObj(ln) {
+function getAnyChemicalObj(ln, vendor) {
 
-  const parts = filterLine(ln, normalizeAnyChemical, ln)
+  const parts = filterLine(ln, normalizeAnyChemical, vendor)
 
   const name = parts[0];
 
+  recordUnknown(name, ln, vendor)
   if (name === 'Unknown' || parts.length < 3) {
     fs.appendFileSync('./temp/unknownchemicals.txt', `Unknown: ${ln}\n`)
     return { name, pct: 0, mgg: 0, originalText: ln }
@@ -178,11 +179,11 @@ function normalizeTerpene(terpene, line) {
 
 function recordUnknown(str, ln, vendor = '') {
   if (linePasses(ln)) {
-    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+    fs.appendFileSync('./temp/${vendor}-unknownchemicals.txt', `${str}\n`)
   }
 }
 
-function normalizeAnyChemical(str, ln) {
+function normalizeAnyChemical(str, ln, vendor) {
   if (cannabinoidSpellings[str] && cannabinoidSpellings[str].confidence > 0.7) {
     return cannabinoidSpellings[str].name
   }
@@ -191,7 +192,7 @@ function normalizeAnyChemical(str, ln) {
     return terpeneSpellings[str].name
   }
 
-  recordUnknown(str, ln)
+  recordUnknown(str, ln, vendor)
 
   return "Unknown"
 }

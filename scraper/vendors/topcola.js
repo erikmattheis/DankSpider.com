@@ -79,7 +79,7 @@ async function getAvailableLeafProducts(id, vendor) {
           for (const image of images) {
 
             const raw = await recognize(image);
-            const result = transcribeAssay(raw, image);
+            const result = transcribeAssay(raw, image, 'TopCola');
 
             if (!result) {
               continue;
