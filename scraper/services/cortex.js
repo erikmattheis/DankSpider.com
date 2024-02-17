@@ -1,7 +1,6 @@
 const fs = require('fs')
 const { cannabinoidSpellings, terpeneSpellings } = require('./memory.js')
-fs.writeFileSync('./temp/ehh-unknowncannabinoid.txt', ``)
-fs.writeFileSync('./temp/ehh-unknownchemicals.txt', ``)
+
 function transcribeAssay(str, url) {
 
   if (!str?.split) {
@@ -160,7 +159,7 @@ function normalizeCannabinoid(name, line) {
   }
 
   if (linePasses(line)) {
-    fs.appendFileSync('./temp/ehh-unknowncannabinoid.txt', `${name}\n`)
+    fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
   }
 
   return "Unknown"
@@ -177,6 +176,12 @@ function normalizeTerpene(terpene, line) {
   return terpene
 }
 
+function recordUnknown(str, ln, vendor = '') {
+  if (linePasses(ln)) {
+    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+  }
+}
+
 function normalizeAnyChemical(str, ln) {
   if (cannabinoidSpellings[str] && cannabinoidSpellings[str].confidence > 0.7) {
     return cannabinoidSpellings[str].name
@@ -186,9 +191,7 @@ function normalizeAnyChemical(str, ln) {
     return terpeneSpellings[str].name
   }
 
-  if (linePasses(str)) {
-    fs.appendFileSync('./temp/ehh-unknownchemicals.txt', `${ln}\n`)
-  }
+  recordUnknown(str, ln)
 
   return "Unknown"
 }

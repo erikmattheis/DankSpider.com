@@ -86,6 +86,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = '993'
 
 run(batchId, 'x', [
-  { name: 'EHH', service: ehh },
+  { name: 'WNC', service: ehh },
 ])
 

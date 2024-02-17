@@ -11,7 +11,7 @@ const logger = require('../services/logger.js');
 
 let worker;
 
-fs.writeFileSync('./ehh-skipped.txt', '')
+fs.writeFileSync('./skipped.txt', '')
 
 async function recognize(url) {
 
@@ -25,7 +25,7 @@ async function recognize(url) {
       languagePath: './tessdata',
       errorHandler: (err) => {
         logger.error('Error in worke:', err);
-        fs.appendFileSync('./ehh-skipped.txt', `Error in worker: ${url}\n`)
+        fs.appendFileSync('./skipped.txt', `Error in worker: ${url}\n`)
       },
     });
 
@@ -40,7 +40,7 @@ async function recognize(url) {
 
     if (!buffer || buffer.length === 0) {
       logger.warn(`No image buffer: ${url}`);
-      fs.appendFileSync('./ehh-skipped.txt', `No buffer: ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `No buffer: ${url}\n`)
       return null;
     }
 
@@ -59,13 +59,13 @@ async function recognize(url) {
       });
     } catch (error) {
       logger.error(`Error in gm: ${error}`);
-      fs.appendFileSync('./ehh-skipped.txt', `Error in gm: ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `Error in gm: ${url}\n`)
       return null;
     }
 
     if (size.width < 100 || size.height < 100) {
       logger.warn(`Image too small: ${url}`);
-      fs.appendFileSync('./ehh-skipped.txt', `Too small: ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `Too small: ${url}\n`)
 
       return null;
     }
@@ -80,7 +80,7 @@ async function recognize(url) {
         .crop(squareSize, squareSize, left, top)
         .toBuffer((err, buffer) => {
           if (err) {
-            fs.appendFileSync('./ehh-skipped.txt', `Error in gm crop: ${url}\n`)
+            fs.appendFileSync('./skipped.txt', `Error in gm crop: ${url}\n`)
             reject(err);
           } else {
             resolve(buffer);
@@ -94,7 +94,7 @@ async function recognize(url) {
 
     if (lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
       logger.warn(`Image probably not text: ${url}`);
-      fs.appendFileSync('./ehh-skipped.txt', `Probably not text: ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `Probably not text: ${url}\n`)
       return null;
     }
 
@@ -108,7 +108,7 @@ async function recognize(url) {
           .toBuffer(function (err, buffer) {
             if (err) {
               console.log('Error creating buffer:', err);
-              fs.appendFileSync('./ehh-skipped.txt', `Error creating buffer: ${url}\n`)
+              fs.appendFileSync('./skipped.txt', `Error creating buffer: ${url}\n`)
               reject('Error creating buffer:' + err);
             } else {
               resolve(buffer);
@@ -118,7 +118,7 @@ async function recognize(url) {
     }
     catch (error) {
       logger.error('Error in gm:', error);
-      fs.appendFileSync('./ehh-skipped.txt', `Error in gm (2): ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `Error in gm (2): ${url}\n`)
       return null;
     }
 
@@ -127,14 +127,14 @@ async function recognize(url) {
       result = await worker.recognize(tweakedBuffer);
     } catch (error) {
       console.log(`Error in tesseract: ${error}`);
-      fs.appendFileSync('./ehh-skipped.txt', `Error in tesseract: ${url}\n`)
+      fs.appendFileSync('./skipped.txt', `Error in tesseract: ${url}\n`)
       return null;
     }
 
     return result.data.text;
   } catch (error) {
     logger.error('Error in recognize', { error: error.toString(), stack: error.stack });
-    fs.appendFileSync('./ehh-skipped.txt', `Error in recognize: ${url}\n`)
+    fs.appendFileSync('./skipped.txt', `Error in recognize: ${url}\n`)
     return 'Error in recognize'
   } finally {
     if (worker) {
