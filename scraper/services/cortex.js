@@ -16,19 +16,12 @@ function transcribeAssay(str, url, vendor) {
   const chems = filteredLines.map(line => getAnyChemical(line, url, vendor))
 
   const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
-  console.log('returning chemicals', chemicals.length, url)
 
   return chemicals
 
 }
 
-function getCannabinoid(line, url) {
-  return getCannabinoidObj(line, url)
-}
 
-function getTerpene(line, url) {
-  return getTerpeneObj(line, url)
-}
 
 function getAnyChemical(line, vendor) {
   return getAnyChemicalObj(line, vendor)
@@ -76,42 +69,6 @@ function getMgg(parts, line) {
   return mgg;
 }
 
-function getTerpeneObj(line) {
-
-  const parts = filterLine(line, normalizeTerpene)
-
-  const name = parts[0]
-
-  if (name === 'Unknown' || parts.length < 3) {
-    return { name, pct: 0, mgg: 0, originalText: line }
-  }
-
-  const mgg = getMgg(parts, line)
-
-  const pct = (parseFloat(mgg) * 10).toFixed(3)
-
-  const originalText = line || 'Unknown'
-
-  return { name, pct, mgg, originalText }
-}
-
-function getCannabinoidObj(line) {
-
-  const parts = filterLine(line, normalizeCannabinoid)
-
-  const name = parts[0];
-
-  if (name === 'Unknown' || parts.length < 3) {
-    return { name, pct: 0, mgg: 0, originalText: line }
-  }
-
-  const mgg = getMgg(parts, line)
-  const pct = (parseFloat(mgg) / 10).toFixed(3)
-
-  const originalText = line || 'Unknown'
-
-  return { name, pct, mgg, originalText }
-}
 
 function getAnyChemicalObj(ln, vendor) {
 
@@ -215,8 +172,6 @@ module.exports = {
   transcribeAssay,
   normalizeTerpene,
   normalizeCannabinoid,
-  getTerpene,
-  getCannabinoid,
   cannabinoidNameList,
   terpeneNameList,
   stringContainsNonFlowerProduct,
