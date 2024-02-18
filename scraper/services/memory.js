@@ -14,6 +14,9 @@ const path = require('path');
 
 async function getBuffer(url) {
   const name = makeImageName(url);
+  if (!url) {
+    return null;
+  }
 
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
@@ -39,7 +42,7 @@ function makeImageName(url) {
 async function getImageBuffer(url) {
 
   try {
-    console.log('buffer img url', utl)
+    console.log('buffer img url', url)
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const buffer = Buffer.from(response.data, 'binary');
 
@@ -81,6 +84,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 //B THCA*
 
 const cannabinoidSpellings = {
+
   'd8-THC': { name: '∆-8-THC', confidence: 0.99 },
   'd9-THC*': { name: '∆-9-THC', confidence: 0.99 },
   'B THCA*': { name: '∆-9-THCA', confidence: 0.99 }, // *
@@ -195,6 +199,7 @@ const cannabinoidSpellings = {
   'Carvubschrorrenic': { name: 'CBC', confidence: 0.9 },
   'Carvubsgerolic': { name: 'CBG', confidence: 0.7 },
   'Carvudschromenk': { name: 'CBC', confidence: 0.9 },
+  'CBLA': { name: 'CBL', confidence: 0.99 },
   'CBC': { name: 'CBC', confidence: 0.99 },
   'CBCA': { name: 'CBCA', confidence: 0.99 },
   'CBCV': { name: 'CBCV', confidence: 0.99 },
@@ -215,6 +220,9 @@ const cannabinoidSpellings = {
   'THCA': { name: '∆-9 - THCA', confidence: 0.99 },
   'THCP': { name: '∆-9 - THCP', confidence: 0.99 },
   'THCV': { name: '∆-9 - THCV', confidence: 0.99 },
+  'A?-THCV': { name: '∆-9 - THCV', confidence: 0.99 },
+  'Carnabigerol': { name: 'CBG', confidence: 0.99 },
+
 }
 
 function extractNameProperties(spellings) {
@@ -224,6 +232,9 @@ function extractNameProperties(spellings) {
 const cannabinoidNameList = extractNameProperties(cannabinoidSpellings).map(name => `'${name}'`).join(', ');
 
 const terpeneSpellings = {
+
+  'a-Pinens': { name: 'Pinene', confidence: 0.99 },
+  '-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
   '«-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
   '«-Pinene': { name: 'Pinene', confidence: 0.99 },
   '1,8-Cineole': { name: 'Eucalyptol', confidence: 0.99 },
@@ -251,6 +262,8 @@ const terpeneSpellings = {
   'Bormwol': { name: 'Borneol', confidence: 0.99 },
   'Bornel': { name: 'Borneol', confidence: 0.99 },
   'Borreol': { name: 'Borneol', confidence: 0.99 },
+  'Borneol': { name: 'Borneol', confidence: 0.99 },
+  'Borrmeol': { name: 'Borneol', confidence: 0.99 },
   'Camphene': { name: 'Camphene', confidence: 0.99 },
   'Carene': { name: 'Carene', confidence: 0.99 },
   'Caryophyllene': { name: 'Caryophyllene', confidence: 0.99 },
@@ -267,6 +280,9 @@ const terpeneSpellings = {
   'Ocimene': { name: 'Ocimene', confidence: 0.99 },
   'Pulegone': { name: 'Pulegone', confidence: 0.99 },
   'Terpinolene': { name: 'Terpinolene', confidence: 0.99 },
+  'A9-Tetrabydrecamasinalic Ackd (THCA-R)': { name: 'THCA-R', confidence: 0.99 },
+  'A9-THCV': { name: 'THCV', confidence: 0.99 },
+  'A9-THCVA': { name: 'THCVA', confidence: 0.99 },
 };
 
 const terpeneNameList = extractNameProperties(terpeneSpellings).map(name => `'${name}'`).join(', ');

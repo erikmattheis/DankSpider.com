@@ -43,61 +43,59 @@ async function recognize(url) {
       fs.appendFileSync('./skipped.txt', `No buffer: ${url}\n`)
       return null;
     }
-
-    // Add error handling to gm
-    let size;
-
-    try {
-      size = await new Promise((resolve, reject) => {
-        gm(buffer).size((err, size) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(size);
-          }
+    /*
+        // Add error handling to gm
+        let size;
+    
+        try {
+          size = await new Promise((resolve, reject) => {
+            gm(buffer).size((err, size) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(size);
+              }
+            });
+          });
+        } catch (error) {
+          logger.error(`Error in gm: ${error}`);
+          fs.appendFileSync('./skipped.txt', `Error in gm: ${url}\n`)
+          return null;
+        }
+    
+        if (size.width < 100 || size.height < 100) {
+          logger.warn(`Image too small: ${url}`);
+          fs.appendFileSync('./skipped.txt', `Too small: ${url}\n`)
+    
+          return null;
+        }
+    
+        const left = (size.width - squareSize) / 2;
+        const top = size.height - squareSize;
+    
+        const croppedBuffer = await new Promise((resolve, reject) => {
+          gm(buffer)
+            .crop(squareSize, squareSize, left, top)
+            .toBuffer((err, buffer) => {
+              if (err) {
+                fs.appendFileSync('./skipped.txt', `Error in gm crop: ${url}\n`)
+                reject(err);
+              } else {
+                resolve(buffer);
+              }
+            });
         });
-      });
-    } catch (error) {
-      logger.error(`Error in gm: ${error}`);
-      fs.appendFileSync('./skipped.txt', `Error in gm: ${url}\n`)
-      return null;
-    }
-
-    if (size.width < 100 || size.height < 100) {
-      logger.warn(`Image too small: ${url}`);
-      fs.appendFileSync('./skipped.txt', `Too small: ${url}\n`)
-
-      return null;
-    }
-
-    const squareSize = 200;
-
-    const left = (4000 - squareSize) / 2;
-    const top = (6000 - squareSize) / 2;
-
-    const croppedBuffer = await new Promise((resolve, reject) => {
-      gm(buffer)
-        .crop(squareSize, squareSize, left, top)
-        .toBuffer((err, buffer) => {
-          if (err) {
-            fs.appendFileSync('./skipped.txt', `Error in gm crop: ${url}\n`)
-            reject(err);
-          } else {
-            resolve(buffer);
-          }
-        });
-    });
-
-    let result = await worker.recognize(croppedBuffer);
-
-    const lettersAndNumbers = result.data.text.match(/[a-zA-Z0-9]/g);
-
-    if (lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
-      logger.warn(`Image probably not text: ${url}`);
-      fs.appendFileSync('./skipped.txt', `Probably not text: ${url}\n`)
-      return null;
-    }
-
+    
+        let result = await worker.recognize(croppedBuffer);
+    
+        const lettersAndNumbers = result.data.text.match(/[a-zA-Z0-9]/g);
+    
+        if (!['potency', 'analysis', 'terpene', 'cannabinoid', lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
+          logger.warn(`Image probably not text: ${url}`);
+          fs.appendFileSync('./skipped.txt', `Probably not text: ${url}\n`)
+          return null;
+        }
+    */
     let tweakedBuffer;
     try {
       tweakedBuffer = await new Promise((resolve, reject) => {

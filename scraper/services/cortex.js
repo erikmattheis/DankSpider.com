@@ -48,10 +48,14 @@ function filterLine(line, normalizationFunction) {
 
   let parts = cleanedLine.split(' ');
 
+  if (parts.length) {
+    parts[0] = parts[0].replace(/0.030/g, '').trim();
+  }
+
   const name = normalizationFunction(parts.shift(), line) || 'Unknown';
 
   parts = parts.map(part => {
-    if (/^ND$|^0.0485$|^0.0728$|^>3.000$|^0.030|^0.0500$|^3.000$|^0.750$|^[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/ND$|0.0485$|0.0728$|^>3.000$|0.030|0.0500$|3.000$|0.750$|[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
@@ -115,9 +119,9 @@ function getAnyChemicalObj(ln, vendor) {
 
   const name = parts[0];
 
-  recordUnknown(name, ln, vendor)
+
   if (name === 'Unknown' || parts.length < 3) {
-    fs.appendFileSync('./temp/unknownchemicals.txt', `Unknown: ${ln}\n`)
+    recordUnknown(name, ln, vendor)
     return { name, pct: 0, mgg: 0, originalText: ln }
   }
 
@@ -142,7 +146,9 @@ const lines = new Set();
 function linePasses(line) {
   const hasLetter = /[a-zA-Z]/.test(line);
   const hasNumber = /\d/.test(line);
-  if (hasLetter && hasNumber && line.length > 5) {
+  const hasSpaces = line.split(' ').length > 1;
+
+  if (hasLetter && hasNumber && hasSpaces && line.length > 11) {
     return true
   }
 
@@ -150,8 +156,8 @@ function linePasses(line) {
   return false
 }
 
-function writeUnknownLines() {
-  fs.writeFileSync('./temp/unknownlines.txt', Array.from(lines).join('\n'))
+function writeUnknownLines(batchId) {
+  fs.writeFileSync(`./temp/unknownlines-${batchId}.txt`, Array.from(lines).join('\n'))
 }
 
 function normalizeCannabinoid(name, line) {
@@ -177,9 +183,9 @@ function normalizeTerpene(terpene, line) {
   return terpene
 }
 
-function recordUnknown(str, ln, vendor = '') {
+function recordUnknown(str, ln, vendor) {
   if (linePasses(ln)) {
-    fs.appendFileSync('./temp/${vendor}-unknownchemicals.txt', `${str}\n`)
+    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
   }
 }
 

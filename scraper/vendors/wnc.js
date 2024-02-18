@@ -88,6 +88,11 @@ async function getProduct(url) {
       }
 
       const raw = await recognize(image);
+
+      if (!raw) {
+        continue;
+      }
+
       console.log('raw', raw.length);
 
       const result = transcribeAssay(raw, image, vendor);
