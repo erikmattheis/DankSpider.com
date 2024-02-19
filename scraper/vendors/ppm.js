@@ -10,7 +10,7 @@ const { readPDFs } = require('../services/pdf')
 const { cannabinoidNameList, terpeneNameList } = require('../services/cortex')
 
 let numberSavedProducts = 0;
-let numProductsToSave = 333333;
+let numProductsToSave = 222;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
@@ -69,7 +69,6 @@ async function recordAssays() {
 
   }
   catch (error) {
-    console.log('error getProducts', error);
     return [];
     logger.error(error)
     logErrorToFile(error)
@@ -78,7 +77,6 @@ async function recordAssays() {
 
 
 async function getProducts() {
-  console.log('getting products')
   const products = [];
   try {
 
@@ -105,7 +103,6 @@ async function getProducts() {
       let title = $element.find('[data-pf-type="ProductTitle"]:first').text().trim();
 
       title = normalizeProductTitle(title);
-      console.log('title', title)
       const imageSrc = $element.find('.pf-slide-main-media img').attr('src');
 
       const image = `https://${imageSrc}`;
@@ -149,7 +146,6 @@ async function getProducts() {
       const product = { title, image, url, vendor, cannabinoids: canns, terpenes: terps, variants, vendorDate }
 
       products.push(product)
-      console.log('products', products.length)
     }
 
   } catch (error) {
@@ -164,7 +160,6 @@ async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
   const products = await getProducts()
-  console.log('returning products2', products.length)
   return products
 }
 

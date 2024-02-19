@@ -46,7 +46,7 @@ async function recognize(url) {
     /*
         // Add error handling to gm
         let size;
-    
+
         try {
           size = await new Promise((resolve, reject) => {
             gm(buffer).size((err, size) => {
@@ -62,17 +62,17 @@ async function recognize(url) {
           fs.appendFileSync('./skipped.txt', `Error in gm: ${url}\n`)
           return null;
         }
-    
+
         if (size.width < 100 || size.height < 100) {
           logger.warn(`Image too small: ${url}`);
           fs.appendFileSync('./skipped.txt', `Too small: ${url}\n`)
-    
+
           return null;
         }
-    
+
         const left = (size.width - squareSize) / 2;
         const top = size.height - squareSize;
-    
+
         const croppedBuffer = await new Promise((resolve, reject) => {
           gm(buffer)
             .crop(squareSize, squareSize, left, top)
@@ -85,11 +85,11 @@ async function recognize(url) {
               }
             });
         });
-    
+
         let result = await worker.recognize(croppedBuffer);
-    
+
         const lettersAndNumbers = result.data.text.match(/[a-zA-Z0-9]/g);
-    
+
         if (!['potency', 'analysis', 'terpene', 'cannabinoid', lettersAndNumbers && lettersAndNumbers.length < result.data.text.length / 2) {
           logger.warn(`Image probably not text: ${url}`);
           fs.appendFileSync('./skipped.txt', `Probably not text: ${url}\n`)
@@ -101,11 +101,10 @@ async function recognize(url) {
       tweakedBuffer = await new Promise((resolve, reject) => {
         gm(buffer)
           .quality(100)
-          .resize(4000)
-          // .sharpen(5, 5)
+          .resize(6000)
+          //.sharpen(2)
           .toBuffer(function (err, buffer) {
             if (err) {
-              console.log('Error creating buffer:', err);
               fs.appendFileSync('./skipped.txt', `Error creating buffer: ${url}\n`)
               reject('Error creating buffer:' + err);
             } else {
@@ -124,14 +123,12 @@ async function recognize(url) {
     try {
       result = await worker.recognize(tweakedBuffer);
     } catch (error) {
-      console.log(`Error in tesseract: ${error}`);
       fs.appendFileSync('./skipped.txt', `Error in tesseract: ${url}\n`)
       return null;
     }
 
     return result.data.text;
   } catch (error) {
-    logger.error('Error in recognize', { error: error.toString(), stack: error.stack });
     fs.appendFileSync('./skipped.txt', `Error in recognize: ${url}\n`)
     return 'Error in recognize'
   } finally {

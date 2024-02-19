@@ -21,38 +21,45 @@ function transcribeAssay(str, url, vendor) {
 
 }
 
-
-
+function removeCharactersAfterLastDigit(str) {
+  return str.replace(/(\d)\D*$/, '$1');
+}
 function getAnyChemical(line, vendor) {
   return getAnyChemicalObj(line, vendor)
 }
 
+function fixMissedPeriod(str) {
+  const was = str;
+  let string = str.replace('.', '')
+  if (string.length > 3) {
+    string = string.slice(0, string.length - 3) + '.' + string.slice(string.length - 3)
+  }
+}
+
 function filterLine(line, normalizationFunction) {
-  if (!line.replace) {
+  if (line && !line.replace) {
     return ['Unknown', 0]
   }
-  const cleanedLine = line.replace(/\s+/g, ' ');
 
-  // while last character is a space or a space followed by a singe character and a space or a since character, remove it
-
-  while (cleanedLine.slice(-1) === ' ' || cleanedLine.slice(-2) === ' ' || cleanedLine.slice(-3) === ' ') {
-    cleanedLine = cleanedLine.slice(0, cleanedLine.length - 1)
-  }
+  let cleanedLine = line.replace(/\s+/g, ' ');
+  cleanedLine = removeCharactersAfterLastDigit(cleanedLine)
 
   let parts = cleanedLine.split(' ');
 
   if (parts.length) {
-    parts[0] = parts[0].replace(/0.030/g, '').trim();
+    parts[0] = parts[0].replace(/0\.030/g, '').trim();
   }
 
   const name = normalizationFunction(parts.shift(), line) || 'Unknown';
 
+  // parts = parts.map((part, i) => { if (!isNaN(part)) { return fixMissedPeriod(part) } return part })
+
   parts = parts.map(part => {
-    if (/ND$|0.0485$|0.0728$|^>3.000$|0.030|0.0500$|3.000$|0.750$|[<>][LlIi1|][Oo0]Q$/.test(part)) {
+    if (/ND$|\.0485$|\.0728$|^>3\.000$|^0\.030|^0\.0500$|3\.000$|^0\.750$|[<>][LlIi1|][Oo0]Q$/.test(part)) {
       return "0";
     }
     return part;
-  }).filter(part => !isNaN(parseFloat(part)));
+  })
 
   parts.unshift(name);
 
@@ -60,9 +67,9 @@ function filterLine(line, normalizationFunction) {
 }
 
 function getMgg(parts, line) {
-  let mgg = parts[parts.length - 1]
+  let mgg = parts[parts.length - 2]
 
-  if (!mgg.includes('.') && !isNaN(parseFloat(mgg))) {
+  if (!mgg.includes('.')) {
     mgg = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
   }
 
@@ -75,7 +82,6 @@ function getAnyChemicalObj(ln, vendor) {
   const parts = filterLine(ln, normalizeAnyChemical, vendor)
 
   const name = parts[0];
-
 
   if (name === 'Unknown' || parts.length < 3) {
     recordUnknown(name, ln, vendor)
@@ -117,29 +123,6 @@ function writeUnknownLines(batchId) {
   fs.writeFileSync(`./temp/unknownlines-${batchId}.txt`, Array.from(lines).join('\n'))
 }
 
-function normalizeCannabinoid(name, line) {
-  if (cannabinoidSpellings[name]) {
-    return name
-  }
-
-  if (linePasses(line)) {
-    fs.appendFileSync('./temp/unknowncannabinoid.txt', `${name}\n`)
-  }
-
-  return "Unknown"
-}
-
-function normalizeTerpene(terpene, line) {
-  if (terpeneSpellings[terpene]) {
-    return terpene
-  }
-
-  if (linePasses(line)) {
-    fs.appendFileSync('./temp/unknownterpenes.txt', `${terpene}\n`)
-  }
-  return terpene
-}
-
 function recordUnknown(str, ln, vendor) {
   if (linePasses(ln)) {
     fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
@@ -170,10 +153,9 @@ function stringContainsNonFlowerProduct(str) {
 
 module.exports = {
   transcribeAssay,
-  normalizeTerpene,
-  normalizeCannabinoid,
   cannabinoidNameList,
   terpeneNameList,
+  getAnyChemical,
   stringContainsNonFlowerProduct,
   writeUnknownLines
 }

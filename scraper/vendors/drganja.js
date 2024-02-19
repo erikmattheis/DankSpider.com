@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 33333;
+let numProductsToSave = 222;
 let numSavedProducts = 0;
 
 const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
@@ -103,13 +103,8 @@ async function addAssays(product, $) {
     const raw = await recognize(image);
     const result = transcribeAssay(raw, image, 'drGanja');
 
-    console.log('result', result?.length)
-    console.log(result)
-    console.log('------')
     if (result?.length) {
-      console.log('value', result[0]?.name)
       if (cannabinoidNameList.includes(result[0].name)) {
-        console.log('cannabinoidNameList', cannabinoidNameList.length)
         cannabinoids = result//;.filter(a => cannabinoidNameList.includes(a.name))
       }
       if (terpeneNameList.includes(result[0].name)) {

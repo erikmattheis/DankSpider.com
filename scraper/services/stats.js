@@ -2,7 +2,7 @@ const { getAllProducts } = require('./firebase.js');
 const { saveStats } = require('./firebase.js');
 
 async function makeStats() {
-  const products = await getAllProducts();
+  const products = await getAllProducts('products2');
 
   const vendors = {};
 
@@ -31,19 +31,19 @@ async function makeStats() {
 
     vendors[product.vendor].numCannabinoids += product?.cannabinoids?.length ? product?.cannabinoids?.length : 0;
 
-    totalCannabinoids += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => typeof c?.pct === 'string' && Number(c?.pct) > 0).length : 0;
+    totalCannabinoids += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => Number(c?.pct) > 0).length : 0;
 
-    vendors[product.vendor].numCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids.filter(c => typeof c?.pct === 'string' && Number(c?.pct) > 0).length : 0;
+    vendors[product.vendor].numCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids.filter(c => Number(c?.pct) > 0).length : 0;
 
-    totalCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => typeof c?.pct === 'string' && Number(c?.pct) > 0).length : 0;
+    totalCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => Number(c?.pct) > 0).length : 0;
 
     vendors[product.vendor].numTerpenes += product?.terpenes?.length ? product?.terpenes?.length : 0;
 
-    totalTerpenes += product?.terpenes?.filter ? product?.terpenes?.filter(t => typeof t?.pct === 'string' && Number(t?.pct) > 0).length : 0;
+    totalTerpenes += product?.terpenes?.filter ? product?.terpenes?.filter(t => Number(t?.pct) > 0).length : 0;
 
-    vendors[product.vendor].numTerpenesWithValues += product?.terpenes?.filter ? product.terpenes?.filter(t => typeof t?.pct === 'string' && Number(t?.pct) > 0).length : 0;
+    vendors[product.vendor].numTerpenesWithValues += product?.terpenes?.filter ? product.terpenes?.filter(t => typeof t?.pct === 'number' && Number(t?.pct) > 0).length : 0;
 
-    totalTerpenesWithValues += product?.terpenes?.filter ? product?.terpenes?.filter(t => typeof t?.pct === 'string' && Number(t?.pct) > 0).length : 0;
+    totalTerpenesWithValues += product?.terpenes?.filter ? product?.terpenes?.filter(t => Number(t?.pct) > 0).length : 0;
 
   }
 

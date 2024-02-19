@@ -9,7 +9,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
-let numProductsToSave = 3;
+let numProductsToSave = 222;
 let numSavedProducts = 0;
 
 let count = 0;
@@ -57,7 +57,7 @@ async function parseSingleProduct(html, url) {
 
   if (assayLinks.length === 0) {
 
-    console.log('no assay links', url)
+    fs.writeFileSync('./temp/vendors/arete-no-assay.html', html)
     return { cannabinoids, terpenes, image: productImages[0], variants }
 
   }
@@ -70,10 +70,6 @@ async function parseSingleProduct(html, url) {
     const result = transcribeAssay(raw, image, 'Arete');
 
     if (!result) {
-      logger.log({
-        level: 'info',
-        message: `nothing interesting, continuing ... ${image}`
-      })
       continue
     }
 

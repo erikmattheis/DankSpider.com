@@ -8,7 +8,7 @@ const { terpeneNameList, cannabinoidNameList } = require('../services/cortex.js'
 const logger = require('../services/logger.js');
 
 let currentPage = 1;
-const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
+const startUrl = 'https://harborcityhemp.com/product-category/cannabinoids/thca-products/feed/';
 
 const uniqueVariants = [];
 let batchId;
@@ -88,15 +88,18 @@ async function scrapePage(url, currentPage, productLinks) {
   try {
     const response = await axios.get(url);
 
-    fs.writeFileSync(`./temp/vendors/ehh-page-${currentPage}.html`, response.data);
+    fs.writeFileSync(`./temp/vendors/hch-page-${currentPage}.html`, response.data);
     const $ = cheerio.load(response.data, { xmlMode: true })
 
-    const cards = $('entry');
+    const items = $('item');
 
-    for (const card of cards) {
+    for (const item of items) {
 
-      const title = $(card).find('entry > title').text().trim();
-
+      const title = $(item).find('title').text().trim();
+      const url = $(item).find('link').text().trim();
+      const vendorDate = $(item).find('pubDate').text().trim();
+      const image = $(item).find('content\\:encoded').text().match(/<img[^>]+src="([^">]+)"/)[1];
+      const assayImages = $(item).find('content\\:encoded').text().match(/<a[^>]+href="([^">]+)"/g);
 
       if (isDesiredProduct(title)) {
 

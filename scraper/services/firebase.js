@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
+const { getAnyChemical } = require('./cortex.js');
 
 
 const cheerio = require('cheerio');
@@ -213,13 +214,11 @@ async function saveProducts(products, batchId = '00x', useDev) {
   await batch.commit();
 }
 
-
-
 const { performance } = require('perf_hooks');
 
-async function getAllProducts() {
+async function getAllProducts(collection = 'products') {
 
-  const productsRef = db.collection('products').orderBy('timestamp', 'desc');
+  const productsRef = db.collection(collection).orderBy('timestamp', 'desc');
   const snapshot = await productsRef.get();
 
   const products = [];
@@ -289,7 +288,7 @@ async function getCompleteProducts() {
 }
 
 async function recalculateChemicalValues() {
-  const contentRef = db.collection('products');
+  const contentRef = db.collection('products2');
 
   try {
     const snapshot = await contentRef.get();
@@ -302,12 +301,12 @@ async function recalculateChemicalValues() {
       const chem = doc.data();
 
       const cannabinoids = chem.cannabinoids?.map(c => {
-        const obj = getAnyChemical(c.originalLine, doc.name)
+        const obj = getAnyChemical(c.originalText, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
       const terpenes = chem.terpenes?.map(t => {
-        const obj = getAnyChemical(t.originalLine, doc.name)
+        const obj = getAnyChemical(t.originalText, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
@@ -320,13 +319,12 @@ async function recalculateChemicalValues() {
         batch = db.batch();
         operationCount = 0;
       }
-    });
 
+    });
     if (operationCount > 0) {
       await batch.commit();
       console.log('Final batch committed');
     }
-
   } catch (error) {
     console.error('Error in fixValues:', error);
   }
@@ -583,10 +581,36 @@ async function copyAndDeleteProducts(keepBatchIds) {
     //id = id.replace(/-/g, ' ');
 
     if (doc && !keepBatchIds.some(s => id.includes(s))) {
-      console.log('saving...')
       const newDocRef = secondCollectionRef.doc(doc.id);
       batch.set(newDocRef, product);
       batch.delete(doc.ref);
+    }
+
+  });
+
+  await batch.commit();
+}
+
+async function copyProducts(keepBatchIds = []) {
+  const productsRef = db.collection('products');
+  const secondCollectionRef = db.collection('products2');
+
+  const snapshot = await productsRef.get();
+
+  const batch = db.batch();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (!doc.id) {
+      return;
+    }
+    let id = doc.id.replace(/\%/g, '-');
+    id = decodeURIComponent(id);
+    //id = id.replace(/-/g, ' ');
+
+    if (doc && !keepBatchIds.some(s => id.includes(s))) {
+      const newDocRef = secondCollectionRef.doc(doc.id);
+      batch.set(newDocRef, product);
     }
 
   });
@@ -668,5 +692,6 @@ module.exports = {
   saveBatchRecord,
   saveProducts,
   saveAssays,
-  getAssays
+  getAssays,
+  copyProducts
 };

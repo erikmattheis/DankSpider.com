@@ -9,7 +9,7 @@ const logger = require('../services/logger.js');
 const products = [];
 let batchId = 'test';
 
-let numProductsToSave = 3;
+let numProductsToSave = 222;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -58,7 +58,6 @@ async function getPrestonProductInfo(product) {
     let cannabinoids = [];
 
     for (const image of product.images) {
-      console.log('image', image)
       const raw = await recognize(image);
       const result = transcribeAssay(raw, image, 'Preston');
 

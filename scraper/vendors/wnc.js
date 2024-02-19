@@ -7,7 +7,7 @@ const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNon
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 4444;
+let numProductsToSave = 222;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
@@ -23,7 +23,6 @@ async function getProduct(url) {
   let cannabinoids = [];
   let terpenes = [];
 
-  console.log('getting product', url);
   try {
 
     const response = await axios.get(url);
@@ -93,27 +92,18 @@ async function getProduct(url) {
         continue;
       }
 
-      console.log('raw', raw.length);
-
       const result = transcribeAssay(raw, image, vendor);
-      console.log('result', result.length);
-      console.log(JSON.stringify(result));
 
       if (result.length) {
-        console.log('must say name', result[0].name);
+
         if (cannabinoidNameList.includes(result[0].name)) {
-          console.log('filtering cannabinoids');
           cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-          console.log('cannabinoids', cannabinoids.length)
         }
         if (terpeneNameList.includes(result[0].name)) {
           terpenes = result.filter(a => terpeneNameList.includes(a.name))
-          console.log('terpenes', terpenes.length)
         }
       }
-      console.log('using', cannabinoids.length, terpenes.length)
       if (terpenes.length && cannabinoids.length) {
-        console.log('found terpenes and cannabinoids')
         break;
       }
     }
@@ -130,7 +120,6 @@ async function getProduct(url) {
     }
 
     numSavedProducts++;
-    console.log(`Returning ${product.cannabinoids.length} cannabinoids and ${product.terpenes.length} terpenes`)
     return product;
   }
   catch (e) {
@@ -156,12 +145,8 @@ async function scrapePage(url, currentPage, productLinks) {
       continue;
     }
 
-    console.log('productTitle', productTitle);
-
     const chooseOptionsButton = $(card).find('a.card-figcaption-button');
 
-    console.log('chooseOptionsButton', chooseOptionsButton.text());
-    console.log(chooseOptionsButton.text(), chooseOptionsButton.text().includes('Choose Options'));
 
     if (isDesiredProduct(productTitle) && chooseOptionsButton && chooseOptionsButton.text()) {
 
@@ -232,15 +217,9 @@ async function getWNCProductsInfo(productLinks) {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
-  console.log('WNC ', batchId);
-
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
-  console.log('productLinks', productLinks.length);
-
   const products = await getWNCProductsInfo(productLinks);
-
-  console.log('products', products.length);
 
   return products;
 

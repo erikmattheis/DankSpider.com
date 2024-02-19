@@ -11,6 +11,9 @@ function normalizeProductTitle(title) {
   return replaceString
 }
 
+function retranscribeLine(line) {
+  return getAnyChemical(line, 'transcribeLine') || { name: 'Unknown', pct: 0 }
+}
 
 function normalizeVariantName(nameStr) {
   let name = nameStr.trim()
@@ -36,7 +39,7 @@ function normalizeVariantName(nameStr) {
   if (name === 'Mixed Dirty Kief 28 grams') {
     return '28 g'
   }
-  if (name ==='Mixed+Dirty+Kief+28+grams') {
+  if (name === 'Mixed+Dirty+Kief+28+grams') {
     return '28 g'
   }
   if (name === '3.5 g Pheno 1') {
@@ -119,7 +122,6 @@ function normalizeVariantName(nameStr) {
   name = name?.replace(' Pheno 1', '')
   name = name?.replace(' Pheno 2', '')
 
-console.log(nameStr, name);
   return name
 }
 
@@ -150,26 +152,26 @@ async function makeFirebaseSafeId(suffix, product, collectionRef) {
 const cheerio = require('cheerio');
 
 function findLargestImage(htmlString) {
-    const $ = cheerio.load(htmlString);
-    let largestImageUrl = '';
-    let maxImageWidth = 0;
+  const $ = cheerio.load(htmlString);
+  let largestImageUrl = '';
+  let maxImageWidth = 0;
 
-    $('img').each((i, img) => {
-        const srcset = $(img).attr('srcset');
-        if (srcset) {
-            const sources = srcset.split(',').map(s => s.trim());
-            sources.forEach(source => {
-                const [url, width] = source.split(' ');
-                const imageWidth = parseInt(width.replace('w', ''));
-                if (imageWidth > maxImageWidth) {
-                    maxImageWidth = imageWidth;
-                    largestImageUrl = url;
-                }
-            });
+  $('img').each((i, img) => {
+    const srcset = $(img).attr('srcset');
+    if (srcset) {
+      const sources = srcset.split(',').map(s => s.trim());
+      sources.forEach(source => {
+        const [url, width] = source.split(' ');
+        const imageWidth = parseInt(width.replace('w', ''));
+        if (imageWidth > maxImageWidth) {
+          maxImageWidth = imageWidth;
+          largestImageUrl = url;
         }
-    });
+      });
+    }
+  });
 
-    return largestImageUrl;
+  return largestImageUrl;
 }
 
 module.exports = {

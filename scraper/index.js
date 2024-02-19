@@ -1,12 +1,11 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
-const { makeProductsFile } = require('./services/memory.js')
 const logger = require('./services/logger.js')
 
 
@@ -19,6 +18,23 @@ const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 const ehh = require("./vendors/ehh.js");
+
+async function makeProductsFile(vendor, limit, useDevCollection) {
+
+  let products = await getAllProducts()
+
+  products = products.map(product => {
+    product.cannabinoids = filterAssay(product.cannabinoids)
+    product.terpenes = filterAssay(product.terpenes)
+    return product
+  })
+
+  const updatedAt = new Date().toISOString()
+
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
+
+  logger.log({ level: 'info', message: `Wrote ${products.length} products to products.json` });
+}
 
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
@@ -44,11 +60,15 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
-  await copyAndDeleteProducts([batchId]);
+  //await copyAndDeleteProducts([batchId]);
 
-  await makeProductsFile()
+  //await copyProducts()
+
+  //await makeProductsFile()
+
+  //await recalculateChemicalValues()
 
   await makeStats()
 
@@ -84,7 +104,7 @@ async function run(batchId, vendor, vendorList) {
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },
 {name: 'EHH', service: ehh]*/
-const batchId = '991'
+const batchId = 'e1'
 
 run(batchId, 'x', [
   { name: 'PPM', service: ppm },
