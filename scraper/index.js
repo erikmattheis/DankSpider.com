@@ -61,7 +61,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
   //await copyAndDeleteProducts([batchId]);
 

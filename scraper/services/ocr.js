@@ -30,7 +30,7 @@ async function initWorker() {
 
 async function recognize(url) {
   console.log('Recognizing:', url);
-  await initWorker();
+  worker = await initWorker();
 
   try {
     const buffer = await Promise.race([

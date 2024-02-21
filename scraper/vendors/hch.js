@@ -115,6 +115,19 @@ async function getProduct(url) {
 
   const variants = [];
 
+
+  $('select.woovr-variation-select option').each(function () {
+    let variantName = $(this).text().trim();
+    // Only add variant names that are not 'Choose an option'
+    if (variantName && variantName !== 'Choose an option') {
+      variantName = variantName.split(' – ')
+      const variant = variantName[1];
+      variants.push(variant);
+    }
+  });
+
+  console.log('variants', variants)
+
   for (const image of imageUrls) {
     const raw = await recognize(image);
 
