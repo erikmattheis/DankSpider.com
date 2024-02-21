@@ -79,7 +79,15 @@ const router = createRouter({
       name: 'test',
       component: test
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    // If savedPosition is available, return it, else return false to prevent scrolling
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return false;
+    }
+  }
 })
 
 export default router

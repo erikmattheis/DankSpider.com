@@ -7,7 +7,7 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
 const logger = require('./services/logger.js')
-
+const { filterAssay } = require('./services/memory.js')
 
 const ppm = require("./vendors/ppm.js");
 const preston = require("./vendors/preston.js");
@@ -18,6 +18,7 @@ const topcola = require("./vendors/topcola.js");
 const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 const ehh = require("./vendors/ehh.js");
+const hch = require("./vendors/hch.js");
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -66,11 +67,11 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyProducts()
 
-  //await makeProductsFile()
+  // await makeProductsFile()
 
   //await recalculateChemicalValues()
 
-  await makeStats()
+  // await makeStats()
 
   // await makeStrainsFile()
 
@@ -107,12 +108,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'e1'
 
 run(batchId, 'x', [
-  { name: 'PPM', service: ppm },
-  { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
-  { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
-  { name: 'EHH', service: ehh }
+  { name: 'HCH', service: hch }
 ])
 

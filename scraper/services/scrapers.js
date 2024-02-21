@@ -85,8 +85,8 @@ async function run(batchId, vendor, vList) {
         })();
       });
   }
-  await Promise.all(tasks);
 
+  await Promise.all(tasks);
 
 }
 

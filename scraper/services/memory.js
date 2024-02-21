@@ -301,4 +301,5 @@ module.exports = {
   terpeneSpellings,
   cannabinoidNameList,
   terpeneNameList,
+  filterAssay
 }

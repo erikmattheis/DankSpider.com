@@ -694,3 +694,59 @@ Total TerpenesWithValues 1262 5.09
   Total Terpenes 1279 5.16
   Total TerpenesWithValues 1279 5.16
 
+
+    ,
+
+    WNC {
+    vendor: 'WNC',
+      numProducts: 100,
+        numCannabinoids: 1497,
+          numCannabinoidsWithValues: 1497,
+            numTerpenes: 966,
+              numTerpenesWithValues: 966
+  }
+  Preston {
+    vendor: 'Preston',
+      numProducts: 28,
+        numCannabinoids: 0,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+  Dr Ganja {
+    vendor: 'Dr Ganja',
+      numProducts: 28,
+        numCannabinoids: 110,
+          numCannabinoidsWithValues: 110,
+            numTerpenes: 313,
+              numTerpenesWithValues: 313
+  }
+  Arete {
+    vendor: 'Arete',
+      numProducts: 28,
+        numCannabinoids: 0,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+  EIGHT HORSES {
+    vendor: 'EIGHT HORSES',
+      numProducts: 14,
+        numCannabinoids: 37,
+          numCannabinoidsWithValues: 37,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+  PPM {
+    vendor: 'PPM',
+      numProducts: 50,
+        numCannabinoids: 357,
+          numCannabinoidsWithValues: 348,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+  Total Products 248
+  Total Cannabinoids 1992 8.03
+  Total CannabinoidsWithValues 1992 8.03
+  Total Terpenes 1279 5.16
+  Total TerpenesWithValues 1279 5.16

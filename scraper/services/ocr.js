@@ -32,12 +32,12 @@ async function recognize(url) {
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.DEFAULT
     });
-
+    console.log('worker created')
     const buffer = await Promise.race([
       getBuffer(url),
       new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 10000)) // 5 seconds timeout
     ]);
-
+    console.log('buffer', buffer.length)
     if (!buffer || buffer.length === 0) {
       logger.warn(`No image buffer: ${url}`);
       fs.appendFileSync('./skipped.txt', `No buffer: ${url}\n`)
@@ -99,15 +99,17 @@ async function recognize(url) {
     let tweakedBuffer;
     try {
       tweakedBuffer = await new Promise((resolve, reject) => {
+
         gm(buffer)
           .quality(100)
-          .resize(6000)
+          .resize(4000)
           //.sharpen(2)
           .toBuffer(function (err, buffer) {
             if (err) {
               fs.appendFileSync('./skipped.txt', `Error creating buffer: ${url}\n`)
               reject('Error creating buffer:' + err);
             } else {
+              console.log('returning buffer', buffer.length)
               resolve(buffer);
             }
           });
