@@ -637,6 +637,7 @@ async function saveAssays(vendor, assays) {
     console.log('No assays to save');
     return;
   }
+  console.log('saving assays', assays.length, vendor)
   const batch = db.batch();
   const timestamp = admin.firestore.Timestamp.now();
   const assayssRef = db.collection('assays');

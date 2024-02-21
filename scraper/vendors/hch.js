@@ -22,24 +22,20 @@ async function getListOfTHCAPDFs() {
 
   const products = [];
 
-  $("#row-1678248903 a").each((index, element) => {
+  $("#row-1678248903 a button span").each((index, element) => {
     const url = $(element).attr('href');
-    const title = $(element).text().trim();
+    const name = $(element).text().trim();
 
     if (url.endsWith('.pdf')) {
-      products.push({ title, url });
+      products.push({ name, url });
     }
   });
-
-  console.log(products);
-
-  process.exit('done  ')
 
   return products;
 }
 
 async function recordAssays() {
-  console.log('recording assays')
+
   try {
 
     const pdfs = await getListOfTHCAPDFs();
@@ -248,12 +244,11 @@ async function getAvailableLeafProducts(id, vendor) {
   console.log('batchId', batchId)
   await recordAssays();
 
-
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
-  // const products = await getEHHProductsInfo(productLinks);
+  const products = await getEHHProductsInfo(productLinks);
 
-  // return products;
+  return products;
 
 }
 

@@ -6,7 +6,7 @@ function transcribeAssay(str, url, vendor) {
   if (!str?.split) {
     console.log('can\'t split', url, 'type:', typeof str, str)
     fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
-    return null
+    return []
   }
   console.log('transcribeAssay', str, url, vendor)
   const lines = str.split('\n')
@@ -34,7 +34,6 @@ function fixMissedPeriod(str) {
 }
 
 function filterLine(line, normalizationFunction) {
-  console.log('filterLine')
   if (line && !line.replace) {
     return ['Unknown', 0]
   }
@@ -76,7 +75,6 @@ function getMgg(parts, line) {
 
 
 function getAnyChemical(ln, vendor) {
-  console.log('getAnyChemical', ln, vendor)
   const parts = filterLine(ln, normalizeAnyChemical, vendor)
 
   const name = parts[0];
@@ -110,11 +108,12 @@ function linePasses(line) {
   const hasSpaces = line.split(' ').length > 1;
 
   if (hasLetter && hasNumber && hasSpaces && line.length > 11) {
+    if (lines.has(line)) {
+      return false
+    }
+    lines.add(line)
     return true
   }
-
-  lines.add(line)
-  return false
 }
 
 function writeUnknownLines(batchId) {
@@ -128,8 +127,8 @@ function recordUnknown(str, ln, vendor) {
 }
 
 function normalizeAnyChemical(str, ln, vendor) {
-  console.log('normalizeAnyChemical', str, ln, vendor)
-  if (cannabinoidSpellings[str] && cannabinoidSpellings[str].confidence > 0.7) {
+
+  if (cannabinoidSpellings[str]) {
     return cannabinoidSpellings[str].name
   }
 
