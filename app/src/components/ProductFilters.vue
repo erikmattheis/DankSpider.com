@@ -264,6 +264,7 @@ export default {
         }
       }
       this.changeQueryStrings(this.checkedVariants, this.checkedVendors);
+      return false;
     },
     toggleSelectedVendor(vendor) {
       if (!this.aVendorWasClicked) {
@@ -277,23 +278,29 @@ export default {
         }
       }
       this.changeQueryStrings(this.checkedVariants, this.checkedVendors);
+      return false;
     },
     toggleSelectedCannabinoid(cannabinoid) {
       this.store.toggleSelectedCannabinoid(decodeURIComponent(cannabinoid));
+      return false;
     },
     toggleSelectedTerpene(terpene) {
       this.store.toggleSelectedTerpene(decodeURIComponent(terpene));
+      return false;
     },
     changeQueryStrings(checkedVariants, checkedVendors) {
       const sizes = checkedVariants.sort().join(',');
       const vendors = checkedVendors.sort().join(',');
-      this.$router.push({ path: '', query: { sizes, vendors } });
+      this.$router.push({ to: '/', query: { sizes, vendors, savePosition: true } });
+      return false;
     },
     onlySelectVariant(variant) {
       this.store.checkedVariants = [variant];
+      return false;
     },
     onlySelectVendor(vendor) {
       this.store.checkedVendors = [vendor];
+      return false;
     }
   }
 }

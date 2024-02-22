@@ -20,7 +20,7 @@ async function recordAssays(links) {
 
       result = transcribeAssay(result);
 
-      assays.push({ ...result, vendor: 'HCF', title: link.title });
+      assays.push({ result, vendor: 'HCF', title: link.title, url: link.url });
 
     }
 
@@ -99,7 +99,7 @@ function findImageUrlByWidth(str, width) {
 let products = [];
 
 async function getProduct(url, title, vendor) {
-  console.log('title', title)
+  console.log('get ', title)
   if (numSavedProducts >= numProductsToSave) {
     return;
   }
@@ -114,7 +114,7 @@ async function getProduct(url, title, vendor) {
 
   image = !image.startsWith('http') ? `https://dankspider.com${image}` : image;
 
-  //console.log('image', image)
+  console.log('image', image)
 
   image = findImageUrlByWidth(image, 246);
 
@@ -123,6 +123,8 @@ async function getProduct(url, title, vendor) {
   }
 
   const variants = [];
+  let cannabinoids = [];
+  let terpenes = [];
 
   $('variant-radios label').each(function () {
     let variantName = $(this).text().trim();
@@ -135,11 +137,12 @@ async function getProduct(url, title, vendor) {
 
   let allAssays = await getAssays();
   allAssays = allAssays.filter(a => a.vendor === 'HCF');
-
+  console.log('candidate assays:', allAssays.length)
+  console.log('candidate assays:', allAssays[0])
   fs.writeFileSync('./temp/hcf-assays.json', JSON.stringify(allAssays, null, 2));
 
-  const assay = allAssays.find(p => {
-    const condition = p.name === title && p.vendor === 'HCF';
+  let assay = allAssays.find(p => {
+    const condition = p.vendor === 'HCF'; // p.title === title &&
     return condition;
   });
 
@@ -150,9 +153,9 @@ async function getProduct(url, title, vendor) {
     return false
   }
   else {
-    console.log('assay', assay)
-    const cannabinoids = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
-    const terpenes = assay.assay.filter(a => terpeneNameList.includes(a.name))
+    assay = assay.assay;
+    cannabinoids = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
+    terpenes = assay.assay.filter(a => terpeneNameList.includes(a.name))
   }
 
   const product = {

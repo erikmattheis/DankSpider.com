@@ -57,18 +57,18 @@ process.on('unhandledRejection', (reason, p) => {
 async function run(batchId, vendor, vendorList) {
 
   const timer = performance.now()
-  await deleteAssaysByVendors(['HCF'])
+  // await deleteAssaysByVendors(['HCF', 'HCH'])
   //await deleteProductsByVendors(['EIGHT HORSES'])
 
   //await showBatch()
 
-  await scrapers.run(batchId, vendor, vendorList)
+  //await scrapers.run(batchId, vendor, vendorList)
 
   //await copyAndDeleteProducts([batchId]);
 
   //await copyProducts()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   //await recalculateChemicalValues()
 
@@ -109,6 +109,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'e1'
 
 run(batchId, 'x', [
-  { name: 'HCF', service: hcf }
+  { name: 'Arete', service: arete },
 ])
 

@@ -645,7 +645,7 @@ async function saveAssays(vendor, assays) {
     const id = makeFirebaseSafe(`${vendor}-${assay.title}`);
     const docRef = assayssRef.doc(id);
     batch.set(docRef, {
-      ...assay,
+      assay,
       vendor,
       timestamp
     });

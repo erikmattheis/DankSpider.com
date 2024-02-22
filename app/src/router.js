@@ -14,7 +14,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'ProductPage',
-      component: ProductPage
+      component: ProductPage,
+      preventScroll: true
     },
     {
       path: '/news',
@@ -81,12 +82,17 @@ const router = createRouter({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    // If savedPosition is available, return it, else return false to prevent scrolling
+    console.log(to, from, savedPosition)
     if (savedPosition) {
       return savedPosition;
-    } else {
+    }
+    else if (to.path != from.path) {
+      return { top: 0 }
+    }
+    else {
       return false;
     }
+
   }
 })
 

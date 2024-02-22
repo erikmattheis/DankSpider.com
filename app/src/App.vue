@@ -122,10 +122,15 @@ body {
   width: 100%;
 }
 
+a span,
+a span:hover,
+a span:visited,
+a span:focus,
+a span:active
 a,
 a:hover,
 a:visited,
-a:focus
+a:focus,
 a:active {
   color: #fff;
   text-decoration: none;
