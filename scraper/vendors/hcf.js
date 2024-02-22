@@ -9,53 +9,18 @@ const logger = require('../services/logger.js');
 const { saveAssays, getAssays } = require('../services/firebase.js');
 const coaURL = 'https://handcraftedfarmers.com/pages/compliances'
 
-async function getListOfCOAPages() {
-
-  console.log('coaURL', coaURL)
-  let html = await axios.get(coaURL);
-  fs.writeFileSync('./temp/hcf-coa.html', html.data);
-  html = html.data;
-  console.log('html', html.length)
-  const $ = cheerio.load(html);
-
-
-
-  const products = [];
-
-  $("p[data-mce-fragment=1] a").each((index, element) => {
-
-    const url = $(element).attr('href');
-    const name = $(element).text().trim();
-
-
-    products.push({ name, url });
-  });
-
-  return products;
-}
-
 async function recordAssays(links) {
 
   const assays = [];
 
   try {
 
-    console.log('links', links.length)
-
     for (const link of links) {
-      console.log('product', link)
-      let result = await recognize(link);
+      let result = await recognize(link.url);
 
       result = transcribeAssay(result);
 
-      result = result.map(a => {
-        return {
-          ...a,
-          vendor: 'HCF'
-        }
-      })
-
-      assays.push(...result);
+      assays.push({ ...result, vendor: 'HCF', title: link.title });
 
     }
 
@@ -85,23 +50,24 @@ async function getProductList() {
 
   for (const element of nodes) {
 
-    const url = $(element).attr('href');
+    const href = $(element).attr('href');
 
     let title = $(element).text().trim();
 
     title = title.replace('COA - ', '').trim();
 
-    console.log('title', title)
-
-    const page = await axios.get(url);
+    const page = await axios.get(href);
 
     const _$ = cheerio.load(page.data);
 
-    const coa = _$('main img').attr('src');
-
-    links.push(coa);
+    const url = _$('main img').attr('src');
+    console.log('url', title)
+    if (url) {
+      links.push({ title, url });
+    }
 
   };
+  console.log('links', links)
 
   return links;
 
@@ -114,7 +80,7 @@ const startUrl = 'https://handcraftedfarmers.com/collections/all-products?filter
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 2;
+const numProductsToSave = 100;
 let numSavedProducts = 0;
 
 function findImageUrlByWidth(str, width) {
@@ -133,7 +99,7 @@ function findImageUrlByWidth(str, width) {
 let products = [];
 
 async function getProduct(url, title, vendor) {
-
+  console.log('title', title)
   if (numSavedProducts >= numProductsToSave) {
     return;
   }
@@ -152,8 +118,6 @@ async function getProduct(url, title, vendor) {
 
   image = findImageUrlByWidth(image, 246);
 
-
-
   if (!image) {
     image = $('.product__media').attr('src');
   }
@@ -167,22 +131,26 @@ async function getProduct(url, title, vendor) {
       variants.push(variantName);
     }
   });
+  console.log('variants', variants)
 
-  const allAssays = await getAssays();
+  let allAssays = await getAssays();
+  allAssays = allAssays.filter(a => a.vendor === 'HCF');
+
+  fs.writeFileSync('./temp/hcf-assays.json', JSON.stringify(allAssays, null, 2));
 
   const assay = allAssays.find(p => {
     const condition = p.name === title && p.vendor === 'HCF';
     return condition;
   });
 
-  if (!assay?.assay) {
+  if (!assay || !assay.assay) {
+    console.log('no assays!', assay)
     const partialProduct = { title, image, url, vendor, variants }
     fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
     return false
   }
-
   else {
-
+    console.log('assay', assay)
     const cannabinoids = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
     const terpenes = assay.assay.filter(a => terpeneNameList.includes(a.name))
   }
@@ -255,13 +223,12 @@ async function getProducts(productLinks) {
   const products = [];
 
   for (const productLink of productLinks) {
-
+    console.log('productLink', productLink)
     let product = await getProduct(productLink.url, productLink.title, 'HCF');
 
     if (!product) {
       continue;
     }
-
 
     product = { ...product, ...productLink, vendor: 'HCF' }
 

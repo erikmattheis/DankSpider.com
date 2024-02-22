@@ -642,7 +642,7 @@ async function saveAssays(vendor, assays) {
   const timestamp = admin.firestore.Timestamp.now();
   const assayssRef = db.collection('assays');
   for (const assay of assays) {
-    const id = makeFirebaseSafe(`${vendor}-${assay.name}`);
+    const id = makeFirebaseSafe(`${vendor}-${assay.title}`);
     const docRef = assayssRef.doc(id);
     batch.set(docRef, {
       ...assay,
@@ -656,6 +656,29 @@ async function saveAssays(vendor, assays) {
     console.log('Batch commit successful');
   } catch (error) {
     console.error('Error committing batch', error);
+  }
+}
+
+async function deleteAssaysByVendors(vendorNames) {
+  for (const vendorName of vendorNames) {
+
+    const productsRef = db.collection('assays');
+
+    const snapshot = await productsRef.get();
+
+    const batch = db.batch();
+
+    snapshot.forEach(doc => {
+      const assay = doc.data();
+
+      if (assay.vendor === vendorName) {
+        batch.delete(doc.ref);
+      }
+    }
+
+    );
+    console.log(`Deleted ${snapshot.size} assays by vendor ${vendorName}`)
+    await batch.commit();
   }
 }
 
@@ -694,5 +717,6 @@ module.exports = {
   saveProducts,
   saveAssays,
   getAssays,
-  copyProducts
+  copyProducts,
+  deleteAssaysByVendors
 };
