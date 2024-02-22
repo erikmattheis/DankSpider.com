@@ -7,48 +7,59 @@ const { transcribeAssay } = require('../services/cortex.js');
 const { terpeneNameList, cannabinoidNameList } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
 const { saveAssays, getAssays } = require('../services/firebase.js');
+const coaURL = 'https://handcraftedfarmers.com/pages/compliances'
 
-async function getListOfTHCAPDFs() {
+async function getListOfCOAPages() {
 
+  console.log('coaURL', coaURL)
   let html = await axios.get(coaURL);
+  fs.writeFileSync('./temp/hcf-coa.html', html.data);
   html = html.data;
-
+  console.log('html', html.length)
   const $ = cheerio.load(html);
+
+
 
   const products = [];
 
-  $("#row-1678248903 a button span").each((index, element) => {
+  $("p[data-mce-fragment=1] a").each((index, element) => {
 
     const url = $(element).attr('href');
     const name = $(element).text().trim();
 
 
     products.push({ name, url });
-    console.log('products', name, url)
   });
 
   return products;
 }
 
-async function recordAssays() {
+async function recordAssays(products) {
+
+  const assays = [];
 
   try {
 
-    const links = await getListOfTHCAPDFs();
+    console.log('links', links.length)
 
-    let result = await recognize(links);
+    for (const link of links) {
+      console.log('product', link)
+      let result = await recognize(link);
 
-    result = transcribeAssay(result);
+      result = transcribeAssay(result);
 
-    const assays = result.map(a => {
-      return {
-        ...a,
-        vendor: 'HCF'
-      }
-    })
+      result = result.map(a => {
+        return {
+          ...a,
+          vendor: 'HCF'
+        }
+      })
+
+      assays.push(...result);
+
+    }
 
     await saveAssays('HCF', assays);
-
   }
   catch (error) {
 
@@ -59,15 +70,16 @@ async function recordAssays() {
 }
 
 
-const coaURL = 'https://handcraftedfarmers.com/pages/compliances'
+
 async function getProductList() {
 
   let html = await axios.get(coaURL);
+
   html = html.data;
 
   const $ = cheerio.load(html);
 
-  const products = [];
+  const links = [];
 
   const nodes = $("#shopify-section-template--16331977490629__main a");
 
@@ -79,17 +91,20 @@ async function getProductList() {
 
     title = title.replace('COA - ', '').trim();
 
+    console.log('title', title)
+
     const page = await axios.get(url);
 
     const _$ = cheerio.load(page.data);
 
     const coa = _$('main img').attr('src');
 
-    products.push({ title, url, images: [coa] });
+    links.push(coa);
 
   };
 
-  return products;
+  return links;
+
 }
 
 
@@ -142,7 +157,7 @@ async function getProduct(url, title, vendor) {
   if (!image) {
     image = $('.product__media').attr('src');
   }
-  console.log('image', image)
+
   const variants = [];
 
   $('variant-radios label').each(function () {
@@ -214,7 +229,7 @@ async function scrapePage(url, currentPage, productLinks) {
     }
 
   } catch (e) {
-    logger.error('scraper:', e.message);
+    console.log('scraper:', e.message);
   }
 
   return productLinks;
@@ -266,14 +281,14 @@ async function getProducts(productLinks) {
 
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
-  const assays = await recordAssays();
-  process.exit();
-  console.log('batchId', batchId)
 
-  const links = await scrapePage(startUrl, currentPage, []);
-  console.log('links', links.length)
-  const products = await getProducts(links);
+  const products = await getProductList();
 
+  const assays = await recordAssays(products);
+
+
+
+  console.log('assays', assays.length)
   return products;
 
 }
