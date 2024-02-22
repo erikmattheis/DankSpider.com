@@ -34,7 +34,7 @@ async function getListOfCOAPages() {
   return products;
 }
 
-async function recordAssays(products) {
+async function recordAssays(links) {
 
   const assays = [];
 
@@ -210,7 +210,7 @@ async function scrapePage(url, currentPage, productLinks) {
   try {
     const response = await axios.get(url);
 
-    fs.writeFileSync(`./ temp / vendors / hcf - page - ${currentPage}.html`, response.data);
+    // fs.writeFileSync(`./temp / vendors / hcf - page - ${currentPage}.html`, response.data);
 
     const $ = cheerio.load(response.data)
 
@@ -282,13 +282,15 @@ async function getProducts(productLinks) {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
-  const products = await getProductList();
+  const links = await getProductList();
+  console.log('links', links.length)
+  await recordAssays(links);
 
-  const assays = await recordAssays(products);
+  const productLinks = await scrapePage(startUrl, currentPage, []);
 
+  const products = await getProducts(productLinks);
 
-
-  console.log('assays', assays.length)
+  console.log('products', products.length)
   return products;
 
 }
