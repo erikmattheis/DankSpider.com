@@ -19,6 +19,7 @@ const arete = require("./vendors/arete.js");
 const drGanja = require("./vendors/drganja.js");
 const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
+const hcf = require("./vendors/hcf.js");
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -67,11 +68,11 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyProducts()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
   //await recalculateChemicalValues()
 
-  await makeStats()
+  //await makeStats()
 
   // await makeStrainsFile()
 
@@ -108,6 +109,6 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'e1'
 
 run(batchId, 'x', [
-  { name: 'HCH', service: hch }
+  { name: 'HCF', service: hcf }
 ])
 

@@ -54,6 +54,8 @@ async function run(batchId, vendor, vList) {
       { name: 'WNC', service: wnc },
       { name: 'Preston', service: preston },
       { name: 'TopCola', service: topcola },
+      { name: 'HCH', service: hch },
+      { name: 'HCF', service: hcf },
     ];
   }
 
