@@ -78,7 +78,7 @@ async function run(batchId, vendor, vList) {
       .map(({ service }) => {
         return (async () => {
           const products = await service.getAvailableLeafProducts(batchId, vendor);
-          console.log("products end", vendor.name, products.length);
+
           if (!products || !products.length) {
             return; // Return early if no products
           }

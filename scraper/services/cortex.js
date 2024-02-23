@@ -5,10 +5,15 @@ function transcribeAssay(str, url, vendor) {
 
   if (!str?.split) {
     console.log('can\'t split', url, 'type:', typeof str, str)
-    fs.appendFileSync('./temp/errors.txt', `can't split ${url}\n`)
+    fs.appendFileSync('./temp/errors.url.txt', `${vendor} can't split ${url}\n`)
     return []
   }
-  console.log('transcribeAssay', str, url, vendor)
+  if (!isValidURI(url)) {
+    console.log('invalid url', url)
+    fs.appendFileSync('./temp/errors.url.txt', `${vendor} invalid url ${url}\n`)
+    return []
+  }
+
   const lines = str.split('\n')
 
   const filteredLines = lines.filter(line => line.includes(' '))
@@ -33,22 +38,22 @@ function fixMissedPeriod(str) {
   }
 }
 
-function filterLine(line, normalizationFunction) {
+function filterLine(line, normalizationFunction, vendor) {
   if (line && !line.replace) {
+    fs.writeFileSync('./temp/unknownlines.txt', `${vendor} ${line}\n`)
     return ['Unknown', 0]
   }
 
   let cleanedLine = line.replace(/\s+/g, ' ');
   cleanedLine = removeCharactersAfterLastDigit(cleanedLine)
 
-
-
+  /*
   let parts = cleanedLine.split(' ');
 
   if (parts.length) {
     parts[0] = parts[0].replace(/0\.030/g, '').trim();
   }
-
+*/
   const name = normalizationFunction(line, line) || 'Unknown';
 
   // parts = parts.map((part, i) => { if (!isNaN(part)) { return fixMissedPeriod(part) } return part })
@@ -124,12 +129,11 @@ function writeUnknownLines(batchId) {
 
 function recordUnknown(str, ln, vendor) {
   if (linePasses(ln)) {
-    fs.appendFileSync('./temp/unknownchemicals.txt', `${str}\n`)
+    fs.appendFileSync('./temp/unknownlines.txt', `${vendor} ${ln}\n`)
   }
 }
 
 function normalizeAnyChemical(str, ln, vendor) {
-  console.log('cannabinoidSpellings.some', typeof cannabinoidSpellings, cannabinoidSpellings)
   if (cannabinoidSpellings.some(s => str.includes(s))) {
     return cannabinoidSpellings[str].name
   }

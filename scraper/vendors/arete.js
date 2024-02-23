@@ -67,9 +67,9 @@ async function parseSingleProduct(html, url) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const raw = await recognize(image);
-    console.log('raw', raw.length)
+
     const result = transcribeAssay(raw, image, 'Arete');
-    console.log('result', result.length)
+
 
     if (!result) {
       continue
@@ -77,23 +77,21 @@ async function parseSingleProduct(html, url) {
 
     if (result.length) {
       if (cannabinoids.length > 0 && cannabinoidNameList[result[0].name]) {
-        console.log('found cannabinoids', cannabinoids.length)
+
         cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
       }
       if (terpenes.length > 0 && terpeneNameList[result[0].name]) {
-        console.log('found terpenes', terpenes.length)
+
         terpenes = result.filter(a => terpeneNameList.includes(a.name))
       }
     }
 
     if (terpenes.length && cannabinoids.length) {
-      console.log('found both')
       break;
     }
   }
 
   const properties = { image: productImages[0], variants, cannabinoids, terpenes }
-  console.log('properties', variants?.length, cannabinoids?.length, terpenes?.length)
   return properties
 }
 
@@ -133,7 +131,6 @@ async function getProducts(feedUrl) {
 
     let title = $(el).find('.nm-shop-loop-title-link').text();
     title = normalizeProductTitle(title.trim());
-    console.log('title', title)
     if (stringContainsNonFlowerProduct(title)) {
       continue
     }
@@ -149,7 +146,7 @@ async function getProducts(feedUrl) {
 
     numSavedProducts++;
     products.push(product)
-    console.log(products.length, "products")
+
   }
 
   return products

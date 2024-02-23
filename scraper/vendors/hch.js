@@ -39,7 +39,7 @@ async function recordAssays() {
   try {
 
     const pdfs = await getAssays();
-    console.log('pdfs', pdfs)
+
     const result = await readPDFs(pdfs);
 
     const assays = result.map(r => {
@@ -75,7 +75,7 @@ async function getProduct(url) {
   if (numSavedProducts >= numProductsToSave) {
     return;
   }
-  console.log('getting product', url)
+
   const response = await axios.get(url);
 
   fs.writeFileSync(`./temp/vendors/hch-product.html`, response.data);
@@ -111,7 +111,6 @@ async function getProduct(url) {
     }
   });
 
-  console.log('variants', variants)
 
   for (const image of imageUrls) {
     const raw = await recognize(image);
@@ -164,11 +163,7 @@ async function scrapePage(url, currentPage, productLinks) {
 
       const title = $(item).find('title').text().trim();
 
-      console.log('title2', title)
-
       const url = $(item).find('link').text().trim();
-
-      // console.log('url', title)
 
       const vendorDate = $(item).find('pubDate').text().trim();
 
@@ -239,7 +234,7 @@ async function getProducts(productLinks) {
 
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
-  console.log('batchId', batchId)
+
   //await recordAssays();
 
   const links = await scrapePage(startUrl, currentPage, []);

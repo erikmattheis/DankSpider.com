@@ -175,11 +175,8 @@ const rl = readline.createInterface({
 async function saveProducts(products, batchId = '00x', useDev) {
 
   if (!products || !products.length) {
-    console.log('No products to save');
     return;
   }
-
-  console.log('saveProducts', products.length, products[0].vendor)
 
   const batch = db.batch();
   const productsRef = db.collection('products');
@@ -319,7 +316,6 @@ async function recalculateChemicalValues() {
     });
     if (operationCount > 0) {
       await batch.commit();
-      console.log('Final batch committed');
     }
   } catch (error) {
     console.error('Error in fixValues:', error);
@@ -630,10 +626,8 @@ async function getExampleRecordWithUniqueChemicalAsCannabinoid(name) {
 
 async function saveAssays(vendor, assays) {
   if (!assays || !assays.length) {
-    console.log('No assays to save');
     return;
   }
-  console.log('saving assays', assays.length, vendor)
   const batch = db.batch();
   const timestamp = admin.firestore.Timestamp.now();
   const assayssRef = db.collection('assays');

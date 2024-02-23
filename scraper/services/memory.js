@@ -55,7 +55,7 @@ async function getImageBuffer(url) {
 
     logger.error(`Error around getImageBuffer: ${error}`);
 
-    fs.appendFileSync('./temp/errors.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
+    fs.appendFileSync('./temp/errors.buffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
 
   }
 

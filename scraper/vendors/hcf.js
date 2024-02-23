@@ -61,13 +61,11 @@ async function getProductList() {
     const _$ = cheerio.load(page.data);
 
     const url = _$('main img').attr('src');
-    console.log('url', title)
     if (url) {
       links.push({ title, url });
     }
 
   };
-  console.log('links', links)
 
   return links;
 
@@ -99,7 +97,7 @@ function findImageUrlByWidth(str, width) {
 let products = [];
 
 async function getProduct(url, title, vendor) {
-  console.log('get ', title)
+
   if (numSavedProducts >= numProductsToSave) {
     return;
   }
@@ -113,8 +111,6 @@ async function getProduct(url, title, vendor) {
   let image = $('.product__media img').attr('srcset');
 
   image = !image.startsWith('http') ? `https://dankspider.com${image}` : image;
-
-  console.log('image', image)
 
   image = findImageUrlByWidth(image, 246);
 
@@ -133,12 +129,10 @@ async function getProduct(url, title, vendor) {
       variants.push(variantName);
     }
   });
-  console.log('variants', variants)
 
   let allAssays = await getAssays();
   allAssays = allAssays.filter(a => a.vendor === 'HCF');
-  console.log('candidate assays:', allAssays.length)
-  console.log('candidate assays:', allAssays[0])
+
   fs.writeFileSync('./temp/hcf-assays.json', JSON.stringify(allAssays, null, 2));
 
   let assay = allAssays.find(p => {
@@ -147,7 +141,7 @@ async function getProduct(url, title, vendor) {
   });
 
   if (!assay || !assay.assay) {
-    console.log('no assays!', assay)
+
     const partialProduct = { title, image, url, vendor, variants }
     fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
     return false
@@ -226,7 +220,7 @@ async function getProducts(productLinks) {
   const products = [];
 
   for (const productLink of productLinks) {
-    console.log('productLink', productLink)
+
     let product = await getProduct(productLink.url, productLink.title, 'HCF');
 
     if (!product) {
@@ -252,15 +246,13 @@ async function getProducts(productLinks) {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
-  //const links = await getProductList();
-  //console.log('links', links.length)
-  //await recordAssays(links);
+  const links = await getProductList();
+  await recordAssays(links);
 
   const productLinks = await scrapePage(startUrl, currentPage, []);
-  console.log('productLinks', productLinks.length)
+
   const products = await getProducts(productLinks);
 
-  console.log('products', products.length)
   return products;
 
 }

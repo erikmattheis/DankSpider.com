@@ -28,7 +28,6 @@ async function run(batchId) {
   //const products = await getIncompleteProducts('WNC');
 
 
-  //fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
   const withImages = [];
 
   for await (const product of products) {

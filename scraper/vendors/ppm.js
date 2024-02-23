@@ -31,19 +31,16 @@ async function getListOfTHCAPDFs() {
   $('[data-pf-type="Accordion.Content.Wrapper"]').each(function () {
     // This assumes every product block starts with a 'span' within a 'button' for its name
     const productName = $(this).find('button span').text().trim();
-    console.log('productName', productName)
     // The PDF link is expected to be the second 'a', but let's check for safety
     const links = $(this).find('div[data-pf-expandable="true"] a');
     if (links.length >= 2) { // Ensure there are at least two links
       const pdfUrl = links.eq(1).attr('href'); // Get the second link
       if (pdfUrl) {
-        console.log('pdfUrl', pdfUrl)
         results.push({ name: productName, url: pdfUrl });
       }
     } else if (links.length === 1) { // If there's only one link, decide what to do
       const pdfUrl = links.eq(0).attr('href'); // Get the first link
       if (pdfUrl) {
-        console.log('pdfUrl', pdfUrl)
         results.push({ name: productName, url: pdfUrl });
       }
     }

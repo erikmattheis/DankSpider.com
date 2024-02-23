@@ -11,8 +11,9 @@ function normalizeProductTitle(title) {
   return replaceString
 }
 
-function retranscribeLine(line) {
-  return getAnyChemical(line, 'transcribeLine') || { name: 'Unknown', pct: 0 }
+function isValidURI(string) {
+  const uriRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return uriRegex.test(string);
 }
 
 function normalizeVariantName(nameStr) {
@@ -182,4 +183,5 @@ module.exports = {
   makeFirebaseSafeId,
   findLargestImage,
   cleanString,
+  isValidURI,
 }
