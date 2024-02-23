@@ -72,7 +72,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await recalculateChemicalValues()
 
-  //await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 
@@ -105,20 +105,19 @@ async function run(batchId, vendor, vendorList) {
 { name: 'WNC', service: wnc },
 { name: 'Preston', service: preston },
 { name: 'TopCola', service: topcola },
-{name: 'EHH', service: ehh]*/
+{name: 'EHH', service: ehh]},
+*/
 const batchId = 'd91'
 
 run(batchId, 'x', [
-
-  { name: 'PPM', service: ppm },
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
   { name: 'EHH', service: ehh },
+  { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
-  { name: 'HCH', service: hch }
-
+  { name: 'PPM', service: ppm }
 ]);
 

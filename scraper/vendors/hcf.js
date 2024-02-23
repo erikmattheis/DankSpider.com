@@ -154,8 +154,8 @@ async function getProduct(url, title, vendor) {
   }
   else {
     assay = assay.assay;
-    cannabinoids = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
-    terpenes = assay.assay.filter(a => terpeneNameList.includes(a.name))
+    cannabinoids = assay.assay?.filter(a => cannabinoidNameList.includes(a.name)) || [];
+    terpenes = assay.assay?.filter(a => terpeneNameList.includes(a.name)) || [];
   }
 
   const product = {
@@ -252,12 +252,12 @@ async function getProducts(productLinks) {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
-  const links = await getProductList();
-  console.log('links', links.length)
-  await recordAssays(links);
+  //const links = await getProductList();
+  //console.log('links', links.length)
+  //await recordAssays(links);
 
   const productLinks = await scrapePage(startUrl, currentPage, []);
-
+  console.log('productLinks', productLinks.length)
   const products = await getProducts(productLinks);
 
   console.log('products', products.length)

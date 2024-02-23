@@ -10,19 +10,19 @@ const { readPDFs } = require('../services/pdf')
 const { cannabinoidNameList, terpeneNameList } = require('../services/cortex')
 
 let numberSavedProducts = 0;
-let numProductsToSave = 222;
+let numProductsToSave = 5;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
-const url = 'https://perfectplantmarket.com/pages/lab-reports'
+const coas = 'https://perfectplantmarket.com/pages/lab-reports'
 let allAssays
 let batchId;
 
 async function getListOfTHCAPDFs() {
 
-  // await axios.get(url);
+  await axios.get(coas);
 
-  //fs.writeFileSync('./temp/vendors/ppm.html', htmlContent.data)
+  fs.writeFileSync('./temp/vendors/ppm-assays.html', htmlContent.data)
 
   const $ = cheerio.load(html);
 
@@ -31,17 +31,19 @@ async function getListOfTHCAPDFs() {
   $('[data-pf-type="Accordion.Content.Wrapper"]').each(function () {
     // This assumes every product block starts with a 'span' within a 'button' for its name
     const productName = $(this).find('button span').text().trim();
-
+    console.log('productName', productName)
     // The PDF link is expected to be the second 'a', but let's check for safety
     const links = $(this).find('div[data-pf-expandable="true"] a');
     if (links.length >= 2) { // Ensure there are at least two links
       const pdfUrl = links.eq(1).attr('href'); // Get the second link
       if (pdfUrl) {
+        console.log('pdfUrl', pdfUrl)
         results.push({ name: productName, url: pdfUrl });
       }
     } else if (links.length === 1) { // If there's only one link, decide what to do
       const pdfUrl = links.eq(0).attr('href'); // Get the first link
       if (pdfUrl) {
+        console.log('pdfUrl', pdfUrl)
         results.push({ name: productName, url: pdfUrl });
       }
     }

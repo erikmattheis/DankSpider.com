@@ -135,7 +135,7 @@ async function saveChemicals(products, batchId, useDev) {
   const idSuffix = batchId || timestamp.toDate().toISOString();
 
   for await (const product of products) {
-    const id = await makeFirebaseSafeId(idSuffix, product, productsRef);
+    const id = makeFirebaseSafeId(idSuffix, product, productsRef);
     const docRef = productsRef.doc(id);
     if (batchId) {
       batch.set(docRef, {
@@ -179,10 +179,6 @@ async function saveProducts(products, batchId = '00x', useDev) {
     return;
   }
 
-  if (!products || !products.length) {
-    return;
-  }
-
   console.log('saveProducts', products.length, products[0].vendor)
 
   const batch = db.batch();
@@ -191,9 +187,9 @@ async function saveProducts(products, batchId = '00x', useDev) {
   const timestamp = admin.firestore.Timestamp.now();
   const idSuffix = batchId || timestamp.toDate().toISOString();
 
-  for await (const product of products) {
+  for (const product of products) {
     if (product?.title) {
-      const id = await makeFirebaseSafeId(idSuffix, product, productsRef);
+      const id = makeFirebaseSafeId(idSuffix, product, productsRef);
       const docRef = productsRef.doc(id);
       if (batchId) {
         batch.set(docRef, {

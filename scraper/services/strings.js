@@ -141,7 +141,7 @@ function makeFirebaseSafe(str) {
   return id
 }
 
-async function makeFirebaseSafeId(suffix, product, collectionRef) {
+function makeFirebaseSafeId(suffix, product, collectionRef) {
 
   let id = `${product.vendor}-${suffix}-${product.title}`
   id = makeFirebaseSafe(id)

@@ -61,9 +61,119 @@ async function getImageBuffer(url) {
 
 }
 
+/*
+
+4-9-Totratydrocannabivarin
+4-9-Totratydrocannabivarin
+95-Hexabydrocannabinol
+95-Hexabydrocannabinol
+9R-Henahydrocannabinol
+9R-HHC
+9S-HHC
+A-9-Tetrabdrocannabiphorol
+A-9-Tetrabrydrocannabiphorol
+A-9-Tetrabrydrocannabivarini
+A-9-Tetrabrydrocannabivarinic
+A-9-Tetrabydrocannabighorol
+A-9-Tetrabydrocannabinol
+A-9-Tetrabydrocannabiphorol
+A-9-Tetrabydrocannabivarinic
+A-9-Tetrahydrocannabino!
+A-9-Tetrahydrocannatinolic
+A-9-Tetratrydrocannabivarinic
+A-9-Tetratydrocannabiphorol
+B-9-Tetrabwdrocannabighorol
+B-9-Tetrabwdrocannabighorol
+Cannabidivaria
+Cannabidivarieic
+Cannabldiolic
+Cannablgerolic
+Cannatichromene
+Cannatidiolic
+Cannatigerol
+Cannubichromene
+Cannubidiol
+Cannubidivarinic
+Cannubidivarinne
+Canrabidiolic
+Canrabidivarin
+Canrabinolic
+Canrubidivarieic
+Canrubidivarieic
+CBDA
+CBDVA
+CBGA
+IR-Hexahydrocannabinol
+O-9-Tetrabwdrocannabivarinic
+
+Tetrabwdrocannabinel
+Tetrahydrocannabivarin
+Tetrahydrocannabivarinic
+Tetralwdrocannabinol
+THCV
+THCVA
+Totrahydrocarnabingl
+
+*/
+
 
 
 const cannabinoidSpellings = {
+  'A-9-Tetrahydrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
+  '95-Hexabydrocannabinol': { name: '9S-HHC', confidence: 0.9 },
+  '9R-Henahydrocannabinol': { name: '9R-HHC', confidence: 0.99 },
+  '9S-HHC': { name: '9S-HHC', confidence: 0.99 },
+  'A-9-Tetrabdrocannabiphorol': { name: '∆-9-THCP', confidence: 0.99 },
+  'A-9-Tetrabrydrocannabiphorol': { name: '∆-9-THCP', confidence: 0.99 },
+  'A-9-Tetrabrydrocannabivarini': { name: '∆-9-THCP', confidence: 0.99 },
+  'A-9-Tetrabrydrocannabivarinic': { name: '∆-9-THCP', confidence: 0.99 },
+  'A-9-Tetrabydrocannabighorol': { name: '∆-9-THCO', confidence: 0.99 },
+  'A-9-Tetrabydrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
+  'A-9-Tetrabydrocannabiphorol': { name: '∆-9-THCP', confidence: 0.99 },
+  'A-9-Tetrabydrocannabivarinic': { name: '∆-9-THCVA', confidence: 0.99 },
+  'A-9-Tetrahydrocannabino!': { name: '∆-9-THC', confidence: 0.99 },
+  'A-9-Tetrahydrocannatinolic': { name: '∆-9-THCO', confidence: 0.99 },
+  'A-9-Tetratrydrocannabivarinic': { name: '∆-9-THCVA', confidence: 0.99 },
+  'A-9-Tetratydrocannabiphorol': { name: '∆-9-THCP', confidence: 0.99 },
+  'B-9-Tetrabwdrocannabighorol': { name: '∆-9-THCO', confidence: 0.99 },
+  'B-9-Tetrabwdrocannabighorol': { name: '∆-9-THCO', confidence: 0.99 },
+  'Cannabidivaria': { name: 'CBDVA', confidence: 0.99 },
+  'Cannabidivarieic': { name: 'CBDVA', confidence: 0.99 },
+  'Cannabldiolic': { name: 'CBDA', confidence: 0.99 },
+  'Cannablgerolic': { name: 'CBG', confidence: 0.99 },
+  'Cannatichromene': { name: 'CBC', confidence: 0.99 },
+  'Cannatidiolic': { name: 'CBD', confidence: 0.99 },
+  'Cannatigerol': { name: 'CBG', confidence: 0.99 },
+  'Cannubichromene': { name: 'CBC', confidence: 0.99 },
+  'Cannubidiol': { name: 'CBD', confidence: 0.99 },
+
+  'Cannubidivarinic': { name: 'CBDVA', confidence: 0.99 },
+  'Cannubidivarinne': { name: 'CBDVA', confidence: 0.99 },
+  'Canrabidiolic': { name: 'CBDA', confidence: 0.99 },
+  'Canrabidivarin': { name: 'CBDVA', confidence: 0.99 },
+  'Canrabinolic': { name: 'CBN', confidence: 0.99 },
+  'Canrubidivarieic': { name: 'CBDVA', confidence: 0.99 },
+  'Canrubidivarieic': { name: 'CBDVA', confidence: 0.99 },
+  'CBDA': { name: 'CBDA', confidence: 0.99 },
+  'CBDVA': { name: 'CBDVA', confidence: 0.99 },
+  'CBGA': { name: 'CBGA', confidence: 0.99 },
+  'IR-Hexahydrocannabinol': { name: '9R-HHC', confidence: 0.99 },
+  'O-9-Tetrabwdrocannabivarinic': { name: '∆-9-THCVA', confidence: 0.99 },
+
+  'Tetrabwdrocannabinel': { name: '∆-9-THC', confidence: 0.99 },
+  'Tetrahydrocannabivarin': { name: '∆-9-THCV', confidence: 0.99 },
+  'Tetrahydrocannabivarinic': { name: '∆-9-THCVA', confidence: 0.99 },
+  'Tetralwdrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
+  'THCV': { name: '∆-9-THCV', confidence: 0.99 },
+  'THCVA': { name: '∆-9-THCVA', confidence: 0.99 },
+  'Totrahydrocarnabingl': { name: '9S-HHC', confidence: 0.99 },
+  '4-9-Totratydrocannabivarin': { name: '∆-9-THCV', confidence: 0.99 },
+  '4-9-Totratydrocannabivarin': { name: '∆-9-THCV', confidence: 0.99 },
+  '95-Hexabydrocannabinol': { name: '9S-HHC', confidence: 0.99 },
+  '95-Hexabydrocannabinol': { name: '9S-HHC', confidence: 0.99 },
+  '9R-Henahydrocannabinol': { name: '9R-HHC', confidence: 0.99 },
+  '9R-HHC': { name: '9R-HHC', confidence: 0.99 },
+  '9S-HHC': { name: '9S-HHC', confidence: 0.99 },
   'CBDA*®': { name: 'CBDA', confidence: 0.99 },
   'CBD*': { name: 'CBD', confidence: 0.99 },
   '-A-10-Tetrahydrocannabinol': { name: 'S-∆-10-THC', confidence: 1 },
@@ -111,6 +221,8 @@ const cannabinoidSpellings = {
   'A-9-Tetrahydrocannabivarin': { name: '∆-9-THCV', confidence: 0.99 },
   'A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA)': { name: '∆-9-THCVA', confidence: 0.99 },
   'A-9-Tetrahydrocannabivarinic': { name: '∆-9-THCVA', confidence: 0.99 },
+  'A-9-Tetrahydrocannatinolic': { name: '∆-9-THCO', confidence: 0.99 },
+  'A-9-Tetratydrocannabiphorol': { name: '∆-9-THCP', confidence: 0.99 },
   'A-9-THC': { name: '∆-9-THC', confidence: 0.99 },
   'A-9-THCA-A': { name: '∆-9-THCA', confidence: 0.99 },
   'A-9-THCA': { name: '∆-9-THCA', confidence: 0.99 },

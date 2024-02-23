@@ -41,13 +41,15 @@ function filterLine(line, normalizationFunction) {
   let cleanedLine = line.replace(/\s+/g, ' ');
   cleanedLine = removeCharactersAfterLastDigit(cleanedLine)
 
+
+
   let parts = cleanedLine.split(' ');
 
   if (parts.length) {
     parts[0] = parts[0].replace(/0\.030/g, '').trim();
   }
 
-  const name = normalizationFunction(parts.shift(), line) || 'Unknown';
+  const name = normalizationFunction(line, line) || 'Unknown';
 
   // parts = parts.map((part, i) => { if (!isNaN(part)) { return fixMissedPeriod(part) } return part })
 
@@ -128,11 +130,11 @@ function recordUnknown(str, ln, vendor) {
 
 function normalizeAnyChemical(str, ln, vendor) {
 
-  if (cannabinoidSpellings[str]) {
+  if (cannabinoidSpellings.some(s => str.includes(s))) {
     return cannabinoidSpellings[str].name
   }
 
-  if (terpeneSpellings[str]) {
+  if (terpeneSpellings.some(s => str.includes(s))) {
     return terpeneSpellings[str].name
   }
 
