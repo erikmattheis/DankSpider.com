@@ -7,7 +7,7 @@ const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNon
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 5;
+let numProductsToSave = 555;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;

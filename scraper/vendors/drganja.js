@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 5;
+let numProductsToSave = 555;
 let numSavedProducts = 0;
 
 const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')

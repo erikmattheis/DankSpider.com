@@ -31,6 +31,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     return product
   })
 
+  products = products.filter(p => p.variants?.length > 0 && p.cannabinoids?.length > 0)
+
   const updatedAt = new Date().toISOString()
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
@@ -56,13 +58,14 @@ process.on('unhandledRejection', (reason, p) => {
 
 async function run(batchId, vendor, vendorList) {
 
-  const timer = performance.now()
+  const timer = performance.now();
+
   // await deleteAssaysByVendors(['HCF', 'HCH'])
   //await deleteProductsByVendors(['EIGHT HORSES'])
 
   //await showBatch()
 
-  await scrapers.run(batchId, vendor, vendorList)
+  //await scrapers.run(batchId, vendor, vendorList)
 
   //await copyAndDeleteProducts([batchId]);
 

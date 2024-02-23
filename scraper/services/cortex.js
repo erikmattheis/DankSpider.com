@@ -129,7 +129,7 @@ function recordUnknown(str, ln, vendor) {
 }
 
 function normalizeAnyChemical(str, ln, vendor) {
-
+  console.log('cannabinoidSpellings.some', typeof cannabinoidSpellings, cannabinoidSpellings)
   if (cannabinoidSpellings.some(s => str.includes(s))) {
     return cannabinoidSpellings[str].name
   }

@@ -118,7 +118,7 @@ Totrahydrocarnabingl
 
 
 
-const cannabinoidSpellings = {
+const cannabinoidSpellingsObj = {
   'A-9-Tetrahydrocannabinol': { name: '∆-9-THC', confidence: 0.99 },
   '95-Hexabydrocannabinol': { name: '9S-HHC', confidence: 0.9 },
   '9R-Henahydrocannabinol': { name: '9R-HHC', confidence: 0.99 },
@@ -341,13 +341,16 @@ const cannabinoidSpellings = {
 
 }
 
+const cannabinoidSpellings = Array.from(cannabinoidSpellingsObj)
+
 function extractNameProperties(spellings) {
   return Object.values(spellings).map(cannabinoid => cannabinoid.name);
 }
 
 const cannabinoidNameList = extractNameProperties(cannabinoidSpellings).map(name => `'${name}'`).join(', ');
 
-const terpeneSpellings = {
+
+const terpeneSpellingsObj = {
 
   'a-Pinens': { name: 'Pinene', confidence: 0.99 },
   '-Bisabolol': { name: 'Bisabolol', confidence: 0.99 },
@@ -399,7 +402,10 @@ const terpeneSpellings = {
   'A9-Tetrabydrecamasinalic Ackd (THCA-R)': { name: 'THCA-R', confidence: 0.99 },
   'A9-THCV': { name: 'THCV', confidence: 0.99 },
   'A9-THCVA': { name: 'THCVA', confidence: 0.99 },
+
 };
+
+const terpeneSpellings = Array.from(terpeneSpellingsObj);
 
 const terpeneNameList = extractNameProperties(terpeneSpellings).map(name => `'${name}'`).join(', ');
 
