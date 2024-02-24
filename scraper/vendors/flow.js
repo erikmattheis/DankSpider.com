@@ -79,14 +79,14 @@ async function addDetails(products) {
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
 
-    const productWithAssays = await addAssays(productWithVariants, $);
+    const productWithAssays = await addFlowAssays(productWithVariants, $);
     result.push(productWithAssays);
 
   }
   return result;
 }
 
-async function addAssays(product, $) {
+async function addFlowAssays(product, $) {
 
   let cannabinoids = [];
   let terpenes = [];

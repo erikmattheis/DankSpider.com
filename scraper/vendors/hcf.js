@@ -143,13 +143,17 @@ async function getProduct(url, title, vendor) {
   if (!assay || !assay.assay) {
 
     const partialProduct = { title, image, url, vendor, variants }
-    fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
+    fs.appendFileSync('./temp/no-assay.txt', `${vendor} no assays ${title}, \n`)
     return false
   }
   else {
     assay = assay.assay;
     cannabinoids = assay.assay?.filter(a => cannabinoidNameList.includes(a.name)) || [];
     terpenes = assay.assay?.filter(a => terpeneNameList.includes(a.name)) || [];
+  }
+
+  if (!cannabinoids?.length || !terpenes?.length) {
+    fs.appendFileSync('./temp/unknown-problem.txt', `${vendor} unknown problem ${title}, \n`)
   }
 
   const product = {

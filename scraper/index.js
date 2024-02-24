@@ -8,6 +8,7 @@ const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
 const logger = require('./services/logger.js')
 const { filterAssay } = require('./services/memory.js')
+const { strIsFound } = require('./services/cortex.js')
 
 const ppm = require("./vendors/ppm.js");
 const preston = require("./vendors/preston.js");
@@ -20,6 +21,10 @@ const drGanja = require("./vendors/drganja.js");
 const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
+
+
+const gr = strIsFound('THC')
+console.log('gr', gr)
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
@@ -71,11 +76,11 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyProducts()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
   //await recalculateChemicalValues()
 
-  await makeStats()
+  // await makeStats()
 
   // await makeStrainsFile()
 

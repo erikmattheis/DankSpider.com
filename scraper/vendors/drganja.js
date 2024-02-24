@@ -69,7 +69,7 @@ async function addDetails(products) {
     //fs.writeFileSync('./temp/vendors/drganja-product.html', response.data);
     const $ = cheerio.load(response.data);
     const productWithVariants = await addVariants(product, $);
-    const productWithAssays = await addAssays(productWithVariants, $);
+    const productWithAssays = await addDrGanjaAssays(productWithVariants, $);
 
     numSavedProducts++;
 
@@ -88,7 +88,7 @@ async function addVariants(product, $) {
   return { ...product, variants };
 }
 
-async function addAssays(product, $) {
+async function addDrGanjaAssays(product, $) {
 
   let terpenes = [];
   let cannabinoids = [];

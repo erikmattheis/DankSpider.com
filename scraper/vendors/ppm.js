@@ -158,6 +158,8 @@ async function getProducts() {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
+  await recordAssays();
+
   const products = await getProducts()
   return products
 }

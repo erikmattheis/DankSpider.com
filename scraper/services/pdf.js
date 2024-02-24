@@ -80,11 +80,11 @@ async function returnPDFBuffer(url) {
   }
 }
 
-async function addAssays(pdfObjs) {
+async function addAssays(pdfObjs, url, vendor) {
   const withAssays = [];
   for (const pdf of pdfObjs) {
 
-    const result = await transcribeAssay(pdf.text); if (result.length) {
+    const result = await transcribeAssay(pdf.text, url, vendor); if (result.length) {
 
       if (cannabinoidNameList.includes(result[0].name)) {
         cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
