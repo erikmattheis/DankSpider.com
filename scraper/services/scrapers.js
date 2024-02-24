@@ -14,19 +14,6 @@ const logger = require("./logger.js");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
-const scan = [
-  // Dr Ganja Cannabinoids
-  //   "https://cdn.drganja.com/wp-content/uploads/2023/05/Tropaya-Cannabinoids-Certificate-of-Analysis-1184x1536.jpg",
-  // Dr Ganja Terpenes
-  //  "https://www.drganja.com/wp-content/uploads/2023/09/Dr.Ganja-Mellow-Melons-Terpenes-Certificate-of-Analysis.jpg",
-  // Dr Ganja Terpenes 2
-  // "https://www.drganja.com/wp-content/uploads/2019/10/Dr.Ganja-The-White-CBG-Hemp-Terpenes-Certificate-of-Analysis-scaled.jpg",
-  //wnc cannabinoids
-  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3613/Indoor_-_THCa_Fiji_Sunset_Hydro_Potency__20263.1696444987.jpg?c=1",
-  //wnc terpenes
-  "https://cdn11.bigcommerce.com/s-mpabgyqav0/images/stencil/1280x1280/products/389/3614/Indoor_-_THCa_Fiji_Sunset_Hydro_Terpenes__14542.1696444987.jpg?c=1",
-];
-
 function numVendors(vendors) {
   let num = 0;
   for (const vendor in vendors) {
@@ -68,9 +55,10 @@ async function run(batchId, vendor, vList) {
         logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
         return; // Return early if no products
       }
-      const vendorName = products[0].vendor;
 
-      return await saveProducts(products, batchId, vendorName);
+      console.log(`Saving ${products.length} products for ${vendor.name}`);
+
+      return await saveProducts(products, batchId);
     });
   } else {
     tasks = vList
@@ -83,7 +71,7 @@ async function run(batchId, vendor, vList) {
             return; // Return early if no products
           }
 
-          return await saveProducts(products, batchId, vendor);
+          return await saveProducts(products, batchId);
         })();
       });
   }

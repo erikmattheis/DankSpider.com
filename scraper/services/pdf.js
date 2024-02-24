@@ -2,7 +2,8 @@ const fs = require('fs');
 const axios = require('axios');
 // todo: use something else?
 const pdf = require('pdf-parse');
-const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('./cortex.js');
+const { transcribeAssay } = require('./cortex.js');
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 async function readPDFs(pdfs) {
 

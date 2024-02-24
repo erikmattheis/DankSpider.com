@@ -7,10 +7,10 @@ const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
-const { cannabinoidNameList, terpeneNameList } = require('../services/cortex')
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 let numberSavedProducts = 0;
-let numProductsToSave = 555;
+let numProductsToSave = 5;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'

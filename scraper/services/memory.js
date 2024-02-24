@@ -61,6 +61,11 @@ async function getImageBuffer(url) {
 
 }
 
+
+function filterAssay(assay) {
+  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
+}
+
 /*
 
 4-9-Totratydrocannabivarin
@@ -115,8 +120,6 @@ THCVA
 Totrahydrocarnabingl
 
 */
-
-
 
 const cannabinoidSpellingMap = {
   'A-9-Tetrahydrocannabinol': '∆-9-THC',
@@ -397,15 +400,13 @@ const terpeneSpellingMap = {
 const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
 
 
-function filterAssay(assay) {
-  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
-}
-
 module.exports = {
   getBuffer,
   cannabinoidNameList,
   terpeneNameList,
   cannabinoidNameList,
   terpeneNameList,
-  filterAssay
+  filterAssay,
+  cannabinoidSpellingMap,
+  terpeneSpellingMap
 }

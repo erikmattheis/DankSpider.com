@@ -8,7 +8,6 @@ const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
 const logger = require('./services/logger.js')
 const { filterAssay } = require('./services/memory.js')
-const { strIsFound } = require('./services/cortex.js')
 
 const ppm = require("./vendors/ppm.js");
 const preston = require("./vendors/preston.js");
@@ -22,21 +21,37 @@ const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
 
-
-const gr = strIsFound('THC')
-console.log('gr', gr)
-
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
   let products = await getAllProducts()
 
-  products = products.map(product => {
-    product.cannabinoids = filterAssay(product.cannabinoids)
-    product.terpenes = filterAssay(product.terpenes)
-    return product
-  })
+  const red = []
 
-  products = products.filter(p => p.variants?.length > 0 && p.cannabinoids?.length > 0)
+  for (let i = 0; i < products.length; i++) {
+    console.log('vendor', products[i].vendor)
+    if (!red.includes(products[i]?.vendor)) {
+      red[vendor] = {
+        numWithCannabinoidAssays: 0,
+        numWithTerpeneAssays: 0,
+        numWithVariants: 0,
+      }
+    }
+
+    if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
+      products[i].numWithCannabinoidAssays += 1
+    }
+
+    if (products[i].terpenes && products[i].terpenes.length > 0) {
+      products[i].numWithTerpeneAssays += 1
+    }
+
+    if (products[i].variants && products[i].variants.length > 0) {
+      products[i].numWithVariants += 1
+    }
+  }
+
+  console.log(red)
+  process.exit(0)
 
   const updatedAt = new Date().toISOString()
 
@@ -70,17 +85,17 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
   //await copyAndDeleteProducts([batchId]);
 
   //await copyProducts()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   //await recalculateChemicalValues()
 
-  // await makeStats()
+  //await makeStats()
 
   // await makeStrainsFile()
 

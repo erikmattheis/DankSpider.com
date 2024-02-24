@@ -5,11 +5,11 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 555;
+let numProductsToSave = 5;
 let numSavedProducts = 0;
 
-const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
-
+const { transcribeAssay } = require('../services/cortex.js')
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const atomFeedUrl = 'https://www.drganja.com/thca-flower';
 
 const products = [];

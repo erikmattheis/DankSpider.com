@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
-const { getAnyChemical } = require('./cortex.js');
+const { lineToChemicalObject } = require('./cortex.js');
 
 
 const cheerio = require('cheerio');
@@ -172,7 +172,7 @@ const rl = readline.createInterface({
 
 
 
-async function saveProducts(products, batchId = '00x', useDev) {
+async function saveProducts(products, batchId = '----') {
 
   if (!products || !products.length) {
     return;
@@ -294,12 +294,12 @@ async function recalculateChemicalValues() {
       const chem = doc.data();
 
       const cannabinoids = chem.cannabinoids?.map(c => {
-        const obj = getAnyChemical(c.originalText, 'XXX')
+        const obj = lineToChemicalObject(c.originalText, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
       const terpenes = chem.terpenes?.map(t => {
-        const obj = getAnyChemical(t.originalText, 'XXX')
+        const obj = lineToChemicalObject(t.originalText, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 

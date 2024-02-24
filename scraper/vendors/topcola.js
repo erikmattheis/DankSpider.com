@@ -3,7 +3,8 @@ const xml2js = require('xml2js');
 const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUnitString } = require('../services/strings')
 const { recognize } = require('../services/ocr');
-const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
+const { transcribeAssay } = require('../services/cortex.js')
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 
 
@@ -24,7 +25,7 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let numProductsToSave = 555;
+let numProductsToSave = 5;
 let numSavedProducts = 0;
 
 async function getAvailableLeafProducts(id, vendor) {

@@ -3,13 +3,14 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, cannabinoidNameList, terpeneNameList } = require('../services/cortex.js')
+const { transcribeAssay } = require('../services/cortex.js')
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const logger = require('../services/logger.js');
 
 const products = [];
 let batchId = 'test';
 
-let numProductsToSave = 555;
+let numProductsToSave = 5;
 let numSavedProducts = 0;
 
 let currentPage = 1;

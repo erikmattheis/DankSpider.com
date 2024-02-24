@@ -3,11 +3,13 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, cannabinoidNameList, terpeneNameList, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+const { transcribeAssay, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+
+const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 555;
+let numProductsToSave = 5;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
