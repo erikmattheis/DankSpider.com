@@ -25,6 +25,7 @@
 
 <script>
 import axios from 'axios';
+// MailList.vue
 export default {
   name: 'MailList',
   data() {
@@ -47,7 +48,7 @@ export default {
       this.successMessage = await response.data.response;
     },
     toggleExpanded() {
-      this.expanded = !this.expanded;
+      this.$emit('toggle'); // emit an event to the parent component
     },
   },
 };

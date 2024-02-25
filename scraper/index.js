@@ -134,10 +134,11 @@ async function run(batchId, vendor, vendorList) {
 */
 const batchId = 'd92'
 
-run(batchId, '', { name: 'HCF', service: hcf }, [
+run(batchId, '', [
   { name: 'PPM', service: ppm },
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
+  { name: 'EHH', service: ehh },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },

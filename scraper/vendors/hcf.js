@@ -252,9 +252,9 @@ async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
   console.log('hcf', batchId)
   const links = await getProductList();
-  console.log('links', links)
-  await recordAssays(links);
-  console.log('recorded assays')
+
+  // await recordAssays(links);
+  //  console.log('recorded assays')
   const productLinks = await scrapePage(startUrl, currentPage, []);
   console.log('productLinks', productLinks.engths)
   const products = await getProducts(productLinks);

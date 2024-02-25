@@ -49,9 +49,8 @@ async function recordAssays(name, vendor) {
       }
     })
 
-    await saveAssays('HCH', assays);
+    // await saveAssays('HCH', assays);
 
-    return;
 
   }
   catch (error) {

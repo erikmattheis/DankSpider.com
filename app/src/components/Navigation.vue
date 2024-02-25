@@ -2,10 +2,10 @@
   <div class="nav">
     <Menu class="left" />
     <h3 class="center band"><span>Updated {{ updatedString }}</span></h3>
-    <a @click.prevent="toggleExpanded" href class="center band">Be a Beta Tester</a>
-    <MailList :expanded="expanded" class="right" />
+    <a @click.prevent="toggleExpanded" href class="center band"><span>Be a Beta Tester</span></a>
+    <MailList :expanded="expanded" @toggle="toggleExpanded" class="right" />
   </div>
-</template>
+P</template>
 
 <script>
 import { useSpiderStore } from '../store';
@@ -62,6 +62,11 @@ export default {
   margin-top: 0;
   padding: 5px;
   width: 100vw;
+}
+
+a:link {
+  color: #eee;
+  text-decoration: none;
 }
 
 h3 {

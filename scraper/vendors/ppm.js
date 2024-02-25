@@ -64,7 +64,7 @@ async function recordAssays() {
       }
     })
 
-    await saveAssays('PPM', assays);
+    // await saveAssays('PPM', assays);
 
   }
   catch (error) {
