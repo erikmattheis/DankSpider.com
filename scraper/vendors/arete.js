@@ -23,8 +23,9 @@ async function parseSingleProduct(html, url) {
 
   const variants = []
   const images = []
-  let terpenes = []
   let cannabinoids = []
+  let terpenes = []
+
 
 
   // Iterate over each option element within the select
@@ -57,7 +58,7 @@ async function parseSingleProduct(html, url) {
 
 
   if (assayLinks.length === 0) {
-
+    console.log('No assay images found')
     fs.writeFileSync('./temp/vendors/arete-no-assay.html', html)
     return { cannabinoids, terpenes, image: productImages[0], variants }
 
@@ -76,14 +77,12 @@ async function parseSingleProduct(html, url) {
       continue
     }
 
-    if (result.length) {
-      if (cannabinoids.length > 0 && cannabinoidNameList[result[0].name]) {
-
-        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+    if (result?.length) {
+      if (cannabinoidNameList.includes(result[0].name)) {
+        cannabinoids = result//;.filter(a => cannabinoidNameList.includes(a.name))
       }
-      if (terpenes.length > 0 && terpeneNameList[result[0].name]) {
-
-        terpenes = result.filter(a => terpeneNameList.includes(a.name))
+      if (terpeneNameList.includes(result[0].name)) {
+        terpenes = result//;.filter(a => terpeneNameList.includes(a.name))
       }
     }
 

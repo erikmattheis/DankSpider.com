@@ -91,7 +91,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyProducts()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   //await recalculateChemicalValues()
 
@@ -135,6 +135,10 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'd92'
 
 run(batchId, '', [
+  { name: 'Arete', service: arete },
+]);
+/*
+run(batchId, 'EHH', [
   { name: 'PPM', service: ppm },
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
@@ -145,4 +149,4 @@ run(batchId, '', [
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
 ]);
-
+*/

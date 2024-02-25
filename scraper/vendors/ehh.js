@@ -13,7 +13,7 @@ const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 2;
+const numProductsToSave = 666;
 let numSavedProducts = 0;
 
 async function getProduct(url) {

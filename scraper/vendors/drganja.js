@@ -5,7 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 2;
+let numProductsToSave = 666;
 let numSavedProducts = 0;
 
 const { transcribeAssay } = require('../services/cortex.js')
