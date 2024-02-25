@@ -131,6 +131,8 @@ function recordUnknown(str, ln, vendor) {
   }
 }
 
+recognizeString('THCA')
+
 function recognizeString(line) {
 
   for (const name of cannabinoidNameList) {
