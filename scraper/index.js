@@ -51,7 +51,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   }
 
   console.log(red)
-  process.exit(0)
+
 
   const updatedAt = new Date().toISOString()
 
@@ -77,7 +77,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 async function run(batchId, vendor, vendorList) {
-
+  console.log('run')
   const timer = performance.now();
 
   // await deleteAssaysByVendors(['HCF', 'HCH'])
@@ -134,7 +134,14 @@ async function run(batchId, vendor, vendorList) {
 */
 const batchId = 'd92'
 
-run(batchId, 'EHH', [
-
+run(batchId, '', { name: 'HCF', service: hcf }, [
+  { name: 'PPM', service: ppm },
+  { name: 'Arete', service: arete },
+  { name: 'drGanja', service: drGanja },
+  { name: 'WNC', service: wnc },
+  { name: 'Preston', service: preston },
+  { name: 'TopCola', service: topcola },
+  { name: 'HCH', service: hch },
+  { name: 'HCF', service: hcf },
 ]);
 

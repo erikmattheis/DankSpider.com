@@ -32,6 +32,7 @@ function logErrorToFile(str) {
 }
 
 async function run(batchId, vendor, vList) {
+
   let vendorList;
   if (vList && vList.length) {
     vendorList = vList
@@ -50,39 +51,49 @@ async function run(batchId, vendor, vList) {
   }
 
   let tasks;
+
   if (vendorList && vendorList.length) {
-    let products;
-    tasks = vendorList.map(async (vendor) => {
-      try {
-        console.log(`Getting products for ${vendor.name}`);
-        products = await vendor.service.getAvailableLeafProducts(batchId, vendor);
-      } catch (error) {
-        console.error(`Error getting products for ${vendor.name}: ${error}`);
-      }
+    console.log(`1 Getting products for ${vendorList.length} vendors`);
+    tasks = vendorList
+      .filter(v => !vendor || v.name === vendor) // Only process the passed vendor
+      .map(async (v) => {
 
-      if (!products || !products.length) {
-        logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
-        return; // Return early if no products
-      }
+        let products;
+        console.log('um', v.service.getAvailableLeafProducts)
+        try {
+          console.log(`2 Getting products for ${v.name}`);
 
-      console.log(`Saving ${products.length} products for ${vendor.name}`);
+          products = await v.service.getAvailableLeafProducts(batchId, v);
+          console.log(`Got ${products.length} products for ${v.name}`);
+        } catch (error) {
+          console.error(`Error getting products for ${v.name}: ${error}`);
+        }
 
-      await saveProducts(products, batchId);
+        if (!products || !products.length) {
+          console.log(`No products found for ${v.name} on batch ${batchId}`);
+          logErrorToFile(`No products found for ${v.name} on batch ${batchId}`);
+          return; // Return early if no products
+        }
 
-      return
-    });
+        console.log(`Saving ${products.length} products for ${vendor.name}`);
+
+        await saveProducts(products, batchId);
+      });
   } else {
+    console.log(`3 Getting products for ${vendorList.length} vendors`);
+    console.log('um', v.service.getAvailableLeafProducts)
     tasks = vList
-      .filter(({ name }) => !vendor || vendor === name)
+      .filter(({ name }) => !vendor || name === vendor) // Only process the passed vendor
       .map(({ service }) => {
         return (async () => {
+          console.log(`4 Getting products for ${service.name}`);
           const products = await service.getAvailableLeafProducts(batchId, vendor);
 
           if (!products || !products.length) {
             return; // Return early if no products
           }
           await saveProducts(products, batchId);
-          return
+
         })();
       });
   }

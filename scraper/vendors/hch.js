@@ -236,6 +236,7 @@ async function getProducts(productLinks) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
+  console.log('getting ${vendor} products')
   batchId = id;
 
   await recordAssays(vendor);

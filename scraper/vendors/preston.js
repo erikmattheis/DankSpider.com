@@ -182,6 +182,7 @@ async function getPrestonProductsInfo(products) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
+  console.log('getting ${vendor} products')
   batchId = id;
   const products = await scrapePage(startUrl, currentPage);
 

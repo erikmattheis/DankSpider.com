@@ -134,6 +134,7 @@ async function addFlowAssays(product, $) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
+  console.log('getting ${vendor} products')
   batchId = batchId;
   const products = await getProducts();
   const result = await addDetails(products);

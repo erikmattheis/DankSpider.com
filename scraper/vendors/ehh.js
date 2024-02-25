@@ -156,6 +156,7 @@ async function getEHHProductsInfo(productLinks) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
+  console.log('getting ${vendor} products')
   batchId = id;
   const productLinks = await scrapePage(startUrl, currentPage, []);
 

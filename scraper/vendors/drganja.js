@@ -27,6 +27,7 @@ if (require.main === module) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
+  console.log('getting ${vendor} products')
   batchId = id;
 
   const products = await getProducts();
