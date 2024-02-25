@@ -9,8 +9,6 @@ const logger = require('../services/logger.js');
 // Initialize Tesseract worker at the start to reuse throughout the application
 let worker = null;
 
-
-
 async function initWorker() {
 
   const worker = await createWorker('eng');
@@ -35,7 +33,7 @@ async function recognize(url) {
   try {
     const buffer = await Promise.race([
       getBuffer(url),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 10000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000))
     ]);
 
     if (!buffer || buffer.length === 0) {

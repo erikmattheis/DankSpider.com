@@ -67,6 +67,8 @@ async function run(batchId, vendor, vList) {
 
       console.log(`Saving ${products.length} products for ${vendor.name}`);
 
+      await saveProducts(products, batchId);
+
       return
     });
   } else {
@@ -86,6 +88,8 @@ async function run(batchId, vendor, vList) {
   }
 
   await Promise.all(tasks);
+
+  return;
 
 }
 

@@ -203,9 +203,9 @@ async function saveProducts(products, batchId = 'd44') {
       }
     }
   };
-  console.log('before commit', batch)
+
   await batch.commit();
-  console.log('after commit', batch)
+  console.log('after commit')
 }
 
 const { performance } = require('perf_hooks');

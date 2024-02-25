@@ -1,5 +1,5 @@
 const fs = require('fs');
-const axios = require('axios');
+const axios = require('./rateLimitedAxios.js');
 // todo: use something else?
 const pdf = require('pdf-parse');
 const { transcribeAssay } = require('./cortex.js');

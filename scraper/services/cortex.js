@@ -11,8 +11,8 @@ function transcribeAssay(str, url, vendor) {
   }
 
   if (!isValidURI(url)) {
-    console.log('invalid url', url)
-    fs.appendFileSync('./temp/errors.url.txt', `${vendor} invalid url ${url}\n`)
+    console.log('invalid url', url, vendor)
+    fs.appendFileSync('./temp/errors.url.txt', `${vendor} invalid url ${url} ${vendor}\n`)
     return []
   }
 

@@ -48,7 +48,6 @@ async function getImageBuffer(url) {
       return null
     } else {
       return buffer
-
     }
 
   } catch (error) {

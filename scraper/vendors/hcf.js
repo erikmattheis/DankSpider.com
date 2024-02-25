@@ -9,7 +9,7 @@ const logger = require('../services/logger.js');
 const { saveAssays, getAssays } = require('../services/firebase.js');
 const coaURL = 'https://handcraftedfarmers.com/pages/compliances'
 
-async function recordAssays(links) {
+async function recordAssays(links, url, vendor) {
 
   const assays = [];
 
@@ -18,7 +18,7 @@ async function recordAssays(links) {
     for (const link of links) {
       let result = await recognize(link.url);
 
-      result = transcribeAssay(result);
+      result = transcribeAssay(result, url, vendor);
 
       assays.push({ result, vendor: 'HCF', title: link.title, url: link.url });
 
