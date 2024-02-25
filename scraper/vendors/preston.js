@@ -10,7 +10,7 @@ const logger = require('../services/logger.js');
 const products = [];
 let batchId = 'test';
 
-let numProductsToSave = 5;
+let numProductsToSave = 2;
 let numSavedProducts = 0;
 
 let currentPage = 1;

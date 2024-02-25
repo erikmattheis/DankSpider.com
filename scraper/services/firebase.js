@@ -172,8 +172,8 @@ const rl = readline.createInterface({
 
 
 
-async function saveProducts(products, batchId = '----') {
-
+async function saveProducts(products, batchId = 'd44') {
+  console.log('products', batchId)
   if (!products || !products.length) {
     return;
   }
@@ -186,7 +186,7 @@ async function saveProducts(products, batchId = '----') {
 
   for (const product of products) {
     if (product?.title) {
-      const id = makeFirebaseSafeId(idSuffix, product, productsRef);
+      const id = makeFirebaseSafeId(idSuffix, product);
       const docRef = productsRef.doc(id);
       if (batchId) {
         batch.set(docRef, {
@@ -203,8 +203,9 @@ async function saveProducts(products, batchId = '----') {
       }
     }
   };
-
+  console.log('before commit', batch)
   await batch.commit();
+  console.log('after commit', batch)
 }
 
 const { performance } = require('perf_hooks');

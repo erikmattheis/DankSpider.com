@@ -5,12 +5,12 @@ const pdf = require('pdf-parse');
 const { transcribeAssay } = require('./cortex.js');
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
-async function readPDFs(pdfs) {
+async function readPDFs(pdfs, vendor) {
 
   const results = [];
 
   for await (const pdf of pdfs) {
-    const result = await readPDF(pdf.url, pdf.name)
+    const result = await readPDF(pdf.url, pdf.name, vendor)
 
     results.push(result)
   }
@@ -24,13 +24,13 @@ function fixText(str) {
   return fixedText;
 }
 
-async function readPDF(url, name) {
+async function readPDF(url, name, vendor) {
 
   const buffer = await returnPDFBuffer(url);
 
   const fixedText = fixText(buffer);
 
-  const assay = transcribeAssay(fixedText);
+  const assay = transcribeAssay(fixedText, url, vendor);
 
   return {
     url,
@@ -98,8 +98,6 @@ async function addAssays(pdfObjs, url, vendor) {
       }
 
     }
-
-
     withAssays.push({
       ...pdf,
       assay: assay,

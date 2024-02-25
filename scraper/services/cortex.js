@@ -90,7 +90,7 @@ function getMgg(parts, line) {
   if (importantParts.length < 3) {
     return 0
   }
-  console.log('importantParts', importantParts)
+
   let mgg = importantParts[importantParts.length - 2]
 
   if (mgg.includes('<')) {

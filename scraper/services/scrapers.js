@@ -8,9 +8,12 @@ const enlighten = require("../vendors/enlighten-weebly-few-products.js");
 const topcola = require("../vendors/topcola.js");
 const arete = require("../vendors/arete.js");
 const drGanja = require("../vendors/drganja.js");
-const { recognize } = require("./ocr.js");
+
+
+const hch = require("../vendors/hch.js");
+const hcf = require("../vendors/hcf.js");
+
 const fs = require("fs");
-const logger = require("./logger.js");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
@@ -48,8 +51,14 @@ async function run(batchId, vendor, vList) {
 
   let tasks;
   if (vendorList && vendorList.length) {
+    let products;
     tasks = vendorList.map(async (vendor) => {
-      const products = await vendor.service.getAvailableLeafProducts(batchId, vendor);
+      try {
+        console.log(`Getting products for ${vendor.name}`);
+        products = await vendor.service.getAvailableLeafProducts(batchId, vendor);
+      } catch (error) {
+        console.error(`Error getting products for ${vendor.name}: ${error}`);
+      }
 
       if (!products || !products.length) {
         logErrorToFile(`No products found for ${vendor.name} on batch ${batchId}`);
@@ -58,7 +67,7 @@ async function run(batchId, vendor, vList) {
 
       console.log(`Saving ${products.length} products for ${vendor.name}`);
 
-      return await saveProducts(products, batchId);
+      return
     });
   } else {
     tasks = vList
@@ -70,8 +79,8 @@ async function run(batchId, vendor, vList) {
           if (!products || !products.length) {
             return; // Return early if no products
           }
-
-          return await saveProducts(products, batchId);
+          await saveProducts(products, batchId);
+          return
         })();
       });
   }

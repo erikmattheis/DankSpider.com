@@ -122,17 +122,6 @@ async function run(batchId, vendor, vendorList) {
   process.exit(0)
 }
 /*
-[{ name: 'PPM', service: ppm },
-{ name: 'Arete', service: arete },
-{ name: 'drGanja', service: drGanja },
-{ name: 'WNC', service: wnc },
-{ name: 'Preston', service: preston },
-{ name: 'TopCola', service: topcola },
-{name: 'EHH', service: ehh]},
-*/
-const batchId = 'd91'
-
-run(batchId, 'x', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
@@ -142,5 +131,10 @@ run(batchId, 'x', [
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm }
+*/
+const batchId = 'd92'
+
+run(batchId, 'EHH', [
+
 ]);
 

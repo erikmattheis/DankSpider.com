@@ -2,8 +2,8 @@
   <div class="nav">
     <Menu class="left" />
     <h3 class="center band"><span>Updated {{ updatedString }}</span></h3>
-    <a href="/terpenes" class="center band">Terpenes</a>
-    <MailList class="right" />
+    <a @click.prevent="toggleExpanded" href class="center band">Be a Beta Tester</a>
+    <MailList :expanded="expanded" class="right" />
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       store: {},
+      expanded: false,
     };
   },
   async created() {
@@ -29,6 +30,11 @@ export default {
   computed: {
     updatedString() {
       return this.store.updatedString;
+    },
+  },
+  methods: {
+    toggleExpanded() {
+      this.expanded = !this.expanded;
     },
   },
 };

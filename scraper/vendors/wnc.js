@@ -9,7 +9,7 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 5;
+let numProductsToSave = 2;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;

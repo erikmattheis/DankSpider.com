@@ -29,7 +29,7 @@ async function initWorker() {
 }
 
 async function recognize(url) {
-  // console.log('Recognizing:', url);
+  console.log('Recognizing:', url);
   worker = await initWorker();
 
   try {

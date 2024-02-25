@@ -34,13 +34,13 @@ async function getAssays() {
   return products;
 }
 
-async function recordAssays() {
+async function recordAssays(name, vendor) {
 
   try {
 
     const pdfs = await getAssays();
 
-    const result = await readPDFs(pdfs);
+    const result = await readPDFs(pdfs, 'HCH');
 
     const assays = result.map(r => {
       return {
@@ -51,6 +51,8 @@ async function recordAssays() {
 
     await saveAssays('HCH', assays);
 
+    return;
+
   }
   catch (error) {
 
@@ -60,14 +62,13 @@ async function recordAssays() {
   }
 }
 
-
 let currentPage = 1;
 const startUrl = 'https://harborcityhemp.com/product-category/cannabinoids/thca-products/feed/';
 
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 555;
+const numProductsToSave = 2;
 let numSavedProducts = 0;
 
 async function getProduct(url) {
@@ -87,13 +88,6 @@ async function getProduct(url) {
 
   image = image?.startsWith('https:') ? image : `https:${image}`;
 
-  let imageUrls = $('.wp-post-image').map((i, el) => $(el).attr('src')).get();
-
-  imageUrls = imageUrls.map((url) => url.startsWith('https:') ? url : `https:${url}`);
-
-  if (!imageUrls || !imageUrls.length) {
-    fs.writeFileSync(`./temp/vendors/hch-product-no-image.html`, response.data);
-  }
 
   let terpenes = [];
   let cannabinoids = [];
@@ -111,6 +105,13 @@ async function getProduct(url) {
     }
   });
 
+  let imageUrls = $('.wp-post-image').map((i, el) => $(el).attr('src')).get();
+
+  imageUrls = imageUrls.map((url) => url.startsWith('https:') ? url : `https:${url}`);
+
+  if (!imageUrls || !imageUrls.length) {
+    fs.writeFileSync(`./temp/vendors/hch-product-no-image.html`, response.data);
+  }
 
   for (const image of imageUrls) {
     const raw = await recognize(image);
@@ -130,6 +131,8 @@ async function getProduct(url) {
       break;
     }
   }
+
+
 
   const product = {
     title,
@@ -235,7 +238,7 @@ async function getProducts(productLinks) {
 async function getAvailableLeafProducts(id, vendor) {
   batchId = id;
 
-  await recordAssays();
+  await recordAssays(vendor);
 
   const links = await scrapePage(startUrl, currentPage, []);
 

@@ -32,9 +32,11 @@ export default {
       email: '',
       emails: [],
       disabled: false,
-      expanded: false,
       successMessage: false,
     };
+  },
+  props: {
+    expanded: Boolean,
   },
   methods: {
     async addEmail() {
@@ -81,12 +83,15 @@ export default {
   z-index: 9998;
 }
 
-a {
+
+a:link {
   font-size: 2rem;
   color: #eee;
   text-decoration: none;
   margin-right: 40px;
 }
+
+
 
 input,
 button {

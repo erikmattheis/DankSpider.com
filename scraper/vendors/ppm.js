@@ -10,7 +10,7 @@ const { readPDFs } = require('../services/pdf')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 let numberSavedProducts = 0;
-let numProductsToSave = 5;
+let numProductsToSave = 2;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'
@@ -55,7 +55,7 @@ async function recordAssays() {
 
     const pdfs = await getListOfTHCAPDFs();
 
-    const result = await readPDFs(pdfs);
+    const result = await readPDFs(pdfs, 'PPM');
 
     const assays = result.map(r => {
       return {
