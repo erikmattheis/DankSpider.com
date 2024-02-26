@@ -1,4 +1,4 @@
-const axios = require('./rateLimitedAxios.js');
+
 const fs = require('fs');
 const gm = require('gm').subClass({ imageMagick: true });
 
@@ -26,36 +26,19 @@ async function initWorker() {
   return worker;
 }
 
-async function recognize(buffer) {
+async function recognize(buffer, url) {
+  console.log('Recognizing:', url);
 
   try {
     worker = await initWorker();
 
-    const result = await worker.recognize(processedBuffer);
-    console.log('Recognized:', Object.keys(result.data));
+    const result = await worker.recognize(buffer);
+
     return result?.data?.text;
   } catch (error) {
     logger.error(`Error in recognize: ${error.message}`, { url });
     return null;
   }
-}
-async function getBuffer(url) {
-  const name = makeImageName(url);
-  if (!url) {
-    return null;
-  }
-
-  const dir = path.join(__dirname, '../temp/scan');
-  const filePath = path.join(dir, name);
-
-  if (fs.existsSync(filePath)) {
-    buffer = fs.readFileSync(filePath);
-  } else {
-    buffer = await getImageBuffer(url);
-    fs.writeFileSync(filePath, buffer);
-  }
-
-  return buffer;
 }
 
 module.exports = {

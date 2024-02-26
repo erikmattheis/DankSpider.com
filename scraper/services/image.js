@@ -1,3 +1,9 @@
+const axios = require('./rateLimitedAxios.js');
+const gm = require('gm').subClass({ imageMagick: true });
+const fs = require('fs');
+const logger = require('./logger.js');
+
+
 async function processImage(buffer, url) {
   try {
     return await new Promise((resolve, reject) => {
@@ -20,43 +26,29 @@ async function processImage(buffer, url) {
 }
 
 async function readImage(url) {
-  const buffer = await getBuffer(url);
-  const processedBuffer = await processImage(buffer, url);
-  const text = await ocr(processedBuffer);
-  return text;
+  let buffer = await getBuffer(url);
+  buffer.value = await processImage(buffer.value, url);
+  return buffer;
 }
 
 async function getBuffer(url) {
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
-    const buffer = Buffer.from(response.data, 'binary');
-    if (!buffer || buffer.length === 0) {
+    const lastModified = response.headers['last-modified'];
+    const value = Buffer.from(response.data, 'binary');
+    if (!value || value.length === 0) {
       logger.error(`Error getting image buffer: ${url}`);
       return null;
     } else {
-      return buffer;
+      return {
+        value,
+        lastModified
+      }
     }
   } catch (error) {
     logger.error(`Error around getImageBuffer: ${error}`);
     fs.appendFileSync('./temp/errors.buffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
   }
-}
-
-// Process image with GraphicsMagick for better OCR results
-const processedBuffer = await processImage(buffer, url);
-if (!processedBuffer) {
-  console.log('No processed buffer for url:', url);
-  return null; // Error logged and handled in processImage
-}
-
-const buffer = await Promise.race([
-  getBuffer(url),
-  new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000))
-]);
-
-if (!buffer || buffer.length === 0) {
-  logger.warn(`No image buffer: ${url}`);
-  return null;
 }
 
 module.exports = {

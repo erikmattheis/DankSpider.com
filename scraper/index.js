@@ -80,7 +80,7 @@ async function run(batchId, vendor, vendorList) {
   const timer = performance.now();
 
   // await deleteAssaysByVendors(['HCF', 'HCH'])
-  //await deleteProductsByVendors(['EIGHT HORSES'])
+  //await deleteProductsByVendors(['WNC'])
 
   //await showBatch()
 

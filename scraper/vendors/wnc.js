@@ -4,12 +4,13 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay, organizeAssays, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+const { readImage } = require('../services/image.js');
 
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 444;
+let numProductsToSave = 4444;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
@@ -88,7 +89,8 @@ async function getProduct(url) {
         continue;
       }
 
-      const raw = await recognize(image);
+      const buffer = await readImage(image, url);
+      const raw = await recognize(buffer.value, url);
 
       if (!raw) {
         console.log('no text found', image);
