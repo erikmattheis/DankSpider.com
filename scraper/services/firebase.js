@@ -172,7 +172,7 @@ const rl = readline.createInterface({
 
 
 
-async function saveProducts(products, batchId = 'd44') {
+async function saveProducts(products, batchId = '000') {
   console.log('products', batchId)
   if (!products || !products.length) {
     return;

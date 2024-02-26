@@ -9,7 +9,6 @@ const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
 
 const products = [];
-let batchId = 'test';
 const vendor = 'Preston';
 
 let numProductsToSave = 3;

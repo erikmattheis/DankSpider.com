@@ -16,7 +16,6 @@ const fs = require("fs");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
-
 async function run(batchId, v, vendorList) {
 
   for (const vendor of vendorList) {
@@ -29,13 +28,13 @@ async function run(batchId, v, vendorList) {
 
       console.log(`Got ${products?.length} products for ${vendor.name}`);
 
-
       await saveProducts(products, batchId);
     }
   }
 
   return;
 }
+
 module.exports = {
   run,
 };

@@ -90,7 +90,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyProducts()
 
-  // await makeProductsFile()
+  await makeProductsFile()
 
   //await recalculateChemicalValues()
 
@@ -130,22 +130,14 @@ async function run(batchId, vendor, vendorList) {
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
-  { name: 'Flow', service: flow },
-  { name: 'Enlighten', service: enlighten
+  // { name: 'Flow', service: flow },
+ // { name: 'Enlighten', service: enlighten
 */
 const batchId = 'd93'
 
 
-run(batchId, 'Arete', [
-  { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
+run(batchId, '', [
   { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
-  { name: 'EHH', service: ehh },
-  { name: 'HCH', service: hch },
-  { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
-  { name: 'Flow', service: flow },
-  { name: 'Enlighten', service: enlighten }
+
 ]);

@@ -1,6 +1,6 @@
 const axios = require('../services/rateLimitedAxios')
 const strings = require('../services/strings')
-let batchId = 'test'
+
 async function getAvailableLeafProducts(id, vendor) {
   console.log(`getting ${vendor} products`)
   batchId = id

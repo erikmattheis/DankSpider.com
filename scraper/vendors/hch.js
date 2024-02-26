@@ -115,14 +115,24 @@ async function getProduct(url) {
   }
 
   for (const image of imageUrls) {
-    return {
-      ...product,
-      terpenes,
-      cannabinoids
+    if (skippableImages.includes(image)) {
+      continue;
     }
+
+    const result = transcribeAssay(raw, image, vendor);
+
+    if (result.cannabinoids.length) {
+      cannabinoids = result.cannabinoids;
+    }
+    // Arete has no terpene assays as of 2/26/2024
+    if (result.terpenes.length) {
+      terpenes = result.terpenes;
+    }
+    if (terpenes.length && cannabinoids.length) {
+      break;
+    }
+
   }
-
-
 
   const product = {
     title,

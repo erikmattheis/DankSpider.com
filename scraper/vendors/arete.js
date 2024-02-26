@@ -14,7 +14,7 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'Arete'
 
-let numProductsToSave = 3;
+let numProductsToSave = 666;
 let numSavedProducts = 0;
 
 let count = 0;
