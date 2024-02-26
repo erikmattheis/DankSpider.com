@@ -9,7 +9,7 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'Flow';
 
-let numProductsToSave = 666;
+let numProductsToSave = 6;
 let numSavedProducts = 0;
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
@@ -106,8 +106,8 @@ async function addFlowAssays(product, $) {
   for (const imgStr of images) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
-    const buffer = await readImage(image, url);
-    const raw = await recognize(buffer.value, url);
+    const buffer = await readImage(image, product.url);
+    const raw = await recognize(buffer.value, product.url);
 
     if (!raw) {
       console.log('no text found', image);

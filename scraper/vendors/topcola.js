@@ -27,7 +27,7 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let numProductsToSave = 666;
+let numProductsToSave = 6;
 let numSavedProducts = 0;
 
 async function getAvailableLeafProducts(id, vendor) {
@@ -82,8 +82,8 @@ async function getAvailableLeafProducts(id, vendor) {
 
           for (const image of images) {
 
-            const buffer = await readImage(image, url);
-            const raw = await recognize(buffer.value, url);
+            const buffer = await readImage(image, productUrl);
+            const raw = await recognize(buffer.value, productUrl);
 
             if (!raw) {
               console.log('no text found', image);

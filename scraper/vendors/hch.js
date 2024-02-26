@@ -69,7 +69,7 @@ const startUrl = 'https://harborcityhemp.com/product-category/cannabinoids/thca-
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 666;
+const numProductsToSave = 6;
 let numSavedProducts = 0;
 
 async function getProduct(url) {

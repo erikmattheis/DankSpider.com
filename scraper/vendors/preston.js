@@ -12,7 +12,7 @@ const products = [];
 let batchId = 'test';
 const vendor = 'Preston';
 
-let numProductsToSave = 666;
+let numProductsToSave = 6;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -63,8 +63,8 @@ async function getPrestonProductInfo(product) {
     for (const image of product.images) {
 
 
-      const buffer = await readImage(image, url);
-      const raw = await recognize(buffer.value, url);
+      const buffer = await readImage(image, product.url);
+      const raw = await recognize(buffer.value, product.url);
 
       if (!raw) {
         console.log('no text found', image);
