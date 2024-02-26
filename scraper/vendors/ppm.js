@@ -8,7 +8,9 @@ const logger = require('../services/logger.js');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { readPDFs } = require('../services/pdf')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
+const { readImage } = require('../services/image.js');
 
+const vendor = 'PPM'
 let numberSavedProducts = 0;
 let numProductsToSave = 666;
 const html = require('./data/ppm-pdfs.js');
@@ -159,7 +161,7 @@ async function getAvailableLeafProducts(id, vendor) {
   console.log(`getting ${vendor} products`)
   batchId = id;
 
-  await recordAssays();
+  //await recordAssays();
 
   const products = await getProducts()
   return products

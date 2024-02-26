@@ -6,17 +6,19 @@ const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const { terpeneNameList, cannabinoidNameList } = require('../services/memory');
 const logger = require('../services/logger.js');
+const { readImage } = require('../services/image.js');
 
 let currentPage = 1;
 const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
 
 const uniqueVariants = [];
 let batchId;
+const vendor = 'EHH';
 
 const numProductsToSave = 666;
 let numSavedProducts = 0;
 
-async function getProduct(url) {
+async function getProduct(url, vendor) {
 
   if (numSavedProducts >= numProductsToSave) {
     return;
@@ -48,19 +50,22 @@ async function getProduct(url) {
   const variants = [];
 
   for (const image of imageUrls) {
-    const raw = await recognize(image);
+    const buffer = await readImage(image, url);
+    const raw = await recognize(buffer.value, url);
 
-    const result = transcribeAssay(raw, image, 'EHH');
-
-    if (result.length) {
-      if (cannabinoidNameList.includes(result[0].name)) {
-        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-      }
-      if (terpeneNameList.includes(result[0].name)) {
-        terpenes = result.filter(a => terpeneNameList.includes(a.name))
-      }
+    if (!raw) {
+      console.log('no text found', image);
+      continue;
     }
 
+    const result = transcribeAssay(raw, image, vendor);
+
+    if (result.cannabinoids.length) {
+      cannabinoids = result.cannabinoids;
+    }
+    if (result.terpenes.length) {
+      terpenes = result.terpenes;
+    }
     if (terpenes.length && cannabinoids.length) {
       break;
     }
@@ -132,12 +137,12 @@ function isDesiredProduct(productTitle) {
   );
 }
 
-async function getEHHProductsInfo(productLinks) {
+async function getEHHProductsInfo(productLinks, vendor) {
 
   const products = [];
 
   for (const productLink of productLinks) {
-    const product = await getProduct(productLink);
+    const product = await getProduct(productLink, vendor);
     if (!product) {
       continue;
     }

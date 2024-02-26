@@ -8,6 +8,8 @@ const { terpeneNameList, cannabinoidNameList } = require('../services/memory');
 const logger = require('../services/logger.js');
 const { saveAssays } = require('../services/firebase.js');
 const { readPDFs } = require('../services/pdf.js');
+const { readImage } = require('../services/image.js');
+const vendor = 'HCH';
 
 
 const coaURL = 'https://harborcityhemp.com/about/product-coa/'
@@ -67,7 +69,7 @@ const startUrl = 'https://harborcityhemp.com/product-category/cannabinoids/thca-
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 2;
+const numProductsToSave = 666;
 let numSavedProducts = 0;
 
 async function getProduct(url) {
@@ -113,21 +115,10 @@ async function getProduct(url) {
   }
 
   for (const image of imageUrls) {
-    const raw = await recognize(image);
-
-    const result = transcribeAssay(raw, image, 'EHH');
-
-    if (result.length) {
-      if (cannabinoidNameList.includes(result[0].name)) {
-        cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-      }
-      if (terpeneNameList.includes(result[0].name)) {
-        terpenes = result.filter(a => terpeneNameList.includes(a.name))
-      }
-    }
-
-    if (terpenes.length && cannabinoids.length) {
-      break;
+    return {
+      ...product,
+      terpenes,
+      cannabinoids
     }
   }
 
@@ -238,7 +229,7 @@ async function getAvailableLeafProducts(id, vendor) {
   console.log(`getting ${vendor} products`)
   batchId = id;
 
-  await recordAssays(vendor);
+  // await recordAssays(vendor);
 
   const links = await scrapePage(startUrl, currentPage, []);
 

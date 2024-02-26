@@ -6,11 +6,13 @@ const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const logger = require('../services/logger.js');
+const { readImage } = require('../services/image.js');
 
 const products = [];
 let batchId = 'test';
+const vendor = 'Preston';
 
-let numProductsToSave = 2;
+let numProductsToSave = 666;
 let numSavedProducts = 0;
 
 let currentPage = 1;
@@ -59,35 +61,32 @@ async function getPrestonProductInfo(product) {
     let cannabinoids = [];
 
     for (const image of product.images) {
-      const raw = await recognize(image);
-      const result = transcribeAssay(raw, image, 'Preston');
 
-      if (!result) {
+
+      const buffer = await readImage(image, url);
+      const raw = await recognize(buffer.value, url);
+
+      if (!raw) {
+        console.log('no text found', image);
         continue;
       }
 
-      if (result.length) {
+      const result = transcribeAssay(raw, image, vendor);
 
-        if (cannabinoidNameList.includes(result[0].name)) {
-
-          cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-
-        }
-        if (terpeneNameList.includes(result[0].name)) {
-          terpenes = result.filter(a => terpeneNameList.includes(a.name))
-
-        }
+      if (result.cannabinoids.length) {
+        cannabinoids = result.cannabinoids;
       }
-
-      if (terpenes?.length && cannabinoids?.length) {
-        break
+      if (result.terpenes.length) {
+        terpenes = result.terpenes;
       }
-
-      return {
-        ...product,
-        terpenes,
-        cannabinoids
+      if (terpenes.length && cannabinoids.length) {
+        break;
       }
+    }
+    return {
+      ...product,
+      terpenes,
+      cannabinoids
     }
   }
   else {

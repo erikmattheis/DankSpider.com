@@ -8,6 +8,8 @@ const { terpeneNameList, cannabinoidNameList } = require('../services/memory');
 const logger = require('../services/logger.js');
 const { saveAssays, getAssays } = require('../services/firebase.js');
 const coaURL = 'https://handcraftedfarmers.com/pages/compliances'
+const { readImage } = require('../services/image.js');
+const vendor = 'HCF';
 
 async function recordAssays(links, url, vendor) {
 
@@ -78,7 +80,7 @@ const startUrl = 'https://handcraftedfarmers.com/collections/all-products?filter
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 2;
+const numProductsToSave = 666;
 let numSavedProducts = 0;
 
 function findImageUrlByWidth(str, width) {

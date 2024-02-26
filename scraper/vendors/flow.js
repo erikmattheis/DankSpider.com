@@ -5,7 +5,11 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
-let numProductsToSave = 2;
+const { readImage } = require('../services/image.js');
+
+const vendor = 'Flow';
+
+let numProductsToSave = 666;
 let numSavedProducts = 0;
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';
@@ -102,30 +106,23 @@ async function addFlowAssays(product, $) {
   for (const imgStr of images) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
-    const raw = await recognize(image);
-    const result = transcribeAssay(raw, image, 'Flow');
+    const buffer = await readImage(image, url);
+    const raw = await recognize(buffer.value, url);
 
-    if (!result) {
+    if (!raw) {
+      console.log('no text found', image);
       continue;
     }
 
-    if (result instanceof String) {
+    const result = transcribeAssay(raw, image, vendor);
 
-      logger.error(result);
-      continue;
+    if (result.cannabinoids.length) {
+      cannabinoids = result.cannabinoids;
     }
-
-    if (result?.terpenes?.length) {
-
-      terpenes = JSON.parse(JSON.stringify(result.terpenes))
+    if (result.terpenes.length) {
+      terpenes = result.terpenes;
     }
-    if (result.cannabinoids?.length) {
-
-      cannabinoids = JSON.parse(JSON.stringify(result.cannabinoids))
-    }
-
-    if (terpenes?.length && cannabinoids?.length) {
-
+    if (terpenes.length && cannabinoids.length) {
       break;
     }
   }

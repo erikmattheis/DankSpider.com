@@ -10,6 +10,10 @@ const feedUrl = 'https://aretehemp.com/product-category/high-thca/'
 const logger = require('../services/logger.js');
 const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services/cortex.js')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
+const { readImage } = require('../services/image.js');
+
+const vendor = 'Arete'
+
 let numProductsToSave = 666;
 let numSavedProducts = 0;
 
@@ -68,24 +72,22 @@ async function parseSingleProduct(html, url) {
 
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
-    const raw = await recognize(image);
+    const buffer = await readImage(image, url);
+    const raw = await recognize(buffer.value, url);
 
-    const result = transcribeAssay(raw, image, 'Arete');
-
-
-    if (!result) {
-      continue
+    if (!raw) {
+      console.log('no text found', image);
+      continue;
     }
 
-    if (result?.length) {
-      if (cannabinoidNameList.includes(result[0].name)) {
-        cannabinoids = result//;.filter(a => cannabinoidNameList.includes(a.name))
-      }
-      if (terpeneNameList.includes(result[0].name)) {
-        terpenes = result//;.filter(a => terpeneNameList.includes(a.name))
-      }
-    }
+    const result = transcribeAssay(raw, image, vendor);
 
+    if (result.cannabinoids.length) {
+      cannabinoids = result.cannabinoids;
+    }
+    if (result.terpenes.length) {
+      terpenes = result.terpenes;
+    }
     if (terpenes.length && cannabinoids.length) {
       break;
     }

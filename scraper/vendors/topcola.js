@@ -5,6 +5,8 @@ const { normalizeVariantName, normalizeProductTitle, variantNameContainsWeightUn
 const { recognize } = require('../services/ocr');
 const { transcribeAssay } = require('../services/cortex.js')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
+const { readImage } = require('../services/image.js');
+const vendor = 'TopCola';
 
 
 
@@ -25,7 +27,7 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let numProductsToSave = 2;
+let numProductsToSave = 666;
 let numSavedProducts = 0;
 
 async function getAvailableLeafProducts(id, vendor) {
@@ -80,27 +82,25 @@ async function getAvailableLeafProducts(id, vendor) {
 
           for (const image of images) {
 
-            const raw = await recognize(image);
-            const result = transcribeAssay(raw, image, 'TopCola');
+            const buffer = await readImage(image, url);
+            const raw = await recognize(buffer.value, url);
 
-            if (!result) {
+            if (!raw) {
+              console.log('no text found', image);
               continue;
             }
 
-            if (result.length) {
+            const result = transcribeAssay(raw, image, vendor);
 
-              if (cannabinoidNameList.includes(result[0].name)) {
-
-                cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
-
-              }
-              if (terpeneNameList.includes(result[0].name)) {
-                terpenes = result.filter(a => terpeneNameList.includes(a.name))
-              }
+            if (result.cannabinoids.length) {
+              cannabinoids = result.cannabinoids;
             }
-          }
-          if (terpenes?.length && cannabinoids?.length) {
-            break
+            if (result.terpenes.length) {
+              terpenes = result.terpenes;
+            }
+            if (terpenes.length && cannabinoids.length) {
+              break;
+            }
           }
         }
 

@@ -4,6 +4,7 @@ const { normalizeVariantName, normalizeProductTitle } = require('../services/str
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
+const { readImage } = require('../services/image.js');
 
 let numProductsToSave = 666;
 let numSavedProducts = 0;
@@ -16,6 +17,8 @@ const products = [];
 const productLinks = [];
 let currentPage = 1;
 let batchId;
+
+const vendor = 'drGanja';
 
 
 
@@ -37,7 +40,6 @@ async function getAvailableLeafProducts(id, vendor) {
   return results;
 
 }
-
 
 async function getProducts() {
   const response = await axios.get(atomFeedUrl);
@@ -101,20 +103,24 @@ async function addDrGanjaAssays(product, $) {
   for await (const imgStr of assayLinks) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr;
 
-    const raw = await recognize(image);
-    const result = transcribeAssay(raw, image, 'drGanja');
+    const buffer = await readImage(image, product.url);
+    const raw = await recognize(buffer.value, product.url);
 
-    if (result?.length) {
-      if (cannabinoidNameList.includes(result[0].name)) {
-        cannabinoids = result//;.filter(a => cannabinoidNameList.includes(a.name))
-      }
-      if (terpeneNameList.includes(result[0].name)) {
-        terpenes = result//;.filter(a => terpeneNameList.includes(a.name))
-      }
+    if (!raw) {
+      console.log('no text found', image);
+      continue;
     }
 
-    if (terpenes?.length && cannabinoids?.length) {
-      break
+    const result = transcribeAssay(raw, image, vendor);
+
+    if (result.cannabinoids.length) {
+      cannabinoids = result.cannabinoids;
+    }
+    if (result.terpenes.length) {
+      terpenes = result.terpenes;
+    }
+    if (terpenes.length && cannabinoids.length) {
+      break;
     }
 
   }
