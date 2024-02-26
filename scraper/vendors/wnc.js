@@ -9,7 +9,7 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 2;
+let numProductsToSave = 444;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
@@ -17,10 +17,8 @@ let batchId;
 
 let currentPage = 1;
 
-
 //const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
 const startUrl = 'https://wnc-cbd.com/categories/high-thca.html?_bc_fsnf=1&Flower%20Size[]=3.5g&Flower%20Size[]=14g%20(small/minis)&Flower%20Size[]=7g&Flower%20Size[]=28g%20(small/minis)&sort=newest';
-
 
 async function getProduct(url) {
 

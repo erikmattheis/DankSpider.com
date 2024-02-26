@@ -37,28 +37,7 @@ function makeImageName(url) {
   return `${domain}_${name}`
 }
 
-async function getImageBuffer(url) {
 
-  try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    const buffer = Buffer.from(response.data, 'binary');
-
-    if (!buffer || buffer.length === 0) {
-      logger.error(`Error getting image buffer: ${url}`);
-      return null
-    } else {
-      return buffer
-    }
-
-  } catch (error) {
-
-    logger.error(`Error around getImageBuffer: ${error}`);
-
-    fs.appendFileSync('./temp/errors.buffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`)
-
-  }
-
-}
 
 
 /*

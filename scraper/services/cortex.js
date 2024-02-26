@@ -49,7 +49,7 @@ function fixMissedPeriod(str) {
 }
 
 function lineToChemicalObject(line, vendor) {
-  if (line && !line.replace) {
+  if (!line?.replace) {
     fs.writeFileSync('./temp/unknownlines.txt', `${vendor} ${line}\n`)
     return ['Unknown1', 0]
   }
@@ -104,15 +104,14 @@ function getMgg(parts, line) {
   mgg = parseFloat(mgg);
   if (isNaN(mgg)) {
     console.log('No:', mgg, 'line:', line);
+    fs.appendFileSync('./temp/unknownlines.txt', `No: ${mgg} | ${line}\n`)
     mgg = 0;
   }
-  console.log('mgg:', mgg, 'line:', line);
 
   let [whole, fraction = ''] = mgg.toString().split('.');
   if (fraction.length < 3) {
     fraction = fraction.padEnd(3, '0');
     mgg = `${whole}.${fraction}`;
-    console.log('changed to:', mgg, 'line:', line);
   }
 
   return mgg;
