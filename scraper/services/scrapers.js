@@ -25,7 +25,7 @@ async function run(batchId, v, vendorList) {
 
     if (!v || v === vendor.name) {
       console.log(vendor.service);
-      const products = await vendor.service.getAvailableLeafProducts(batchId);
+      const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name);
 
       console.log(`Got ${products?.length} products for ${vendor.name}`);
 

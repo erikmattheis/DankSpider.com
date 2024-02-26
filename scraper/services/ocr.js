@@ -44,11 +44,12 @@ async function recognize(url) {
     // Process image with GraphicsMagick for better OCR results
     const processedBuffer = await processImage(buffer, url);
     if (!processedBuffer) {
+      console.log('No processed buffer for url:', url);
       return null; // Error logged and handled in processImage
     }
-
-    const { data: { text } } = await worker.recognize(processedBuffer);
-    return text;
+    const result = await worker.recognize(processedBuffer);
+    console.log('Recognized:', Object.keys(result.data));
+    return result?.data?.text;
   } catch (error) {
     logger.error(`Error in recognize: ${error.message}`, { url });
     return null;

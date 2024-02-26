@@ -2,7 +2,7 @@ const axios = require('../services/rateLimitedAxios')
 const strings = require('../services/strings')
 let batchId = 'test'
 async function getAvailableLeafProducts(id, vendor) {
-  console.log('getting ${vendor} products')
+  console.log(`getting ${vendor} products`)
   batchId = id
   const url = 'https://cdn5.editmysite.com/app/store/api/v28/editor/users/132525192/sites/370639016370754120/products?page=1&per_page=60&sort_by=shop_all_order&sort_order=asc&include=images,media_files,discounts&preferred_item_order_ids=19,29,28,30,26,25,24,23,22,21,20,15,13,12,11,10,9,6,5,4,3,2&in_stock=1&excluded_fulfillment=dine_in'
   const response = await axios.get(url)

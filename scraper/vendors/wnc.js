@@ -18,7 +18,9 @@ let batchId;
 let currentPage = 1;
 
 
-const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
+//const startUrl = 'https://wnc-cbd.com/categories/high-thca.html';
+const startUrl = 'https://wnc-cbd.com/categories/high-thca.html?_bc_fsnf=1&Flower%20Size[]=3.5g&Flower%20Size[]=14g%20(small/minis)&Flower%20Size[]=7g&Flower%20Size[]=28g%20(small/minis)&sort=newest';
+
 
 async function getProduct(url) {
 
@@ -91,18 +93,19 @@ async function getProduct(url) {
       const raw = await recognize(image);
 
       if (!raw) {
+        console.log('no text found', image);
         continue;
       }
 
       const result = transcribeAssay(raw, image, vendor);
 
       if (result.length) {
-
+        //console.log(JSON.stringify(result, null, 2))
         if (cannabinoidNameList.includes(result[0].name)) {
-          cannabinoids = result.filter(a => cannabinoidNameList.includes(a.name))
+          cannabinoids = result
         }
         if (terpeneNameList.includes(result[0].name)) {
-          terpenes = result.filter(a => terpeneNameList.includes(a.name))
+          terpenes = result
         }
       }
       if (terpenes.length && cannabinoids.length) {
@@ -144,6 +147,7 @@ async function scrapePage(url, currentPage, productLinks) {
 
 
     if (stringContainsNonFlowerProduct(productTitle)) {
+      console.log('skipping', productTitle);
       continue;
     }
 
@@ -217,7 +221,7 @@ async function getWNCProductsInfo(productLinks) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
-  console.log('getting ${vendor} products')
+  console.log(`getting ${vendor} products`)
   batchId = id;
 
   const productLinks = await scrapePage(startUrl, currentPage, []);

@@ -61,10 +61,6 @@ async function getImageBuffer(url) {
 }
 
 
-function filterAssay(assay) {
-  return assay?.filter(chem => parseFloat(chem.pct) > 0 && chem.name !== 'Unknown' && !chem.name.toLowerCase().includes('total'));
-}
-
 /*
 
 4-9-Totratydrocannabivarin
@@ -405,7 +401,6 @@ module.exports = {
   terpeneNameList,
   cannabinoidNameList,
   terpeneNameList,
-  filterAssay,
   cannabinoidSpellingMap,
   terpeneSpellingMap
 }

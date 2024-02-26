@@ -1,6 +1,7 @@
 const fs = require('fs')
 const { cannabinoidNameList, terpeneNameList, cannabinoidSpellingMap, terpeneSpellingMap } = require('./memory.js')
 const { isValidURI } = require('./strings.js')
+const { parse } = require('path')
 
 function transcribeAssay(str, url, vendor) {
 
@@ -17,14 +18,18 @@ function transcribeAssay(str, url, vendor) {
   }
 
   const lines = str.split('\n')
-
+  //console.log('lines', lines.length)
   const filteredLines = lines.filter(line => line.includes(' '))
 
   const chems = filteredLines.map(line => lineToChemicalObject(line, url, vendor))
 
-  const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
+  if (chems.length === 0) {
+    fs.appendFileSync('./temp/unknown-problem.txt', `${vendor} unknown problem ${url}, \n`)
+  }
 
-  return chemicals
+  //const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
+
+  return chems
 
 }
 
@@ -44,7 +49,7 @@ function fixMissedPeriod(str) {
 function lineToChemicalObject(line, vendor) {
   if (line && !line.replace) {
     fs.writeFileSync('./temp/unknownlines.txt', `${vendor} ${line}\n`)
-    return ['Unknown', 0]
+    return ['Unknown1', 0]
   }
 
   let cleanedLine = line.replace(/\s+/g, ' ').trim();
@@ -54,11 +59,12 @@ function lineToChemicalObject(line, vendor) {
   const recognizedString = extractAnyChemical(line, vendor);
 
   if (!recognizedString) {
-    return { name: 'Unknown', pct: 0, line }
+    return { name: '2', pct: 0, line }
   }
 
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
+    console.log('cleanedLine:', recognizedString, '..', cleanedLine)
   }
 
   const name = recognizedString;
@@ -93,11 +99,11 @@ function getMgg(parts, line) {
 
   let mgg = importantParts[importantParts.length - 2]
 
-  if (mgg.includes('<')) {
+  if (!parseFloat(mgg)) {
     mgg = 0
   }
-
-  if (!mgg.includes('.')) {
+  console.log('mgg:', mgg, 'line:', line)
+  if (mgg != mgg % 1) {
     mgg = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
   }
 
@@ -131,34 +137,35 @@ function recordUnknown(str, ln, vendor) {
   }
 }
 
-recognizeString('THCA')
+// recognizeString('THCA 4 4 v4 4')
 
 function recognizeString(line) {
 
-  for (const name of cannabinoidNameList) {
-    if (line.startsWith(name)) {
-      return name
+  for (const [key, value] of Object.entries(cannabinoidSpellingMap)) {
+    if (line.startsWith(key)) {
+      return value;
     }
   }
 
-  for (const name of terpeneNameList) {
-    if (line.startsWith(name)) {
-      return name
+  for (const [key, value] of Object.entries(terpeneSpellingMap)) {
+    if (line.startsWith(key)) {
+      return value;
     }
   }
+
+  return 'Unknown'
 }
 
 function extractAnyChemical(line, vendor) {
 
   let cleanedLine = line.replace(/\s+/g, ' ').trim();
 
-  const recognizedString = recognizeString(cleanedLine) || 'Unknown';
+  const recognizedString = recognizeString(cleanedLine) || '3';
 
-  if (recognizedString !== 'Unknown') {
+  if (recognizedString === 'Unknown') {
+    recordUnknown(line, vendor)
     return recognizedString
   }
-
-  recordUnknown(line, vendor)
 
   return recognizedString
 }
@@ -172,7 +179,6 @@ function stringContainsNonFlowerProduct(str) {
 
 module.exports = {
   transcribeAssay,
-  cannabinoidNameList,
   lineToChemicalObject,
   stringContainsNonFlowerProduct,
   writeUnknownLines,

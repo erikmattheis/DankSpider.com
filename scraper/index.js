@@ -7,7 +7,6 @@ const jpegs = require('./services/jpegs.js')
 const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
 const logger = require('./services/logger.js')
-const { filterAssay } = require('./services/memory.js')
 
 const ppm = require("./vendors/ppm.js");
 const preston = require("./vendors/preston.js");

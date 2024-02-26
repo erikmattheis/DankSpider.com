@@ -141,7 +141,6 @@ async function getProduct(url, title, vendor) {
   });
 
   if (!assay || !assay.assay) {
-
     const partialProduct = { title, image, url, vendor, variants }
     fs.appendFileSync('./temp/no-assay.txt', `${vendor} no assays ${title}, \n`)
     return false
@@ -248,7 +247,7 @@ async function getProducts(productLinks) {
 }
 
 async function getAvailableLeafProducts(id, vendor) {
-  console.log('getting ${vendor} products')
+  console.log(`getting ${vendor} products`)
   batchId = id;
   console.log('hcf', batchId)
   const links = await getProductList();
