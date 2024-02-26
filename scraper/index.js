@@ -129,22 +129,19 @@ async function run(batchId, vendor, vendorList) {
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
-  { name: 'PPM', service: ppm }
+  { name: 'PPM', service: ppm },
+  { name: 'Flow', service: flow },
+  { name: 'Enlighten', service: enlighten
 */
 const batchId = 'd93'
 
 
 run(batchId, '', [
-  { name: 'PPM', service: ppm },
-  { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
-  { name: 'EHH', service: ehh },
-  { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
+  { name: 'PPM', service: ppm },
   { name: 'Flow', service: flow },
   { name: 'Enlighten', service: enlighten }
-
 ]);
