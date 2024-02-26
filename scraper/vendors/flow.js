@@ -9,7 +9,7 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'Flow';
 
-let numProductsToSave = 6;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 const atomFeedUrl = 'https://flowgardens.com/collections/thca.atom';

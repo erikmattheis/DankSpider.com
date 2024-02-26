@@ -12,7 +12,7 @@ const products = [];
 let batchId = 'test';
 const vendor = 'Preston';
 
-let numProductsToSave = 6;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 let currentPage = 1;

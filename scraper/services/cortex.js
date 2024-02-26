@@ -184,9 +184,12 @@ function organizeAssays(assays) {
   }
 
   for (const assay of assays) {
+    console.log('another')
     if (cannabinoidNameList.includes(assay.name)) {
+      console.log('cannabinoids name:', assay.name)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
+      console.log('terpenes name:', assay.name)
       organizedAssays.terpenes.push(assay)
     }
   }

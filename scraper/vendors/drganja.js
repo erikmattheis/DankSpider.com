@@ -6,7 +6,7 @@ const fs = require('fs');
 const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
 
-let numProductsToSave = 6;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 const { transcribeAssay } = require('../services/cortex.js')

@@ -80,7 +80,7 @@ const startUrl = 'https://handcraftedfarmers.com/collections/all-products?filter
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 6;
+const numProductsToSave = 3;
 let numSavedProducts = 0;
 
 function findImageUrlByWidth(str, width) {

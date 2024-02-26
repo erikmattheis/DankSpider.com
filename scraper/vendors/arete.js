@@ -14,7 +14,7 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'Arete'
 
-let numProductsToSave = 6;
+let numProductsToSave = 3;
 let numSavedProducts = 0;
 
 let count = 0;
@@ -85,6 +85,7 @@ async function parseSingleProduct(html, url) {
     if (result.cannabinoids.length) {
       cannabinoids = result.cannabinoids;
     }
+    // Arete has no terpene assays as of 2/26/2024
     if (result.terpenes.length) {
       terpenes = result.terpenes;
     }
