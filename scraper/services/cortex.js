@@ -97,14 +97,20 @@ function getMgg(parts, line) {
     return 0
   }
 
-  let mgg = importantParts[importantParts.length - 2]
+  let mgg = importantParts[importantParts.length - 1]
 
-  if (!parseFloat(mgg)) {
-    mgg = 0
+  mgg = parseFloat(mgg);
+  if (isNaN(mgg)) {
+    console.log('No:', mgg, 'line:', line);
+    mgg = 0;
   }
-  console.log('mgg:', mgg, 'line:', line)
-  if (mgg != mgg % 1) {
-    mgg = mgg.slice(0, mgg.length - 3) + '.' + mgg.slice(mgg.length - 3)
+  console.log('mgg:', mgg, 'line:', line);
+
+  let [whole, fraction = ''] = mgg.toString().split('.');
+  if (fraction.length < 3) {
+    fraction = fraction.padEnd(3, '0');
+    mgg = `${whole}.${fraction}`;
+    console.log('changed to:', mgg, 'line:', line);
   }
 
   return mgg;
