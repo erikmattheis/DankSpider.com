@@ -29,7 +29,9 @@ function transcribeAssay(str, url, vendor) {
 
   //const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
 
-  return chems
+  const assays = organizeAssays(chems);
+
+  return assays
 
 }
 
@@ -174,6 +176,23 @@ function extractAnyChemical(line, vendor) {
   }
 
   return recognizedString
+}
+
+function organizeAssays(assays) {
+  const organizedAssays = {
+    cannabinoids: [],
+    terpenes: [],
+  }
+
+  for (const assay of assays) {
+    if (cannabinoidNameList.includes(assay.name)) {
+      organizedAssays.cannabinoids.push(assay)
+    } else if (terpeneNameList.includes(assay.name)) {
+      organizedAssays.terpenes.push(assay)
+    }
+  }
+
+  return organizedAssays
 }
 
 function stringContainsNonFlowerProduct(str) {

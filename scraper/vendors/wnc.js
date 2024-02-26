@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings')
 const { recognize } = require('../services/ocr');
 const fs = require('fs');
-const { transcribeAssay, stringContainsNonFlowerProduct } = require('../services/cortex.js');
+const { transcribeAssay, organizeAssays, stringContainsNonFlowerProduct } = require('../services/cortex.js');
 
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
@@ -99,14 +99,11 @@ async function getProduct(url) {
 
       const result = transcribeAssay(raw, image, vendor);
 
-      if (result.length) {
-        //console.log(JSON.stringify(result, null, 2))
-        if (cannabinoidNameList.includes(result[0].name)) {
-          cannabinoids = result
-        }
-        if (terpeneNameList.includes(result[0].name)) {
-          terpenes = result
-        }
+      if (result.cannabinoids.length) {
+        cannabinoids = result.cannabinoids;
+      }
+      if (result.terpenes.length) {
+        terpenes = result.terpenes;
       }
       if (terpenes.length && cannabinoids.length) {
         break;
