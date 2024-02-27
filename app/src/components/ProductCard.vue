@@ -3,7 +3,7 @@
     <img src="https://storage.googleapis.com/dank-images/corner.jpg" class="corner" width="80" height="80" alt="" />
     <div class="corner-text">{{ product.vendor }}</div>
 
-    <a :href="product.url + queryString" class="backdrop" target="_blank">
+    <a :href="product.url + queryString" class="backdrop" target="_blank" :aria-label="`Buy ${product.title} from ${product.vendor}`">
 
       <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty" class="beauty pendulum"
         :src="product.image" :alt="product.title" />
@@ -245,9 +245,9 @@ ul li {
 }
 
 .cannabinoid {
-  background-color: #f71c0888;
+  background-color: #f71c0833;
   color: #000;
-
+  font-weight: 700;
 }
 
 .terpene {

@@ -10,7 +10,7 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 333;
+let numProductsToSave = 6;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
@@ -36,18 +36,21 @@ async function getProduct(url) {
 
     const variants = [];
 
-    const title = normalizeProductTitle($('h1.productView-title').text().trim());
-
     if (stringContainsNonFlowerProduct(title)) {
       return null;
     }
 
+    const title = normalizeProductTitle($('h1.productView-title').text().trim());
+
     const bcDataScript = $('script:contains("var BCData")').html();
     const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
     const availableVariantValues = bcData.product_attributes.available_variant_values;
+    console.log('availableVariantValues', availableVariantValues);
 
     $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((_, element) => {
-      const variantValue = $(element).attr('for').split('_').pop();
+      let variantValue = $(element).attr('for').split('_').pop();
+      console.log('ariantValue', variantValue);
+      variantValue = normalizeVariantName(variantValue);
       if (availableVariantValues.includes(parseInt(variantValue))) {
         variants.push($(element).text().trim());
       }
@@ -204,8 +207,6 @@ async function getWNCProductsInfo(productLinks) {
     product.vendor = 'WNC';
 
     if (product.variants.length > 0) {
-
-      product.variants = product.variants.map((variant) => normalizeVariantName(variant));
 
       numSavedProducts++;
 

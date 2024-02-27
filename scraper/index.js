@@ -91,11 +91,11 @@ async function run(batchId, vendor, vendorList) {
   //await deleteNonFlowerProducts()
   //await normalizeVariants()
   // await recalculateChemicalValues()
-  // await makeProductsFile()
+  await makeProductsFile()
 
 
 
-  Pawait makeStats()
+  // await makeStats()
 
   // await makeStrainsFile()
 
@@ -137,7 +137,7 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'e87'
 
 
-run(batchId, 'Arete', [
+run(batchId, 'WNC', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },

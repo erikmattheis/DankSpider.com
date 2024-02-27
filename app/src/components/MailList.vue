@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="#" @click.prevent="toggleExpanded()">
+    <a href="#" @click.prevent="toggleExpanded()" aria-label="User Account Information">
       <font-awesome-icon :icon="['fas', 'user']" />
     </a>
     <div class="modal" v-if="expanded">
