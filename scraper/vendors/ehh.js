@@ -15,7 +15,7 @@ const uniqueVariants = [];
 let batchId;
 const vendor = 'EHH';
 
-const numProductsToSave = 3;
+const numProductsToSave = 333;
 let numSavedProducts = 0;
 
 async function getProduct(url, vendor) {

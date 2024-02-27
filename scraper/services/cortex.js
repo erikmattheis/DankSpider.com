@@ -77,7 +77,8 @@ function lineToChemicalObject(line, vendor) {
     console.log('cleanedLine:', recognizedString, '..', cleanedLine)
   }
   else if (linePasses(cleanedLine)) {
-    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} | ${completeLine}\n`)
+    console.log('cleanedLine:', recognizedString, '..', completeLine)
+    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString} .. ${completeLine}\n`)
   }
 
   const name = recognizedString;
@@ -145,7 +146,7 @@ function linePasses(line) {
 }
 
 function writeUnknownLines(batchId) {
-  fs.writeFileSync(`./temp/unknownlines2.txt`, Array.from(lines).join('\n'))
+  fs.writeFileSync(`./temp/unknownlines88.txt`, Array.from(lines).join('\n'))
 }
 
 function recordUnknown(str, ln, vendor) {

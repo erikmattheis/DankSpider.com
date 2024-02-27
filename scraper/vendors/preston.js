@@ -11,7 +11,7 @@ const { readImage } = require('../services/image.js');
 const products = [];
 const vendor = 'Preston';
 
-let numProductsToSave = 3;
+let numProductsToSave = 333;
 let numSavedProducts = 0;
 
 let currentPage = 1;

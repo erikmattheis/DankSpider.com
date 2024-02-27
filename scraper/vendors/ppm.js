@@ -12,7 +12,7 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'PPM'
 let numberSavedProducts = 0;
-let numProductsToSave = 3;
+let numProductsToSave = 333;
 const html = require('./data/ppm-pdfs.js');
 
 const feedUrl = 'https://perfectplantmarket.com/collections/thca-flower'

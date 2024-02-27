@@ -17,22 +17,26 @@ const fs = require("fs");
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
 async function run(batchId, v, vendorList) {
-
-  for (const vendor of vendorList) {
-
-    console.log(`Getting products for ${v}`);
-
+  const tasks = vendorList.map(vendor => {
     if (!v || v === vendor.name) {
+      return (async () => {
+        console.log(`Getting products for ${vendor.name}`);
 
-      const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name);
-
-      console.log(`Saving ${products?.length} products for ${vendor.name}`);
-
-      await saveProducts(products, batchId);
+        try {
+          const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name);
+          console.log(`Saving ${products?.length} products for ${vendor.name}`);
+          await saveProducts(products, batchId);
+        } catch (error) {
+          console.error(`Error processing ${vendor.name}: ${error}`);
+        }
+      })();
     }
-  }
+    return Promise.resolve(); // Return a resolved promise for vendors that do not match the condition
+  });
 
-  return;
+  await Promise.all(tasks);
+
+  console.log('All tasks completed.');
 }
 
 module.exports = {
