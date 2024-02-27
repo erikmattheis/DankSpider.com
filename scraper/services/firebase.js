@@ -282,7 +282,7 @@ async function getCompleteProducts() {
 }
 
 async function recalculateChemicalValues() {
-  const contentRef = db.collection('products2');
+  const contentRef = db.collection('products');
 
   try {
     const snapshot = await contentRef.get();
@@ -295,12 +295,12 @@ async function recalculateChemicalValues() {
       const chem = doc.data();
 
       const cannabinoids = chem.cannabinoids?.map(c => {
-        const obj = lineToChemicalObject(c.originalText, 'XXX')
+        const obj = lineToChemicalObject(c.line, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
       const terpenes = chem.terpenes?.map(t => {
-        const obj = lineToChemicalObject(t.originalText, 'XXX')
+        const obj = lineToChemicalObject(t.line, 'XXX')
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 

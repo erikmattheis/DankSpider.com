@@ -88,13 +88,14 @@ async function run(batchId, vendor, vendorList) {
   //await scrapers.run(batchId, vendor, vendorList)
 
   //await copyProducts()
-  await deleteNonFlowerProducts()
-  await normalizeVariants()
+  // await deleteNonFlowerProducts()
+  //await normalizeVariants()
+  await recalculateChemicalValues()
   await makeProductsFile()
 
-  //await recalculateChemicalValues()
 
-  await makeStats()
+
+  // await makeStats()
 
   // await makeStrainsFile()
 

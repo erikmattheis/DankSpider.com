@@ -63,7 +63,7 @@ function lineToChemicalObject(line, vendor) {
 
   cleanedLine = removeCharactersAfterLastDigit(cleanedLine);
 
-  const recognizedString = extractAnyChemical(line, vendor);
+  const recognizedString = extractAnyChemical(cleanedLine, vendor);
 
   if (!recognizedString) {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
