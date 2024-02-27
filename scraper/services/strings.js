@@ -61,6 +61,18 @@ function normalizeVariantName(nameStr) {
   if (name === 'smalls 28 grams') {
     return '28 g smalls'
   }
+  if (name === '1/2 oz smalls Bag') {
+    return '14 g smalls'
+  }
+  if (name === '1/2 oz smalls') {
+    return '14 g smalls'
+  }
+  if (name === '1/2 Ounce') {
+    return '14 g'
+  }
+  if (name === '1/2 oz') {
+    return '14 g'
+  }
   if (name === 'Half oz') {
     return '14 g'
   }

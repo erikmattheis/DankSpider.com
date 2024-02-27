@@ -33,10 +33,9 @@ async function parseSingleProduct(html, url) {
   let cannabinoids = []
   let terpenes = []
 
-  // Iterate over each option element within the select
   $('#size option').each(function () {
     let value = $(this).attr('value');
-    // Skip the placeholder option
+
     if (value) {
       value = normalizeVariantName(value);
       variants.push(value);
@@ -101,8 +100,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  const properties = { image: productImages[0], variants, cannabinoids, terpenes, lastModified }
-  return properties
+  return { image: productImages[0], variants, cannabinoids, terpenes, lastModified }
 }
 
 function get3003image(html) {
@@ -141,7 +139,7 @@ async function getProducts(feedUrl) {
       const el = items[i]
 
       let title = $(el).find('.nm-shop-loop-title-link').text();
-      console.log('title', title)
+
       title = normalizeProductTitle(title.trim());
       if (stringContainsNonFlowerProduct(title)) {
         continue

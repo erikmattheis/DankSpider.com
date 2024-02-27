@@ -3,11 +3,9 @@ const admin = require('firebase-admin');
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
-const { lineToChemicalObject } = require('./cortex.js');
-
+const { lineToChemicalObject, stringContainsNonFlowerProduct } = require('./cortex.js');
 
 const cheerio = require('cheerio');
-
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
@@ -24,6 +22,7 @@ if (!getApps().length) {
 }
 
 const db = getFirestore();
+
 db.settings({ ignoreUndefinedProperties: true });
 
 async function getUniqueTerpenes() {
@@ -65,7 +64,8 @@ async function normalizeVariants() {
   snapshot.forEach(doc => {
     const product = doc.data();
     if (product.variants) {
-      product.variants.forEach(variant => normalizeVariantName(variant));
+      product.variants = product.variants.map(variant => normalizeVariantName(variant));
+      product.variants = product.variants.filter(variant => !stringContainsNonFlowerProduct(variant));
 
       // Push the update operation into the array
       updatePromises.push(doc.ref.update({ variants: product.variants }));
@@ -558,7 +558,7 @@ async function getProductsByBatchId(batchId) {
 
 async function copyAndDeleteProducts(keepBatchIds) {
   const productsRef = db.collection('products');
-  const secondCollectionRef = db.collection('productsArchive');
+  const secondCollectionRef = db.collection('products2');
 
   const snapshot = await productsRef.get();
 
@@ -650,6 +650,31 @@ async function saveAssays(vendor, assays) {
   }
 }
 
+
+
+async function deleteNonFlowerProducts() {
+
+
+  const productsRef = db.collection('products');
+
+  const snapshot = await productsRef.get();
+
+  const batch = db.batch();
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+
+    if (stringContainsNonFlowerProduct(product.title)) {
+      batch.delete(doc.ref);
+    }
+  });
+
+  await batch.commit();
+
+  console.log(`Maybe deleted non-flower products`)
+
+}
+
 async function deleteAssaysByVendors(vendorNames) {
   for (const vendorName of vendorNames) {
 
@@ -709,5 +734,6 @@ module.exports = {
   saveAssays,
   getAssays,
   copyProducts,
-  deleteAssaysByVendors
+  deleteAssaysByVendors,
+  deleteNonFlowerProducts
 };

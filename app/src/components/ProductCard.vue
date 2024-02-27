@@ -245,13 +245,14 @@ ul li {
 }
 
 .cannabinoid {
-  background-color: #f71c08;
-  color: #fff;
+  background-color: #f71c0888;
+  color: #000;
+
 }
 
 .terpene {
-  background-color: #9c07b6;
-  color: #fff;
+  background-color: #9c07b688;
+  color: #000;
 }
 
 ul li::after {

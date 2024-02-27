@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -83,12 +83,13 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  //await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
   //await scrapers.run(batchId, vendor, vendorList)
 
   //await copyProducts()
-
+  await deleteNonFlowerProducts()
+  await normalizeVariants()
   await makeProductsFile()
 
   //await recalculateChemicalValues()
@@ -135,7 +136,7 @@ async function run(batchId, vendor, vendorList) {
 const batchId = 'e86'
 
 
-run(batchId, '', [
+run(batchId, 'Arete', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
