@@ -2,7 +2,7 @@ const { getAllProducts } = require('./firebase.js');
 const { saveStats } = require('./firebase.js');
 
 async function makeStats() {
-  const products = await getAllProducts('products2');
+  const products = await getAllProducts('products');
 
   const vendors = {};
 

@@ -35,9 +35,10 @@ async function parseSingleProduct(html, url) {
 
   // Iterate over each option element within the select
   $('#size option').each(function () {
-    const value = $(this).attr('value');
+    let value = $(this).attr('value');
     // Skip the placeholder option
     if (value) {
+      value = normalizeVariantName(value);
       variants.push(value);
     }
   });
@@ -66,7 +67,6 @@ async function parseSingleProduct(html, url) {
     console.log('No assay images found')
     fs.writeFileSync('./temp/vendors/arete-no-assay.html', html)
     return { cannabinoids, terpenes, image: productImages[0], variants }
-
   }
 
   let lastModified = new Date(0)
