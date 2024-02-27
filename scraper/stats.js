@@ -864,3 +864,67 @@ Total CannabinoidsWithValues 33 2.06
 Total Terpenes 0 0.00
 Total TerpenesWithValues 0 0.00
 
+PPM {
+    vendor: 'PPM',
+      numProducts: 3,
+        numCannabinoids: 33,
+          numCannabinoidsWithValues: 33,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+HCF {
+    vendor: 'HCF',
+      numProducts: 3,
+        numCannabinoids: 0,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+EIGHT HORSES {
+    vendor: 'EIGHT HORSES',
+      numProducts: 3,
+        numCannabinoids: 12,
+          numCannabinoidsWithValues: 11,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+Preston {
+    vendor: 'Preston',
+      numProducts: 2,
+        numCannabinoids: 0,
+          numCannabinoidsWithValues: 0,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+WNC {
+    vendor: 'WNC',
+      numProducts: 2,
+        numCannabinoids: 44,
+          numCannabinoidsWithValues: 42,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+Dr Ganja {
+    vendor: 'Dr Ganja',
+      numProducts: 3,
+        numCannabinoids: 18,
+          numCannabinoidsWithValues: 8,
+            numTerpenes: 45,
+              numTerpenesWithValues: 0
+  }
+Arete {
+    vendor: 'Arete',
+      numProducts: 3,
+        numCannabinoids: 66,
+          numCannabinoidsWithValues: 63,
+            numTerpenes: 0,
+              numTerpenesWithValues: 0
+  }
+Total Products 19
+Total Cannabinoids 157 8.26
+Total CannabinoidsWithValues 157 8.26
+Total Terpenes 9 0.47
+Total TerpenesWithValues 9 0.47
+  info: Done with batch d97 in 204.55 seconds { "service": "dankspider", "timestamp": "2024-02-27 02:29:26" }
+erikmattheis @Eriks-MacBook - Pro scraper %
+
