@@ -17,7 +17,11 @@ const fs = require("fs");
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
 async function run(batchId, v, vendorList) {
-  const tasks = vendorList.map(vendor => {
+
+  for (const vendor of vendorList) {
+
+    console.log(`Getting products for ${v}`);
+
     if (!v || v === vendor.name) {
       return (async () => {
         console.log(`Getting products for ${vendor.name}`);
@@ -31,10 +35,7 @@ async function run(batchId, v, vendorList) {
         }
       })();
     }
-    return Promise.resolve(); // Return a resolved promise for vendors that do not match the condition
-  });
-
-  await Promise.all(tasks);
+  }
 
   console.log('All tasks completed.');
 }

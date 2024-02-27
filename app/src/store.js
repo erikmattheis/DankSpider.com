@@ -75,7 +75,7 @@ export const useSpiderStore = defineStore('spider', {
 
       if (!this.products) return []
 
-      const terpenes = new Set()
+      let terpenes = new Set()
 
       this.products.forEach((product) => {
         if (!product.terpenes) return
@@ -83,14 +83,16 @@ export const useSpiderStore = defineStore('spider', {
           terpenes.add(terpene.name)
         })
       })
+      terpenes = Array.from(terpenes)
+      terpenes = terpenes.filter((t) => t.pct > 0.08)
 
-      return [...terpenes].sort()
+      return [...terpenes].sort((a, b) => a.name > b.name ? -1 : 1).sort((a, b) => a.pct > b.pct ? -1 : 1)
     },
     filteredProductsCannabinoids() {
 
       if (!this.products) return []
 
-      const cannabinoids = new Set()
+      let cannabinoids = new Set()
 
       this.products.forEach((product) => {
         if (!product.cannabinoids) return
@@ -99,7 +101,10 @@ export const useSpiderStore = defineStore('spider', {
         })
       })
 
-      return [...cannabinoids].sort()
+      cannabinoids = Array.from(cannabinoids)
+      cannabinoids = cannabinoids.filter((c) => c.pct > 0.08)
+
+      return [...cannabinoids].sort((a, b) => a.name > b.name ? -1 : 1).sort((a, b) => a.pct > b.pct ? -1 : 1)
     },
     numProducts() {
       return this.filteredProducts?.filter((product) => product.name !== 'empty').length
