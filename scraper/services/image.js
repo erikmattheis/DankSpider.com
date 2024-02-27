@@ -10,9 +10,12 @@ async function processImage(buffer, url) {
       gm(buffer)
         .quality(100)
         .resize(4000)
+        // to jpeg
+        .setFormat('jpeg')
         .toBuffer((err, buffer) => {
           if (err) {
-            logger.error(`GraphicsMagick processing error: ${err.message}`, { url });
+
+            fs.appendFileSync('./temp/errors.processImage1.txt', `\nurl: ${url}\n${JSON.stringify(err, null, 2)}\n\n`);
             reject(err);
           } else {
             resolve(buffer);
@@ -21,7 +24,7 @@ async function processImage(buffer, url) {
     });
   } catch (error) {
     logger.error(`Error processing image: ${error.message}`, { url });
-    fs.appendFileSync('./temp/errors.processImage.txt', `\nurl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
+    fs.appendFileSync('./temp/errors.processImage2.txt', `\nurl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
     return null;
   }
 }

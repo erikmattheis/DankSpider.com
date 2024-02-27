@@ -14,13 +14,16 @@ const { readImage } = require('../services/image.js');
 
 const vendor = 'Arete'
 
-let numProductsToSave = 666;
+const numProductsToSave = 3;
 let numSavedProducts = 0;
 
 let count = 0;
 let batchId;
 
 async function parseSingleProduct(html, url) {
+  if (!html) {
+    return null;
+  }
   const $ = cheerio.load(html)
 
   fs.writeFileSync('./temp/vendors/arete-product.html', html)
@@ -29,8 +32,6 @@ async function parseSingleProduct(html, url) {
   const images = []
   let cannabinoids = []
   let terpenes = []
-
-
 
   // Iterate over each option element within the select
   $('#size option').each(function () {
@@ -68,12 +69,18 @@ async function parseSingleProduct(html, url) {
 
   }
 
+  let lastModified = new Date(0)
+
   for (const imgStr of assayLinks) {
 
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const buffer = await readImage(image, url);
     const raw = await recognize(buffer.value, url);
+
+    if (new Date(buffer.lastModified) > new Date(lastModified)) {
+      lastModified = buffer.lastModified;
+    }
 
     if (!raw) {
       console.log('no text found', image);
@@ -94,7 +101,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  const properties = { image: productImages[0], variants, cannabinoids, terpenes }
+  const properties = { image: productImages[0], variants, cannabinoids, terpenes, ladstModified }
   return properties
 }
 
@@ -117,48 +124,55 @@ function get3003image(html) {
 }
 
 async function getProducts(feedUrl) {
-  const result = await axios.get(feedUrl)
-  const $ = cheerio.load(result.data)
-  fs.writeFileSync('./temp/vendors/arete.html', result.data)
+  try {
+    const result = await axios.get(feedUrl)
+    const $ = cheerio.load(result.data)
+    fs.writeFileSync('./temp/vendors/arete.html', result.data)
 
-  const items = $('ul.nm-products li.product');
+    const items = $('.nm-shop-loop-product-wrap .woocommerce-LoopProduct-link');
 
-  const products = []
-  for (let i = 0; i < items.length; i++) {
+    const products = []
+    for (let i = 0; i < items.length; i++) {
 
-    if (numSavedProducts >= numProductsToSave) {
-      break;
+      if (numSavedProducts >= numProductsToSave) {
+        break;
+      }
+
+      const el = items[i]
+
+      let title = $(el).find('.nm-shop-loop-title-link').text();
+      title = normalizeProductTitle(title.trim());
+      if (stringContainsNonFlowerProduct(title)) {
+        continue
+      }
+
+      const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
+      console.log('getting product', title, url)
+      const resultP = await axios.get(url)
+      const more = await parseSingleProduct(resultP.data, url)
+
+      const vendor = 'Arete'
+      const product = {
+        ...more, url, title, vendor
+      }
+
+      numSavedProducts++;
+      products.push(product)
+
     }
 
-    const el = items[i]
-
-    let title = $(el).find('.nm-shop-loop-title-link').text();
-    title = normalizeProductTitle(title.trim());
-    if (stringContainsNonFlowerProduct(title)) {
-      continue
-    }
-
-    const url = $(el).find('.nm-shop-loop-thumbnail-link').attr('href')
-    const resultP = await axios.get(url)
-    const more = await parseSingleProduct(resultP.data, url)
-
-    const vendor = 'Arete'
-    const product = {
-      ...more, url, title, vendor
-    }
-
-    numSavedProducts++;
-    products.push(product)
-
+    return products
   }
-
-  return products
+  catch (e) {
+    console.log('error', e.message)
+    fs.writeFileSync('./temp/vendors/arete-error.html', e.message)
+  }
 }
 
 async function getAvailableLeafProducts(id, vendor) {
   console.log(`getting ${vendor} products`)
   batchId = id
-  const products = await getProducts(feedUrl)
+  const products = await getProducts(feedUrl, vendor)
   return products
 }
 

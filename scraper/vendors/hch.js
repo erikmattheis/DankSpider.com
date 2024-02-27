@@ -89,12 +89,7 @@ async function getProduct(url) {
 
   image = image?.startsWith('https:') ? image : `https:${image}`;
 
-
-  let terpenes = [];
-  let cannabinoids = [];
-
   const variants = [];
-
 
   $('select.woovr-variation-select option').each(function () {
     let variantName = $(this).text().trim();
@@ -105,6 +100,8 @@ async function getProduct(url) {
       variants.push(variant);
     }
   });
+
+  /*
 
   let imageUrls = $('.wp-post-image').map((i, el) => $(el).attr('src')).get();
 
@@ -119,15 +116,22 @@ async function getProduct(url) {
       continue;
     }
 
-    const raw = await readImage(image);
+    const buffer = await readImage(image);
+
+    const raw = await recognize(buffer.value, image);
 
     const result = transcribeAssay(raw, image, vendor);
 
-    if (result.cannabinoids.length) {
+    if (!result) {
+      fs.appendFileSync(`./temp/vendors/hch-product-no-assay.html`, `No assay found for ${image}\n`);
+      continue;
+    }
+    console.log(JSON.stringify(result))
+    if (result?.cannabinoids.length) {
       cannabinoids = result.cannabinoids;
     }
     // Arete has no terpene assays as of 2/26/2024
-    if (result.terpenes.length) {
+    if (result?.terpenes.length) {
       terpenes = result.terpenes;
     }
     if (terpenes.length && cannabinoids.length) {
@@ -135,6 +139,22 @@ async function getProduct(url) {
     }
 
   }
+*/
+
+  let allAssays = await getAssays();
+  allAssays = allAssays.filter(a => a.vendor === 'HCF');
+
+  const assay = allAssays.find(p => {
+    const condition = p.name === title && p.vendor === 'PPM';
+    return condition;
+  });
+
+  if (!assay?.assay) {
+    fs.appendFileSync('./temp/no-assay.txt', `no assays found for ${title.toLowerCase()}, \n`)
+    return
+  }
+  const cannabinoids = assay.assay.filter(a => cannabinoidNameList.includes(a.name))
+  const terpenes = assay.assay.filter(a => terpeneNameList.includes(a.name))
 
   const product = {
     title,
@@ -224,8 +244,6 @@ async function getProducts(productLinks) {
     if (product.variants.length > 0) {
 
       product.variants = product.variants.map((variant) => normalizeVariantName(variant));
-
-
 
       products.push(product);
 
