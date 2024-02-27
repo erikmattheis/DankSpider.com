@@ -73,6 +73,9 @@ function normalizeVariantName(nameStr) {
   if (name === '1/2 oz') {
     return '14 g'
   }
+  if (name === '1/2 oz') {
+    return '14 g'
+  }
   if (name === 'Half oz') {
     return '14 g'
   }

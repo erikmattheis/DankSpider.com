@@ -208,7 +208,7 @@ function organizeAssays(assays) {
 }
 
 function stringContainsNonFlowerProduct(str) {
-  if (['2 g', '2 oz', 'NaN g', ' Roll', ' Rosin', 'Rosin ', 'Resin', 'Full Melt', 'Bubble Hash', 'Sift Hash', 'Macaroons', 'Cannacookies', 'Pre-Rolls', ' Pre Rolls', 'Pre Rolls', 'Mixed Smalls', 'Mixed Shake', ' Diamonds', 'Cereal Bars', 'Bundles', 'Vape ', 'CannaCookies'].some(s => str.includes(s))) {
+  if (['2 g', '2 oz', 'Diamond Shards', 'NaN g', ' Roll', ' Rosin', 'Rosin ', 'Resin', 'Full Melt', 'Bubble Hash', 'Sift Hash', 'Macaroons', 'Cannacookies', 'Pre - Rolls', ' Pre Rolls', 'Pre Rolls', 'Mixed Smalls', 'Mixed Shake', ' Diamonds', 'Cereal Bars', 'Bundles', 'Vape ', 'CannaCookies'].some(s => str.includes(s))) {
     return true
   }
   return false

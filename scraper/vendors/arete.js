@@ -36,7 +36,7 @@ async function parseSingleProduct(html, url) {
   $('#size option').each(function () {
     let value = $(this).attr('value');
 
-    if (value) {
+    if (value && !stringContainsNonFlowerProduct()) {
       value = normalizeVariantName(value);
       variants.push(value);
     }

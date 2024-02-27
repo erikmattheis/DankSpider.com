@@ -88,14 +88,14 @@ async function run(batchId, vendor, vendorList) {
   //await scrapers.run(batchId, vendor, vendorList)
 
   //await copyProducts()
-  // await deleteNonFlowerProducts()
+  //await deleteNonFlowerProducts()
   //await normalizeVariants()
-  await recalculateChemicalValues()
-  await makeProductsFile()
+  // await recalculateChemicalValues()
+  // await makeProductsFile()
 
 
 
-  // await makeStats()
+  Pawait makeStats()
 
   // await makeStrainsFile()
 
@@ -134,7 +134,7 @@ async function run(batchId, vendor, vendorList) {
   // { name: 'Flow', service: flow },
  // { name: 'Enlighten', service: enlighten
 */
-const batchId = 'e86'
+const batchId = 'e87'
 
 
 run(batchId, 'Arete', [

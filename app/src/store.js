@@ -238,9 +238,6 @@ export const useSpiderStore = defineStore('spider', {
       const variants = []
 
       this.products.forEach((product) => {
-        if (!product.variants || product.variants[0] === 'CBD Type 3') {
-          return
-        }
 
         product.variants.forEach((variant) => {
           if (!variant) return
