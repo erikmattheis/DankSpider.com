@@ -119,6 +119,8 @@ async function getProduct(url) {
       continue;
     }
 
+    const raw = await readImage(image);
+
     const result = transcribeAssay(raw, image, vendor);
 
     if (result.cannabinoids.length) {

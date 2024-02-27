@@ -135,8 +135,6 @@ async function getProduct(url, title, vendor) {
   let allAssays = await getAssays();
   allAssays = allAssays.filter(a => a.vendor === 'HCF');
 
-  fs.writeFileSync('./temp/hcf-assays.json', JSON.stringify(allAssays, null, 2));
-
   let assay = allAssays.find(p => {
     const condition = p.vendor === 'HCF'; // p.title === title &&
     return condition;
@@ -180,7 +178,6 @@ async function scrapePage(url, currentPage, productLinks) {
   try {
     const response = await axios.get(url);
 
-    // fs.writeFileSync(`./temp / vendors / hcf - page - ${currentPage}.html`, response.data);
 
     const $ = cheerio.load(response.data)
 
@@ -257,9 +254,9 @@ async function getAvailableLeafProducts(id, vendor) {
   // await recordAssays(links);
   //  console.log('recorded assays')
   const productLinks = await scrapePage(startUrl, currentPage, []);
-  console.log('productLinks', productLinks.engths)
+
   const products = await getProducts(productLinks);
-  console.log('products', products.length)
+
   return products;
 
 }

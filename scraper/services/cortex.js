@@ -18,7 +18,7 @@ function transcribeAssay(str, url, vendor) {
   }
 
   const lines = str.split('\n')
-  //console.log('lines', lines.length)
+
   const filteredLines = lines.filter(line => line.includes(' '))
 
   const chems = filteredLines.map(line => lineToChemicalObject(line, url, vendor))
@@ -50,7 +50,7 @@ function fixMissedPeriod(str) {
 
 function lineToChemicalObject(line, vendor) {
   if (!line?.replace) {
-    fs.writeFileSync('./temp/unknownlines.txt', `${vendor} ${line}\n`)
+    fs.writeFileSync('./temp/unknownlines1.txt', `${vendor} ${line}\n`)
     return ['Unknown1', 0]
   }
 
@@ -103,8 +103,7 @@ function getMgg(parts, line) {
 
   mgg = parseFloat(mgg);
   if (isNaN(mgg)) {
-    console.log('No:', mgg, 'line:', line);
-    fs.appendFileSync('./temp/unknownlines.txt', `No: ${mgg} | ${line}\n`)
+    fs.appendFileSync('./temp/.txt', `No: ${mgg} | ${line}\n`)
     mgg = 0;
   }
 
@@ -135,12 +134,12 @@ function linePasses(line) {
 }
 
 function writeUnknownLines(batchId) {
-  fs.writeFileSync(`./temp/unknownlines-${batchId}.txt`, Array.from(lines).join('\n'))
+  fs.writeFileSync(`./temp/unknownlines2.txt`, Array.from(lines).join('\n'))
 }
 
 function recordUnknown(str, ln, vendor) {
   if (linePasses(ln)) {
-    fs.appendFileSync('./temp/unknownlines.txt', `${vendor} | ${str} | ${ln}\n`)
+    fs.appendFileSync('./temp/unknownlines3.txt', `${vendor} | ${str} | ${ln}\n`)
   }
 }
 

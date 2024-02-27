@@ -79,14 +79,16 @@ async function run(batchId, vendor, vendorList) {
   console.log('run')
   const timer = performance.now();
 
-  // await deleteAssaysByVendors(['HCF', 'HCH'])
+  //await deleteAssaysByVendors(['HCF', 'HCH'])
   //await deleteProductsByVendors(['WNC'])
 
   //await showBatch()
 
+  await copyAndDeleteProducts([batchId]);
+
   await scrapers.run(batchId, vendor, vendorList)
 
-  // await copyAndDeleteProducts([batchId]);
+
 
   //await copyProducts()
 
@@ -133,11 +135,18 @@ async function run(batchId, vendor, vendorList) {
   // { name: 'Flow', service: flow },
  // { name: 'Enlighten', service: enlighten
 */
-const batchId = 'd93'
+const batchId = 'd94'
 
 
 run(batchId, '', [
+  { name: 'Arete', service: arete },
+  { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
+  { name: 'Preston', service: preston },
+  { name: 'TopCola', service: topcola },
+  { name: 'EHH', service: ehh },
+  { name: 'HCH', service: hch },
+  { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
 
 ]);

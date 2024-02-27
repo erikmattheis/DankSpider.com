@@ -21,6 +21,7 @@ async function processImage(buffer, url) {
     });
   } catch (error) {
     logger.error(`Error processing image: ${error.message}`, { url });
+    fs.appendFileSync('./temp/errors.processImage.txt', `\nurl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
     return null;
   }
 }
