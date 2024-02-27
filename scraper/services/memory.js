@@ -37,108 +37,44 @@ function makeImageName(url) {
   return `${domain}_${name}`
 }
 
-
-
-
-/*
-
-4-9-Totratydrocannabivarin
-4-9-Totratydrocannabivarin
-95-Hexabydrocannabinol
-95-Hexabydrocannabinol
-9R-Henahydrocannabinol
-9R-HHC
-9S-HHC
-A-9-Tetrabdrocannabiphorol
-A-9-Tetrabrydrocannabiphorol
-A-9-Tetrabrydrocannabivarini
-A-9-Tetrabrydrocannabivarinic
-A-9-Tetrabydrocannabighorol
-A-9-Tetrabydrocannabinol
-A-9-Tetrabydrocannabiphorol
-A-9-Tetrabydrocannabivarinic
-A-9-Tetrahydrocannabino!
-A-9-Tetrahydrocannatinolic
-A-9-Tetratrydrocannabivarinic
-A-9-Tetratydrocannabiphorol
-B-9-Tetrabwdrocannabighorol
-B-9-Tetrabwdrocannabighorol
-Cannabidivaria
-Cannabidivarieic
-Cannabldiolic
-Cannablgerolic
-Cannatichromene
-Cannatidiolic
-Cannatigerol
-Cannubichromene
-Cannubidiol
-Cannubidivarinic
-Cannubidivarinne
-Canrabidiolic
-Canrabidivarin
-Canrabinolic
-Canrubidivarieic
-Canrubidivarieic
-CBDA
-CBDVA
-CBGA
-IR-Hexahydrocannabinol
-O-9-Tetrabwdrocannabivarinic
-
-Tetrabwdrocannabinel
-Tetrahydrocannabivarin
-Tetrahydrocannabivarinic
-Tetralwdrocannabinol
-THCV
-THCVA
-Totrahydrocarnabingl
-
-*/
-
 const cannabinoidSpellingMap = {
-  '-A-10-Tetrahydrocannabinol': 'S-∆-10-THC',
-  '?5-Hexatydrocarrabiacl': '9S-HHC',
   '?R-HHC': '9R-HHC',
   '∆ 9-THC': '∆-9-THC',
   '∆ 9-THCA': '∆-9-THCA',
-  '∆ 9-THCVA': '∆-9-THCVA',
+  '∆ 9-THCVA': 'THCVA',
   '∆-8-THC': '∆-8-THC',
   '∆-9 THC': '∆-9-THC',
   '∆-9 THCA': '∆-9-THCA',
   '∆-9-THC': '∆-9-THC',
   '∆-9-THCA': '∆-9-THCA',
-  '∆-9-THCV': '∆-9-THCV',
-  '∆-9-THCVA': '∆-9-THCVA',
+  '∆-9-THCV': 'THCV',
+  '∆-9-THCVA': 'THCVA',
 
   '∆9-THC': '∆-9-THC',
   '∆9-THCA': '∆-9-THCA',
-  '∆9-THCVA': '∆-9-THCVA',
+  '∆9-THCVA': 'THCVA',
   '∆8-THC': '∆-8-THC',
   '∆9-THC': '∆-9-THC',
   '∆9-THCA': '∆-9-THCA',
   '∆9-THC': '∆-9-THC',
   '∆9-THCA': '∆-9-THCA',
-  '∆9-THCV': '∆-9-THCV',
+  '∆9-THCV': 'THCV',
 
   '∆9 THC': '∆-9-THC',
   '∆9 THCA': '∆-9-THCA',
-  '∆9 THCVA': '∆-9-THCVA',
+  '∆9 THCVA': 'THCVA',
   '∆8 THC': '∆-8-THC',
   '∆9 THC': '∆-9-THC',
   '∆9 THCA': '∆-9-THCA',
   '∆9 THC': '∆-9-THC',
   '∆9 THCA': '∆-9-THCA',
-  '∆9 THCV': '∆-9-THCV',
-
-  '∆9-THCVA': '∆-9-THCVA',
+  '∆9 THCV': 'THCV',
+  '∆9-THCVA': 'THCVA',
   '$-A-10-Tetrahydrocannabinol': 'S-∆-10-THC',
-  '1,8-Cinecle': 'Eucalyptol',
-  '1.B-Cinecle': 'Eucalyptol',
   '4-8-Tetrahydrocannabinol': '∆-8-THC',
   '4-9-Tetrahydrocannabinol': '∆-9-THC',
   '4-9-Tetrahydrocannabinolic': '∆-9-THCA',
-  '4-9-Totratydrocannabivarin': '∆-9-THCV',
-  '4-9-Totratydrocannabivarin': '∆-9-THCV',
+  '4-9-Totratydrocannabivarin': 'THCV',
   '75-Hexatydrocarrabiscl': '9S-HHC',
   '75%-Henatydrocarrabingl': '9S-HHC',
   '9-S-HHC': '9S-HHC',
@@ -152,7 +88,6 @@ const cannabinoidSpellingMap = {
   '9R-Henahydrocannabinol': '9R-HHC',
   '9R-Hexahydrocannabinol': '9R-HHC',
   '9R-HHC': '9R-HHC',
-  '9R-HHC': '9R-HHC',
   '9S-Hexahydrocannabinol': '9S-HHC',
   '9S-HHC': '9S-HHC',
   '9S-HHC': '9S-HHC',
@@ -160,14 +95,14 @@ const cannabinoidSpellingMap = {
   'A-8-Tetrahydrocannabinol (A-8 THC)': '∆-8-THC',
   'A-8-Tetrahydrocannabinol': '∆-8-THC',
   'A-8-THC': '∆-8-THC',
-  'A-9-Tetrabdrocannabiphorol': '∆-9-THCP',
-  'A-9-Tetrabrydrocannabiphorol': '∆-9-THCP',
-  'A-9-Tetrabrydrocannabivarini': '∆-9-THCP',
-  'A-9-Tetrabrydrocannabivarinic': '∆-9-THCP',
+  'A-9-Tetrabdrocannabiphorol': 'THCP',
+  'A-9-Tetrabrydrocannabiphorol': 'THCP',
+  'A-9-Tetrabrydrocannabivarini': 'THCP',
+  'A-9-Tetrabrydrocannabivarinic': 'THCP',
   'A-9-Tetrabydrocannabighorol': '∆-9-THCO',
   'A-9-Tetrabydrocannabinol': '∆-9-THC',
-  'A-9-Tetrabydrocannabiphorol': '∆-9-THCP',
-  'A-9-Tetrabydrocannabivarinic': '∆-9-THCVA',
+  'A-9-Tetrabydrocannabiphorol': 'THCP',
+  'A-9-Tetrabydrocannabivarinic': 'THCVA',
   'A-9-Tetrahydrocannabino!': '∆-9-THC',
   'A-9-Tetrahydrocannabinol (A-9 THC)': '∆-9-THC',
   'A-9-Tetrahydrocannabinol Acetate (A-9-THCO)': '∆-9-THCO',
@@ -176,71 +111,59 @@ const cannabinoidSpellingMap = {
   'A-9-Tetrahydrocannabinolic Acid (THCA-A)': '∆-9-THCA',
   'A-9-Tetrahydrocannabinolic Acid': '∆-9-THCA',
   'A-9-Tetrahydrocannabinolic': '∆-9-THCA',
-  'A-9-Tetrahydrocannabiphorel': '∆-9-THCP',
-  'A-9-Tetrahydrocannabiphorol (A-9-THCP)': '∆-9-THCP',
-  'A-9-Tetrahydrocannabiphorol': '∆-9-THCP',
-  'A-9-Tetrahydrocannabivarin (A-9-THCV)': '∆-9-THCV',
-  'A-9-Tetrahydrocannabivarin': '∆-9-THCV',
-  'A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA)': '∆-9-THCVA',
-  'A-9-Tetrahydrocannabivarinic': '∆-9-THCVA',
+  'A-9-Tetrahydrocannabiphorel': 'THCP',
+  'A-9-Tetrahydrocannabiphorol (A-9-THCP)': 'THCP',
+  'A-9-Tetrahydrocannabiphorol': 'THCP',
+  'A-9-Tetrahydrocannabivarin (A-9-THCV)': 'THCV',
+  'A-9-Tetrahydrocannabivarin': 'THCV',
+  'A-9-Tetrahydrocannabivarinic Acid (A-9-THCVA)': 'THCVA',
+  'A-9-Tetrahydrocannabivarinic': 'THCVA',
   'A-9-Tetrahydrocannatinolic': '∆-9-THCO',
   'A-9-Tetrahydrocannatinolic': '∆-9-THCO',
-  'A-9-Tetratrydrocannabivarinic': '∆-9-THCVA',
-  'A-9-Tetratydrocannabiphorol': '∆-9-THCP',
-  'A-9-Tetratydrocannabiphorol': '∆-9-THCP',
+  'A-9-Tetratrydrocannabivarinic': 'THCVA',
+  'A-9-Tetratydrocannabiphorol': 'THCP',
+  'A-9-Tetratydrocannabiphorol': 'THCP',
   'A-9-THC': '∆-9-THC',
   'A-9-THCA-A': '∆-9-THCA',
   'A-9-THCA': '∆-9-THCA',
-  'A-9-THCP': '∆-9-THCP',
-  'A-9-THCV': '∆-9-THCV',
-  'A-9-THCVA': '∆-9-THCVA',
-  'A?-THCV': '∆-9-THCV',
+  'A-9-THCP': 'THCP',
+  'A-9-THCV': 'THCV',
+  'A-9-THCVA': 'THCVA',
+  'A?-THCV': 'THCV',
   'A8-THC': '∆-8-THC',
   'A9-Tetrabydrecamasinalic Ackd (THCA-R)': 'THCA-R',
   'A9-THC': '∆-9-THC',
   'A9-THCA-A': '∆-9-THCA',
   'A9-THCA': '∆-9-THCA',
   'A9-THCV': 'THCV',
-  'A9-THCVA': '∆-9-THCVA',
+  'A9-THCVA': 'THCVA',
   'A9-THCVA': 'THCVA',
   'B cBGA': 'CBGA',
   'B THCA*': '∆-9-THCA',
   'B-9-Tetrabwdrocannabighorol': '∆-9-THCO',
-  'B-9-Tetrabwdrocannabighorol': '∆-9-THCO',
-  'Camnabichromenic': 'CBC',
-  'Camnabigeralic': 'CBG',
-  'Cannabichabe': 'CBC',
+  'Camnabichromenic': 'CBCA',
   'Cannabichearinic': 'CBCA',
   'Cannabichonvene': 'CBC',
-  'Cannabichromene (CBC)': 'CBC',
   'Cannabichromene': 'CBC',
-  'Cannabichromenic Acid': 'CBC',
   'Cannabichromenic': 'CBCA',
   'Cannabicyclol (CBL)': 'CBL',
   'Cannabidiol (CBD)': 'CBD',
-  'Cannabidiol': 'CBD',
-  'Cannabidiolic Acid (CBDA)': 'CBDA',
-  'Cannabidiolic Acid': 'CBD',
-  'Cannabidiolic': 'CBDA',
-  'Cannabidivaria': 'CBDVA',
+  'Cannabidiolic Acid': 'CBDA',
+  'Cannabidivaria': 'CBDV',
   'Cannabidivarieic': 'CBDVA',
   'Cannabidivarin (CBDV)': 'CBDV',
-  'Cannabidivarin': 'CBDV',
   'Cannabidivarinic Acid (CBDVA)': 'CBDVA',
-  'Cannabidivarinic Acid': '∆-9-THCV',
-  'Cannabidivarinic': 'CBDVA',
+  'Cannabidivarinic Acid': 'THCV',
   'Cannabigeral': 'CBG',
   'Cannabigerdl': 'CBG',
   'Cannabigerol (CBG)': 'CBG',
   'cannabigerol': 'CBG',
-  'Cannabigerol': 'CBG',
-  'Cannabigerolic Acid (CBGA)': 'CBGA',
   'Cannabigerolic Acid': 'CBGA',
   'Cannabigerolic': 'CBGA',
   'Cannabinol (CBN)': 'CBN',
   'Cannabinol': 'CBN',
-  'Cannabinolic Acid (CBNA)': 'CBNA',
   'Cannabinolic': 'CBNA',
+  'Cannabinolic Acid (CBNA)': 'CBNA',
   'Cannabldiolic': 'CBDA',
   'Cannablgerolic': 'CBG',
   'Cannatichromene': 'CBC',
@@ -255,7 +178,6 @@ const cannabinoidSpellingMap = {
   'Canrabidivarin': 'CBDVA',
   'Canrabinolic': 'CBN',
   'Canrubidivarieic': 'CBDVA',
-  'Canrubidivarieic': 'CBDVA',
   'Canrudschromenic': 'CBC',
   'Canrudsdial': 'CBD',
   'Carnabigerol': 'CBG',
@@ -263,68 +185,40 @@ const cannabinoidSpellingMap = {
   'Carrubirolic': 'CBG',
   'Carrubsrolic': 'CBG',
   'Carrubyrolic': 'CBG',
-  'Carvubschasn': 'CBC',
-  'Carvubschrorrenic': 'CBC',
-  'Carvubsgerolic': 'CBG',
-  'Carvubzdizl(CHDY': 'CBD',
-  'Carvudschromenk': 'CBC',
   'CBC': 'CBC',
   'CBCA': 'CBCA',
   'CBCV': 'CBCV',
   'CBD': 'CBD',
   'CBD*': 'CBD',
-  'CBD*': 'CBD',
-  'CBDA': 'CBDA',
   'CBDA': 'CBDA',
   'CBDA*': 'CBDA',
   'CBDA*®': 'CBDA',
   'CBDV': 'CBDV',
   'CBDVA': 'CBDVA',
-  'CBDVA': 'CBDVA',
   'CBG': 'CBG',
   'CBGA': 'CBGA',
-  'CBGA': 'CBGA',
   'CBL': 'CBL',
-  'CBLA': 'CBL',
+  'CBLA': 'CBLA',
   'CBN': 'CBN',
   'CBNA': 'CBNA',
   'CBT': 'CBT',
-  'Conmaby': 'CBL',
   'd8-THC': '∆-8-THC',
   'd9-THC*': '∆-9-THC',
   'Delta 8-Tetrahydrocannabinol': '∆-8-THC',
   'Delta 9-Tetrahydrocannabinol': '∆-9-THC',
   'Delta 9-Tetrahydrocannabinolic': '∆-9-THCA',
-  'Delta 9-THCVA': '∆-9-THCVA',
+  'Delta 9-THCVA': 'THCVA',
   'Delta-9-THC': '∆-9-THC',
-  'FR-He': '9R-HHC',
-  'FR-Hewbrpdr': '9R-HHC',
-  'FR-Hewtredr': '9R-HHC',
-  'FR-Hexatrd': '9R-HHC',
-  'FR-Hexdrd': '9R-HHC',
-  'IC=THCa*': '∆-9 THCA',
-  'IR-Hexahydrocannabinol': '9R-HHC',
-  'Limcrene': 'Limonene',
-  'Limonens': 'Limonene',
-  'Linaloo!': 'Linalool',
-  'Linalood': 'Linalool',
-  'O-9-Tetrabwdrocannabivarinic': '∆-9-THCVA',
-  'o-Bisabolol': 'Bisabolol',
-  'o-Pinene': 'Pinene',
-  'o-Terpinene': 'Terpinene',
+  'O-9-Tetrabwdrocannabivarinic': 'THCVA',
   'R-A-10-Tetrahydrocannabinol (R-A-10-THC)': 'R-∆-10-THC',
   'R-A-10-Tetrahydrocannabinol': 'R-∆-10-THC',
   'R-Delta 10-THC': 'R-∆-10-THC',
   'S-A-10-Tetrahydrocannabinol (S-A-10-THC)': 'S-∆-10-THC',
   'S-A-10-Tetrahydrocannabinol': 'S-∆-10-THC',
   'S-Delta 10-THC': 'S-∆-10-THC',
-  'Tetrabwdrocannabinel': '∆-9-THC',
-  'Tetrahwdrocannabinol:': '∆-9-THC',
-  'Tetrahydrocannabinol': '∆-9-THC',
-  'Tetrahydrocannabivarin (THCV)': 'THCV',
-  'Tetrahydrocannabivarin': '∆-9-THCV',
-  'Tetrahydrocannabivarinic Acid': '∆-9-THCVA',
-  'Tetrahydrocannabivarinic': '∆-9-THCVA',
+  'Tetrahydrocannabivarin': 'THCV',
+  'Tetrahydrocannabivarinic Acid': 'THCVA',
+  'Tetrahydrocannabivarinic': 'THCVA',
   'Tetralwdrocannabinol': '∆-9-THC',
   'Tetratwarocamanng': '∆-9-THC',
   'THC': '∆-9-THC',
@@ -332,19 +226,16 @@ const cannabinoidSpellingMap = {
   'THCA*': '∆-9-THCA',
   'THCA*®': '∆-9-THCA',
   'THCO': '∆-9-THCO',
-  'THCP': '∆-9-THCP',
-  'THCV': '∆-9-THCV',
-  'THCV': '∆-9-THCV',
-  'THCVa': '∆-9-THCVA',
-  'THCVA': '∆-9-THCVA',
-  'Totrahydrocarnabingl': '9S-HHC',
-
+  'THCP': 'THCP',
+  'THCV': 'THCV',
+  'THCV': 'THCV',
+  'THCVa': 'THCVA',
+  'THCVA': 'THCVA'
 }
 
 const cannabinoidNameList = Array.from(Object.values(cannabinoidSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
 
 const terpeneSpellingMap = {
-  'a-Pinens': 'Pinene',
   '-Bisabolol': 'Bisabolol',
   '«-Bisabolol': 'Bisabolol',
   '«-Pinene': 'Pinene',
@@ -355,12 +246,42 @@ const terpeneSpellingMap = {
   'a-Finene': 'Pinene',
   'a-Humulene': 'Humulene',
   'a-Pinene': 'Pinene',
+  'a-Pinene': 'Pinene',
+  'a-Pinens': 'Pinene',
   'a-Terpinene': 'Terpinene',
   'B-Caryophyliene': 'Caryophyllene',
   'B-Caryophyllene': 'Caryophyllene',
   'B-Myrcene': 'Myrcene',
-  'Mentho!': 'Menthol',
+  'Bisabolol': 'Bisabolol',
+  'Bormwol': 'Borneol',
+  'Bornel': 'Borneol',
+  'Borneol': 'Borneol',
+  'Borreol': 'Borneol',
+  'Borrmeol': 'Borneol',
+  'Bsabolol': 'Bisabolol',
+  'Camphene': 'Camphene',
+  'Carene': 'Carene',
+  'Caryophyliene': 'Caryophyllene',
+  'CaryophylleneOxide': 'Caryophyllene Oxide',
+  'Cinecle': 'Eucalyptol',
+  'Cineole': 'Eucalyptol',
+  'Citral': 'Citral',
+  'Dihydrocarveol': 'Dihydrocarveol',
+  'Fenchone': 'Fenchone',
+  'Ferxhone': 'Fenchone',
+  'Finene': 'Pinene',
+  'Humulene': 'Humulene',
+  'Limonene': 'Limonene',
+  'Limonenes': 'Limonene',
+  'Linalool': 'Linalool',
+  'Menthol': 'Menthol',
+  'Myrcene': 'Myrcene',
+  'Nerolidol': 'Nerolidol',
   'o-Humulene': 'Humulene',
+  'Ocimene': 'Ocimene',
+  'Pinene': 'Pinene',
+  'Pulegone': 'Pulegone',
+  'Terpinolene': 'Terpinolene',
   'y-Terpinene': 'Terpinolene',
   'α-Bisabolol': 'Bisabolol',
   'α-Humulene': 'Humulene',
@@ -369,28 +290,6 @@ const terpeneSpellingMap = {
   'β-Caryophyllene': 'Caryophyllene',
   'β-Myrcene': 'Myrcene',
   'γ-Terpinene': 'Terpinolene',
-  'Bisabolol': 'Bisabolol',
-  'Bormwol': 'Borneol',
-  'Bornel': 'Borneol',
-  'Borreol': 'Borneol',
-  'Borneol': 'Borneol',
-  'Borrmeol': 'Borneol',
-  'Camphene': 'Camphene',
-  'Carene': 'Carene',
-  'Caryophyllene': 'Caryophyllene',
-  'CaryophylleneOxide': 'Caryophyllene Oxide',
-  'Citral': 'Citral',
-  'Dihydrocarveol': 'Dihydrocarveol',
-  'Fenchone': 'Fenchone',
-  'Ferxhone': 'Fenchone',
-  'Limonene': 'Limonene',
-  'Limonenes': 'Limonene',
-  'Linalool': 'Linalool',
-  'Menthol': 'Menthol',
-  'Nerolidol': 'Nerolidol',
-  'Ocimene': 'Ocimene',
-  'Pulegone': 'Pulegone',
-  'Terpinolene': 'Terpinolene'
 };
 
 const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);

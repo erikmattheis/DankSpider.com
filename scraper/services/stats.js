@@ -1,5 +1,4 @@
-const { getAllProducts } = require('./firebase.js');
-const { saveStats } = require('./firebase.js');
+const { getAllProducts, saveStats } = require('./firebase.js');
 
 async function makeStats() {
   const products = await getAllProducts('products');

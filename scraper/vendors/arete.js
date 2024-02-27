@@ -101,7 +101,7 @@ async function parseSingleProduct(html, url) {
     }
   }
 
-  const properties = { image: productImages[0], variants, cannabinoids, terpenes, ladstModified }
+  const properties = { image: productImages[0], variants, cannabinoids, terpenes, lastModified }
   return properties
 }
 
@@ -129,7 +129,7 @@ async function getProducts(feedUrl) {
     const $ = cheerio.load(result.data)
     fs.writeFileSync('./temp/vendors/arete.html', result.data)
 
-    const items = $('.nm-shop-loop-product-wrap .woocommerce-LoopProduct-link');
+    const items = $('.nm-shop-loop-product-wrap');
 
     const products = []
     for (let i = 0; i < items.length; i++) {
@@ -141,6 +141,7 @@ async function getProducts(feedUrl) {
       const el = items[i]
 
       let title = $(el).find('.nm-shop-loop-title-link').text();
+      console.log('title', title)
       title = normalizeProductTitle(title.trim());
       if (stringContainsNonFlowerProduct(title)) {
         continue

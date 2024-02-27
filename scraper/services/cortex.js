@@ -48,25 +48,36 @@ function fixMissedPeriod(str) {
   return string;
 }
 
+const unknowns = [];
+
 function lineToChemicalObject(line, vendor) {
+
   if (!line?.replace) {
-    fs.writeFileSync('./temp/unknownlines1.txt', `${vendor} ${line}\n`)
-    return ['Unknown1', 0]
+    fs.writeFileSync('./temp/not-string.txt', `${vendor} ${line}\n`)
+    return { name: 'Unknown', pct: 0, line }
   }
 
   let cleanedLine = line.replace(/\s+/g, ' ').trim();
+
+  const completeLine = cleanedLine;
 
   cleanedLine = removeCharactersAfterLastDigit(cleanedLine);
 
   const recognizedString = extractAnyChemical(line, vendor);
 
   if (!recognizedString) {
-    return { name: '2', pct: 0, line }
+    if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
+      fs.appendFileSync('./temp/unknownlines1.txt', `${vendor} | ${completeLine}\n`)
+    }
+    return { name: 'Unknown', pct: 0, line }
   }
 
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
     console.log('cleanedLine:', recognizedString, '..', cleanedLine)
+  }
+  else if (linePasses(cleanedLine)) {
+    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} | ${completeLine}\n`)
   }
 
   const name = recognizedString;
@@ -183,7 +194,6 @@ function organizeAssays(assays) {
   }
 
   for (const assay of assays) {
-    console.log('another')
     if (cannabinoidNameList.includes(assay.name)) {
       console.log('cannabinoids name:', assay.name)
       organizedAssays.cannabinoids.push(assay)

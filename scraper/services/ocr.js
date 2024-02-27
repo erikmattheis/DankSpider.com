@@ -1,6 +1,5 @@
 
 const fs = require('fs');
-const gm = require('gm').subClass({ imageMagick: true });
 
 const { createWorker, OEM, PSM } = require('tesseract.js');
 
@@ -16,7 +15,7 @@ async function initWorker() {
   try {
     await worker.setParameters({
       tessedit_pageseg_mode: PSM.AUTO,
-      tessedit_char_whitelist: 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω',
+      tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
     });
   } catch (error) {
     console.log('Error initializing Tesseract worker:', error);

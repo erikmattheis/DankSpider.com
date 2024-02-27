@@ -857,3 +857,10 @@ Total TerpenesWithValues 1262 5.09
   Total CannabinoidsWithValues 94 5.88
   Total Terpenes 9 0.56
   Total TerpenesWithValues 9 0.56
+
+  Total Products 16
+Total Cannabinoids 33 2.06
+Total CannabinoidsWithValues 33 2.06
+Total Terpenes 0 0.00
+Total TerpenesWithValues 0 0.00
+

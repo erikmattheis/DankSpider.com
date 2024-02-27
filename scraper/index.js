@@ -51,7 +51,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   console.log(red)
 
-
   const updatedAt = new Date().toISOString()
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
@@ -86,7 +85,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  // await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
   //await copyProducts()
 
@@ -133,7 +132,7 @@ async function run(batchId, vendor, vendorList) {
   // { name: 'Flow', service: flow },
  // { name: 'Enlighten', service: enlighten
 */
-const batchId = 'd95'
+const batchId = 'd97'
 
 
 run(batchId, '', [
