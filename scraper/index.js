@@ -36,10 +36,12 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
+      products[i].cannabinoids = products[i].cannabinoids.filter(c => c.pct > 0)
       products[i].numWithCannabinoidAssays += 1
     }
 
     if (products[i].terpenes && products[i].terpenes.length > 0) {
+      products[i].terpenes = products[i].terpenes.filter(t => t.pct > 0)
       products[i].numWithTerpeneAssays += 1
     }
 
@@ -84,13 +86,13 @@ async function run(batchId, vendor, vendorList) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList)
+  await scrapers.run(batchId, vendor, vendorList)
 
-  await copyProducts()
+  //await copyProducts()
   //await deleteNonFlowerProducts()
   //await normalizeVariants()
-  await recalculateChemicalValues()
-  await makeProductsFile()
+  //await recalculateChemicalValues()
+  //await makeProductsFile()
 
 
 
@@ -137,7 +139,7 @@ const batchId = 'e88'
 
 const numProductsToSave = 7
 
-run(batchId, 'WNC', [
+run(batchId, '', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },

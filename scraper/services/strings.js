@@ -34,6 +34,9 @@ function normalizeVariantName(nameStr) {
   if (name === '1oz') {
     return '28 g'
   }
+  if (name === '28g (small/minis)') {
+    return '28 g smalls'
+  }
   if (name === 'Sugar leaf trim - 28 grams') {
     return '28 g'
   }
@@ -83,6 +86,12 @@ function normalizeVariantName(nameStr) {
     return '14 g'
   }
   if (name === 'smalls 14 grams') {
+    return '14 g'
+  }
+  if (name === '14 grams') {
+    return '14 g smalls'
+  }
+  if (name === '14g (small/minis)') {
     return '14 g'
   }
   if (name === '14-g') {
