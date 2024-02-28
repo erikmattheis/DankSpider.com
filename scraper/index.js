@@ -27,7 +27,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   const red = []
 
   for (let i = 0; i < products.length; i++) {
-    console.log('vendor', products[i].vendor)
     if (!red.includes(products[i]?.vendor)) {
       red[vendor] = {
         numWithCannabinoidAssays: 0,
@@ -134,8 +133,9 @@ async function run(batchId, vendor, vendorList) {
   // { name: 'Flow', service: flow },
  // { name: 'Enlighten', service: enlighten
 */
-const batchId = 'e87'
+const batchId = 'e88'
 
+const numProductsToSave = 7
 
 run(batchId, 'WNC', [
   { name: 'Arete', service: arete },
@@ -147,4 +147,4 @@ run(batchId, 'WNC', [
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
-]);
+], numProductsToSave);

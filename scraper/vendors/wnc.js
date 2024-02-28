@@ -48,7 +48,6 @@ async function getProduct(url) {
 
     $('div.form-field[data-product-attribute="set-rectangle"] label.form-option').each((_, element) => {
       let variantValue = $(element).attr('for').split('_').pop();
-      console.log('ariantValue', variantValue);
       variantValue = normalizeVariantName(variantValue);
       if (availableVariantValues.includes(parseInt(variantValue))) {
         variants.push($(element).text().trim());
@@ -100,6 +99,7 @@ async function getProduct(url) {
       }
 
       const result = transcribeAssay(raw, image, vendor);
+      stringContainsNonFlowerProduct.log('transcribeAssay result', Object.keys(result), `can len: ${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
 
       if (result.cannabinoids.length) {
         cannabinoids = result.cannabinoids;
@@ -135,7 +135,7 @@ async function getProduct(url) {
 async function scrapePage(url, currentPage, productLinks) {
 
   const response = await axios.get(url);
-  fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
+  fs.writeFileSync(`./ temp / vendors / wnc.html`, response.data);
   const $ = cheerio.load(response.data);
 
   const cards = $('.card');
@@ -217,8 +217,9 @@ async function getWNCProductsInfo(productLinks) {
   return products;
 }
 
-async function getAvailableLeafProducts(id, vendor) {
-  console.log(`getting ${vendor} products`)
+async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
+  console.log(`getting up to ${numProductsToSave} ${vendor} products`)
+
   batchId = id;
 
   const productLinks = await scrapePage(startUrl, currentPage, []);

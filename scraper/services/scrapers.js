@@ -16,7 +16,7 @@ const fs = require("fs");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
-async function run(batchId, v, vendorList) {
+async function run(batchId, v, vendorList, numProductsToSave = 1000) {
 
   for (const vendor of vendorList) {
 
@@ -27,7 +27,7 @@ async function run(batchId, v, vendorList) {
         console.log(`Getting products for ${vendor.name}`);
 
         try {
-          const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name);
+          const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name, numProductsToSave);
           console.log(`Saving ${products?.length} products for ${vendor.name}`);
           await saveProducts(products, batchId);
         } catch (error) {

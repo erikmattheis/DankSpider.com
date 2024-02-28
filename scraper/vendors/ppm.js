@@ -156,8 +156,9 @@ async function getProducts() {
 
 }
 
-async function getAvailableLeafProducts(id, vendor) {
-  console.log(`getting ${vendor} products`)
+async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
+  console.log(`getting up to ${numProductsToSave} ${vendor} products`)
+
   batchId = id;
 
   //await recordAssays();

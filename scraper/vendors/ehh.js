@@ -160,8 +160,9 @@ async function getEHHProductsInfo(productLinks, vendor) {
   return products;
 }
 
-async function getAvailableLeafProducts(id, vendor) {
-  console.log(`getting ${vendor} products`)
+async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
+  console.log(`getting up to ${numProductsToSave} ${vendor} products`)
+
   batchId = id;
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
