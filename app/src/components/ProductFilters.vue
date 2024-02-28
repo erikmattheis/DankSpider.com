@@ -118,16 +118,15 @@
     -->
       <div class="container header">
 
-        <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene">
-          <option selected="true" disabled="true">Sort by Terpene</option>
+        <label class="sort-label">Terpenes</label>
+        <select class="sort-by shadowy-button selected" @change="sortProductsByTerpene" >
           <option v-for="chemical in store.filteredProductsTerpenes">{{ chemical }}</option>
         </select>
-
+        <label class="sort-label">Cannabinoids</label>
         <select class="sort-by shadowy-button selected" @change="sortProductsByCannabinoid">
           <option selected="true" disabled="true">Sort by Cannabinoid</option>
           <option v-for="chemical in store.filteredProductsCannabinoids">{{ chemical }}</option>
         </select>
-
       </div>
     </div>
   </form>
@@ -325,6 +324,10 @@ h3 {
   align-self: flex-start;
 }
 
+.sort-label {
+  margin-right: 4px;
+}
+
 .selected-items {
   flex: 1;
   display: flex;
@@ -422,7 +425,7 @@ select.shadowy-button.selected,
 ul li.shadowy-button.selected,
 ul li.selected {
   color: #057503;
-  font-weight: 600;
+  font-weight: 700;
   background-color: #fff;
 }
 

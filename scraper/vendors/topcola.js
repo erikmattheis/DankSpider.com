@@ -27,7 +27,6 @@ const productLinks = [];
 let currentPage = 1;
 let batchId;
 
-let numProductsToSave = 333;
 let numSavedProducts = 0;
 
 async function getAvailableLeafProducts(id, vendor) {

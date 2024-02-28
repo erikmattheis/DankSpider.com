@@ -204,6 +204,8 @@ function organizeAssays(assays) {
     }
   }
 
+  console.log(`Returning ${organizedAssays.cannabinoids.length} cannabinoids and ${organizedAssays.terpenes.length} terpenes`)
+
   return organizedAssays
 }
 

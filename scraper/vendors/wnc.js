@@ -10,7 +10,6 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
 
-let numProductsToSave = 6;
 
 const vendor = 'WNC';
 let numSavedProducts = 0;
@@ -36,11 +35,11 @@ async function getProduct(url) {
 
     const variants = [];
 
+    const title = normalizeProductTitle($('h1.productView-title').text().trim());
+
     if (stringContainsNonFlowerProduct(title)) {
       return null;
     }
-
-    const title = normalizeProductTitle($('h1.productView-title').text().trim());
 
     const bcDataScript = $('script:contains("var BCData")').html();
     const bcData = JSON.parse(bcDataScript.match(/var BCData = ({.*});/)[1]);
