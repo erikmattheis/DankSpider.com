@@ -178,8 +178,6 @@ const cannabinoidSpellingMap = {
   'A-8-Tetrahydrocannabinol': '∆-8-THC',
   'A-8-Tetrahydrocannabinol (A-8 THC)': '∆-8-THC',
   '9S-HHC': '9S-HHC',
-  '9S-HHC': '9S-HHC',
-  '9S-HHC': '9S-HHC',
   '9S-Hexahydrocannabinol': '9S-HHC',
   '9R-HHC': '9R-HHC',
   '9R-Hexahydrocannabinol': '9R-HHC',

@@ -24,7 +24,6 @@ async function run(batchId, v, vendorList, numProductsToSave = 1000) {
 
     if (!v || v === vendor.name) {
       return (async () => {
-        console.log(`Getting products for ${vendor.name}`);
 
         try {
           const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name, numProductsToSave);

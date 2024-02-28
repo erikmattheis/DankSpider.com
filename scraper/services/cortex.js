@@ -40,7 +40,10 @@ function removeCharactersAfterLastDigit(str) {
 }
 
 function fixMissedPeriod(str) {
-  const was = str;
+  if (!str || !str.replace || str?.toString().includes('.')) {
+    return str;
+  }
+
   let string = str.replace('.', '')
   if (string.length > 3) {
     string = string.slice(0, string.length - 3) + '.' + string.slice(string.length - 3)
@@ -65,8 +68,11 @@ function lineToChemicalObject(line, vendor) {
 
   const recognizedString = extractAnyChemical(cleanedLine, vendor);
 
+  console.log('recognizedString:', recognizedString, '..', cleanedLine);
+
   if (!recognizedString) {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
+      unknowns.push(completeLine);
       fs.appendFileSync('./temp/unknownlines1.txt', `${vendor} | ${completeLine}\n`)
     }
     return { name: 'Unknown', pct: 0, line }
@@ -74,10 +80,10 @@ function lineToChemicalObject(line, vendor) {
 
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
-    console.log('cleanedLine:', recognizedString, '..', cleanedLine)
+    console.log('cleanedLine passes:', recognizedString, '..', cleanedLine)
   }
   else if (linePasses(cleanedLine)) {
-    console.log('cleanedLine:', recognizedString, '..', completeLine)
+    console.log('cleanedLine not:', recognizedString, '..', completeLine)
     fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString} .. ${completeLine}\n`)
   }
 
@@ -87,7 +93,7 @@ function lineToChemicalObject(line, vendor) {
 
   parts = parts.map((part, i) => { if (!isNaN(part)) { return fixMissedPeriod(part) } return part })
 
-  parts = parts.filter(part => !isCalibration(part));
+  // parts = parts.filter(part => !isCalibration(part));
 
   const mgg = getMgg(parts, line);
 
@@ -101,9 +107,6 @@ function isCalibration(part) {
 }
 
 function getMgg(parts, line) {
-  if (parts.length < 3) {
-    return 0
-  }
 
   const importantParts = parts.filter(part => !isCalibration(part));
 
@@ -111,18 +114,15 @@ function getMgg(parts, line) {
     return 0
   }
 
-  let mgg = importantParts[importantParts.length - 1]
+  const last = fixMissedPeriod(parseFloat(importantParts[importantParts.length - 1]))
 
-  mgg = parseFloat(mgg);
+  const secondToLast = fixMissedPeriod(parseFloat(importantParts[importantParts.length - 2]))
+
+  let mgg = parseFloat(last) > parseFloat(secondToLast) ? parseFloat(secondToLast) : parseFloat(last);
+
   if (isNaN(mgg)) {
-    fs.appendFileSync('./temp/.txt', `No: ${mgg} | ${line}\n`)
+    fs.appendFileSync('./temp/not-number.txt', `No: ${mgg} | ${line}\n`)
     mgg = 0;
-  }
-
-  let [whole, fraction = ''] = mgg.toString().split('.');
-  if (fraction.length < 3) {
-    fraction = fraction.padEnd(3, '0');
-    mgg = `${whole}.${fraction}`;
   }
 
   return mgg;

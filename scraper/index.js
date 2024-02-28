@@ -84,12 +84,12 @@ async function run(batchId, vendor, vendorList) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  await scrapers.run(batchId, vendor, vendorList)
+  //await scrapers.run(batchId, vendor, vendorList)
 
-  //await copyProducts()
+  await copyProducts()
   //await deleteNonFlowerProducts()
   //await normalizeVariants()
-  // await recalculateChemicalValues()
+  await recalculateChemicalValues()
   await makeProductsFile()
 
 

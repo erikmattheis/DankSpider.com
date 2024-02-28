@@ -316,7 +316,7 @@ async function recalculateChemicalValues() {
 
     });
     if (operationCount > 0) {
-      await batch.commit();
+      // await batch.commit();
     }
   } catch (error) {
     console.error('Error in fixValues:', error);
