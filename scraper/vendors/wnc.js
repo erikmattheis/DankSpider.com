@@ -100,7 +100,7 @@ async function getProduct(url) {
       }
 
       const result = transcribeAssay(raw, image, vendor);
-      stringContainsNonFlowerProduct.log('transcribeAssay result', Object.keys(result), `can len: ${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
+      console.log('transcribeAssay result', Object.keys(result), `can len: ${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
 
       if (result.cannabinoids.length) {
         cannabinoids = result.cannabinoids;
@@ -124,7 +124,7 @@ async function getProduct(url) {
       vendor,
     }
 
-    await saveProducts([product], batchId); s
+    await saveProducts([product], batchId);
 
     numSavedProducts++;
     return product;
@@ -135,10 +135,10 @@ async function getProduct(url) {
   }
 }
 
-async function scrapePage(url, currentPage, productLinks) {
+async function scrapePage(url, currentPage, productLinks, numProductsToSave) {
 
   const response = await axios.get(url);
-  fs.writeFileSync(`./ temp / vendors / wnc.html`, response.data);
+  fs.writeFileSync(`./temp/vendors/wnc.html`, response.data);
   const $ = cheerio.load(response.data);
 
   const cards = $('.card');
@@ -191,7 +191,7 @@ function isDesiredProduct(productTitle) {
   );
 }
 
-async function getWNCProductsInfo(productLinks) {
+async function getWNCProductsInfo(productLinks, numProductsToSave) {
 
   const products = [];
   for await (const productLink of productLinks) {
@@ -225,16 +225,16 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   batchId = id;
 
-  const productLinks = await scrapePage(startUrl, currentPage, []);
+  const productLinks = await scrapePage(startUrl, currentPage, [], numProductsToSave);
 
-  const products = await getWNCProductsInfo(productLinks);
+  const products = await getWNCProductsInfo(productLinks, numProductsToSave);
 
   return products;
 
 }
 
 if (require.main === module) {
-  logger.log({
+  console.log({
     level: 'info',
     message: `This script is being executed directly by Node.js`
   });

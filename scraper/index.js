@@ -20,6 +20,23 @@ const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
 
+
+const batchId = 'ecc87'
+
+const numProductsToSave = 2
+
+run(batchId, 'WNC', [
+  { name: 'Arete', service: arete },
+  { name: 'drGanja', service: drGanja },
+  { name: 'WNC', service: wnc },
+  { name: 'Preston', service: preston },
+  { name: 'TopCola', service: topcola },
+  { name: 'EHH', service: ehh },
+  { name: 'HCH', service: hch },
+  { name: 'HCF', service: hcf },
+  { name: 'PPM', service: ppm },
+], numProductsToSave);
+
 async function makeProductsFile(vendor, limit, useDevCollection) {
 
   let products = await getAllProducts()
@@ -75,7 +92,7 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1);
 });
 
-async function run(batchId, vendor, vendorList) {
+async function run(batchId, vendor, vendorList, numProductsToSave) {
   console.log('run')
   const timer = performance.now();
 
@@ -84,7 +101,7 @@ async function run(batchId, vendor, vendorList) {
 
   //await showBatch()
 
-  await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
   await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
@@ -135,18 +152,3 @@ async function run(batchId, vendor, vendorList) {
   // { name: 'Flow', service: flow },
  // { name: 'Enlighten', service: enlighten
 */
-const batchId = 'ecc87'
-
-const numProductsToSave = 2
-
-run(batchId, '', [
-  { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
-  { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
-  { name: 'EHH', service: ehh },
-  { name: 'HCH', service: hch },
-  { name: 'HCF', service: hcf },
-  { name: 'PPM', service: ppm },
-], numProductsToSave);

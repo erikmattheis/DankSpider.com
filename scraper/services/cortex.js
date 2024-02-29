@@ -3,6 +3,7 @@ const { cannabinoidNameList, terpeneNameList, cannabinoidSpellingMap, terpeneSpe
 const { isValidURI } = require('./strings.js')
 const { parse } = require('path')
 
+
 function transcribeAssay(str, url, vendor) {
 
   if (!str?.split) {
@@ -68,8 +69,6 @@ function lineToChemicalObject(line, vendor) {
 
   const recognizedString = extractAnyChemical(cleanedLine, vendor);
 
-  console.log('recognizedString:', recognizedString, '..', cleanedLine);
-
   if (!recognizedString) {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
       unknowns.push(completeLine);
@@ -80,10 +79,8 @@ function lineToChemicalObject(line, vendor) {
 
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
-    console.log('cleanedLine passes:', recognizedString, '..', cleanedLine)
   }
   else if (linePasses(cleanedLine)) {
-    console.log('cleanedLine not:', recognizedString, '..', completeLine)
     fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString} .. ${completeLine}\n`)
   }
 
@@ -128,7 +125,6 @@ function getMgg(parts, line) {
   return mgg;
 }
 
-
 const lines = new Set();
 
 function linePasses(line) {
@@ -154,8 +150,6 @@ function recordUnknown(str, ln, vendor) {
     fs.appendFileSync('./temp/unknownlines3.txt', `${vendor} | ${str} | ${ln}\n`)
   }
 }
-
-// recognizeString('THCA 4 4 v4 4')
 
 function recognizeString(line) {
 
@@ -196,10 +190,8 @@ function organizeAssays(assays) {
 
   for (const assay of assays) {
     if (cannabinoidNameList.includes(assay.name)) {
-      console.log('cannabinoids name:', assay.name)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
-      console.log('terpenes name:', assay.name)
       organizedAssays.terpenes.push(assay)
     }
   }

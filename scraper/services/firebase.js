@@ -169,10 +169,8 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
-
-
 async function saveProducts(products, batchId = '000') {
+
   console.log('products', batchId)
   if (!products || !products.length) {
     return;

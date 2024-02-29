@@ -16,7 +16,6 @@ const { saveProducts } = require("../services/firebase.js");
 
 const vendor = 'Arete'
 
-const numProductsToSave = 333;
 let numSavedProducts = 0;
 
 let count = 0;

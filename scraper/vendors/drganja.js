@@ -34,7 +34,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   batchId = id;
 
-  const products = await getProducts();
+  const products = await getProducts(numProductsToSave);
 
   const results = await addDetails(products);
 
@@ -43,6 +43,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 }
 
 async function getProducts() {
+
   const response = await axios.get(atomFeedUrl);
   fs.writeFileSync('./temp/vendors/drganja.html', response.data);
 
@@ -66,9 +67,10 @@ async function getProducts() {
   return products;
 }
 
-async function addDetails(products) {
+async function addDetails(products, batchId, vendor, numProductsToSave = 1000) {
   const result = [];
-  for (const product of products) {
+  for await (const product of products) {
+
     if (numSavedProducts >= numProductsToSave) {
       break;
     }
@@ -131,7 +133,11 @@ async function addDrGanjaAssays(product, $) {
 
   }
 
-  return { ...product, cannabinoids, terpenes };
+  product = { ...product, cannabinoids, terpenes };
+
+  saveProducts([product], batchId);
+
+  return product;
 }
 
 module.exports = {
