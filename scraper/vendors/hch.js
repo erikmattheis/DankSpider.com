@@ -6,7 +6,7 @@ const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const { terpeneNameList, cannabinoidNameList } = require('../services/memory');
 const logger = require('../services/logger.js');
-const { saveAssays } = require('../services/firebase.js');
+const { saveAssays, saveProducts } = require('../services/firebase.js');
 const { readPDFs } = require('../services/pdf.js');
 const { readImage } = require('../services/image.js');
 const vendor = 'HCH';
@@ -244,6 +244,8 @@ async function getProducts(productLinks) {
     if (product.variants.length > 0) {
 
       product.variants = product.variants.map((variant) => normalizeVariantName(variant));
+
+      await saveProducts([product], batchId);
 
       products.push(product);
 

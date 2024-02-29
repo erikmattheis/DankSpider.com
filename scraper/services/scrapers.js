@@ -20,7 +20,7 @@ async function run(batchId, v, vendorList, numProductsToSave = 1000) {
 
   for (const vendor of vendorList) {
 
-    console.log(`Getting products for ${v}`);
+    console.log(`Getting products for ${vendor.name}`);
 
     if (!v || v === vendor.name) {
       return (async () => {
@@ -28,7 +28,7 @@ async function run(batchId, v, vendorList, numProductsToSave = 1000) {
         try {
           const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name, numProductsToSave);
           console.log(`Saving ${products?.length} products for ${vendor.name}`);
-          await saveProducts(products, batchId);
+          //await saveProducts(products, batchId);
         } catch (error) {
           console.error(`Error processing ${vendor.name}: ${error}`);
         }

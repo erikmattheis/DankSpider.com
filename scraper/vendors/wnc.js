@@ -9,6 +9,7 @@ const { readImage } = require('../services/image.js');
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 
 const logger = require('../services/logger.js');
+const { saveProducts } = require('../services/firebase.js');
 
 
 const vendor = 'WNC';
@@ -123,6 +124,8 @@ async function getProduct(url) {
       vendor,
     }
 
+    await saveProducts([product], batchId); s
+
     numSavedProducts++;
     return product;
   }
@@ -235,7 +238,7 @@ if (require.main === module) {
     level: 'info',
     message: `This script is being executed directly by Node.js`
   });
-  getAvailableLeafProducts(batchId, vendor);
+  getAvailableLeafProducts(batchId, vendor, numProductsToSave);
 }
 
 module.exports = {

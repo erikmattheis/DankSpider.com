@@ -15,6 +15,7 @@ const logger = require('../services/logger.js');
 
 
 const { writeFileSync } = require('fs');
+const { saveProducts } = require('../services/firebase.js');
 
 const products = [];
 let productTitle
@@ -104,7 +105,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
           }
         }
 
-        if (productTitle && productUrl && productImage) {
+        if (productTitle && productUrl) {
 
           const product = {
             title: productTitle,
@@ -117,6 +118,8 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
           };
 
           numSavedProducts++;
+
+          await saveProducts([product], batchId);
 
           products.push(product);
 

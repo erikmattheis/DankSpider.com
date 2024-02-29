@@ -1,3 +1,4 @@
+const { saveProducts } = require('../services/firebase')
 const axios = require('../services/rateLimitedAxios')
 const strings = require('../services/strings')
 
@@ -25,6 +26,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
       vendor: 'Enlighten'
     }
 
+    await saveProducts([product], batchId)
     products.push(product)
   }
   const unchangingVariants = await addVariants(products)

@@ -12,6 +12,8 @@ const { stringContainsNonFlowerProduct, transcribeAssay } = require('../services
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const { readImage } = require('../services/image.js');
 
+const { saveProducts } = require("../services/firebase.js");
+
 const vendor = 'Arete'
 
 const numProductsToSave = 333;
@@ -24,6 +26,8 @@ async function parseSingleProduct(html, url) {
   if (!html) {
     return null;
   }
+
+  console.log('parsing single product')
   const $ = cheerio.load(html)
 
   fs.writeFileSync('./temp/vendors/arete-product.html', html)
@@ -36,7 +40,7 @@ async function parseSingleProduct(html, url) {
   $('#size option').each(function () {
     let value = $(this).attr('value');
 
-    if (value && !stringContainsNonFlowerProduct()) {
+    if (value && !stringContainsNonFlowerProduct(value)) {
       value = normalizeVariantName(value);
       variants.push(value);
     }
@@ -47,9 +51,10 @@ async function parseSingleProduct(html, url) {
   let productImages = imgElements.map((_, imgEl) => $(imgEl).attr('data-large_image')).get();
 
   productImages = Array.from(productImages)
+  console.log('productImages', productImages.length)
   productImages = productImages.filter(img => !img.includes('Legal-Opinon-Letter'));
   productImages = productImages.map(img => img.startsWith('//') ? `https:${img}` : img)
-
+  console.log('productImages', productImages.length)
   const assayLinks = productImages.sort((a, b) => {
     if (a.toLowerCase().includes('labs')) {
       return -1
@@ -59,8 +64,6 @@ async function parseSingleProduct(html, url) {
     }
     return 0
   })
-
-
 
   if (assayLinks.length === 0) {
     console.log('No assay images found')
@@ -121,7 +124,7 @@ function get3003image(html) {
   return desiredImageUrl;
 }
 
-async function getProducts(feedUrl) {
+async function getProducts(feedUrl, vendor, numProductsToSave) {
   try {
     const result = await axios.get(feedUrl)
     const $ = cheerio.load(result.data)
@@ -158,6 +161,8 @@ async function getProducts(feedUrl) {
       numSavedProducts++;
       products.push(product)
 
+      await saveProducts([product], batchId)
+
     }
 
     return products
@@ -172,7 +177,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
   console.log(`getting up to ${numProductsToSave} ${vendor} products`)
 
   batchId = id
-  const products = await getProducts(feedUrl, vendor)
+  const products = await getProducts(feedUrl, vendor, numProductsToSave)
   return products
 }
 

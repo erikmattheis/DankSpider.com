@@ -5,6 +5,7 @@ const { recognize } = require('../services/ocr');
 const fs = require('fs');
 const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
+const { saveProducts } = require("../services/firebase.js");
 
 let numSavedProducts = 0;
 
@@ -49,7 +50,9 @@ async function getProducts() {
 
   const products = [];
 
-  $('.drganja_products_list').each((_, entry) => {
+  const entries = $('.drganja_products_list').toArray();
+
+  for await (const entry of entries) {
 
     const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
 
@@ -57,7 +60,8 @@ async function getProducts() {
     const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
     const vendor = 'Dr Ganja';
     products.push({ title, url, image, vendor });
-  });
+
+  };
 
   return products;
 }
@@ -75,6 +79,8 @@ async function addDetails(products) {
     const productWithAssays = await addDrGanjaAssays(productWithVariants, $);
 
     numSavedProducts++;
+
+    await saveProducts([productWithAssays], batchId);
 
     result.push(productWithAssays);
 

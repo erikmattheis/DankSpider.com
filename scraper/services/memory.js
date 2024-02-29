@@ -37,7 +37,7 @@ function makeImageName(url) {
   return `${domain}_${name}`
 }
 
-const cannabinoidSpellingMap = {
+let cannabinoidSpellingMap = {
   'THCVa': 'THCVA',
   'THCVA': 'THCVA',
   'THCV': 'THCV',
@@ -227,13 +227,12 @@ const cannabinoidSpellingMap = {
   '∆ 9-THCA': '∆-9-THCA',
   '∆ 9-THC': '∆-9-THC',
   '?R-HHC': '9R-HHC',
-
-
 }
+cannabinoidSpellingMap = Object.entries(cannabinoidSpellingMap).sort(longestFirst);
 
 const cannabinoidNameList = Array.from(Object.values(cannabinoidSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
 
-const terpeneSpellingMap = {
+let terpeneSpellingMap = {
   'γ-Terpinene': 'Terpinolene',
   'β-Myrcene': 'Myrcene',
   'β-Caryophyllene': 'Caryophyllene',
@@ -290,13 +289,21 @@ const terpeneSpellingMap = {
   '-Bisabolol': 'Bisabolol',
 };
 
+terpeneSpellingMap = Object.entries(terpeneSpellingMap).sort(longestFirst);
+
+
 const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
 
 
+function longestFirst(a, b) {
+  if (b[0].length !== a[0].length) {
+    return b[0].length - a[0].length;
+  } else {
+    return a[0].localeCompare(b[0]);
+  }
+}
 module.exports = {
   getBuffer,
-  cannabinoidNameList,
-  terpeneNameList,
   cannabinoidNameList,
   terpeneNameList,
   cannabinoidSpellingMap,

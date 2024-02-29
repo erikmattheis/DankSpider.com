@@ -7,6 +7,7 @@ const { transcribeAssay } = require('../services/cortex.js');
 const { terpeneNameList, cannabinoidNameList } = require('../services/memory');
 const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
+const { saveProducts } = require('../services/firebase.js');
 
 let currentPage = 1;
 const startUrl = 'https://eighthorseshemp.com/collections/hemp-flower.atom';
@@ -152,6 +153,7 @@ async function getEHHProductsInfo(productLinks, vendor) {
 
     product.variants = product.variants.map((variant) => normalizeVariantName(variant));
 
+    await saveProducts([product], batchId);
     products.push(product);
 
     //}

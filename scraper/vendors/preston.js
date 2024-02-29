@@ -7,6 +7,7 @@ const { transcribeAssay } = require('../services/cortex.js')
 const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
+const { saveProducts } = require('../services/firebase.js');
 
 const products = [];
 const vendor = 'Preston';
@@ -166,11 +167,12 @@ async function getPrestonProductsInfo(products) {
 
     const size = parseFloat(product.variants[0].trim());
 
-    numSavedProducts++;
-
-
 
     if (size) {
+      numSavedProducts++;
+
+      await saveProducts([product], batchId);
+
       finalProducts.push(product);
     }
   }

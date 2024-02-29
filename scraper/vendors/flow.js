@@ -6,6 +6,7 @@ const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const logger = require('../services/logger.js');
 const { readImage } = require('../services/image.js');
+const { saveProducts } = require('../services/firebase.js');
 
 const vendor = 'Flow';
 
@@ -48,6 +49,8 @@ async function getProducts() {
       }
 
       numSavedProducts++;
+
+      await saveProducts([product], batchId);
       products.push(product);
     }
   }

@@ -1,7 +1,7 @@
 /* todo number of terpenes nan, only  */
 const axios = require('../services/rateLimitedAxios')
 const fs = require('fs')
-const { getAssays, saveAssays } = require('../services/firebase.js')
+const { getAssays, saveAssays, saveProducts } = require('../services/firebase.js')
 
 const cheerio = require('cheerio')
 const logger = require('../services/logger.js');
@@ -144,6 +144,8 @@ async function getProducts() {
       numberSavedProducts++;
 
       const product = { title, image, url, vendor, cannabinoids: canns, terpenes: terps, variants, vendorDate }
+
+      await saveProducts([product], batchId);
 
       products.push(product)
     }
