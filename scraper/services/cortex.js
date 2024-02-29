@@ -155,6 +155,7 @@ function recognizeString(line) {
 
   for (const [key, value] of Object.entries(cannabinoidSpellingMap)) {
     if (line.startsWith(key)) {
+      console.log('recognized', key, value)
       return value;
     }
   }
