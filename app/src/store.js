@@ -30,8 +30,10 @@ export const useSpiderStore = defineStore('spider', {
 
       const terpenes = new Set()
       this.products.forEach((product) => {
+        console.log('product', product)
         if (!product.terpenes) return
         product.terpenes.forEach((terpene) => {
+          console.log('terpene', terpene.name)
           terpenes.add(terpene.name)
         })
       })
@@ -47,6 +49,7 @@ export const useSpiderStore = defineStore('spider', {
       this.products.forEach((product) => {
         if (!product.cannabinoids) return
         product.cannabinoids.forEach((cannabinoid) => {
+          console.log('cannabinoid', cannabinoid.names)
           cannabinoids.add(cannabinoid.name)
         })
       })

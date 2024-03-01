@@ -1,78 +1,127 @@
 <template>
-  <div class="product-card shadowy page" ref="image">
-    <img src="https://storage.googleapis.com/dank-images/corner.jpg" class="corner" width="80" height="80" alt="" />
-    <div class="corner-text">{{ product.vendor }}</div>
+  <div class="product-card shadowy page"
+       ref="image">
+    <img src="https://storage.googleapis.com/dank-images/corner.jpg"
+         class="corner"
+         width="80"
+         height="80"
+         alt="" />
 
-    <a :href="product.url + queryString" class="backdrop" target="_blank" :aria-label="`Buy ${product.title} from ${product.vendor}`">
+    <div class="corner-text">{{ product.vendor }}
 
-      <img @load="onImageLoad" v-if="loadImage" v-show="imageLoaded" ref="beauty" class="beauty pendulum"
-        :src="product.image" :alt="product.title" />
+    </div>
+    <a :href="product.url + queryString"
+       class="backdrop"
+       target="_blank"
+       :aria-label="`Buy ${product.title} from ${product.vendor}`">
+      <img @load="onImageLoad"
+           v-if="loadImage"
+           v-show="imageLoaded"
+           ref="beauty"
+           class="beauty pendulum"
+           :src="product.image"
+           :alt="product.title" />
 
-      <svg v-if="!imageLoaded" data-v-c74e63d3="" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0"
-        viewBox="2.8489999771118164 1.590000033378601 94.3010025024414 96.82013702392578"
-        enable-background="new 0 0 100 100" xml:space="preserve" height="70" width="69" class="icon-icon-0"
-        data-fill-palette-color="quaternary" id="icon-0">
+      <svg v-if="!imageLoaded"
+           data-v-c74e63d3=""
+           xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           version="1.1"
+           x="0"
+           y="0"
+           viewBox="2.8489999771118164 1.590000033378601 94.3010025024414 96.82013702392578"
+           enable-background="new 0 0 100 100"
+           xml:space="preserve"
+           height="70"
+           width="69"
+           class="icon-icon-0"
+           data-fill-palette-color="quaternary"
+           id="icon-0">
         <path data-v-c74e63d3=""
-          d="M86.547 97.711c0 0-11.271 1.141-18.314-0.102-7.045-1.238-18.269-6.416-18.269-6.416s12.312-1.348 19.447-0.09C76.549 92.363 86.547 97.711 86.547 97.711z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M86.547 97.711c0 0-11.271 1.141-18.314-0.102-7.045-1.238-18.269-6.416-18.269-6.416s12.312-1.348 19.447-0.09C76.549 92.363 86.547 97.711 86.547 97.711z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M97.15 70.277c0 0-12.092 10.074-21.166 14.115-9.076 4.041-26.018 6.799-26.018 6.799s13.127-11.113 22.323-15.207C81.484 71.889 97.15 70.277 97.15 70.277z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M97.15 70.277c0 0-12.092 10.074-21.166 14.115-9.076 4.041-26.018 6.799-26.018 6.799s13.127-11.113 22.323-15.207C81.484 71.889 97.15 70.277 97.15 70.277z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M89.117 31.125c0 0-6.469 20.878-13.982 32.451C67.621 75.146 49.97 91.178 49.97 91.178s6.885-22.877 14.5-34.602C72.086 44.852 89.117 31.125 89.117 31.125z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M89.117 31.125c0 0-6.469 20.878-13.982 32.451C67.621 75.146 49.97 91.178 49.97 91.178s6.885-22.877 14.5-34.602C72.086 44.852 89.117 31.125 89.117 31.125z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M50.117 1.59c0 0 7.436 26.292 7.436 43.537 0 17.246-7.588 46.066-7.588 46.066s-8.356-28.668-8.356-46.144S50.117 1.59 50.117 1.59z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M50.117 1.59c0 0 7.436 26.292 7.436 43.537 0 17.246-7.588 46.066-7.588 46.066s-8.356-28.668-8.356-46.144S50.117 1.59 50.117 1.59z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M11.026 31.002c0 0 16.444 14.4 23.958 25.971 7.514 11.572 14.979 34.215 14.979 34.215s-18.096-15.594-25.71-27.32C16.639 52.143 11.026 31.002 11.026 31.002z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M11.026 31.002c0 0 16.444 14.4 23.958 25.971 7.514 11.572 14.979 34.215 14.979 34.215s-18.096-15.594-25.71-27.32C16.639 52.143 11.026 31.002 11.026 31.002z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M2.849 70.123c0 0 15.577 2.25 24.652 6.289 9.075 4.041 22.463 14.787 22.463 14.787s-17.043-2.32-26.238-6.416C14.529 80.689 2.849 70.123 2.849 70.123z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M2.849 70.123c0 0 15.577 2.25 24.652 6.289 9.075 4.041 22.463 14.787 22.463 14.787s-17.043-2.32-26.238-6.416C14.529 80.689 2.849 70.123 2.849 70.123z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
         <path data-v-c74e63d3=""
-          d="M13.365 97.582c0 0 10.202-4.93 17.246-6.172 7.044-1.242 19.361-0.217 19.361-0.217s-11.107 5.475-18.244 6.734C24.59 99.188 13.365 97.582 13.365 97.582z"
-          fill="green" data-fill-palette-color="quaternary"></path>
+              d="M13.365 97.582c0 0 10.202-4.93 17.246-6.172 7.044-1.242 19.361-0.217 19.361-0.217s-11.107 5.475-18.244 6.734C24.59 99.188 13.365 97.582 13.365 97.582z"
+              fill="green"
+              data-fill-palette-color="quaternary"></path>
+
       </svg>
     </a>
+
     <div class="info">
+
       <h3>{{ product.title }}</h3>
+
       <ul class="sizes">
-        <li v-for="(variant, i) in product.variants" v-bind:key="i" :title="variant" class="variant-name"
-          :class="store.variantClasses[variant]">
+        <li v-for="(variant, i) in product.variants"
+            v-bind:key="i"
+            :title="variant"
+            class="variant-name"
+            :class="store.variantClasses[variant]">
           <span>{{ variant }}</span>
         </li>
       </ul>
-
-      <span v-if="product.price" class="price">{{ product.price }}</span>
-      <span v-if="product.price && product.pricePerGram" class="price-per-gram">({{ product.pricePerGram }})</span>
+      <span v-if="product.price"
+            class="price">{{ product.price }}</span>
+      <span v-if="product.price && product.pricePerGram"
+            class="price-per-gram">({{ product.pricePerGram }})</span>
 
       <div class="assays">
+
         <div class="assay">
+
           <h3>Terpenes</h3>
-
-              <!--<router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }" :title="terpene.name">-->
-
+          <!--<router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }" :title="terpene.name">-->
 
           <ul clss="right">
-            <li v-for="terpene in product.terpenes" class="chemical terpene"
-              :class="isChemicalSelected(terpene)"><router-link :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }"><span>{{ terpene.name }} ({{
-                terpene.pct }}%)</span></router-link></li>
+            <li v-for="terpene in product.terpenes"
+                class="chemical terpene"
+                :class="isChemicalSelected(terpene)"><router-link
+                           :to="{ name: 'TerpenePage', params: { terpeneName: terpene.name } }"><span>{{ terpene.name }} ({{
+                             terpene.pct }}%)</span></router-link></li>
           </ul>
-              <!--</router-link>-->
+          <!--</router-link>-->
 
         </div>
+
         <div class="assay">
+
           <h3>Cannabinoids</h3>
+
           <ul clss="right">
-            <li v-for="cannabinoid in product.cannabinoids" class="chemical cannabinoid"
-              :class="isChemicalSelected(cannabinoid)"><span>{{ cannabinoid.name }} ({{
-                cannabinoid.pct }}%)</span></li>
+            <li v-for="cannabinoid in product.cannabinoids"
+                class="chemical cannabinoid"
+                :class="isChemicalSelected(cannabinoid)"><span>{{ cannabinoid.name }} ({{
+                  cannabinoid.pct }}%)</span></li>
           </ul>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 </template>
 
@@ -318,5 +367,4 @@ p {
   100% {
     transform: rotate(45deg);
   }
-}
-</style>
+}</style>

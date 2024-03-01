@@ -138,7 +138,7 @@ async function scrapePage(url, currentPage) {
   }
 }
 
-async function getPrestonProductsInfo(products) {
+async function getPrestonProductsInfo(products, numProductsToSave, batchId) {
 
   const finalProducts = [];
 
@@ -184,9 +184,9 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
   console.log(`getting up to ${numProductsToSave} ${vendor} products`)
 
   batchId = id;
-  const products = await scrapePage(startUrl, currentPage);
+  const products = await scrapePage(startUrl, currentPage, numProductsToSave);
 
-  const finalProducts = await getPrestonProductsInfo(products);
+  const finalProducts = await getPrestonProductsInfo(products, numProductsToSave);
 
   return finalProducts;
 

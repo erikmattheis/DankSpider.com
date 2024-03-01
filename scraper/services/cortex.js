@@ -12,26 +12,26 @@ function transcribeAssay(str, url, vendor) {
     return []
   }
 
-  if (!isValidURI(url)) {
-    console.log('invalid url', url, vendor)
-    fs.appendFileSync('./temp/errors.url.txt', `${vendor} invalid url ${url} ${vendor}\n`)
-    return []
-  }
+  console.log('transcribing', str.length)
 
   const lines = str.split('\n')
+
+  console.log('lines', lines.length)
 
   const filteredLines = lines.filter(line => line.includes(' '))
 
   const chems = filteredLines.map(line => lineToChemicalObject(line, url, vendor))
 
   if (chems.length === 0) {
+    console.log('no chems???????', url)
     fs.appendFileSync('./temp/unknown-problem.txt', `${vendor} unknown problem ${url}, \n`)
   }
 
   //const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
-
+  console.log('organizing chems', chems.length)
+  console.log(JSON.stringify(chems, null, 2));
   const assays = organizeAssays(chems);
-
+  console.log(JSON.stringify(assays, null, 2));
   return assays
 
 }
@@ -69,22 +69,24 @@ function lineToChemicalObject(line, vendor) {
 
   const recognizedString = extractAnyChemical(cleanedLine, vendor);
 
-  if (!recognizedString) {
+  console.log('recognizedString', recognizedString)
+
+  if (!recognizedString || recognizedString === 'Unknown') {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
       unknowns.push(completeLine);
       fs.appendFileSync('./temp/unknownlines1.txt', `${vendor} | ${completeLine}\n`)
     }
-    return { name: 'Unknown', pct: 0, line }
+    return { name: 'Unknown', pct: 0, line: completeLine }
   }
-
+  console.log(`if ${cleanedLine} starts with ${recognizedString}`)
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
   }
   else if (linePasses(cleanedLine)) {
-    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString} .. ${completeLine}\n`)
+    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString}..${completeLine}\n`)
   }
 
-  const name = recognizedString;
+  const name = getNormalizedSpelling(recognizedString);
 
   let parts = cleanedLine.split(' ');
 
@@ -142,7 +144,7 @@ function linePasses(line) {
 }
 
 function writeUnknownLines(batchId) {
-  fs.writeFileSync(`./temp/unknownlines88.txt`, Array.from(lines).join('\n'))
+  fs.writeFileSync(`./ temp / unknownlines88.txt`, Array.from(lines).join('\n'))
 }
 
 function recordUnknown(str, ln, vendor) {
@@ -154,15 +156,35 @@ function recordUnknown(str, ln, vendor) {
 function recognizeString(line) {
 
   for (const [key, value] of Object.entries(cannabinoidSpellingMap)) {
-    if (line.startsWith(key)) {
-      console.log('recognized', key, value)
-      return value;
+
+    if (line.startsWith(value[0])) {
+      return value[0];
     }
   }
 
   for (const [key, value] of Object.entries(terpeneSpellingMap)) {
-    if (line.startsWith(key)) {
-      return value;
+    if (line.startsWith(value[0])) {
+
+      return value[0];
+    }
+  }
+
+  return 'Unknown'
+}
+
+function getNormalizedSpelling(line) {
+
+  for (const [_, value] of Object.entries(cannabinoidSpellingMap)) {
+
+    if (line.startsWith(value[0])) {
+      return value[1];
+    }
+  }
+
+  for (const [_, value] of Object.entries(terpeneSpellingMap)) {
+    if (line.startsWith(value[0])) {
+
+      return value[1];
     }
   }
 
@@ -188,11 +210,17 @@ function organizeAssays(assays) {
     cannabinoids: [],
     terpenes: [],
   }
-
+  console.log('------------------')
+  console.log(':::organizing', assays.length)
+  console.log('keys', Object.keys(assays[0]))
   for (const assay of assays) {
+    console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
+    console.log(cannabinoidNameList)
     if (cannabinoidNameList.includes(assay.name)) {
+      console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
+      console.log('assembling terpene', assay.name, assay.pct)
       organizedAssays.terpenes.push(assay)
     }
   }

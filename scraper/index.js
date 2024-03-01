@@ -21,11 +21,11 @@ const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
 
 
-const batchId = 'ecc87'
+const batchId = 'ecc81'
 
-const numProductsToSave = 2
+const numProductsToSave = 5
 
-run(batchId, 'WNC', [
+run(batchId, 'TopCola', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
@@ -101,7 +101,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await showBatch()
 
-  // await copyAndDeleteProducts([batchId]);
+  //await copyAndDeleteProducts([batchId]);
 
   await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
@@ -109,9 +109,8 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
   //await deleteNonFlowerProducts()
   //await normalizeVariants()
   //await recalculateChemicalValues()
+
   await makeProductsFile()
-
-
 
   // await makeStats()
 

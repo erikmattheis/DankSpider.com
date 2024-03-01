@@ -51,6 +51,8 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
           break;
         }
 
+        let resolvedVariants;
+
         const productType = entry['s:type'] ? entry['s:type'].toLowerCase() : '';
         const variants = entry['s:variant'] ? [].concat(entry['s:variant']) : [];
 
@@ -62,7 +64,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
             return;
           }
 
-          let resolvedVariants = variants.map((variant) => normalizeVariantName(variant.title));
+          resolvedVariants = variants.map((variant) => normalizeVariantName(variant.title));
 
           resolvedVariants = resolvedVariants.filter((variant) => !variant.includes('SL'));
 

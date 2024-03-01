@@ -62,6 +62,7 @@ async function getProduct(url) {
     const imageUrls = srcsets.map(srcset => {
 
       const sources = srcset.split(',').map(s => s.trim());
+
       let maxImageWidth = 0;
       let largestImageUrl = '';
 
@@ -100,8 +101,8 @@ async function getProduct(url) {
       }
 
       const result = transcribeAssay(raw, image, vendor);
-      console.log('transcribeAssay result', Object.keys(result), `can len: ${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
-
+      console.log('transcribeAssay result', `${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
+      fs.writeFileSync(`./temp/vendors/wnc-g.json`, JSON.stringify(result, null, 2));
       if (result.cannabinoids.length) {
         cannabinoids = result.cannabinoids;
       }

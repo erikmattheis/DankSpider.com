@@ -230,7 +230,10 @@ let cannabinoidSpellingMap = {
 }
 cannabinoidSpellingMap = Object.entries(cannabinoidSpellingMap).sort(longestFirst);
 
-const cannabinoidNameList = Array.from(Object.values(cannabinoidSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
+const cannabinoidNameList = Array.from(Object.values(cannabinoidSpellingMap))
+  .map(item => item[0]) // get the first element of each item
+  .filter((item, index, self) => self.indexOf(item) === index); // remove duplicatesconsole.log(cannabinoidNameList)
+console.log(cannabinoidNameList)
 
 let terpeneSpellingMap = {
   'γ-Terpinene': 'Terpinolene',
@@ -292,8 +295,10 @@ let terpeneSpellingMap = {
 terpeneSpellingMap = Object.entries(terpeneSpellingMap).sort(longestFirst);
 
 
-const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)).filter((item, index, self) => self.indexOf(item) === index);
-
+//const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)[1]).filter((item, index, self) => self.indexOf(item) === index);
+const terpeneNameList = Array.from(Object.values(terpeneSpellingMap))
+  .map(item => item[0]) // get the first element of each item
+  .filter((item, index, self) => self.indexOf(item) === index); // remove duplicatesconsole.log(terpeneNameList)
 
 function longestFirst(a, b) {
   if (b[0].length !== a[0].length) {
