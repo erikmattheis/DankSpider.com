@@ -52,6 +52,9 @@ function normalizeVariantName(nameStr) {
   if (name === '3.5 g Pheno 2') {
     return '3.5 g'
   }
+  if (name === '3.5g') {
+    return '3.5 g'
+  }
   if (name === '3.5 g Pheno 1') {
     return '3.5 g'
   }

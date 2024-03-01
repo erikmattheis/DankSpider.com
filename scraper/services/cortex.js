@@ -210,12 +210,13 @@ function organizeAssays(assays) {
     cannabinoids: [],
     terpenes: [],
   }
+  /*
   console.log('------------------')
   console.log(':::organizing', assays.length)
   console.log('keys', Object.keys(assays[0]))
+  */
   for (const assay of assays) {
-    console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
-    console.log(cannabinoidNameList)
+    //console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
     if (cannabinoidNameList.includes(assay.name)) {
       console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)

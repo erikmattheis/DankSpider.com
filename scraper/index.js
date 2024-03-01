@@ -25,7 +25,7 @@ const batchId = 'ecc81'
 
 const numProductsToSave = 5
 
-run(batchId, 'TopCola', [
+run(batchId, '', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
@@ -112,7 +112,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   await makeProductsFile()
 
-  // await makeStats()
+  await makeStats()
 
   // await makeStrainsFile()
 

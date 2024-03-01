@@ -233,7 +233,7 @@ cannabinoidSpellingMap = Object.entries(cannabinoidSpellingMap).sort(longestFirs
 const cannabinoidNameList = Array.from(Object.values(cannabinoidSpellingMap))
   .map(item => item[0]) // get the first element of each item
   .filter((item, index, self) => self.indexOf(item) === index); // remove duplicatesconsole.log(cannabinoidNameList)
-console.log(cannabinoidNameList)
+// console.log(cannabinoidNameList)
 
 let terpeneSpellingMap = {
   'γ-Terpinene': 'Terpinolene',
