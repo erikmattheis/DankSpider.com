@@ -60,7 +60,12 @@ async function getProduct(url, vendor) {
     }
 
     const result = transcribeAssay(raw, image, vendor);
+    if (result.cannabinoids.length && result.terpenes.length) {
 
+      console.log('transcribeAssay result', JSON.stringify(result, null, 2));
+      process.exit(0);
+
+    }
     if (result.cannabinoids.length) {
       cannabinoids = result.cannabinoids;
     }

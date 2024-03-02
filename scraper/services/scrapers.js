@@ -11,16 +11,18 @@ const drGanja = require("../vendors/drganja.js");
 
 const hch = require("../vendors/hch.js");
 const hcf = require("../vendors/hcf.js");
+const test = require("../vendors/test.js");
 
 const fs = require("fs");
 
 // https://www.reddit.com/r/cannabiscoupons/comments/11apnfz/hemp_flowers_coupons_offers/
 
 async function run(batchId, v, vendorList, numProductsToSave = 1000) {
-  console.log('running1', numProductsToSave)
+  console.log(batchId, v, vendorList, numProductsToSave);
   for (const vendor of vendorList) {
-
-    if (!v || v === vendor.name) {
+    console.log('!v', !v);
+    console.log('vendor.name', vendor.name === v);
+    if (!v || vendor.name === v) {
       console.log(`Getting products for ${vendor.name}`);
       const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name, numProductsToSave);
       console.log(`Saving ${products?.length} products for ${vendor.name}`);

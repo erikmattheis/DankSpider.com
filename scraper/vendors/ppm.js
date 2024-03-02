@@ -76,7 +76,7 @@ async function recordAssays() {
 }
 
 
-async function getProducts() {
+async function getProducts(numProductsToSave) {
   const products = [];
   try {
 
@@ -165,7 +165,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   //await recordAssays();
 
-  const products = await getProducts()
+  const products = await getProducts(numProductsToSave)
   return products
 }
 

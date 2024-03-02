@@ -31,15 +31,27 @@ async function processImage(buffer, url) {
 
 async function readImage(url) {
   let buffer = await getBuffer(url);
+  if (!buffer) {
+    return null;
+  }
   buffer.value = await processImage(buffer.value, url);
   return buffer;
 }
 
 async function getBuffer(url) {
   try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    const lastModified = response.headers['last-modified'];
-    const value = Buffer.from(response.data, 'binary');
+    let value;
+    let lastModified;
+
+    if (url.startsWith('http')) {
+      const response = await axios.get(url, { responseType: 'arraybuffer' });
+      lastModified = response.headers['last-modified'];
+      value = Buffer.from(response.data, 'binary');
+    } else {
+      lastModified = fs.statSync
+      value = fs.readFileSync(url);
+      console.log('value', value.length)
+    }
     if (!value || value.length === 0) {
       logger.error(`Error getting image buffer: ${url}`);
       return null;

@@ -33,7 +33,9 @@ let numSavedProducts = 0;
 async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
   console.log(`getting up to ${numProductsToSave} ${vendor} products`)
 
-  batchId = id;
+  let batchId = id;
+
+  let raw;
 
   try {
     const response = await axios.get(atomFeedUrl);
@@ -86,7 +88,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
           for (const image of images) {
 
             const buffer = await readImage(image, productUrl);
-            const raw = await recognize(buffer.value, productUrl);
+            raw = await recognize(buffer.value, productUrl);
 
             if (!raw) {
               console.log('no text found', image);
@@ -117,6 +119,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
             terpenes,
             variants: resolvedVariants,
             vendor: 'Top Cola',
+            raw
           };
 
           numSavedProducts++;

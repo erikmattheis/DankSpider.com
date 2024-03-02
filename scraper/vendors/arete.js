@@ -157,7 +157,8 @@ async function getProducts(feedUrl, vendor, numProductsToSave) {
         ...more, url, title, vendor
       }
 
-      numSavedProducts++;
+      numSavedProducts = numSavedProducts + 1;
+
       products.push(product)
 
       await saveProducts([product], batchId)
@@ -177,6 +178,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   batchId = id
   const products = await getProducts(feedUrl, vendor, numProductsToSave)
+
   return products
 }
 

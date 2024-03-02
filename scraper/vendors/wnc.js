@@ -100,6 +100,8 @@ async function getProduct(url) {
         continue;
       }
 
+
+
       const result = transcribeAssay(raw, image, vendor);
       console.log('transcribeAssay result', `${result?.cannabinoids?.length}\nterp len: ${result?.terpenes?.length}`, image, vendor)
       fs.writeFileSync(`./temp/vendors/wnc-g.json`, JSON.stringify(result, null, 2));
@@ -122,7 +124,7 @@ async function getProduct(url) {
       variants,
       cannabinoids,
       terpenes,
-      vendor,
+      vendor
     }
 
     await saveProducts([product], batchId);

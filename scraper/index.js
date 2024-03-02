@@ -20,14 +20,16 @@ const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
 
+const test = require("./vendors/test.js");
 
-const batchId = 'ecc81'
+const batchId = 'bb1'
 
-const numProductsToSave = 5
+const numProductsToSave = 5555;
 
 run(batchId, '', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
+  { name: 'test', service: test },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
@@ -93,7 +95,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 async function run(batchId, vendor, vendorList, numProductsToSave) {
-  console.log('run')
+
   const timer = performance.now();
 
   //await deleteAssaysByVendors(['HCF', 'HCH'])

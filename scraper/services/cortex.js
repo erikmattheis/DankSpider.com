@@ -210,18 +210,14 @@ function organizeAssays(assays) {
     cannabinoids: [],
     terpenes: [],
   }
-  /*
-  console.log('------------------')
-  console.log(':::organizing', assays.length)
-  console.log('keys', Object.keys(assays[0]))
-  */
+
   for (const assay of assays) {
     //console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
     if (cannabinoidNameList.includes(assay.name)) {
-      console.log('assembling cannabinoid', assay.name, assay.pct)
+      //   console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
-      console.log('assembling terpene', assay.name, assay.pct)
+      //   console.log('assembling terpene', assay.name, assay.pct)
       organizedAssays.terpenes.push(assay)
     }
   }
