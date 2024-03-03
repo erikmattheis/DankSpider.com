@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -22,11 +22,11 @@ const hcf = require("./vendors/hcf.js");
 
 const test = require("./vendors/test.js");
 
-const batchId = 'bb1'
+const batchId = 'bb2'
 
 const numProductsToSave = 5555;
 
-run(batchId, '', [
+run(batchId, 'test', [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'test', service: test },
@@ -40,6 +40,8 @@ run(batchId, '', [
 ], numProductsToSave);
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
+
+  // let products = await getAllProducts()
 
   let products = await getAllProducts()
 
@@ -56,12 +58,12 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
-      products[i].cannabinoids = products[i].cannabinoids.filter(c => c.pct > 0)
+      //products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0)
       red[vendor].numWithCannabinoidAssays += 1
     }
 
     if (products[i].terpenes && products[i].terpenes.length > 0) {
-      products[i].terpenes = products[i].terpenes.filter(t => t.pct > 0)
+      //products[i].terpenes = products[i].terpenes.filter(t => parseFloat(t.pct) > 0)
       red[vendor].numWithTerpeneAssays += 1
     }
 
@@ -105,7 +107,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+
+
+  // await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 
@@ -115,9 +119,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
-  await makeStats()
+  //await makeStats()
 
   // await makeStrainsFile()
 

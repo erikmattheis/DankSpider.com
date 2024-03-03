@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 
 const { getApps, initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
-const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName } = require('./strings.js');
+const { makeFirebaseSafe, makeFirebaseSafeId, normalizeVariantName, variantNameContainsWeightUnitString } = require('./strings.js');
 const { lineToChemicalObject, stringContainsNonFlowerProduct } = require('./cortex.js');
 
 const cheerio = require('cheerio');
@@ -24,6 +24,26 @@ if (!getApps().length) {
 const db = getFirestore();
 
 db.settings({ ignoreUndefinedProperties: true });
+
+async function getProductsWithTerpenes() {
+  const productsRef = db.collection('products');
+  const snapshot = await productsRef.get();
+
+  const products = [];
+
+  snapshot.forEach(doc => {
+    const product = doc.data();
+    if (product.terpenes && product.terpenes.some(p => p.pct > 0)) {
+      console.log(`{product.title}: ${JSON.stringify(product.terpenes)}`);
+      products.push(product);
+    }
+    // const t = Array.from(terpenes);
+    // t.sort();
+    //console.log(t);
+    return products; variantNameContainsWeightUnitString
+  });
+  return products;
+}
 
 async function getUniqueTerpenes() {
   const productsRef = db.collection('products');
@@ -489,7 +509,7 @@ async function deleteProductsByVendors(vendorNames, keepBatchIds = []) {
     }
 
     );
-    console.log(`Deleted ${snapshot.size} products by vendor ${vendorName}`)
+    console.log(`Deleted ${snapshot.size} products by vendor ${vendorName} `)
     await batch.commit();
   }
 }
@@ -631,7 +651,7 @@ async function saveAssays(vendor, assays) {
   const timestamp = admin.firestore.Timestamp.now();
   const assayssRef = db.collection('assays');
   for (const assay of assays) {
-    const id = makeFirebaseSafe(`${vendor}-${assay.title}`);
+    const id = makeFirebaseSafe(`${vendor} -${assay.title} `);
     const docRef = assayssRef.doc(id);
     batch.set(docRef, {
       assay,
@@ -669,7 +689,7 @@ async function deleteNonFlowerProducts() {
 
   await batch.commit();
 
-  console.log(`Maybe deleted non-flower products`)
+  console.log(`Maybe deleted non - flower products`)
 
 }
 
@@ -691,7 +711,7 @@ async function deleteAssaysByVendors(vendorNames) {
     }
 
     );
-    console.log(`Deleted ${snapshot.size} assays by vendor ${vendorName}`)
+    console.log(`Deleted ${snapshot.size} assays by vendor ${vendorName} `)
     await batch.commit();
   }
 }
@@ -733,5 +753,6 @@ module.exports = {
   getAssays,
   copyProducts,
   deleteAssaysByVendors,
-  deleteNonFlowerProducts
+  deleteNonFlowerProducts,
+  getProductsWithTerpenes
 };
