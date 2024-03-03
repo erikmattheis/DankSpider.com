@@ -20,7 +20,7 @@ function transcribeAssay(str, url, vendor) {
 
   const filteredLines = lines.filter(line => line.includes(' '))
 
-  const chems = filteredLines.map(line => lineToChemicalObject(line, url, vendor))
+  const chems = filteredLines.map(line => lineToChemicalObject(line, vendor))
 
   if (chems.length === 0) {
     console.log('no chems???????', url)
@@ -69,7 +69,7 @@ function lineToChemicalObject(line, vendor) {
 
   const recognizedString = extractAnyChemical(cleanedLine, vendor);
 
-  console.log('recognizedString', recognizedString)
+  // console.log('recognizedString', recognizedString)
 
   if (!recognizedString || recognizedString === 'Unknown') {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
@@ -78,7 +78,7 @@ function lineToChemicalObject(line, vendor) {
     }
     return { name: 'Unknown', pct: 0, line: completeLine }
   }
-  console.log(`if ${cleanedLine} starts with ${recognizedString}`)
+  // console.log(`if ${cleanedLine} starts with ${recognizedString}`)
   if (cleanedLine.startsWith(recognizedString)) {
     cleanedLine = cleanedLine.slice(recognizedString.length).trim();
   }
@@ -133,10 +133,10 @@ function linePasses(line) {
   if (lines.has(line)) {
     return false
   }
-  const hasLetter = /[a-zA-Z]/.test(line);
-  const hasNumber = /\d/.test(line);
-  const hasMultipleSpaces = line.split(' ').length > 1;
-  if (hasLetter && hasNumber && hasMultipleSpaces && line.length > 11) {
+  const hasLetter = /[a-zA-Z]{5,}/.test(line);
+  const hasNumber = /\d{3,}/.test(line);
+  const hasSpace = line.split(' ').length > 1;
+  if (hasLetter && hasNumber && hasSpace && line.length > 8) {
     lines.add(line)
     return true
   }

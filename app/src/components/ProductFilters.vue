@@ -62,21 +62,11 @@
           </li>
         </ul>
       </div>
-      <!--
-      <div class="header" @click.prevent="toggleCollapse('terpenes')">
-        <h3>Terpenes</h3>
 
-        <div class="selected-items terpenes list">
-          <span v-for="( terpene ) in  checkedTerpenes ">{{ terpene }}</span>
-        </div>
-        <div class="collapse-button terpenes arrow">
-          <font-awesome-icon :icon="['fas', 'right-long']" />
-        </div>
-      </div>
 
       <div class="terpenes filter collapsed">
         <ul class="container">
-          <li v-for="( terpene, i ) in  store.terpeneNames " :key="i" @click.prevent="toggleSelectedTerpene(terpene)"
+          <li v-for="( terpene, i ) in  store.terpeneNames" :key="i" @click.prevent="toggleSelectedTerpene(terpene)"
             class="shadowy-button" :class="{ selected: checkedTerpenes.includes(terpene) }" :title="terpene">
             {{ terpene }}
           </li>

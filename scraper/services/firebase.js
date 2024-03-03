@@ -287,7 +287,7 @@ async function getCompleteProducts() {
     if (uniqueUrls.has(product.url)) {
       return;
     }
-    if (!product.cannabinoids?.length || !product.terpenes?.length) {
+    if (!product.variants?.length || (!product.cannabinoids?.some(c => c.pct > 0.08) && !product.terpenes?.some(c => c.pct > 0.08))) {
       return;
     }
     uniqueUrls.add(product.url);
@@ -313,12 +313,12 @@ async function recalculateChemicalValues() {
       const chem = doc.data();
 
       const cannabinoids = chem.cannabinoids?.map(c => {
-        const obj = lineToChemicalObject(c.line, 'XXX')
+        const obj = lineToChemicalObject(c.line, chem.vendor)
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
       const terpenes = chem.terpenes?.map(t => {
-        const obj = lineToChemicalObject(t.line, 'XXX')
+        const obj = lineToChemicalObject(t.line, chem.vendor)
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
@@ -737,6 +737,7 @@ module.exports = {
   deleteProductsByVendors,
   recalculateChemicalValues,
   getAllProducts,
+  getCompleteProducts,
   getNextBatchNumber,
   getProductsByBatchId,
   getProductsByVariant,

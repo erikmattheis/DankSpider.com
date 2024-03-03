@@ -1,6 +1,6 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+const { getCompleteProducts, getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -43,7 +43,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   // let products = await getAllProducts()
 
-  let products = await getAllProducts()
+  let products = await getCompleteProducts()
 
   const red = {}
 

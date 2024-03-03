@@ -28,32 +28,45 @@ export const useSpiderStore = defineStore('spider', {
       // unique values in product.terpenes[].name
       if (!this.products) return []
 
-      const terpenes = new Set()
-      this.products.forEach((product) => {
-        console.log('product', product.title)
-        if (!product.terpenes) return
+      const terpenes = Array.from(this.products.reduce((acc, product) => {
+        if (!product.terpenes) return acc
         product.terpenes.forEach((terpene) => {
-          console.log('terpene', terpene.name)
-          terpenes.add(terpene.name)
+          acc.add(terpene.name)
         })
-      })
-      this.numSortableTerpenes = terpenes.size;
-      return [...terpenes]
+        return acc
+      }, new Set()))
+      /*
+      console.log('terpenes', terpenes);
+
+            const terpenes = new Set()
+            this.products.forEach((product) => {
+              console.log('product', product.title)
+              if (!product.terpenes) return
+              product.terpenes.forEach((terpene) => {
+                console.log('terpene', terpene.name)
+                terpenes.add(terpene.name)
+              })
+            })
+            this.numSortableTerpenes = terpenes.size;
+            */
+      console.log('terpenes', terpenes);
+      return [...terpenes.sort()]
     },
     cannabinoidNames() {
       // unique values in product.cannabinoids[].name
 
       if (!this.products) return []
 
-      const cannabinoids = new Set()
-      this.products.forEach((product) => {
-        if (!product.cannabinoids) return
+      const cannabinoids = Array.from(this.products.reduce((acc, product) => {
+        if (!product.cannabinoids) return acc
         product.cannabinoids.forEach((cannabinoid) => {
-          cannabinoids.add(cannabinoid.name)
+          acc.add(cannabinoid.name)
         })
-      })
-      this.numSortableCannabinoids = cannabinoids.size;
-      return [...cannabinoids]
+        return acc
+      }, new Set()))
+
+
+      return [...cannabinoids.sort()]
     },
     filteredProducts() {
       if (!this.products?.filter || !this.checkedCannabinoids?.filter && !this.checkedTerpenes?.filter) {
@@ -83,16 +96,8 @@ export const useSpiderStore = defineStore('spider', {
         if (!product.terpenes) return
 
         product.terpenes.forEach((terpene) => {
-          console.log('terpene', terpene.name)
           terpenes.add(terpene.name)
         })
-      })
-
-      this.products.filter((product) => {
-        return (this.checkedVendors.includes(product.vendor) &&
-          product.variants?.some((variant) => this.checkedVariants.includes(variant)) &&
-          (this.checkedTerpenes.length === this.numSortableTerpenes || (!product.terpenes || product.terpenes.some((terpene) => this.checkedTerpenes.includes(terpene.name))))
-        )
       })
 
       return [...terpenes].sort((a, b) => a.name > b.name ? -1 : 1).sort((a, b) => a.pct > b.pct ? -1 : 1)
