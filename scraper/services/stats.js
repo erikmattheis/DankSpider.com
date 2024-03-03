@@ -16,33 +16,32 @@ async function makeStats() {
     if (!vendors[product.vendor]) {
       vendors[product.vendor] = {
         vendor: product.vendor,
-        numProducts: 0,
-        numCannabinoids: 0,
-        numCannabinoidsWithValues: 0,
-        numTerpenes: 0,
-        numTerpenesWithValues: 0
+        totalProducts: 0,
+        totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 0,
+        totalmTerpenes: 0,
+        totalTerpenesWithValues: 0
       };
     }
 
-    vendors[product.vendor].numProducts += 1;
+    vendors[product.vendor].totalProducts += 1;
 
     totalProducts += 1;
 
-    vendors[product.vendor].numCannabinoids += product?.cannabinoids?.length ? product?.cannabinoids?.length : 0;
+    if (product?.cannabinoids?.filter && product?.terpenes?.filter) {
 
-    totalCannabinoids += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => Number(c?.pct) > 0).length : 0;
+      vendors[product.vendor].titalCannabinoids += product.cannabinoids.length;
+      vendors[product.vendor].totalTerpenes += product.terpenes.length;
 
-    vendors[product.vendor].numCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids.filter(c => Number(c?.pct) > 0).length : 0;
+      totalCannabinoids += product.cannabinoids.length;
+      totalTerpenes += product.terpenes.length;
 
-    totalCannabinoidsWithValues += product?.cannabinoids?.filter ? product?.cannabinoids?.filter(c => Number(c?.pct) > 0).length : 0;
+      vendors[product.vendor].totalCannabinoidsWithValues += product?.cannabinoids.filter(c => Number(c?.pct) > 0).length;
+      vendors[product.vendor].totalTerpenesWithValues += product.terpenes.filter(c => Number(c?.pct) > 0).length;
 
-    vendors[product.vendor].numTerpenes += product?.terpenes?.length ? product?.terpenes?.length : 0;
-
-    totalTerpenes += product?.terpenes?.filter ? product?.terpenes?.filter(t => Number(t?.pct) > 0).length : 0;
-
-    vendors[product.vendor].numTerpenesWithValues += product?.terpenes?.filter ? product.terpenes?.filter(t => typeof t?.pct === 'number' && Number(t?.pct) > 0).length : 0;
-
-    totalTerpenesWithValues += product?.terpenes?.filter ? product?.terpenes?.filter(t => Number(t?.pct) > 0).length : 0;
+      totalCannabinoidsWithValues += product.cannabinoids.filter(c => Number(c?.pct) > 0).length;
+      totalTerpenesWithValues += product?.terpenes?.filter(t => Number(t?.pct) > 0).length;
+    }
 
   }
 

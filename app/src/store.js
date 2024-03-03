@@ -30,7 +30,7 @@ export const useSpiderStore = defineStore('spider', {
 
       const terpenes = new Set()
       this.products.forEach((product) => {
-        console.log('product', product)
+        console.log('product', product.title)
         if (!product.terpenes) return
         product.terpenes.forEach((terpene) => {
           console.log('terpene', terpene.name)
@@ -49,7 +49,6 @@ export const useSpiderStore = defineStore('spider', {
       this.products.forEach((product) => {
         if (!product.cannabinoids) return
         product.cannabinoids.forEach((cannabinoid) => {
-          console.log('cannabinoid', cannabinoid.names)
           cannabinoids.add(cannabinoid.name)
         })
       })
@@ -82,7 +81,9 @@ export const useSpiderStore = defineStore('spider', {
 
       this.products.forEach((product) => {
         if (!product.terpenes) return
+
         product.terpenes.forEach((terpene) => {
+          console.log('terpene', terpene.name)
           terpenes.add(terpene.name)
         })
       })
@@ -112,7 +113,7 @@ export const useSpiderStore = defineStore('spider', {
       return [...cannabinoids].sort((a, b) => a.name > b.name ? -1 : 1).sort((a, b) => a.pct > b.pct ? -1 : 1)
     },
     numProducts() {
-      return this.filteredProducts?.filter((product) => product.name !== 'empty').length
+      return this.filteredProducts?.filter((product) => product.title !== 'empty').length
     },
     numVendors() {
       if (!this.filteredProducts) return 0
@@ -294,7 +295,6 @@ export const useSpiderStore = defineStore('spider', {
       const totalIndex = cannabinoids.findIndex((element) => element === 'Total')
 
       cannabinoids.unshift(cannabinoids.splice(totalIndex, 1)[0])
-      console.log('cannabinoids', cannabinoids)
       this.checkedCannabinoids = [...cannabinoids]
       this.normalizedCannabinoids = [...cannabinoids]
     },

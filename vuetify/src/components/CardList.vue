@@ -1,44 +1,30 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
-      <v-infinite-scroll :height="300" :items="items" :onLoad="load">
-        <template v-for="(item, index) in items" :key="item">
+      <v-infinite-scroll :height="300"
+                         :items="items"
+                         :onLoad="load">
 
-          >
+        <v-card v-for="(item, index) in items"
+                :key="item" variant="tonal" href="item.url">
+          <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
+          <v-card-title> {{ item.title }} </v-card-title>
+          <v-card-text>
 
-          <v-card>
-            <v-card-subtitle>
-              {{ vendor }}
-            <v-card-title>
-              {{ item }}
-            </v-card-title>
-<v-template v-slot:default="{ item, index }">
-  <v-card>
-    <v-card-title>
-      Item #{{ item }}
-    </v-card-title>
-    <v-card-text>
-      This is the item #{{ item }}.
-    </v-card-text>
-  </v-card>
 
-<div :class="['pa-2', index % 2 === 0 ? 'bg-grey-lighten-2' : '']">
-            Item #{{ item }}
-          </div>
-  <v-card-actions>
-    <v-btn>Click me</v-btn>
-  </v-card-actions>
-</v-card>
-        </template>
+
+          </v-card-text>
+        </v-card>
+
       </v-infinite-scroll>
     </v-responsive>
-  </v-container>
+  </v-container>v-container>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-let items = ref([])
+let items = ref([{ title: 'Item 1', vendor: 'Vendor 1'}, { title: 'Item 2', vendor: 'Vendor 2', }, { title: 'Item 3', vendor: 'Vendor 3', }, { title: 'Item 4', vendor: 'Vendor 4', }, { title: 'Item 5', vendor: 'Vendor 5', }, { title: 'Item 6', vendor: 'Vendor 6', }, { title: 'Item 7', vendor: 'Vendor 7', }, { title: 'Item 8', vendor: 'Vendor 8', }, { title: 'Item 9', vendor: 'Vendor 9', }, { title: 'Item 10', vendor: 'Vendor 10', },])
 let loading = ref(false)
 
 function load() {
@@ -51,5 +37,5 @@ function load() {
     loading.value = false
   }, 1000)
 }
-  //
+//
 </script>

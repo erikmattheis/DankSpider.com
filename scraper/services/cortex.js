@@ -74,7 +74,7 @@ function lineToChemicalObject(line, vendor) {
   if (!recognizedString || recognizedString === 'Unknown') {
     if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
       unknowns.push(completeLine);
-      fs.appendFileSync('./temp/unknownlines1.txt', `${vendor} | ${completeLine}\n`)
+      fs.appendFileSync('./temp/unknownlines.txt', `${vendor} | ${completeLine}\n`)
     }
     return { name: 'Unknown', pct: 0, line: completeLine }
   }
@@ -154,18 +154,15 @@ function recordUnknown(str, ln, vendor) {
 }
 
 function recognizeString(line) {
-
-  for (const [key, value] of Object.entries(cannabinoidSpellingMap)) {
-
-    if (line.startsWith(value[0])) {
-      return value[0];
+  for (const [key, value] of cannabinoidSpellingMap) {
+    if (line.startsWith(value)) {
+      return value;
     }
   }
 
-  for (const [key, value] of Object.entries(terpeneSpellingMap)) {
-    if (line.startsWith(value[0])) {
-
-      return value[0];
+  for (const [key, value] of terpeneSpellingMap) {
+    if (line.startsWith(value)) {
+      return value;
     }
   }
 
@@ -174,14 +171,14 @@ function recognizeString(line) {
 
 function getNormalizedSpelling(line) {
 
-  for (const [_, value] of Object.entries(cannabinoidSpellingMap)) {
+  for (const [_, value] of cannabinoidSpellingMap) {
 
     if (line.startsWith(value[0])) {
       return value[1];
     }
   }
 
-  for (const [_, value] of Object.entries(terpeneSpellingMap)) {
+  for (const [_, value] of terpeneSpellingMap) {
     if (line.startsWith(value[0])) {
 
       return value[1];

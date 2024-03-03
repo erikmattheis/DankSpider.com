@@ -43,11 +43,12 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   let products = await getAllProducts()
 
-  const red = []
+  const red = {}
 
   for (let i = 0; i < products.length; i++) {
-    if (!red.includes(products[i]?.vendor)) {
-      red[vendor] = {
+    const vendor = products[i].vendor
+    if (!red[vendor]) {
+      red[products[i].vendor] = {
         numWithCannabinoidAssays: 0,
         numWithTerpeneAssays: 0,
         numWithVariants: 0,
@@ -56,20 +57,18 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
       products[i].cannabinoids = products[i].cannabinoids.filter(c => c.pct > 0)
-      products[i].numWithCannabinoidAssays += 1
+      red[vendor].numWithCannabinoidAssays += 1
     }
 
     if (products[i].terpenes && products[i].terpenes.length > 0) {
       products[i].terpenes = products[i].terpenes.filter(t => t.pct > 0)
-      products[i].numWithTerpeneAssays += 1
+      red[vendor].numWithTerpeneAssays += 1
     }
 
     if (products[i].variants && products[i].variants.length > 0) {
-      products[i].numWithVariants += 1
+      red[vendor].numWithVariants += 1
     }
   }
-
-  console.log(red)
 
   const updatedAt = new Date().toISOString()
 
@@ -99,20 +98,24 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
   const timer = performance.now();
 
   //await deleteAssaysByVendors(['HCF', 'HCH'])
+
   //await deleteProductsByVendors(['WNC'])
 
   //await showBatch()
 
-  //await copyAndDeleteProducts([batchId]);
+  // await copyAndDeleteProducts([batchId]);
 
-  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
+
   //await deleteNonFlowerProducts()
+
   //await normalizeVariants()
+
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
   await makeStats()
 
