@@ -26,43 +26,42 @@ const batchId = 'bb3'
 
 const numProductsToSave = 5555;
 
-
-run(batchId, '', [
-  /*{ name: 'Arete', service: arete },
+const vendors = [
+  { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'test', service: test },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },*/
+  { name: 'TopCola', service: topcola },
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
-], numProductsToSave);
-
+];
+run(batchId, 'ggg', vendors, numProductsToSave)
 async function makeProductsFile(vendor, limit, useDevCollection) {
-
+  console.log('makeProductsFile')
   // let products = await getAllProducts()
 
-  let result;
+  let result = [];
 
   let products = await getAllProducts()
 
   const red = {}
 
-  for (let i = 0; i < products.length; i++) {
+  for (let i = 0; i < products.length; i++) {/*
     if (products[i].cannabinoids?.length) {
       console.log(products[i].cannabinoids[0].pct, products[i].cannabinoids[0].pct)
     }
     if (products[i].terpenes?.length) {
       console.log(products[i].terpoenes[0].pct, products[i].tepenes[0].pct)
     }
-    if (!products[i].cannabinoids?.some(c => c.pct > 0) && products[i].terpenes?.some(t => t.pct > 0)) {
-
-
+    */
+    if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
       console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
       fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
       continue;
+
     }
     const vendor = products[i].vendor
     if (!red[vendor]) {
@@ -72,8 +71,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
         numWithVariants: 0,
       }
     }
-
-
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
       //products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0)
@@ -88,11 +85,23 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     if (products[i].variants && products[i].variants.length > 0) {
       red[vendor].numWithVariants += 1
     }
+    result.push(products[i])
   }
+  /*
+    // remove cannabinoids and terpenes that have pct < 0.08
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].cannabinoids) {
+        result[i].cannabinoids = result[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.08)
+      }
+      if (result[i].terpenes) {
+        result[i].terpenes = result[i].terpenes.filter(t => parseFloat(t.pct) > 0.08)
+      }
+    }*/
+
 
   const updatedAt = new Date().toISOString()
 
-  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products, updatedAt }))
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
 
   logger.log({ level: 'info', message: `Wrote ${products.length} products to products.json` });
 }
@@ -125,7 +134,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 
@@ -135,7 +144,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   //await makeStats()
 
