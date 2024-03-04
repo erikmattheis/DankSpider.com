@@ -57,7 +57,7 @@ const unknowns = [];
 function lineToChemicalObject(line, vendor) {
 
   if (!line?.replace) {
-    fs.writeFileSync('./temp/not-string.txt', `${vendor} ${line}\n`)
+    fs.appendFileSync('./temp/not-string.txt', `${vendor} ${line}\n`)
     return { name: 'Unknown', pct: 0, line }
   }
 
@@ -135,7 +135,7 @@ function linePasses(line) {
   }
   const hasLetter = /[a-zA-Z]{5,}/.test(line);
   const hasNumber = /\d{3,}/.test(line);
-  const hasSpace = line.split(' ').length > 1;
+  const hasSpace = line?.split(' ').length > 1;
   if (hasLetter && hasNumber && hasSpace && line.length > 8) {
     lines.add(line)
     return true
@@ -144,7 +144,7 @@ function linePasses(line) {
 }
 
 function writeUnknownLines(batchId) {
-  fs.writeFileSync(`./ temp / unknownlines88.txt`, Array.from(lines).join('\n'))
+  fs.appendFileSync(`./ temp / unknownlines88.txt`, Array.from(lines).join('\n'))
 }
 
 function recordUnknown(str, ln, vendor) {

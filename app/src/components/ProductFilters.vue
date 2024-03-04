@@ -78,7 +78,7 @@
           </li>
         </ul>
       </div>
-
+<!--
       <div class="header" @click.prevent="toggleCollapse('cannabinoids')">
         <h3>Cannabinoids</h3>
 

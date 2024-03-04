@@ -22,17 +22,18 @@ const hcf = require("./vendors/hcf.js");
 
 const test = require("./vendors/test.js");
 
-const batchId = 'bb2'
+const batchId = 'bb3'
 
 const numProductsToSave = 5555;
 
-run(batchId, 'test', [
-  { name: 'Arete', service: arete },
+
+run(batchId, '', [
+  /*{ name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'test', service: test },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
+  { name: 'TopCola', service: topcola },*/
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
@@ -43,11 +44,26 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   // let products = await getAllProducts()
 
-  let products = await getCompleteProducts()
+  let result;
+
+  let products = await getAllProducts()
 
   const red = {}
 
   for (let i = 0; i < products.length; i++) {
+    if (products[i].cannabinoids?.length) {
+      console.log(products[i].cannabinoids[0].pct, products[i].cannabinoids[0].pct)
+    }
+    if (products[i].terpenes?.length) {
+      console.log(products[i].terpoenes[0].pct, products[i].tepenes[0].pct)
+    }
+    if (!products[i].cannabinoids?.some(c => c.pct > 0) && products[i].terpenes?.some(t => t.pct > 0)) {
+
+
+      console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
+      fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
+      continue;
+    }
     const vendor = products[i].vendor
     if (!red[vendor]) {
       red[products[i].vendor] = {
@@ -56,6 +72,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
         numWithVariants: 0,
       }
     }
+
+
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
       //products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0)
@@ -82,7 +100,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
   console.log('batch', products)
-  fs.writeFileSync(`./temp/batch${batchId}.json`, JSON.stringify(products, null, 2))
+  fs.writeFileSync(`./ temp / batch${batchId}.json`, JSON.stringify(products, null, 2))
 }
 
 process.on('uncaughtException', (err) => {
@@ -107,9 +125,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-
-
-  // await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 
@@ -119,7 +135,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
   //await makeStats()
 
@@ -148,15 +164,16 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
   process.exit(0)
 }
 /*
-  { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
-  { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
-  { name: 'EHH', service: ehh },
-  { name: 'HCH', service: hch },
-  { name: 'HCF', service: hcf },
-  { name: 'PPM', service: ppm },
-  // { name: 'Flow', service: flow },
- // { name: 'Enlighten', service: enlighten
+{ name: 'Arete', service: arete },
+{ name: 'drGanja', service: drGanja },
+{ name: 'WNC', service: wnc },
+{ name: 'Preston', service: preston },
+{ name: 'TopCola', service: topcola },
+{ name: 'EHH', service: ehh },
+{ name: 'HCH', service: hch },
+{ name: 'HCF', service: hcf },
+{ name: 'PPM', service: ppm },
+// { name: 'Flow', service: flow },
+// { name: 'Enlighten', service: enlighten },
+
 */

@@ -66,7 +66,7 @@ async function parseSingleProduct(html, url) {
 
   if (assayLinks.length === 0) {
     console.log('No assay images found')
-    fs.writeFileSync('./temp/vendors/arete-no-assay.html', html)
+    fs.appendFileSync('./temp/vendors/arete-no-assay.txt', html)
     return { cannabinoids, terpenes, image: productImages[0], variants }
   }
 

@@ -20,8 +20,8 @@ const fs = require("fs");
 async function run(batchId, v, vendorList, numProductsToSave = 1000) {
   console.log(batchId, v, vendorList, numProductsToSave);
   for (const vendor of vendorList) {
-    console.log('!v', !v);
-    console.log('vendor.name', vendor.name === v);
+
+
     if (!v || vendor.name === v) {
       console.log(`Getting products for ${vendor.name}`);
       const products = await vendor.service.getAvailableLeafProducts(batchId, vendor.name, numProductsToSave);

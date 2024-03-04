@@ -42,7 +42,7 @@ async function getProduct(url, vendor) {
 
 
   if (!imageUrls || !imageUrls.length) {
-    fs.writeFileSync(`./temp/vendors/ehh-product-no-image.html`, response.data);
+    fs.appendFileSync(`./temp/vendors/ehh-product-no-image.txt`, response.data);
   }
 
   let terpenes = [];
