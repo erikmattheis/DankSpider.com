@@ -22,14 +22,14 @@ const hcf = require("./vendors/hcf.js");
 
 const test = require("./vendors/test.js");
 
-const batchId = 'bb4'
+const batchId = 'bx1'
 
-const numProductsToSave = 8;
+const numProductsToSave = 555;
 
 const vendors = [
   { name: 'Arete', service: arete },
-  { name: 'drGanja', service: drGanja },
-  /* { name: 'test', service: test }, */
+  /* { name: 'drGanja', service: drGanja },
+  { name: 'test', service: test }, */
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
@@ -40,6 +40,74 @@ const vendors = [
 ];
 
 run(batchId, '', vendors, numProductsToSave)
+
+async function showBatch() {
+  const products = await getProductsByBatchId(batchId)
+  console.log('batch', products)
+  fs.writeFileSync(`./temp/batch${batchId}.json`, JSON.stringify(products, null, 2))
+}
+
+process.on('uncaughtException', (err) => {
+  console.error('There was an uncaught error', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at:', p, 'reason:', reason);
+  process.exit(1);
+});
+
+async function run(batchId, vendor, vendorList, numProductsToSave) {
+
+  const timer = performance.now();
+
+  //await deleteAssaysByVendors(['HCF', 'HCH'])
+
+  //await deleteProductsByVendors(['WNC'])
+
+  //await showBatch()
+
+  //await copyAndDeleteProducts([batchId]);
+
+  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+
+  //await copyProducts()
+
+  //await deleteNonFlowerProducts()
+
+  //await normalizeVariants()
+
+  //await recalculateChemicalValues()
+
+  await makeProductsFile()
+
+  //await makeStats()
+
+  // await makeStrainsFile()
+
+  // await makeCannabinoidsFile()
+
+  // await jpegs.run(batchId)
+
+  // await getArticle()
+
+  // await saveArticles()
+
+  // await getUniqueChemicals()
+
+  // await saveChemical()
+
+  // await getproducts()
+
+  // await read()
+
+  const time = ((performance.now() - timer) / 1000).toFixed(2)
+
+  logger.log({ level: 'info', message: `Done with batch ${batchId} in ${time} seconds` });
+
+  process.exit(0)
+}
+
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log('makeProductsFile')
@@ -80,12 +148,12 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
-      //products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0)
+      products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.08)
       red[vendor].numWithCannabinoidAssays += 1
     }
 
     if (products[i].terpenes && products[i].terpenes.length > 0) {
-      //products[i].terpenes = products[i].terpenes.filter(t => parseFloat(t.pct) > 0)
+      products[i].terpenes = products[i].terpenes.filter(t => parseFloat(t.pct) > 0.08)
       red[vendor].numWithTerpeneAssays += 1
     }
 
@@ -122,83 +190,3 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }
-async function showBatch() {
-  const products = await getProductsByBatchId(batchId)
-  console.log('batch', products)
-  fs.writeFileSync(`./ temp / batch${batchId}.json`, JSON.stringify(products, null, 2))
-}
-
-process.on('uncaughtException', (err) => {
-  console.error('There was an uncaught error', err);
-  process.exit(1);
-});
-
-process.on('unhandledRejection', (reason, p) => {
-  console.error('Unhandled Rejection at:', p, 'reason:', reason);
-  process.exit(1);
-});
-
-async function run(batchId, vendor, vendorList, numProductsToSave) {
-
-  const timer = performance.now();
-
-  //await deleteAssaysByVendors(['HCF', 'HCH'])
-
-  //await deleteProductsByVendors(['WNC'])
-
-  //await showBatch()
-
-  // await copyAndDeleteProducts([batchId]);
-
-  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
-
-  //await copyProducts()
-
-  //await deleteNonFlowerProducts()
-
-  //await normalizeVariants()
-
-  await recalculateChemicalValues()
-
-  await makeProductsFile()
-
-  //await makeStats()
-
-  // await makeStrainsFile()
-
-  // await makeCannabinoidsFile()
-
-  // await jpegs.run(batchId)
-
-  // await getArticle()
-
-  // await saveArticles()
-
-  // await getUniqueChemicals()
-
-  // await saveChemical()
-
-  // await getproducts()
-
-  // await read()
-
-  const time = ((performance.now() - timer) / 1000).toFixed(2)
-
-  logger.log({ level: 'info', message: `Done with batch ${batchId} in ${time} seconds` });
-
-  process.exit(0)
-}
-/*
-{ name: 'Arete', service: arete },
-{ name: 'drGanja', service: drGanja },
-{ name: 'WNC', service: wnc },
-{ name: 'Preston', service: preston },
-{ name: 'TopCola', service: topcola },
-{ name: 'EHH', service: ehh },
-{ name: 'HCH', service: hch },
-{ name: 'HCF', service: hcf },
-{ name: 'PPM', service: ppm },
-// { name: 'Flow', service: flow },
-// { name: 'Enlighten', service: enlighten },
-
-*/

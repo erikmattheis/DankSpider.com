@@ -80,7 +80,6 @@ const startUrl = 'https://handcraftedfarmers.com/collections/all-products?filter
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 333;
 let numSavedProducts = 0;
 
 function findImageUrlByWidth(str, width) {
@@ -98,7 +97,7 @@ function findImageUrlByWidth(str, width) {
 
 let products = [];
 
-async function getProduct(url, title, vendor) {
+async function getProduct(url, title, vendor, numProductsToSave) {
 
   if (numSavedProducts >= numProductsToSave) {
     return;
@@ -217,11 +216,15 @@ function isDesiredProduct(productTitle) {
   );
 }
 
-async function getProducts(productLinks) {
+async function getProducts(productLinks, numProductsToSave) {
 
   const products = [];
 
   for (const productLink of productLinks) {
+
+    if (numSavedProducts > numProductsToSave) {
+      break;
+    }
 
     let product = await getProduct(productLink.url, productLink.title, 'HCF');
 
@@ -258,7 +261,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
   //  console.log('recorded assays')
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
-  const products = await getProducts(productLinks);
+  const products = await getProducts(productLinks, numProductsToSave);
 
   return products;
 

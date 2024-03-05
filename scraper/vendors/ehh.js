@@ -16,10 +16,9 @@ const uniqueVariants = [];
 let batchId;
 const vendor = 'EHH';
 
-const numProductsToSave = 333;
 let numSavedProducts = 0;
 
-async function getProduct(url, vendor) {
+async function getProduct(url, vendor, numProductsToSave) {
 
   if (numSavedProducts >= numProductsToSave) {
     return;
@@ -60,12 +59,7 @@ async function getProduct(url, vendor) {
     }
 
     const result = transcribeAssay(raw, image, vendor);
-    if (result.cannabinoids.length && result.terpenes.length) {
 
-      console.log('transcribeAssay result', JSON.stringify(result, null, 2));
-      process.exit(0);
-
-    }
     if (result.cannabinoids.length) {
       cannabinoids = result.cannabinoids;
     }
@@ -108,7 +102,6 @@ async function scrapePage(url, currentPage, productLinks) {
 
       const title = $(card).find('entry > title').text().trim();
 
-
       if (isDesiredProduct(title)) {
 
         const href = $(card).find('link').attr('href');
@@ -143,11 +136,13 @@ function isDesiredProduct(productTitle) {
   );
 }
 
-async function getEHHProductsInfo(productLinks, vendor) {
+async function getEHHProductsInfo(productLinks, vendor, numProductsToSave) {
 
   const products = [];
 
   for (const productLink of productLinks) {
+
+
     const product = await getProduct(productLink, vendor);
     if (!product) {
       continue;
@@ -173,7 +168,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
   batchId = id;
   const productLinks = await scrapePage(startUrl, currentPage, []);
 
-  const products = await getEHHProductsInfo(productLinks);
+  const products = await getEHHProductsInfo(productLinks, vendor, numProductsToSave);
 
   return products;
 

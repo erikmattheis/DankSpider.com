@@ -147,13 +147,13 @@ function recordUnknown(str, ln, vendor) {
 
 function recognizeString(line) {
   for (const [key, value] of cannabinoidSpellingMap) {
-    if (line.startsWith(value)) {
+    if (line.startsWith(key)) {
       return value;
     }
   }
 
   for (const [key, value] of terpeneSpellingMap) {
-    if (line.startsWith(value)) {
+    if (line.startsWith(key)) {
       return value;
     }
   }
@@ -163,17 +163,16 @@ function recognizeString(line) {
 
 function getNormalizedSpelling(line) {
 
-  for (const [_, value] of cannabinoidSpellingMap) {
+  for (const [key, value] of cannabinoidSpellingMap) {
 
-    if (line.startsWith(value[0])) {
-      return value[1];
+    if (line.startsWith(key)) {
+      return value;
     }
   }
 
-  for (const [_, value] of terpeneSpellingMap) {
-    if (line.startsWith(value[0])) {
-
-      return value[1];
+  for (const [key, value] of terpeneSpellingMap) {
+    if (line.startsWith(key)) {
+      return value;
     }
   }
 
@@ -199,11 +198,12 @@ function organizeAssays(assays) {
     cannabinoids: [],
     terpenes: [],
   }
-  console.log(cannabinoidNameList);
-  console.log(terpeneNameList);
-  process.exit(0);
+
+
+
   for (const assay of assays) {
     //console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
+
     if (cannabinoidNameList.includes(assay.name)) {
       console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)

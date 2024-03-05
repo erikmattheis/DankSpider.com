@@ -18,14 +18,14 @@ async function getBuffer(url) {
 
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
-  /*
-    if (fs.existsSync(filePath)) {
-      buffer = fs.readFileSync(filePath);
-    } else {
-      buffer = await getImageBuffer(url);
-      fs.writeFileSync(filePath, buffer);
-    }
-  */
+
+  if (fs.existsSync(filePath)) {
+    buffer = fs.readFileSync(filePath);
+  } else {
+    buffer = await getImageBuffer(url);
+    fs.writeFileSync(filePath, buffer);
+  }
+
   return buffer;
 }
 
@@ -202,7 +202,6 @@ let cannabinoidSpellingMap = {
   'Δ9-THCA': 'Δ-9-THCA',
   'Δ9-THCA': 'Δ-9-THCA',
   'Δ9-THCA': 'Δ-9-THCA',
-  'Δ9-THC': 'Δ-9-THC',
   'Δ9-THC': 'Δ-9-THC',
   'Δ9-THC': 'Δ-9-THC',
   'Δ9 THCVA': 'THCVA',

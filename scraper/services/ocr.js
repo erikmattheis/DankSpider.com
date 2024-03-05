@@ -26,7 +26,7 @@ async function initWorker() {
 }
 
 async function recognize(buffer, url) {
-  console.log('Recognizing:', url);
+  console.log('Recognizing:', buffer.length, typeof buffer);
 
   try {
     worker = await initWorker();
@@ -38,7 +38,7 @@ async function recognize(buffer, url) {
 
     const text = result?.data?.text.replace(/Δ|∆|△/g, '∆');
 
-    text;
+    return text;
   } catch (error) {
     logger.error(`Error in recognize: ${error.message}`, { url });
     return null;

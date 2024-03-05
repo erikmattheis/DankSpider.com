@@ -21,7 +21,6 @@ let batchId;
 const vendor = 'drGanja';
 
 
-
 if (require.main === module) {
   logger.log({
     level: 'info',
@@ -29,20 +28,20 @@ if (require.main === module) {
   })
 }
 
-async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
+async function getAvailableLeafProducts(id, vendor, numProductsToSave) {
   console.log(`getting up to ${numProductsToSave} ${vendor} products`)
 
   batchId = id;
 
   const products = await getProducts(numProductsToSave);
 
-  const results = await addDetails(products);
+  const results = await addDetails(products, numProductsToSave);
 
   return results;
 
 }
 
-async function getProducts() {
+async function getProducts(numProductsToSave) {
 
   const response = await axios.get(atomFeedUrl);
   fs.writeFileSync('./temp/vendors/drganja.html', response.data);
@@ -59,7 +58,6 @@ async function getProducts() {
 
     const url = $(entry).find('.drganja_list_product_image').attr('href');
 
-
     const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
     const vendor = 'drGanja';
     products.push({ title, url, image, vendor });
@@ -69,13 +67,11 @@ async function getProducts() {
   return products;
 }
 
-async function addDetails(products, batchId, vendor, numProductsToSave = 1000) {
+async function addDetails(products, batchId, vendor, numProductsToSave) {
   const result = [];
   for await (const product of products) {
 
-    if (numSavedProducts >= numProductsToSave) {
-      break;
-    }
+
     const response = await axios.get(product.url);
     //fs.writeFileSync('./temp/vendors/drganja-product.html', response.data);
     const $ = cheerio.load(response.data);
@@ -84,7 +80,11 @@ async function addDetails(products, batchId, vendor, numProductsToSave = 1000) {
 
     numSavedProducts++;
 
+    console.log('dr g', productWithAssays);
+
     await saveProducts([productWithAssays], batchId);
+
+
 
     result.push(productWithAssays);
 

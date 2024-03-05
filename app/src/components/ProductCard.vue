@@ -256,8 +256,26 @@ ul li {
   font-weight: 700;
 }
 
-.terpene {
-  background-color: #9c07b688;
+
+a span,
+a span:hover,
+a span:visited,
+a span:focus,
+a span:active
+a,
+li.terpene a:hover,
+a span:active {
+
+  color: #fff;
+  text-decoration: none;
+}
+
+a span:hover {
+  text-decoration: none;
+}
+
+li.terpene span {
+
   color: #000;
 }
 

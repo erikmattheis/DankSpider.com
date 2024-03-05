@@ -69,10 +69,9 @@ const startUrl = 'https://harborcityhemp.com/product-category/cannabinoids/thca-
 const uniqueVariants = [];
 let batchId;
 
-const numProductsToSave = 333;
 let numSavedProducts = 0;
 
-async function getProduct(url) {
+async function getProduct(url, numProductsToSave = 1000) {
 
   if (numSavedProducts >= numProductsToSave) {
     return;
@@ -266,7 +265,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   const links = await scrapePage(startUrl, currentPage, []);
 
-  const products = await getProducts(links);
+  const products = await getProducts(links, numProductsToSave);
 
   return products;
 
