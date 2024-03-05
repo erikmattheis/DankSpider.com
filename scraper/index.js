@@ -149,12 +149,23 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
       products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.08)
+      products[i].cannabinoids = products[i].cannabinoids.map(c => {
+        if (parseFloat(c.pct) > 50) {
+          c.pct = (parseFloat(c.pct) / 10).toFixed(2);
+        }
+        return c;
+      });
       red[vendor].numWithCannabinoidAssays += 1
     }
 
     if (products[i].terpenes && products[i].terpenes.length > 0) {
       products[i].terpenes = products[i].terpenes.filter(t => parseFloat(t.pct) > 0.08)
-      red[vendor].numWithTerpeneAssays += 1
+      products[i].terpenes = products[i].terpenes.map(t => {
+        if (parseFloat(t.pct) > 50) {
+          t.pct = (parseFloat(t.pct) / 10).toFixed(2);
+        }
+        return t;
+      }); red[vendor].numWithTerpeneAssays += 1
     }
 
     if (products[i].variants && products[i].variants.length > 0) {
@@ -177,10 +188,19 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   const chemicals = new Set();
 
   result.forEach(product => {
+    product.cannabinoids?.forEach(cannabinoid => {
+      console.log(cannabinoid?.name)
+      if (cannabinoid && cannabinoid.name) {
 
-    product.cannabinoids?.forEach(cannabinoid => chemicals.add(cannabinoid.name));
-    product.terpenes?.forEach(terpene => chemicals.add(terpene.name));
+        chemicals.add(cannabinoid.name);
+      }
+    });
 
+    product.terpenes?.forEach(terpene => {
+      if (terpene && terpene.name) {
+        chemicals.add(terpene.name);
+      }
+    });
   });
 
   console.log('unique chemicals', Array.from(chemicals).length, 'num products', result.length);

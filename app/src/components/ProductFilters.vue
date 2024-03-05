@@ -207,7 +207,6 @@ export default {
       this.store.sortProductsByTerpene(event.target.value);
     },
     sortProductsByCannabinoid(event) {
-      console.log('sort', event.target.value);
       this.store.sortProductsByCannabinoid(event.target.value);
     },
     toggleSelectedVariant(variant) {

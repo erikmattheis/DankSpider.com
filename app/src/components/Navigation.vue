@@ -5,7 +5,7 @@
     <a @click.prevent="toggleExpanded" href class="center band"><span>Be a Beta Tester</span></a>
     <MailList :expanded="expanded" @toggle="toggleExpanded" class="right" />
   </div>
-P</template>
+</template>
 
 <script>
 import { useSpiderStore } from '../store';
