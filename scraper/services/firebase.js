@@ -245,6 +245,18 @@ async function getAllProducts(collection = 'products') {
     products.push(product);
   });
 
+  // count all terpenes and cannabinoids
+  const chemicals = new Set();
+
+  products.forEach(product => {
+
+    product.cannabinoids?.forEach(cannabinoid => chemicals.add(cannabinoid.name));
+    product.terpenes?.forEach(terpene => chemicals.add(terpene.name));
+
+  });
+
+  console.log('unique chemicals', Array.from(chemicals).length);
+
   return products;
 }
 

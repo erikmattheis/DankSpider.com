@@ -12,8 +12,6 @@ function transcribeAssay(str, url, vendor) {
     return []
   }
 
-  console.log('transcribing', str.length)
-
   const lines = str.split('\n')
 
   console.log('lines', lines.length)
@@ -22,16 +20,10 @@ function transcribeAssay(str, url, vendor) {
 
   const chems = filteredLines.map(line => lineToChemicalObject(line, vendor))
 
-  if (chems.length === 0) {
-    console.log('no chems???????', url)
-    fs.appendFileSync('./temp/unknown-problem.txt', `${vendor} unknown problem ${url}, \n`)
-  }
-
   //const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
   console.log('organizing chems', chems.length)
-  console.log(JSON.stringify(chems, null, 2));
   const assays = organizeAssays(chems);
-  console.log(JSON.stringify(assays, null, 2));
+  console.log('result', (assays.cannabinoids.length + assays.terpenes.length), 'assays');
   return assays
 
 }
@@ -207,14 +199,16 @@ function organizeAssays(assays) {
     cannabinoids: [],
     terpenes: [],
   }
-
+  console.log(cannabinoidNameList);
+  console.log(terpeneNameList);
+  process.exit(0);
   for (const assay of assays) {
     //console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
     if (cannabinoidNameList.includes(assay.name)) {
-      //   console.log('assembling cannabinoid', assay.name, assay.pct)
+      console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
-      //   console.log('assembling terpene', assay.name, assay.pct)
+      console.log('assembling terpene', assay.name, assay.pct)
       organizedAssays.terpenes.push(assay)
     }
   }

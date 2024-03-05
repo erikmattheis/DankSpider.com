@@ -22,7 +22,7 @@ const hcf = require("./vendors/hcf.js");
 
 const test = require("./vendors/test.js");
 
-const batchId = 'bb3'
+const batchId = 'bb4'
 
 const numProductsToSave = 5555;
 
@@ -38,7 +38,7 @@ const vendors = [
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
 ];
-run(batchId, 'ggg', vendors, numProductsToSave)
+run(batchId, 'test', vendors, numProductsToSave)
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log('makeProductsFile')
   // let products = await getAllProducts()
@@ -57,11 +57,15 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
       console.log(products[i].terpoenes[0].pct, products[i].tepenes[0].pct)
     }
     */
-    if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
+    if (!products[i].cannabinoids?.length && !products[i].terpenes?.length) {
       console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
       fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
       continue;
-
+    }
+    if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
+      console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
+      fs.appendFileSync('./temp/no-cannabinoid-values-no-terpene-values.txt', `${products[i].title} ${products[i].vendor}\n`)
+      continue;
     }
     const vendor = products[i].vendor
     if (!red[vendor]) {
@@ -98,14 +102,22 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
       }
     }*/
 
+  const chemicals = new Set();
 
+  result.forEach(product => {
+
+    product.cannabinoids?.forEach(cannabinoid => chemicals.add(cannabinoid.name));
+    product.terpenes?.forEach(terpene => chemicals.add(terpene.name));
+
+  });
+
+  console.log('unique chemicals', Array.from(chemicals).length, 'num products', result.length);
   const updatedAt = new Date().toISOString()
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
 
-  logger.log({ level: 'info', message: `Wrote ${products.length} products to products.json` });
+  logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }
-
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
   console.log('batch', products)
@@ -134,7 +146,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 
@@ -144,7 +156,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  // await makeProductsFile()
 
   //await makeStats()
 

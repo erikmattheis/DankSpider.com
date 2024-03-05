@@ -1,25 +1,27 @@
-const { readImage } = require('../services/image.js')
-const { recognize } = require('../services/ocr.js')
-const { transcribeAssay } = require('../services/cortex.js')
-
-const fs = require('fs');
-const path = require('path');
-
-let name = 'terpenes.jpg'
+const { readImage } = require('../services/image');
+const { recognize } = require('../services/ocr');
+const { transcribeAssay } = require('../services/cortex');
 
 async function getAvailableLeafProducts() {
+  const image = 'https://cdn.drganja.com/wp-content/uploads/2023/05/Blue-Dream-Cannabinoids-Certificate-of-Analysis.jpg';
+  const buffer = await readImage(image, image);
+  const raw = await recognize(buffer.value, image);
 
-  const dir = path.join(__dirname, '../temp/scan');
-  const filePath = path.join(dir, name);
-  const buffer = fs.readFileSync(filePath);
+  if (!raw) {
+    console.log('no text found', image);
+  }
 
-  //const buffer = await readImage(image, 'test');
-  const raw = await recognize(buffer, 'test');
-  const result = transcribeAssay(raw, name, 'test');
+  const result = transcribeAssay(raw, image, image);
 
-  console.log(JSON.stringify(result));
+  if (result.cannabinoids.length) {
+    cannabinoids = result.cannabinoids;
+    console.log('cannabinoids', cannabinoids.length);
+  }
+  if (result.terpenes.length) {
+    terpenes = result.terpenes;
+    console.log('terpenes', terpenes.length);
+  }
+
 }
 
-module.exports = {
-  getAvailableLeafProducts
-}
+exports.getAvailableLeafProducts = getAvailableLeafProducts;

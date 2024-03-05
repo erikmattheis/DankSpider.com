@@ -58,8 +58,10 @@ async function getProducts() {
     const title = normalizeProductTitle($(entry).find('.drganja_list_product_image').attr('title'));
 
     const url = $(entry).find('.drganja_list_product_image').attr('href');
+
+
     const image = $(entry).find('.attachment-woocommerce_thumbnail').attr('src');
-    const vendor = 'Dr Ganja';
+    const vendor = 'drGanja';
     products.push({ title, url, image, vendor });
 
   };
@@ -135,7 +137,7 @@ async function addDrGanjaAssays(product, $) {
 
   product = { ...product, cannabinoids, terpenes };
 
-  saveProducts([product], batchId);
+  //saveProducts([product], batchId);
 
   return product;
 }
