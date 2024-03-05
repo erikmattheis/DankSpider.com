@@ -179,9 +179,6 @@ export default {
     }
   },
   methods: {
-    toggleRelativeTerpenes() {
-      this.store.toggleRelativeTerpenes();
-    },
     toggleCollapse(name) {
 
       // toggle "collapsed" class on element with classes name and "containe

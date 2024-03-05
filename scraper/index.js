@@ -24,12 +24,12 @@ const test = require("./vendors/test.js");
 
 const batchId = 'bb4'
 
-const numProductsToSave = 5555;
+const numProductsToSave = 8;
 
 const vendors = [
   { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
-  { name: 'test', service: test },
+  /* { name: 'test', service: test }, */
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
@@ -38,7 +38,9 @@ const vendors = [
   { name: 'HCF', service: hcf },
   { name: 'PPM', service: ppm },
 ];
-run(batchId, 'test', vendors, numProductsToSave)
+
+run(batchId, '', vendors, numProductsToSave)
+
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log('makeProductsFile')
   // let products = await getAllProducts()
@@ -49,7 +51,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   const red = {}
 
-  for (let i = 0; i < products.length; i++) {/*
+  for (let i = 0; i < products.length; i++) {
+    /*
     if (products[i].cannabinoids?.length) {
       console.log(products[i].cannabinoids[0].pct, products[i].cannabinoids[0].pct)
     }
@@ -100,7 +103,8 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
       if (result[i].terpenes) {
         result[i].terpenes = result[i].terpenes.filter(t => parseFloat(t.pct) > 0.08)
       }
-    }*/
+    }
+  */
 
   const chemicals = new Set();
 
@@ -146,7 +150,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 

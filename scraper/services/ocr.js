@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 
 const { createWorker, OEM, PSM } = require('tesseract.js');
@@ -32,7 +31,12 @@ async function recognize(buffer, url) {
   try {
     worker = await initWorker();
 
-    const text = result?.data?.replace(/Δ|∆|△/g, '∆');
+    const result = await worker.recognize(buffer, {
+      tessedit_pageseg_mode: PSM.AUTO,
+      tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.'
+    });
+
+    const text = result?.data?.text.replace(/Δ|∆|△/g, '∆');
 
     text;
   } catch (error) {
