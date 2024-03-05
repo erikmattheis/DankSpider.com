@@ -58,12 +58,12 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
     */
     if (!products[i].cannabinoids?.length && !products[i].terpenes?.length) {
-      console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
+      console.log(`At all ${products[i].title} ${products[i].vendor}`)
       fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
       continue;
     }
     if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
-      console.log(`Skipped ${products[i].title} ${products[i].vendor} because it has no cannabinoids and no terpenes`)
+      console.log(`Values ${products[i].title} ${products[i].vendor}`)
       fs.appendFileSync('./temp/no-cannabinoid-values-no-terpene-values.txt', `${products[i].title} ${products[i].vendor}\n`)
       continue;
     }
@@ -146,7 +146,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   // await copyAndDeleteProducts([batchId]);
 
-  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await copyProducts()
 
@@ -154,9 +154,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await normalizeVariants()
 
-  //await recalculateChemicalValues()
+  await recalculateChemicalValues()
 
-  // await makeProductsFile()
+  await makeProductsFile()
 
   //await makeStats()
 

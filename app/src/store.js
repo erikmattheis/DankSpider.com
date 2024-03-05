@@ -12,7 +12,7 @@ export const useSpiderStore = defineStore('spider', {
     numSortableTerpenes: 0,
     cannabinoids: [],
     numSortableCannabinoids: 0,
-    sortByChemical: 'Δ-9-THCA',
+    sortByChemical: '∆-9-THCA',
     vendors: [],
     checkedVendors: [],
     checkedVariants: [],
@@ -282,8 +282,6 @@ export const useSpiderStore = defineStore('spider', {
       })
 
       cannabinoids.sort()
-
-
 
       const deltaIndexes = cannabinoids.reduce((acc, element, index) => {
         if (element.startsWith('∆')) {

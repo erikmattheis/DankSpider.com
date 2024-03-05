@@ -32,9 +32,9 @@ async function recognize(buffer, url) {
   try {
     worker = await initWorker();
 
-    const result = await worker.recognize(buffer);
+    const text = result?.data?.replace(/Δ|∆|△/g, '∆');
 
-    return result?.data?.text;
+    text;
   } catch (error) {
     logger.error(`Error in recognize: ${error.message}`, { url });
     return null;

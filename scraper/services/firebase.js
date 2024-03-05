@@ -325,7 +325,8 @@ async function recalculateChemicalValues() {
       const chem = doc.data();
 
       const cannabinoids = chem.cannabinoids?.map(c => {
-        const obj = lineToChemicalObject(c.line, chem.vendor)
+        const obj = lineToChemicalObject(c.line, chem.vendor);
+        obj.name = obj.name.replace(/Δ|∆|△/g, '∆');
         return { ...obj, pct: parseFloat(obj.pct) };
       });
 
