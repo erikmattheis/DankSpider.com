@@ -16,141 +16,57 @@ function isValidURI(string) {
   return uriRegex.test(string);
 }
 
+const variantNameMap = {
+  '28 grams': '28 g',
+  '28g': '28 g',
+  '1-oz': '28 g',
+  '1oz': '28 g',
+  '28g (small/minis)': '28 g smalls',
+  'Sugar leaf trim - 28 grams': '28 g',
+  'Mixed Dirty Kief 28 grams': '28 g',
+  'Mixed+Dirty+Kief+28+grams': '28 g',
+  '3.5 g Pheno 1': '3.5 g',
+  '3.5 g Pheno 2': '3.5 g',
+  '3.5g': '3.5 g',
+  '7 g Pheno 2': '7 g',
+  'Mixed T1 Sugar leaf/ trim - 28 grams': '28 g',
+  'smalls 28 grams': '28 g smalls',
+  '1/2 oz smalls Bag': '14 g smalls',
+  '1/2 oz smalls': '14 g smalls',
+  '1/2 Ounce': '14 g',
+  '1/2 oz': '14 g',
+  'Half oz': '14 g',
+  '14 grams': '14 g',
+  'smalls 14 grams': '14 g smalls',
+  '14g (small/minis)': '14 g',
+  '14-g': '14 g',
+  '7 grams': '7 g',
+  '7-g': '7 g',
+  '7 g': '7 g',
+  '7g': '7 g',
+  '3.5-g': '3.5 g',
+  '3.5 grams': '3.5 g',
+  '1-g': '1 g',
+  '1g': '1 g',
+  'Dry Sift 1g': '1 g'
+};
+
 function normalizeVariantName(nameStr) {
-  let name = nameStr.trim()
-
-  if (!name) {
-    return name
-  }
-  if (name === '28 grams') {
-    return '28 g'
-  }
-  if (name === '28g') {
-    return '28 g'
-  }
-  if (name === '1-oz') {
-    return '28 g'
-  }
-  if (name === '1oz') {
-    return '28 g'
-  }
-  if (name === '28g (small/minis)') {
-    return '28 g smalls'
-  }
-  if (name === 'Sugar leaf trim - 28 grams') {
-    return '28 g'
-  }
-  if (name === 'Mixed Dirty Kief 28 grams') {
-    return '28 g'
-  }
-  if (name === 'Mixed+Dirty+Kief+28+grams') {
-    return '28 g'
-  }
-  if (name === '3.5 g Pheno 1') {
-    return '3.5 g'
-  }
-  if (name === '3.5 g Pheno 2') {
-    return '3.5 g'
-  }
-  if (name === '3.5g') {
-    return '3.5 g'
-  }
-  if (name === '3.5 g Pheno 1') {
-    return '3.5 g'
-  }
-  if (name === '7 g Pheno 2') {
-    return '7 g'
-  }
-  if (name === 'Mixed T1 Sugar leaf/ trim - 28 grams') {
-    return '28 g'
-  }
-  if (name === 'smalls 28 grams') {
-    return '28 g smalls'
-  }
-  if (name === '1/2 oz smalls Bag') {
-    return '14 g smalls'
-  }
-  if (name === '1/2 oz smalls') {
-    return '14 g smalls'
-  }
-  if (name === '1/2 Ounce') {
-    return '14 g'
-  }
-  if (name === '1/2 oz') {
-    return '14 g'
-  }
-  if (name === '1/2 oz') {
-    return '14 g'
-  }
-  if (name === 'Half oz') {
-    return '14 g'
-  }
-  if (name === '14 grams') {
-    return '14 g'
-  }
-  if (name === 'smalls 14 grams') {
-    return '14 g'
-  }
-  if (name === '14 grams') {
-    return '14 g smalls'
-  }
-  if (name === '14g (small/minis)') {
-    return '14 g'
-  }
-  if (name === '14-g') {
-    return '14 g'
-  }
-  if (name === 'smalls 14 grams') {
-    return '14 g smalls'
-  }
-  if (name === '7 grams') {
-    return '7 g'
-  }
-  if (name === '7-g') {
-    return '7 g'
-  }
-  if (name === '7 g') {
-    return '7 g'
-  }
-  if (name === '7g') {
-    return '7 g'
-  }
-  if (name === '3.5-g') {
-    return '3.5 g'
-  }
-  if (name === '3.5g') {
-    return '3.5 g'
-  }
-  if (name === '3.5 grams') {
-    return '3.5 g'
-  }
-  if (name === '1-g') {
-    return '1 g'
-  }
-  if (name === '1g') {
-    return '1 g'
-  }
-  if (name === 'Dry Sift 1g') {
-    return '1 g'
-  }
-
-
-  name = name + ''
-  name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2')
-  name = name?.replace(/(\s+)/g, ' ')
-  name = name?.replace('SMALLS', 'smalls')
-  name = name?.replace('MINIS', 'minis')
-  name = name?.replace('Smalls', 'smalls')
-  name = name?.replace('Minis', 'minis')
-  name = name?.replace('(small/minis)', 'smalls')
-  name = name?.replace(' (1/8 oz)', '')
-  name = name?.replace(' (1/4 oz)', '')
-  name = name?.replace(' (1/2 oz)', '')
-  name = name?.replace(' (1 oz)', '')
-  name = name?.replace(' Pheno 1', '')
-  name = name?.replace(' Pheno 2', '')
-
-  return name
+  let name = nameStr.trim() + '';
+  name = name?.replace(/(\d)([a-zA-Z])/g, '$1 $2');
+  name = name?.replace(/(\s+)/g, ' ');
+  name = name?.replace(/SMALLS/g, 'smalls');
+  name = name?.replace(/MINIS/g, 'minis');
+  name = name?.replace(/Smalls/g, 'smalls');
+  name = name?.replace(/Minis/g, 'minis');
+  name = name?.replace(/\(small\/minis\)/g, 'smalls');
+  name = name?.replace(/ \(1\/8 oz\)/g, '');
+  name = name?.replace(/ \(1\/4 oz\)/g, '');
+  name = name?.replace(/ \(1\/2 oz\)/g, '');
+  name = name?.replace(/ \(1 oz\)/g, '');
+  name = name?.replace(/ Pheno 1/g, '');
+  name = name?.replace(/ Pheno 2/g, '');
+  return variantNameMap[name] || name;
 }
 
 function cleanString(str) {

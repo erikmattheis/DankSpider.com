@@ -462,11 +462,12 @@ async function deleteAllDocumentsInCollection(collectionPath) {
   await batch.commit();
 }
 
-async function saveStats(stats) {
+async function saveStats(stats, config = {}) {
   const statsRef = db.collection('stats').doc();
   const timestamp = admin.firestore.Timestamp.now();
   const statsData = {
-    ...stats,
+    stats,
+    config,
     timestamp,
   };
 
@@ -743,6 +744,19 @@ async function getAssays() {
   return assays;
 }
 
+async function saveTest(result, image, config) {
+  const testRef = db.collection('tests').doc();
+  const timestamp = admin.firestore.Timestamp.now();
+  const testData = {
+    result,
+    image,
+    config,
+    timestamp,
+  };
+
+  await testRef.set(testData);
+}
+
 module.exports = {
   cleanProductsCollection,
   copyAndDeleteProducts,
@@ -765,6 +779,7 @@ module.exports = {
   saveProducts,
   saveAssays,
   getAssays,
+  saveTest,
   copyProducts,
   deleteAssaysByVendors,
   deleteNonFlowerProducts,

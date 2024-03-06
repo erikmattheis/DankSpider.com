@@ -7,15 +7,12 @@ const logger = require('../services/logger.js');
 // Initialize Tesseract worker at the start to reuse throughout the application
 let worker = null;
 
-async function initWorker() {
+async function initWorker(options = {}) {
 
   const worker = await createWorker('eng');
 
   try {
-    await worker.setParameters({
-      tessedit_pageseg_mode: PSM.AUTO,
-      tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
-    });
+    await worker.setParameters(options);
   } catch (error) {
     console.log('Error initializing Tesseract worker:', error);
     process.exit(1);
@@ -25,16 +22,21 @@ async function initWorker() {
   return worker;
 }
 
-async function recognize(buffer, url) {
-  console.log('Recognizing:', buffer.length, typeof buffer);
+const opt = {
+  tessedit_pageseg_mode: 6,
+  tessjs_create_hocr: '0',
+  tessjs_create_tsv: '1',
+  presets: ['bazaar'],
+  tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
+}
+
+async function recognize(buffer, url, options = opt) {
+  console.log('Recognizing:', buffer?.length, typeof buffer);
 
   try {
-    worker = await initWorker();
+    worker = await initWorker(options);
 
-    const result = await worker.recognize(buffer, {
-      tessedit_pageseg_mode: PSM.AUTO,
-      tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.'
-    });
+    const result = await worker.recognize(buffer);
 
     const text = result?.data?.text.replace(/Δ|∆|△/g, '∆');
 

@@ -11,7 +11,6 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const logger = require('../services/logger.js');
 const { saveProducts } = require('../services/firebase.js');
 
-
 const vendor = 'WNC';
 let numSavedProducts = 0;
 let batchId;

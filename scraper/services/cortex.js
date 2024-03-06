@@ -14,16 +14,13 @@ function transcribeAssay(str, url, vendor) {
 
   const lines = str.split('\n')
 
-  console.log('lines', lines.length)
-
   const filteredLines = lines.filter(line => line.includes(' '))
 
   const chems = filteredLines.map(line => lineToChemicalObject(line, vendor))
 
   //const chemicals = chems.filter(chem => chem.name !== 'Unknown' && chem.pct > 0)
-  console.log('organizing chems', chems.length)
+
   const assays = organizeAssays(chems);
-  console.log('result', (assays.cannabinoids.length + assays.terpenes.length), 'assays');
   return assays
 
 }
@@ -205,15 +202,11 @@ function organizeAssays(assays) {
     //console.log('Item keys', Object.keys(assay), assay.name, assay.pct, assay.line)
 
     if (cannabinoidNameList.includes(assay.name)) {
-      console.log('assembling cannabinoid', assay.name, assay.pct)
       organizedAssays.cannabinoids.push(assay)
     } else if (terpeneNameList.includes(assay.name)) {
-      console.log('assembling terpene', assay.name, assay.pct)
       organizedAssays.terpenes.push(assay)
     }
   }
-
-  console.log(`Returning ${organizedAssays.cannabinoids.length} cannabinoids and ${organizedAssays.terpenes.length} terpenes`)
 
   return organizedAssays
 }

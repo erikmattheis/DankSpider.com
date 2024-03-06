@@ -1,7 +1,15 @@
-const { getAllProducts, saveStats } = require('./firebase.js');
+const { getAllProducts, saveStats, getProductsByBatchId } = require('./firebase.js');
 
-async function makeStats() {
-  const products = await getAllProducts('products');
+async function makeStats(batchId, p = null) {
+
+  let products;
+
+  if (!p) {
+    products = await await getProductsByBatchId(batchId);
+  }
+  else {
+    products = [...products];
+  }
 
   const vendors = {};
 

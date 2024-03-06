@@ -1,6 +1,7 @@
 const { performance } = require('perf_hooks')
 const fs = require('fs')
-const { getCompleteProducts, getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
+
+const { deleteAllDocumentsInCollection, getCompleteProducts, getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
 const jpegs = require('./services/jpegs.js')
@@ -19,17 +20,18 @@ const drGanja = require("./vendors/drganja.js");
 const ehh = require("./vendors/ehh.js");
 const hch = require("./vendors/hch.js");
 const hcf = require("./vendors/hcf.js");
+const { doTest } = require("./vendors/test.js");
 
 const test = require("./vendors/test.js");
 
-const batchId = 'bx1'
-
+//const batchId = '4000sharp1.5'
+const batchId = 'many'
 const numProductsToSave = 555;
 
 const vendors = [
   { name: 'Arete', service: arete },
-  /* { name: 'drGanja', service: drGanja },
-  { name: 'test', service: test }, */
+  { name: 'drGanja', service: drGanja },
+  { name: 'test', service: test },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
@@ -39,7 +41,7 @@ const vendors = [
   { name: 'PPM', service: ppm },
 ];
 
-run(batchId, '', vendors, numProductsToSave)
+run(batchId, 'test', vendors, numProductsToSave)
 
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
@@ -70,6 +72,8 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
   //await copyAndDeleteProducts([batchId]);
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  //await deleteAllDocumentsInCollection('tests')
+  await doTest();
 
   //await copyProducts()
 
@@ -79,9 +83,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
-  //await makeStats()
+  //await makeStats(batchId)
 
   // await makeStrainsFile()
 
@@ -111,11 +115,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log('makeProductsFile')
-  // let products = await getAllProducts()
+  let products = await getProductsByBatchId(batchId);
 
   let result = [];
-
-  let products = await getAllProducts()
 
   const red = {}
 

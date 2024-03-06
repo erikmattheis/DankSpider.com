@@ -2,19 +2,22 @@ const axios = require('./rateLimitedAxios.js');
 const gm = require('gm').subClass({ imageMagick: true });
 const fs = require('fs');
 const logger = require('./logger.js');
+const path = require('path');
 
 
-async function processImage(buffer, url) {
+async function processImage(buffer, url, options = { sharpen: 1.5, resize: 4000 }) {
   try {
     return await new Promise((resolve, reject) => {
       gm(buffer)
         .quality(100)
-        .resize(4000)
+        .density(300, 300)
+        .sharpen(options.sharpen)
+        .resize(options.resize)
         // to jpeg
         .setFormat('jpeg')
         .toBuffer((err, buffer) => {
           if (err) {
-
+            logger.error(`Error processing imageA: ${err.message}`, { url });
             fs.appendFileSync('./temp/errors.processImage1.txt', `\nurl: ${url}\n${JSON.stringify(err, null, 2)}\n\n`);
             reject(err);
           } else {
@@ -23,22 +26,27 @@ async function processImage(buffer, url) {
         });
     });
   } catch (error) {
-    logger.error(`Error processing image: ${error.message}`, { url });
+    logger.error(`Error processing imageB: ${error.message}`, { url });
     fs.appendFileSync('./temp/errors.processImage2.txt', `\nurl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
     return null;
   }
 }
 
-async function readImage(url) {
-  let buffer = await getBuffer(url);
-  if (!buffer) {
-    return null;
+async function readImage(url, options = { sharpen: 1.5, resize: 4000 }) {
+  let buffer = await getBuffer(url, options);
+  if (!buffer?.value || buffer?.value?.length === 0) {
+    console.log('buffer has no value')
+    return {
+      value: null,
+      lastModified: null
+    }
   }
+
   buffer.value = await processImage(buffer.value, url);
   return buffer;
 }
 
-async function getBuffer(url) {
+async function getBuffer(url, options) {
   try {
     let value;
     let lastModified;
@@ -48,9 +56,10 @@ async function getBuffer(url) {
       lastModified = response.headers['last-modified'];
       value = Buffer.from(response.data, 'binary');
     } else {
-      lastModified = fs.statSync
-      value = fs.readFileSync(url);
-      console.log('value', value.length)
+
+      const filePath = path.join(__dirname, '../temp/scan', url);
+      lastModified = fs.statSync(filePath)?.mtime;
+      value = fs.readFileSync(filePath);
     }
     if (!value || value.length === 0) {
       logger.error(`Error getting image buffer: ${url}`);

@@ -926,5 +926,234 @@ Total CannabinoidsWithValues 157 8.26
 Total Terpenes 9 0.47
 Total TerpenesWithValues 9 0.47
   info: Done with batch d97 in 204.55 seconds { "service": "dankspider", "timestamp": "2024-02-27 02:29:26" }
-erikmattheis @Eriks-MacBook - Pro scraper %
+erikmattheis @Eriks-MacBook - Pro scraper %, PPM {
+    vendor: 'PPM',
+      totalProducts: 35,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 309,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 0,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+HCF {
+    vendor: 'HCF',
+      totalProducts: 3,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 0,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 0,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+EIGHT HORSES {
+    vendor: 'EIGHT HORSES',
+      totalProducts: 16,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 42,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 0,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+Top Cola {
+    vendor: 'Top Cola',
+      totalProducts: 3,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 0,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 0
+  }
+Preston {
+    vendor: 'Preston',
+      totalProducts: 23,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 0,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 0
+  }
+WNC {
+    vendor: 'WNC',
+      totalProducts: 24,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 312,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 15,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+Arete {
+    vendor: 'Arete',
+      totalProducts: 25,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 346,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 11,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+drGanja {
+    vendor: 'drGanja',
+      totalProducts: 28,
+        totalCannabinoids: 0,
+          totalCannabinoidsWithValues: 66,
+            totalmTerpenes: 0,
+              totalTerpenesWithValues: 88,
+                titalCannabinoids: NaN,
+                  totalTerpenes: NaN
+  }
+Total Products 157
+Total Cannabinoids 1685 10.73
+Total CannabinoidsWithValues 1075 6.85
+Total Terpenes 657 4.18
+Total TerpenesWithValues 114 0.73,
 
+
+}
+Total Products 157
+Total Cannabinoids 1685 10.73
+Total CannabinoidsWithValues 1075 6.85
+Total Terpenes 657 4.18
+Total TerpenesWithValues 114 0.73
+
+Arete {
+  vendor: 'Arete',
+    totalProducts: 25,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 346,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 11,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+EIGHT HORSES {
+  vendor: 'EIGHT HORSES',
+    totalProducts: 16,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 42,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+HCF {
+  vendor: 'HCF',
+    totalProducts: 3,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 0,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+PPM {
+  vendor: 'PPM',
+    totalProducts: 35,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 309,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+Top Cola {
+  vendor: 'Top Cola',
+    totalProducts: 3,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 0,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0
+}
+WNC {
+  vendor: 'WNC',
+    totalProducts: 24,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 312,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 15,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+Total Products 106
+Total Cannabinoids 1118 10.55
+Total CannabinoidsWithValues 1009 9.52
+Total Terpenes 172 1.62
+Total TerpenesWithValues 26 0.25
+
+
+Total Products 106
+Total Cannabinoids 1131 10.67
+Total CannabinoidsWithValues 1022 9.64
+Total Terpenes 305 2.88
+Total TerpenesWithValues 34 0.32
+
+Total Products 106
+Total Cannabinoids 1140 10.75
+Total CannabinoidsWithValues 1032 9.74
+Total Terpenes 139 1.31
+Total TerpenesWithValues 20 0.19
+
+
+Arete {
+  vendor: 'Arete',
+    totalProducts: 25,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 365,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 4,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+EIGHT HORSES {
+  vendor: 'EIGHT HORSES',
+    totalProducts: 16,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 46,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+HCF {
+  vendor: 'HCF',
+    totalProducts: 3,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 0,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+PPM {
+  vendor: 'PPM',
+    totalProducts: 35,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 309,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+Top Cola {
+  vendor: 'Top Cola',
+    totalProducts: 3,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 0,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 0
+}
+WNC {
+  vendor: 'WNC',
+    totalProducts: 24,
+      totalCannabinoids: 0,
+        totalCannabinoidsWithValues: 312,
+          totalmTerpenes: 0,
+            totalTerpenesWithValues: 16,
+              titalCannabinoids: NaN,
+                totalTerpenes: NaN
+}
+Total Products 106
+Total Cannabinoids 1140 10.75
+Total CannabinoidsWithValues 1032 9.74
+Total Terpenes 139 1.31
+Total TerpenesWithValues 20 0.19,
