@@ -1,11 +1,19 @@
-const { getAllProducts, saveStats, getProductsByBatchId } = require('./firebase.js');
+const { getTestResults, getAllProducts, saveStats, getProductsByBatchId } = require('./firebase.js');
 
 async function makeStats(batchId, p = null) {
 
   let products;
 
   if (!p) {
-    products = await await getProductsByBatchId(batchId);
+    //products = await await getProductsByBatchId(batchId);
+    products = await getTestResults();
+    // add vendor to each product
+
+    products = products.map(p => {
+      p.vendor = p.vendor || 'Test';
+      return p;
+    });
+
   }
   else {
     products = [...products];
@@ -21,13 +29,15 @@ async function makeStats(batchId, p = null) {
 
   for (const product of products) {
 
+
+
     if (!vendors[product.vendor]) {
       vendors[product.vendor] = {
         vendor: product.vendor,
         totalProducts: 0,
         totalCannabinoids: 0,
         totalCannabinoidsWithValues: 0,
-        totalmTerpenes: 0,
+        totalTerpenes: 0,
         totalTerpenesWithValues: 0
       };
     }
@@ -36,21 +46,19 @@ async function makeStats(batchId, p = null) {
 
     totalProducts += 1;
 
-    if (product?.cannabinoids?.filter && product?.terpenes?.filter) {
+    if (product?.result?.cannabinoids?.length) {
 
-      vendors[product.vendor].titalCannabinoids += product.cannabinoids.length;
-      vendors[product.vendor].totalTerpenes += product.terpenes.length;
-
-      totalCannabinoids += product.cannabinoids.length;
-      totalTerpenes += product.terpenes.length;
-
-      vendors[product.vendor].totalCannabinoidsWithValues += product?.cannabinoids.filter(c => Number(c?.pct) > 0).length;
-      vendors[product.vendor].totalTerpenesWithValues += product.terpenes.filter(c => Number(c?.pct) > 0).length;
-
-      totalCannabinoidsWithValues += product.cannabinoids.filter(c => Number(c?.pct) > 0).length;
-      totalTerpenesWithValues += product?.terpenes?.filter(t => Number(t?.pct) > 0).length;
+      vendors[product.vendor].totalCannabinoids += product.result?.cannabinoids.length;
+      totalCannabinoids += product.result?.cannabinoids.length;
+      vendors[product.vendor].totalCannabinoidsWithValues += product?.result?.cannabinoids.filter(c => Number(c?.pct) > 0).length;
+      totalCannabinoidsWithValues += product.result?.cannabinoids.filter(c => Number(c?.pct) > 0).length;
     }
-
+    if (product?.result?.terpenes?.length) {
+      vendors[product.vendor].totalTerpenes += product.result?.terpenes.length;
+      totalTerpenes += product.result?.terpenes.length;
+      vendors[product.vendor].totalTerpenesWithValues += product.result?.terpenes.filter(c => Number(c?.pct) > 0).length;
+      totalTerpenesWithValues += product?.result?.terpenes?.filter(t => Number(t?.pct) > 0).length;
+    }
   }
 
   for (const vendor in vendors) {

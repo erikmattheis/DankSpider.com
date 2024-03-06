@@ -73,7 +73,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
   //await deleteAllDocumentsInCollection('tests')
-  await doTest();
+  await doTest(batchId);
 
   //await copyProducts()
 
@@ -90,8 +90,6 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
   // await makeStrainsFile()
 
   // await makeCannabinoidsFile()
-
-  // await jpegs.run(batchId)
 
   // await getArticle()
 

@@ -3,6 +3,7 @@ const { recognize } = require('../services/ocr');
 const { transcribeAssay } = require('../services/cortex');
 const { makeStats } = require('../services/stats');
 const { saveTest } = require('../services/firebase');
+const fs = require('fs');
 
 async function readProductImage(image, config) {
 
@@ -30,22 +31,21 @@ async function readProductImage(image, config) {
 }
 
 const images = [
-  '00-odd-terpenes.png',
   '01-pinnacle-cannabinoids.jpg',
   '02_bloom-terpenes.jpg',
   '03_blooom-cannabinoids.jpg',
   '04-cannalyze-cannabinoids.jpg',
 ]
 
-async function doTest() {
+async function doTest(batchId) {
 
   const configs = [];
   const results = [];
 
   for (const mode of [4, 5, 6]) {
-    for (const preset of ['bazaar', 'vapour']) {
-      for (const resize of [3000, 5000, 7000]) {
-        for (const sharpen of [0.5, 1.5, 3.5]) {
+    for (const preset of ['bazaar', '']) {
+      for (const resize of [3000]) {
+        for (const sharpen of [1.5]) {
           const config = {
             tesseract: {
               tessedit_pageseg_mode: mode,
@@ -54,14 +54,18 @@ async function doTest() {
             },
             gm: { sharpen, resize }
           }
-          for (const image of images) {
+          for await (const image of images) {
             const result = await readProductImage(image, config);
-            console.log(JSON.stringify({ config, result }, null, 2));
-            saveTest(result, image, config);
+            console.log(JSON.stringify({ config, image, result }, null, 2));
+            // saveTest(result, image, config);
+            await saveTest(result, image, config, batchId);
+            results.push({ config, image, result });
           }
         }
       }
     }
+    fs.writeFileSync('test-results.json', JSON.stringify(results, null, 2));
   }
 }
+
 exports.doTest = doTest;

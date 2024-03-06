@@ -474,6 +474,21 @@ async function saveStats(stats, config = {}) {
   await statsRef.set(statsData);
 }
 
+async function getTestResults() {
+  const testsRef = db.collection('tests');
+  const snapshot = await testsRef.get();
+
+  const tests = [];
+
+  snapshot.forEach(doc => {
+    const test = doc.data();
+    tests.push(test);
+  });
+
+  return tests;
+}
+
+
 async function saveArticles(articles, collection) {
   const batch = db.batch();
   const chemicalsRef = db.collection(collection);
@@ -744,13 +759,14 @@ async function getAssays() {
   return assays;
 }
 
-async function saveTest(result, image, config) {
+async function saveTest(result, image, config, batchId = 1000) {
   const testRef = db.collection('tests').doc();
   const timestamp = admin.firestore.Timestamp.now();
   const testData = {
     result,
     image,
     config,
+    batchId,
     timestamp,
   };
 
@@ -783,5 +799,6 @@ module.exports = {
   copyProducts,
   deleteAssaysByVendors,
   deleteNonFlowerProducts,
-  getProductsWithTerpenes
+  getProductsWithTerpenes,
+  getTestResults
 };
