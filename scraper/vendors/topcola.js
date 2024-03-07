@@ -8,11 +8,8 @@ const { cannabinoidNameList, terpeneNameList } = require('../services/memory')
 const { readImage } = require('../services/image.js');
 const vendor = 'TopCola';
 
-
-
 const atomFeedUrl = 'https://topcolatn.com/collections/t1-thca.atom?filter.v.availability=1';
 const logger = require('../services/logger.js');
-
 
 const { writeFileSync } = require('fs');
 const { saveProducts } = require('../services/firebase.js');
