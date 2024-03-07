@@ -73,7 +73,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
   //await deleteAllDocumentsInCollection('tests')
-  await doTest(batchId);
+  // await doTest(batchId);
 
   //await copyProducts()
 

@@ -55,11 +55,25 @@ async function doTest(batchId) {
             gm: { sharpen, resize }
           }
           for await (const image of images) {
+            const worker = createWorker({
+              logger: m => console.log(m), // Add logger here
+            });
+          
+            await worker.load();
+            await worker.loadLanguage('eng');
+            await worker.initialize('eng');
+            await worker.setParameters({
+              tessedit_pageseg_mode: config.tesseract.tessedit_pageseg_mode,
+              tessedit_char_whitelist: config.tesseract.tessedit_char_whitelist,
+            });
+          
+            const { data: { text } } = await worker.recognize(image);
             const result = await readProductImage(image, config);
             console.log(JSON.stringify({ config, image, result }, null, 2));
             // saveTest(result, image, config);
             await saveTest(result, image, config, batchId);
             results.push({ config, image, result });
+            await worker.terminate();
           }
         }
       }
