@@ -1,22 +1,24 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="2" sm="6" md="4" lg="3" v-for="(item, index) in items" :key="item.title">
-        <v-card>
-          <v-img height="200" :src="item.image" alt="Placeholder" />
-          <v-card-title> {{ item.title }} </v-card-title>
-          <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
-          <v-list dense>
-            <v-list-item-group>
-              <v-list-item v-for="(item, index) in item.cannabinoids" :key="index">
-                <v-list-item-content>
-                    {{ item.pct }}
-                    <v-progress-linear :value="parseFloat(item.pct * 100)" height="20"></v-progress-linear>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
+
+        <v-col cols="2" sm="6" md="4" lg="3" v-for="(item, index) in items" :key="item.title">
+  <v-card>
+    <v-img height="200" :src="item.image" alt="Placeholder" />
+    <v-card-title> {{ item.title }} </v-card-title>
+    <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
+    <v-list dense>
+      <v-list-item-group>
+        <v-list-item v-for="(cannabinoid, index) in item.cannabinoids" :key="index">
+          <v-list-item-content>
+  <div>{{ cannabinoid.pct }}</div>
+  <v-progress-linear :model-value="cannabinoid.pct * 10" color="pink" height="25"><span class="text-body-2">{{ cannabinoid.name }}</span></v-progress-linear>
+</v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </v-card>
+
       </v-col>
     </v-row>
   </v-container>
@@ -48,3 +50,12 @@ export default {
   }),
 }
 </script>
+
+<style>
+#app > div > div > div  div > div.v-list.v-theme--light.v-list--density-default.v-list--one-line > v-list-item-group div > v-list-item-content > div.v-progress-linear.v-progress-linear--active.v-theme--light.v-locale--is-ltr > div.v-progress-linear__content > span {
+  color: red !important;
+}
+#app > div > div > div  div > div.v-list.v-theme--light.v-list--density-default.v-list--one-line > v-list-item-group div > v-list-item-content > div.v-progress-linear.v-progress-linear--active.v-theme--light.v-locale--is-ltr > div.v-progress-linear__content > span {
+  font-size: 6px;
+}
+</style>
