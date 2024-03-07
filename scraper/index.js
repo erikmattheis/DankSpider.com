@@ -25,7 +25,7 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = 'someg-2021-09-01'
+const batchId = '2024-03-07a'
 const numProductsToSave = 555;
 
 const vendors = [
@@ -112,7 +112,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
 async function makeProductsFile(vendor, limit, useDevCollection) {
   console.log('makeProductsFile')
-  let products = await getProductsByBatchId(batchId);
+  let products = await getAllProducts()
 
   let result = [];
 
@@ -127,16 +127,18 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
       console.log(products[i].terpoenes[0].pct, products[i].tepenes[0].pct)
     }
     */
-    if (!products[i].cannabinoids?.length && !products[i].terpenes?.length) {
-      console.log(`At all ${products[i].title} ${products[i].vendor}`)
-      fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
-      continue;
-    }
-    if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
-      console.log(`Values ${products[i].title} ${products[i].vendor}`)
-      fs.appendFileSync('./temp/no-cannabinoid-values-no-terpene-values.txt', `${products[i].title} ${products[i].vendor}\n`)
-      continue;
-    }
+    /*
+     if (!products[i].cannabinoids?.length && !products[i].terpenes?.length) {
+       console.log(`At all ${products[i].title} ${products[i].vendor}`)
+       fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
+       continue;
+     }
+     if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
+       console.log(`Values ${products[i].title} ${products[i].vendor}`)
+       fs.appendFileSync('./temp/no-cannabinoid-values-no-terpene-values.txt', `${products[i].title} ${products[i].vendor}\n`)
+       continue;
+     }
+     */
     const vendor = products[i].vendor
     if (!red[vendor]) {
       red[products[i].vendor] = {

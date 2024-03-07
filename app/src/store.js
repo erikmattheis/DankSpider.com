@@ -278,11 +278,12 @@ export const useSpiderStore = defineStore('spider', {
       const terpenes = []
 
       this.products.forEach((product) => {
+        /*
         if (!product.terpenes) {
           return
         }
-
-        product.terpenes.forEach((terpene) => {
+*/
+        product.terpenes?.forEach((terpene) => {
           if (!terpene.name) return
           if (!terpenes.includes(terpene.name)) {
             terpenes.push(terpene.name)

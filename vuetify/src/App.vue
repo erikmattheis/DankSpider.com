@@ -1,17 +1,19 @@
 <template>
   <v-container fluid>
-    <card-list/>
+    <CardList/>
   </v-container>
 </template>
 
 <script>
 
 import ResultsTable from './components/ResultsTable.vue'
+import CardList from './components/CardList.vue'
 
 export default {
   name: 'App',
   components: {
-    ResultsTable
+    ResultsTable,
+    CardList
   }
 }
 

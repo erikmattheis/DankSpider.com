@@ -17,38 +17,38 @@ function isValidURI(string) {
 }
 
 const variantNameMap = {
-  '28 grams': '28 g',
-  '28g': '28 g',
+  '1-g': '1 g',
   '1-oz': '28 g',
-  '1oz': '28 g',
-  '28g (small/minis)': '28 g smalls',
-  'Sugar leaf trim - 28 grams': '28 g',
-  'Mixed Dirty Kief 28 grams': '28 g',
-  'Mixed+Dirty+Kief+28+grams': '28 g',
-  '3.5 g Pheno 1': '3.5 g',
-  '3.5 g Pheno 2': '3.5 g',
-  '3.5g': '3.5 g',
-  '7 g Pheno 2': '7 g',
-  'Mixed T1 Sugar leaf/ trim - 28 grams': '28 g',
-  'smalls 28 grams': '28 g smalls',
+  '1/2 Ounce': '14 g',
   '1/2 oz smalls Bag': '14 g smalls',
   '1/2 oz smalls': '14 g smalls',
-  '1/2 Ounce': '14 g',
   '1/2 oz': '14 g',
-  'Half oz': '14 g',
   '14 grams': '14 g',
-  'smalls 14 grams': '14 g smalls',
-  '14g (small/minis)': '14 g',
   '14-g': '14 g',
+  '14g (small/minis)': '14 g smalls',
+  '1g': '1 g',
+  '1oz': '28 g',
+  '28 grams': '28 g',
+  '28g (small/minis)': '28 g smalls',
+  '28g': '28 g',
+  '3.5 g Pheno 1': '3.5 g',
+  '3.5 g Pheno 2': '3.5 g',
+  '3.5 grams': '3.5 g',
+  '3.5-g': '3.5 g',
+  '3.5g': '3.5 g',
+  '7 g Pheno 2': '7 g',
+  '7 g': '7 g',
   '7 grams': '7 g',
   '7-g': '7 g',
-  '7 g': '7 g',
   '7g': '7 g',
-  '3.5-g': '3.5 g',
-  '3.5 grams': '3.5 g',
-  '1-g': '1 g',
-  '1g': '1 g',
-  'Dry Sift 1g': '1 g'
+  'Dry Sift 1g': '1 g',
+  'Half oz': '14 g',
+  'Mixed Dirty Kief 28 grams': '28 g',
+  'Mixed T1 Sugar leaf/ trim - 28 grams': '28 g',
+  'Mixed+Dirty+Kief+28+grams': '28 g',
+  'smalls 14 grams': '14 g smalls',
+  'smalls 28 grams': '28 g smalls',
+  'Sugar leaf trim - 28 grams': '28 g',
 };
 
 function normalizeVariantName(nameStr) {
@@ -66,6 +66,9 @@ function normalizeVariantName(nameStr) {
   name = name?.replace(/ \(1 oz\)/g, '');
   name = name?.replace(/ Pheno 1/g, '');
   name = name?.replace(/ Pheno 2/g, '');
+  name = name?.replace(/ 1g /g, '1 g');
+  name = name?.replace(/ 3.5g /g, '3.5 g');
+  name = name?.replace(/ 7g /g, '7 g');
   return variantNameMap[name] || name;
 }
 
