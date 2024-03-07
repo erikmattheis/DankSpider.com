@@ -25,15 +25,15 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = 'many'
+const batchId = 'all-2021-09-01'
 const numProductsToSave = 555;
 
 const vendors = [
-  { name: 'Arete', service: arete },
+ /* { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'test', service: test },
   { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },
+  { name: 'Preston', service: preston },*/
   { name: 'TopCola', service: topcola },
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
@@ -41,7 +41,7 @@ const vendors = [
   { name: 'PPM', service: ppm },
 ];
 
-run(batchId, 'test', vendors, numProductsToSave)
+run(batchId, '', vendors, numProductsToSave)
 
 async function showBatch() {
   const products = await getProductsByBatchId(batchId)
@@ -71,7 +71,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
   //await deleteAllDocumentsInCollection('tests')
   // await doTest(batchId);
 
@@ -85,7 +85,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await makeProductsFile()
 
-  //await makeStats(batchId)
+  await makeStats(batchId)
 
   // await makeStrainsFile()
 

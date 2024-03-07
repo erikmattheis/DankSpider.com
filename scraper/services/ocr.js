@@ -5,11 +5,11 @@ const { createWorker, OEM, PSM } = require('tesseract.js');
 const logger = require('../services/logger.js');
 
 // Initialize Tesseract worker at the start to reuse throughout the application
-let worker = null;
+let worker 
 
 async function initWorker(options = {}) {
 
-  const worker = await createWorker('eng');
+  let worker = await createWorker('eng');
 
   try {
     await worker.setParameters(options);
@@ -25,16 +25,25 @@ async function initWorker(options = {}) {
 const opt = {
   tessedit_pageseg_mode: 6,
   tessjs_create_hocr: '0',
-  tessjs_create_tsv: '1',
+  tessjs_create_tsv: '0',
   presets: ['bazaar'],
   tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
 }
 
-async function recognize(buffer, url, options = opt) {
+async function recognize(buffer, url, options = opt, worker = null) {
   console.log('Recognizing:', buffer?.length, typeof buffer);
 
-  try {
+  if (!worker) {
     worker = await initWorker(options);
+  }
+
+  try {
+    if (options) {
+      let start = performance.now();
+      await worker.setParameters(options);
+      let end = performance.now();
+      console.log('Set parameters in', (end - start).toFixed(2), 'ms');
+    }
 
     const result = await worker.recognize(buffer);
 
@@ -48,5 +57,6 @@ async function recognize(buffer, url, options = opt) {
 }
 
 module.exports = {
-  recognize
+  recognize,
+  initWorker
 };

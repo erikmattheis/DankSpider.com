@@ -32,17 +32,17 @@ async function processImage(buffer, url, options = { sharpen: 1.5, resize: 4000 
   }
 }
 
-async function readImage(url, options = { sharpen: 1.5, resize: 4000 }) {
+async function readImage(url, options = { }) {
   let buffer = await getBuffer(url, options);
   if (!buffer?.value || buffer?.value?.length === 0) {
-    console.log('buffer has no value')
+    console.log('buffer has no value');
     return {
       value: null,
       lastModified: null
     }
   }
 
-  buffer.value = await processImage(buffer.value, url);
+  // buffer.value = await processImage(buffer.value, url);
   return buffer;
 }
 

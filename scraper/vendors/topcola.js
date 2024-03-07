@@ -60,7 +60,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
         const filteredVariants = variants.filter((variant) => variantNameContainsWeightUnitString(variant.title));
 
-        if (filteredVariants.length && (productType === 'flower')) {
+        if (filteredVariants?.length && (productType === 'flower')) {
 
           if (entry.title?.toLowerCase().includes('sugar leaf')) {
             return;
@@ -97,13 +97,13 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
             const result = transcribeAssay(raw, image, vendor);
 
-            if (result.cannabinoids.length) {
+            if (result.cannabinoids?.length) {
               cannabinoids = result.cannabinoids;
             }
-            if (result.terpenes.length) {
+            if (result.terpenes?.length) {
               terpenes = result.terpenes;
             }
-            if (terpenes.length && cannabinoids.length) {
+            if (terpenes?.length && cannabinoids?.length) {
               break;
             }
           }
