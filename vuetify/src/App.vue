@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card>
-      <results-table  />
-    </v-card>
+    <card-list/>
   </v-container>
 </template>
 

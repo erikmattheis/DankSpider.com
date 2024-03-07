@@ -26,7 +26,8 @@ function transcribeAssay(str, url, vendor) {
 }
 
 function removeCharactersAfterLastDigit(str) {
-  return str.replace(/(\d)\D*$/, '$1');
+  const match = str.match(/.*\s\d+(\.\d+)?/g);
+  return match ? match[0] : "";
 }
 
 function fixMissedPeriod(str) {
@@ -56,26 +57,27 @@ function lineToChemicalObject(line, vendor) {
 
   cleanedLine = removeCharactersAfterLastDigit(cleanedLine);
 
-  const recognizedString = extractAnyChemical(cleanedLine, vendor);
+  const correctedSpelling = extractAnyChemical(cleanedLine, vendor);
+
+  const misspelledWord = findMisspelling(cleanedLine, vendor);
 
   // console.log('recognizedString', recognizedString)
-
-  if (!recognizedString || recognizedString === 'Unknown') {
-    if (!unknowns.includes(completeLine) && linePasses(completeLine)) {
-      unknowns.push(completeLine);
+  console.log(`if ${cleanedLine} starts with ${misspelledWord}`)
+  if (!misspelledWord || misspelledWord === 'Unknown') {
+    if (!unknowns.includes(cleanedLine) && linePasses(cleanedLine)) {
       fs.appendFileSync('./temp/unknownlines.txt', `${vendor} | ${completeLine}\n`)
     }
     return { name: 'Unknown', pct: 0, line: completeLine }
   }
-  // console.log(`if ${cleanedLine} starts with ${recognizedString}`)
-  if (cleanedLine.startsWith(recognizedString)) {
-    cleanedLine = cleanedLine.slice(recognizedString.length).trim();
+
+  if (cleanedLine.startsWith(misspelledWord)) {
+    cleanedLine = cleanedLine.slice(misspelledWord.length).trim();
   }
   else if (linePasses(cleanedLine)) {
-    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${recognizedString}..${completeLine}\n`)
+    fs.appendFileSync('./temp/unknownlines2.txt', `${vendor} ${misspelledWord} .. ${cleanedLine}\n`)
   }
 
-  const name = getNormalizedSpelling(recognizedString);
+  const name = correctSpelling(misspelledWord);
 
   let parts = cleanedLine.split(' ');
 
@@ -142,7 +144,7 @@ function recordUnknown(str, ln, vendor) {
   }
 }
 
-function recognizeString(line) {
+function correctSpelling(line) {
   for (const [key, value] of cannabinoidSpellingMap) {
     if (line.startsWith(key)) {
       return value;
@@ -158,29 +160,26 @@ function recognizeString(line) {
   return 'Unknown'
 }
 
-function getNormalizedSpelling(line) {
-
+function findMisspelling(line) {
   for (const [key, value] of cannabinoidSpellingMap) {
-
     if (line.startsWith(key)) {
-      return value;
+      return key;
     }
   }
 
   for (const [key, value] of terpeneSpellingMap) {
     if (line.startsWith(key)) {
-      return value;
+      return key;
     }
   }
 
   return 'Unknown'
 }
-
 function extractAnyChemical(line, vendor) {
 
   let cleanedLine = line.replace(/\s+/g, ' ').trim();
 
-  const recognizedString = recognizeString(cleanedLine) || '3';
+  const recognizedString = correctSpelling(cleanedLine) || 'Unknown';
 
   if (recognizedString === 'Unknown') {
     recordUnknown(line, vendor)

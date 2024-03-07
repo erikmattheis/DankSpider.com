@@ -261,7 +261,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
 
   batchId = id;
 
-  // await recordAssays(vendor);
+  await recordAssays(vendor);
 
   const links = await scrapePage(startUrl, currentPage, []);
 

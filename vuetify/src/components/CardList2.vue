@@ -7,7 +7,7 @@
           <v-card-title> {{ item.title }} </v-card-title>
           <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
           <v-card-text>
-            {{ item.cannabinoids?.length }} Terpenes: {{ item.terpenes?.length }}
+            {{ item }} Terpenes: {{ item.terpenes?.length }}
           </v-card-text>
         </v-card>
       </v-col>

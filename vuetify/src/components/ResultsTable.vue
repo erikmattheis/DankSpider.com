@@ -56,23 +56,18 @@ export default {
     data() {
         return {
             items: results,
-            message: 'Hello Vue!'
-        }
-    },
-    computed: {
-        groupedItems() {
-            return this.items.reduce((groups, item) => {
-                const key = item.image;
-                if (!groups[key]) {
-                    groups[key] = [];
-                }
-                groups[key].push(item);
-                return groups;
-            }, {});
         }
     },
     mounted() {
-        console.log('results', results)
+        this.items.sort((a, b) => {
+            if (a.image < b.image) {
+                return -1;
+            }
+            if (a.image > b.image) {
+                return 1;
+            }
+            return 0;
+        });
     },
     methods: {
         sort(col) {

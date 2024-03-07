@@ -25,15 +25,14 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = 'all-2021-09-01'
+const batchId = 'someg-2021-09-01'
 const numProductsToSave = 555;
 
 const vendors = [
- /* { name: 'Arete', service: arete },
+  { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
-  { name: 'test', service: test },
   { name: 'WNC', service: wnc },
-  { name: 'Preston', service: preston },*/
+  { name: 'Preston', service: preston },
   { name: 'TopCola', service: topcola },
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
@@ -73,7 +72,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
   //await deleteAllDocumentsInCollection('tests')
-  // await doTest(batchId);
+  //await doTest(batchId);
 
   //await copyProducts()
 
@@ -83,9 +82,9 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
-  await makeStats(batchId)
+  //await makeStats(batchId)
 
   // await makeStrainsFile()
 
@@ -207,6 +206,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   const updatedAt = new Date().toISOString()
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
+  fs.writeFileSync('../vuetify/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
 
   logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }
