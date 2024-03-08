@@ -100,46 +100,6 @@ async function getProduct(url, numProductsToSave = 1000) {
     }
   });
 
-  /*
-
-  let imageUrls = $('.wp-post-image').map((i, el) => $(el).attr('src')).get();
-
-  imageUrls = imageUrls.map((url) => url.startsWith('https:') ? url : `https:${url}`);
-
-  if (!imageUrls || !imageUrls.length) {
-    fs.writeFileSync(`./temp/vendors/hch-product-no-image.html`, response.data);
-  }
-
-  for (const image of imageUrls) {
-    if (skippableImages.includes(image)) {
-      continue;
-    }
-
-    const buffer = await readImage(image);
-
-    const raw = await recognize(buffer.value, image);
-
-    const result = transcribeAssay(raw, image, vendor);
-
-    if (!result) {
-      fs.appendFileSync(`./temp/vendors/hch-product-no-assay.html`, `No assay found for ${image}\n`);
-      continue;
-    }
-    console.log(JSON.stringify(result))
-    if (result?.cannabinoids.length) {
-      cannabinoids = result.cannabinoids;
-    }
-    // Arete has no terpene assays as of 2/26/2024
-    if (result?.terpenes.length) {
-      terpenes = result.terpenes;
-    }
-    if (terpenes.length && cannabinoids.length) {
-      break;
-    }
-
-  }
-*/
-
   let allAssays = await getAssays();
   allAssays = allAssays.filter(a => a.vendor === 'HCF');
 

@@ -4,11 +4,10 @@ const fs = require('fs')
 const { deleteAllDocumentsInCollection, getCompleteProducts, getProductsWithTerpenes, deleteNonFlowerProducts, deleteAssaysByVendors, copyProducts, recalculateChemicalValues, deleteProductsByVendors, normalizeVariants, copyAndDeleteProducts, recordAssays, fixValues, deleteProductsByVendor, getProductsByBatchId, cleanProductsCollection, getProductsByPPM, getProductsByTerpene, getProductsByVariant, saveArticles, getproducts, getAllProducts, getUniqueChemicals, saveChemical, normalizeVariantName, saveProducts } = require('./services/firebase.js')
 const scrapers = require('./services/scrapers.js')
 const { makeStats } = require('./services/stats.js')
-const jpegs = require('./services/jpegs.js')
+
 const { getArticle } = require('./services/ai-author.js')
 const { read } = require('./services/pdf.js')
 const logger = require('./services/logger.js')
-
 const ppm = require("./vendors/ppm.js");
 const preston = require("./vendors/preston.js");
 const flow = require("./vendors/flow.js");
@@ -25,8 +24,8 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = '2024-03-07a'
-const numProductsToSave = 555;
+const batchId = '2024-03-07b'
+const numProductsToSave = 5;
 
 const vendors = [
   { name: 'Arete', service: arete },
@@ -62,45 +61,19 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   const timer = performance.now();
 
-  //await deleteAssaysByVendors(['HCF', 'HCH'])
-
-  //await deleteProductsByVendors(['WNC'])
-
-  //await showBatch()
-
   //await copyAndDeleteProducts([batchId]);
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
-  //await deleteAllDocumentsInCollection('tests')
-  //await doTest(batchId);
 
-  //await copyProducts()
-
-  //await deleteNonFlowerProducts()
+  await doTest(batchId);
 
   //await normalizeVariants()
 
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  //await makeProductsFile()
 
   //await makeStats(batchId)
-
-  // await makeStrainsFile()
-
-  // await makeCannabinoidsFile()
-
-  // await getArticle()
-
-  // await saveArticles()
-
-  // await getUniqueChemicals()
-
-  // await saveChemical()
-
-  // await getproducts()
-
-  // await read()
 
   const time = ((performance.now() - timer) / 1000).toFixed(2)
 

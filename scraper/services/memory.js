@@ -2,31 +2,65 @@ const gm = require("gm");
 const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
 const logger = require('../services/logger.js');
+const path = require('path');
 
 function jpgNameFromUrl(url) {
   const name = url.split('/').pop().split('#')[0].split('?')[0];
   return name.endsWith('.jpg') ? name : `${name}.jpg`;
 }
 
-const path = require('path');
-
-async function getBuffer(url) {
-  const name = makeImageName(url);
-  if (!url) {
-    return null;
-  }
-
+async function fileCachedDate(name) {
   const dir = path.join(__dirname, '../temp/scan');
   const filePath = path.join(dir, name);
 
   if (fs.existsSync(filePath)) {
-    buffer = fs.readFileSync(filePath);
+    return fs.statSync(filePath).mtime;
   } else {
-    buffer = await getImageBuffer(url);
-    fs.writeFileSync(filePath, buffer);
+    return null;
   }
+}
 
-  return buffer;
+async function getBufferFromFile(url) {
+  let lastModified;
+  let value;
+  try {
+
+    if (!url.startsWith('http')) {
+      const filePath = path.join(__dirname, '../temp/scan', url);
+      console.log('filePath', filePath);
+      lastModified = fs.statSync(filePath)?.mtime;
+      buffer = fs.readFileSync(filePath);
+      return {
+        value: buffer,
+        lastModified
+      }
+    }
+
+    const name = makeImageName(url);
+    console.log('name', name);
+    const dir = path.join(__dirname, '../temp/scan');
+    const filePath = path.join(dir, name);
+    console.log('filePath', filePath);
+
+    if (fs.existsSync(filePath)) {
+      lastModified = fs.statSync(filePath)?.mtime;
+      value = fs.readFileSync(filePath);
+    } else {
+      value = null;
+    }
+
+    return {
+      value,
+      lastModified
+    }
+  }
+  catch (error) {
+    logger.error(`Error getting buffer from file: ${error.message}`, { url });
+    return {
+      value,
+      lastModified
+    }
+  }
 }
 
 function makeImageName(url) {
@@ -295,6 +329,8 @@ let cannabinoidSpellingMap = {
   '95-Hexabydrocannabinol': '9S-HHC',
   '95-Hexabydrocannabinol': '9S-HHC',
   '9-S-HHC': '9S-HHC',
+  '9 Teuahyrocanmatioolic': 'Δ-9-THCA',
+  '9 Tetrahyrocanatiool': 'Δ-9-THCAs',
   '75%-Henatydrocarrabingl': '9S-HHC',
   '75-Hexatydrocarrabiscl': '9S-HHC',
   '4-9-Totratydrocannabivarin': 'THCV',
@@ -383,7 +419,6 @@ let terpeneSpellingMap = {
 
 terpeneSpellingMap = Object.entries(terpeneSpellingMap).sort(longestFirst);
 
-
 //const terpeneNameList = Array.from(Object.values(terpeneSpellingMap)[1]).filter((item, index, self) => self.indexOf(item) === index);
 const terpeneNameList = Array.from(Object.values(terpeneSpellingMap))
   .map(item => item[1]) // get the first element of each item
@@ -396,10 +431,12 @@ function longestFirst(a, b) {
     return a[0].localeCompare(b[0]);
   }
 }
+
 module.exports = {
-  getBuffer,
+  getBufferFromFile,
   cannabinoidNameList,
   terpeneNameList,
   cannabinoidSpellingMap,
-  terpeneSpellingMap
+  terpeneSpellingMap,
+  fileCachedDate,
 }

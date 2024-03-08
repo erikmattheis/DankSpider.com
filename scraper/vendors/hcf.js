@@ -18,7 +18,9 @@ async function recordAssays(links, url, vendor) {
   try {
 
     for (const link of links) {
-      let result = await recognize(link.url);
+
+      const buffer = await readImage(link.url);
+      let result = await recognize(buffer, link.url);
 
       result = transcribeAssay(result, url, vendor);
 

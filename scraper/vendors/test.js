@@ -4,14 +4,16 @@ const { transcribeAssay } = require('../services/cortex');
 const { makeStats } = require('../services/stats');
 const { saveTest } = require('../services/firebase');
 const fs = require('fs');
-const {initWorker} = require('../services/ocr');
+const { initWorker } = require('../services/ocr');
 
 async function readProductImage(image, config) {
 
   const worker = await initWorker();
 
   const buffer = await readImage(image, image, config.gm);
-  
+
+  console.log('buffer', image, buffer.lastModified, buffer.value?.length);
+
   const raw = await recognize(buffer.value, image, config.tesseract, worker);
 
   if (!raw) {
@@ -45,29 +47,30 @@ async function doTest(batchId) {
 
   const configs = [];
   const results = [];
-          
-  for (const mode of [4, 5, 6]) {
+
+  for (const mode of [1, 2, 3, 4, 5, 6]) {
     for (const preset of ['bazaar', '']) {
-    for (const image of images) {
-          const config = {
-            tesseract: {
-              tessedit_pageseg_mode: mode,
-              presets: [preset],
-              tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
-            },
-            gm: { }
-          }
-          const result = await readProductImage(image, config);
-          console.log(JSON.stringify({ config, image, result }, null, 2));
-          // saveTest(result, image, config);
-          await saveTest(result, image, config, batchId);
-          results.push({ config, image, result });
-       
+      for (const image of images) {
+        const config = {
+          tesseract: {
+            tessedit_pageseg_mode: mode,
+            presets: [preset],
+            tessedit_char_whitelist: ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,.',
+          },
+          gm: {}
         }
+        const result = await readProductImage(image, config);
+        console.log(JSON.stringify({ config, image, result }, null, 2));
+        // saveTest(result, image, config);
+        await saveTest(result, image, config, batchId);
+        results.push({ config, image, result });
+
       }
     }
-    fs.writeFileSync('test-results.json', JSON.stringify(results, null, 2));
   }
+  fs.writeFileSync('test-results.json', JSON.stringify(results, null, 2));
+}
+
 
 
 exports.doTest = doTest;
