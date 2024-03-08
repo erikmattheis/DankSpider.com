@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
-    <ResultsTable />
-    <CardList />
+    <RouterView />
   </v-container>
 </template>
 

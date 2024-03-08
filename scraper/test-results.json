@@ -26,8 +26,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "4.01"
+    "batchId": "2024-03-07c",
+    "time": "4.10",
+    "preset": "bazaar",
+    "mode": 1
   },
   {
     "config": {
@@ -156,8 +158,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.05"
+    "batchId": "2024-03-07c",
+    "time": "5.14",
+    "preset": "bazaar",
+    "mode": 1
   },
   {
     "config": {
@@ -281,8 +285,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "9.05"
+    "batchId": "2024-03-07c",
+    "time": "9.29",
+    "preset": "bazaar",
+    "mode": 1
   },
   {
     "config": {
@@ -406,8 +412,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.42"
+    "batchId": "2024-03-07c",
+    "time": "3.19",
+    "preset": "bazaar",
+    "mode": 1
   },
   {
     "config": {
@@ -436,8 +444,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.83"
+    "batchId": "2024-03-07c",
+    "time": "3.98",
+    "preset": "",
+    "mode": 1
   },
   {
     "config": {
@@ -566,8 +576,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.07"
+    "batchId": "2024-03-07c",
+    "time": "5.06",
+    "preset": "",
+    "mode": 1
   },
   {
     "config": {
@@ -691,8 +703,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.72"
+    "batchId": "2024-03-07c",
+    "time": "8.70",
+    "preset": "",
+    "mode": 1
   },
   {
     "config": {
@@ -816,8 +830,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.19"
+    "batchId": "2024-03-07c",
+    "time": "3.22",
+    "preset": "",
+    "mode": 1
   },
   {
     "config": {
@@ -846,8 +862,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.79"
+    "batchId": "2024-03-07c",
+    "time": "3.85",
+    "preset": "bazaar",
+    "mode": 2
   },
   {
     "config": {
@@ -976,8 +994,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "4.97"
+    "batchId": "2024-03-07c",
+    "time": "4.94",
+    "preset": "bazaar",
+    "mode": 2
   },
   {
     "config": {
@@ -1101,8 +1121,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.65"
+    "batchId": "2024-03-07c",
+    "time": "8.64",
+    "preset": "bazaar",
+    "mode": 2
   },
   {
     "config": {
@@ -1226,8 +1248,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.15"
+    "batchId": "2024-03-07c",
+    "time": "3.20",
+    "preset": "bazaar",
+    "mode": 2
   },
   {
     "config": {
@@ -1256,8 +1280,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.79"
+    "batchId": "2024-03-07c",
+    "time": "4.29",
+    "preset": "",
+    "mode": 2
   },
   {
     "config": {
@@ -1386,8 +1412,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "4.95"
+    "batchId": "2024-03-07c",
+    "time": "5.34",
+    "preset": "",
+    "mode": 2
   },
   {
     "config": {
@@ -1511,8 +1539,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "10.03"
+    "batchId": "2024-03-07c",
+    "time": "10.00",
+    "preset": "",
+    "mode": 2
   },
   {
     "config": {
@@ -1636,8 +1666,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.87"
+    "batchId": "2024-03-07c",
+    "time": "3.25",
+    "preset": "",
+    "mode": 2
   },
   {
     "config": {
@@ -1666,8 +1698,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.82"
+    "batchId": "2024-03-07c",
+    "time": "3.83",
+    "preset": "bazaar",
+    "mode": 3
   },
   {
     "config": {
@@ -1796,8 +1830,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "4.99"
+    "batchId": "2024-03-07c",
+    "time": "5.06",
+    "preset": "bazaar",
+    "mode": 3
   },
   {
     "config": {
@@ -1921,8 +1957,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.60"
+    "batchId": "2024-03-07c",
+    "time": "8.68",
+    "preset": "bazaar",
+    "mode": 3
   },
   {
     "config": {
@@ -2046,8 +2084,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.14"
+    "batchId": "2024-03-07c",
+    "time": "3.16",
+    "preset": "bazaar",
+    "mode": 3
   },
   {
     "config": {
@@ -2076,8 +2116,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.78"
+    "batchId": "2024-03-07c",
+    "time": "3.76",
+    "preset": "",
+    "mode": 3
   },
   {
     "config": {
@@ -2206,8 +2248,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.00"
+    "batchId": "2024-03-07c",
+    "time": "5.01",
+    "preset": "",
+    "mode": 3
   },
   {
     "config": {
@@ -2331,8 +2375,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.64"
+    "batchId": "2024-03-07c",
+    "time": "8.72",
+    "preset": "",
+    "mode": 3
   },
   {
     "config": {
@@ -2456,8 +2502,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.17"
+    "batchId": "2024-03-07c",
+    "time": "3.19",
+    "preset": "",
+    "mode": 3
   },
   {
     "config": {
@@ -2486,8 +2534,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.76"
+    "batchId": "2024-03-07c",
+    "time": "4.01",
+    "preset": "bazaar",
+    "mode": 4
   },
   {
     "config": {
@@ -2616,8 +2666,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.00"
+    "batchId": "2024-03-07c",
+    "time": "5.06",
+    "preset": "bazaar",
+    "mode": 4
   },
   {
     "config": {
@@ -2741,8 +2793,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.66"
+    "batchId": "2024-03-07c",
+    "time": "8.76",
+    "preset": "bazaar",
+    "mode": 4
   },
   {
     "config": {
@@ -2866,8 +2920,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.15"
+    "batchId": "2024-03-07c",
+    "time": "3.26",
+    "preset": "bazaar",
+    "mode": 4
   },
   {
     "config": {
@@ -2896,8 +2952,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.78"
+    "batchId": "2024-03-07c",
+    "time": "3.77",
+    "preset": "",
+    "mode": 4
   },
   {
     "config": {
@@ -3026,8 +3084,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.00"
+    "batchId": "2024-03-07c",
+    "time": "4.95",
+    "preset": "",
+    "mode": 4
   },
   {
     "config": {
@@ -3151,8 +3211,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.61"
+    "batchId": "2024-03-07c",
+    "time": "8.70",
+    "preset": "",
+    "mode": 4
   },
   {
     "config": {
@@ -3276,8 +3338,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.16"
+    "batchId": "2024-03-07c",
+    "time": "3.25",
+    "preset": "",
+    "mode": 4
   },
   {
     "config": {
@@ -3306,8 +3370,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.78"
+    "batchId": "2024-03-07c",
+    "time": "3.83",
+    "preset": "bazaar",
+    "mode": 5
   },
   {
     "config": {
@@ -3436,8 +3502,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.01"
+    "batchId": "2024-03-07c",
+    "time": "5.20",
+    "preset": "bazaar",
+    "mode": 5
   },
   {
     "config": {
@@ -3561,8 +3629,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.72"
+    "batchId": "2024-03-07c",
+    "time": "8.68",
+    "preset": "bazaar",
+    "mode": 5
   },
   {
     "config": {
@@ -3686,8 +3756,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.15"
+    "batchId": "2024-03-07c",
+    "time": "3.27",
+    "preset": "bazaar",
+    "mode": 5
   },
   {
     "config": {
@@ -3716,8 +3788,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.78"
+    "batchId": "2024-03-07c",
+    "time": "4.57",
+    "preset": "",
+    "mode": 5
   },
   {
     "config": {
@@ -3846,8 +3920,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "5.61"
+    "batchId": "2024-03-07c",
+    "time": "5.31",
+    "preset": "",
+    "mode": 5
   },
   {
     "config": {
@@ -3971,8 +4047,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "9.52"
+    "batchId": "2024-03-07c",
+    "time": "8.82",
+    "preset": "",
+    "mode": 5
   },
   {
     "config": {
@@ -4096,8 +4174,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.21"
+    "batchId": "2024-03-07c",
+    "time": "3.19",
+    "preset": "",
+    "mode": 5
   },
   {
     "config": {
@@ -4126,8 +4206,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.79"
+    "batchId": "2024-03-07c",
+    "time": "3.83",
+    "preset": "bazaar",
+    "mode": 6
   },
   {
     "config": {
@@ -4256,8 +4338,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "4.96"
+    "batchId": "2024-03-07c",
+    "time": "5.19",
+    "preset": "bazaar",
+    "mode": 6
   },
   {
     "config": {
@@ -4381,8 +4465,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.61"
+    "batchId": "2024-03-07c",
+    "time": "8.71",
+    "preset": "bazaar",
+    "mode": 6
   },
   {
     "config": {
@@ -4506,8 +4592,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.15"
+    "batchId": "2024-03-07c",
+    "time": "3.19",
+    "preset": "bazaar",
+    "mode": 6
   },
   {
     "config": {
@@ -4536,8 +4624,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.80"
+    "batchId": "2024-03-07c",
+    "time": "3.89",
+    "preset": "",
+    "mode": 6
   },
   {
     "config": {
@@ -4666,8 +4756,10 @@
       ],
       "cannabinoids": []
     },
-    "batchId": "2024-03-07b",
-    "time": "4.97"
+    "batchId": "2024-03-07c",
+    "time": "5.14",
+    "preset": "",
+    "mode": 6
   },
   {
     "config": {
@@ -4791,8 +4883,10 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "8.60"
+    "batchId": "2024-03-07c",
+    "time": "8.87",
+    "preset": "",
+    "mode": 6
   },
   {
     "config": {
@@ -4916,7 +5010,9 @@
         }
       ]
     },
-    "batchId": "2024-03-07b",
-    "time": "3.17"
+    "batchId": "2024-03-07c",
+    "time": "3.29",
+    "preset": "",
+    "mode": 6
   }
 ]
