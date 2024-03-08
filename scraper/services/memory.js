@@ -1,5 +1,4 @@
 const gm = require("gm");
-const axios = require("../services/rateLimitedAxios");
 const fs = require("fs");
 const logger = require('../services/logger.js');
 const path = require('path');
@@ -20,35 +19,38 @@ async function fileCachedDate(name) {
   }
 }
 
-async function getBufferFromFile(url) {
+async function fileCachedBuffer(url, buffer) {
+
+  const name = makeImageName(url);
+  const dir = path.join(__dirname, '../temp/scan');
+  const filePath = path.join(dir, name);
+
+  if (fs.existsSync(filePath)) {
+    return
+  }
+
+  fs.writeFileSync(filePath, buffer);
+}
+
+
+async function getCachedBuffer(url) {
   let lastModified;
   let value;
   try {
 
-    if (!url.startsWith('http')) {
-      const filePath = path.join(__dirname, '../temp/scan', url);
-      console.log('filePath', filePath);
-      lastModified = fs.statSync(filePath)?.mtime;
-      buffer = fs.readFileSync(filePath);
-      return {
-        value: buffer,
-        lastModified
-      }
-    }
-
     const name = makeImageName(url);
-    console.log('name', name);
+
+    console.log('cached name', name);
+
     const dir = path.join(__dirname, '../temp/scan');
     const filePath = path.join(dir, name);
-    console.log('filePath', filePath);
 
     if (fs.existsSync(filePath)) {
+      console.log('retrieving cached image')
       lastModified = fs.statSync(filePath)?.mtime;
       value = fs.readFileSync(filePath);
-    } else {
-      value = null;
     }
-
+    console.log('cached buffer len', value.length, lastModified);
     return {
       value,
       lastModified
@@ -433,10 +435,11 @@ function longestFirst(a, b) {
 }
 
 module.exports = {
-  getBufferFromFile,
+  getCachedBuffer,
   cannabinoidNameList,
   terpeneNameList,
   cannabinoidSpellingMap,
   terpeneSpellingMap,
   fileCachedDate,
+  fileCachedBuffer
 }

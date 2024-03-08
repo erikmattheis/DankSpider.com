@@ -5,25 +5,27 @@ const { saveTest } = require('../services/firebase');
 const fs = require('fs');
 
 async function readProductImage(image, config) {
+  let terpenes = [];
+  let cannabinoids = [];
 
-  const buffer = await readImage(image, image, config.gm);
+  let buffer = await readImage(image, config.gm);
+  if (!buffer?.value) {
+    console.log('no buffer');
+    return buffer
+  }
 
-  console.log('buffer', image, buffer.lastModified, buffer.value?.length);
-
-  const raw = await recognize(buffer.value, image, config.tesseract);
+  const raw = await recognize(buffer.value, config.tesseract);
 
   if (!raw) {
     console.log('no text found', image);
   }
 
-  const result = transcribeAssay(raw, image, image);
-
-  let cannabinoids = [];
-  let terpenes = [];
+  const result = transcribeAssay(raw, image, 'Test');
 
   if (result.cannabinoids.length) {
     cannabinoids = result.cannabinoids;
   }
+
   if (result.terpenes.length) {
     terpenes = result.terpenes;
   }
@@ -33,6 +35,7 @@ async function readProductImage(image, config) {
 }
 
 const images = [
+  'https://perfectplantmarket.com/cdn/shop/products/Green_Crack_THC_batch_10-07-2022-25601W1693_COA_page-0001.jpg',
   '01-pinnacle-cannabinoids.jpg',
   '02_bloom-terpenes.jpg',
   '03_blooom-cannabinoids.jpg',
@@ -61,7 +64,7 @@ async function doTest(batchId) {
         const end = performance.now();
         const time = ((end - start) / 1000).toFixed(2);
         console.log(`Mode: ${mode} Preset: ${preset} Image: ${image} Time: ${time}s`);
-        console.log(JSON.stringify({ config, image, result, time }, null, 2));
+        //console.log(JSON.stringify({ image, result, time }, null, 2));
         // saveTest(result, image, config);
         await saveTest(result, image, config, batchId, time);
         results.push({ config, image, result, batchId, time, preset, mode });

@@ -6,11 +6,7 @@
                 v-model="selectedCannabinoid"
                 :items="cannabinoids"
                 label="Cannabinoids"
-                multiple
-                chips
-                small-chips
-                deletable-chips
-                hint="Select one or more cannabinoids"
+                hint="Sort by cannabinoid"
             ></v-select>
         </v-col>
         <v-col cols="12" sm="6">
@@ -18,11 +14,7 @@
                 v-model="selectedTerpene"
                 :items="terpenes"
                 label="Terpenes"
-                multiple
-                chips
-                small-chips
-                deletable-chips
-                hint="Select one or more terpenes"
+                hint="Sort by terpenes"
             ></v-select>
         </v-col>
     </v-row>
@@ -59,12 +51,17 @@ export default {
     }),
     watch: {
         selectedCannabinoid: function (newVal, oldVal) {
-            this.$emit('cannabinoid-filter', newVal)
+            this.$emit('cannabinoid-order', newVal)
         },
         selectedTerpene: function (newVal, oldVal) {
-            this.$emit('terpene-filter', newVal)
+            this.$emit('terpene-order', newVal)
         }
     },
+    methods: {
+        // emit the selected cannabinoid
+        // emit the selected terpene
+    },
+    
 }
 
     

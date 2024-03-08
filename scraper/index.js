@@ -65,13 +65,13 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
-  await doTest(batchId);
+  //await doTest(batchId);
 
   //await normalizeVariants()
 
   //await recalculateChemicalValues()
 
-  //await makeProductsFile()
+  await makeProductsFile()
 
   //await makeStats(batchId)
 
@@ -122,13 +122,15 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
-      products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.08)
+      products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.09)
+      /*
       products[i].cannabinoids = products[i].cannabinoids.map(c => {
         if (parseFloat(c.pct) > 50) {
           c.pct = (parseFloat(c.pct) / 10).toFixed(2);
         }
         return c;
       });
+      */
       red[vendor].numWithCannabinoidAssays += 1
     }
 

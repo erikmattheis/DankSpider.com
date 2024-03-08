@@ -1,6 +1,6 @@
 <template>
- <ProductFilters />
-  <CardList/>
+  <ProductFilters />
+  <CardList @cannabinoid-order="cannabinoidOrder"/>
 </template>
 
 <script>
@@ -10,9 +10,25 @@ import ProductFilters from './ProductsFilter.vue';
 
 export default {
   name: 'SortedProducts',
+  data: () => ({
+    cannabinoidOrder: [],
+    terpeneOrder: [],
+  }),
   components: {
-    CardList
+    CardList,
+    ProductFilters,
+  },
+  methods: {
+    setCannabinoidOrder(cannabinoidOrder) {
+      this.cannabinoidOrder = cannabinoidOrder;
+    },
+    setTerpeneOrder(terpeneOrder) {
+      this.terpeneOrder = terpeneOrder;
+    }
+    // get the selected cannabinoid
+    // get the selected terpene
   }
+
 }
 
 </script>

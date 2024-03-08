@@ -3,7 +3,51 @@ const gm = require('gm').subClass({ imageMagick: true });
 const fs = require('fs');
 const logger = require('./logger.js');
 const path = require('path');
-const { getBufferFromFile } = require('./memory.js');
+const { getCachedBuffer, fileCachedBuffer } = require('./memory.js');
+
+async function readImage(url, options = {}) {
+  try {
+    console.log('====================')
+    console.log('readImage', url);
+
+    let buffer = await getCachedBuffer(url);
+
+
+    if (buffer.value && buffer.value.length) {
+      console.log('buffer from cache', url);
+      return buffer
+    }
+
+    buffer = await getImageBuffer(url);
+
+    try {
+      await fileCachedBuffer(url, buffer.value);
+    }
+    catch (error) {
+      console.log('Error writing to fileCachedBuffer', error);
+      fs.appendFileSync('./temp/errors.fileCachedBuffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
+    }
+  }
+  catch (error) {
+    logger.error(`Error around readImage: ${error}`);
+    fs.appendFileSync('./temp/errors.readImage.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
+    return null;
+  }
+}
+
+async function getImageBuffer(url) {
+  try {
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    const value = Buffer.from(response.data, 'binary');
+    const lastModified = response.headers['last-modified'];
+    console.log('Got image buffer', url, value.length);
+    return { value, lastModified };
+  } catch (error) {
+    logger.error(`Error getting image buffer: ${error.message}`, { url });
+    fs.appendFileSync('./temp/errors.getImageBuffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
+    return null;
+  }
+}
 
 async function processImage(buffer, url, options = { sharpen: 1.5, resize: 4000 }) {
   try {
@@ -32,73 +76,6 @@ async function processImage(buffer, url, options = { sharpen: 1.5, resize: 4000 
   }
 }
 
-async function readImage(url, options = {}) {
-
-  try {
-
-    console.log('readImage', url);
-    let buffer = await getBuffer(url, options);
-
-    if (!buffer?.value || buffer?.value?.length === 0) {
-      console.log('buffer has no value');
-      return {
-        value: null,
-        lastModified: null
-      }
-    }
-
-    // buffer.value = await processImage(buffer.value, url);
-    return buffer;
-  }
-  catch (error) {
-    logger.error(`Error around readImage: ${error}`);
-    fs.appendFileSync('./temp/errors.readImage.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
-    return null;
-  }
-}
-
-async function getBuffer(url) {
-  try {
-
-    if (!url) {
-      return null;
-    }
-
-    let value = null;
-    let lastModified = null;
-
-    let buffer = await getBufferFromFile(url);
-
-    console.log('got Buffer', url, buffer);
-
-    if (buffer) {
-      value = buffer.value;
-      lastModified = buffer.lastModified;
-    }
-
-    if (url.startsWith('http')) {
-      const response = await axios.get(url, { responseType: 'arraybuffer' });
-      lastModified = response.headers['last-modified'];
-      value = Buffer.from(response.data, 'binary');
-    }
-
-    if (!value || buffer?.value.length === 0) {
-      console.log('buffer has no value', buffer);
-      console.log(`Error getting image buffer: ${url}`);
-
-      fs.appendFileSync('./temp/errors.buffer.txt', `Error getting image buffer: ${url}`);
-
-      return null;
-
-    } else {
-      return buffer
-    }
-  } catch (error) {
-    logger.error(`Error around getImageBuffer: ${error}`);
-    fs.appendFileSync('./temp/errors.buffer.txt', `\nUrl: ${url}\n${JSON.stringify(error, null, 2)}\n\n`);
-  }
-}
-
 module.exports = {
-  readImage
+  readImage,
 };

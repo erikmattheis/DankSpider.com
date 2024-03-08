@@ -16,6 +16,7 @@ export default defineConfig({
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify(),
+
     Components(),
     ViteFonts({
       google: {
