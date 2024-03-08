@@ -25,8 +25,8 @@
 export default {
     name: 'ProductFilter',
     data: () => ({
-        selectedCannabinoid: [],
-        selectedTerpene: [],
+        selectedCannabinoid: ['THC'],
+        selectedTerpene: ['Limonene'],
         cannabinoids: [
             'THC',
             'CBD',
@@ -51,17 +51,19 @@ export default {
     }),
     watch: {
         selectedCannabinoid: function (newVal, oldVal) {
-            this.$emit('cannabinoid-order', newVal)
+            console.log(newVal)
+            this.$emit('set-cannabinoid-order', [newVal])
         },
         selectedTerpene: function (newVal, oldVal) {
-            this.$emit('terpene-order', newVal)
+            this.$emit('set-terpene-order', [newVal])
         }
     },
     methods: {
+
         // emit the selected cannabinoid
         // emit the selected terpene
     },
-    
+
 }
 
     
