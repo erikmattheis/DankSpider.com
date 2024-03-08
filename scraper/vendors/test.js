@@ -1,20 +1,16 @@
 const { readImage } = require('../services/image');
 const { recognize } = require('../services/ocr');
 const { transcribeAssay } = require('../services/cortex');
-const { makeStats } = require('../services/stats');
 const { saveTest } = require('../services/firebase');
 const fs = require('fs');
-const { initWorker } = require('../services/ocr');
 
 async function readProductImage(image, config) {
-
-  const worker = await initWorker();
 
   const buffer = await readImage(image, image, config.gm);
 
   console.log('buffer', image, buffer.lastModified, buffer.value?.length);
 
-  const raw = await recognize(buffer.value, image, config.tesseract, worker);
+  const raw = await recognize(buffer.value, image, config.tesseract);
 
   if (!raw) {
     console.log('no text found', image);
@@ -51,6 +47,8 @@ async function doTest(batchId) {
   for (const mode of [1, 2, 3, 4, 5, 6]) {
     for (const preset of ['bazaar', '']) {
       for (const image of images) {
+
+        const start = performance.now();
         const config = {
           tesseract: {
             tessedit_pageseg_mode: mode,
@@ -60,10 +58,13 @@ async function doTest(batchId) {
           gm: {}
         }
         const result = await readProductImage(image, config);
+        const end = performance.now();
+        const time = ((end - start) / 1000).toFixed(2);
+        console.log(`Mode: ${mode} Preset: ${preset} Image: ${image} Time: ${time}s`);
         console.log(JSON.stringify({ config, image, result }, null, 2));
         // saveTest(result, image, config);
-        await saveTest(result, image, config, batchId);
-        results.push({ config, image, result });
+        await saveTest(result, image, config, batchId, time);
+        results.push({ config, image, result, batchId, time });
 
       }
     }

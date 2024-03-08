@@ -3,6 +3,2418 @@
         {
             "config": {
                 "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 1,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 2,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        "bazaar"
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "01-pinnacle-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.338 3.38"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "THCA 17.3 173.0"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "02_bloom-terpenes.jpg",
+            "result": {
+                "terpenes": [
+                    {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
+                        "name": "Humulene",
+                        "pct": "0.00",
+                        "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
+                    },
+                    {
+                        "name": "Pinene",
+                        "pct": "2.12",
+                        "line": "a-Pinene. 0750 3000 2122122 2122 -"
+                    },
+                    {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
+                        "name": "Myrcene",
+                        "pct": "0.00",
+                        "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
+                    },
+                    {
+                        "name": "Borneol",
+                        "pct": "0.00",
+                        "line": "Borneol 0750 3.000 81515 0082 I"
+                    },
+                    {
+                        "name": "Camphene",
+                        "pct": "0.00",
+                        "line": "Camphene 0750 3.000 94.507 0095 I"
+                    },
+                    {
+                        "name": "Carene",
+                        "pct": "0.00",
+                        "line": "Carene 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
+                        "name": "Dihydrocarveol",
+                        "pct": "0.00",
+                        "line": "Dihydrocarveol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Fenchone",
+                        "pct": "0.00",
+                        "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
+                    },
+                    {
+                        "name": "Limonene",
+                        "pct": "0.00",
+                        "line": "Limonene 0750 3000 1026678 1027"
+                    },
+                    {
+                        "name": "Linalool",
+                        "pct": "0.00",
+                        "line": "Linalool 0750 3000 1880073 1880"
+                    },
+                    {
+                        "name": "Menthol",
+                        "pct": "0.00",
+                        "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
+                    },
+                    {
+                        "name": "Ocimene",
+                        "pct": "0.00",
+                        "line": "Ocimene 0750 3000 ND ND Pine"
+                    },
+                    {
+                        "name": "Pulegone",
+                        "pct": "0.00",
+                        "line": "Pulegone 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Terpinolene 0750 3000 27027 0027"
+                    }
+                ],
+                "cannabinoids": []
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "03_blooom-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.04",
+                        "line": "A-8-Tetrahydrocannabinol A-8 THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.14",
+                        "line": "A-9-Tetrahydrocannabinol A-9 THC 00442 00664 0141 1407"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "18.32",
+                        "line": "A-9-Tetrahydrocannabinolic Acid THCA-A 00442 00664 18319 183105 HED"
+                    },
+                    {
+                        "name": "THCP",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabiphorol A-9-THCP 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.04",
+                        "line": "A-9-Tetrahydrocannabivarin A-9-THCV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
+                    },
+                    {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.04",
+                        "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.04",
+                        "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.04",
+                        "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.03",
+                        "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.60",
+                        "line": "Cannabigerolic Acid CBGA 0.0442 0.0664 0.602 6.018"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.04",
+                        "line": "Cannabinol CBN 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.04",
+                        "line": "Cannabinolic Acid CBNA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBC",
+                        "pct": "0.04",
+                        "line": "Cannabichromene CBC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.15",
+                        "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
+                    "tessedit_pageseg_mode": 3,
+                    "presets": [
+                        ""
+                    ],
+                    "tessedit_char_whitelist": " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω-<>,."
+                },
+                "gm": {}
+            },
+            "image": "04-cannalyze-cannabinoids.jpg",
+            "result": {
+                "terpenes": [],
+                "cannabinoids": [
+                    {
+                        "name": "CBC",
+                        "pct": "0.00",
+                        "line": "CBC 0.030"
+                    },
+                    {
+                        "name": "CBCA",
+                        "pct": "0.00",
+                        "line": "CBCA 0.030 0.118 1.182"
+                    },
+                    {
+                        "name": "CBCV",
+                        "pct": "0.00",
+                        "line": "CBCV 0.030"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.00",
+                        "line": "CBD 0.030"
+                    },
+                    {
+                        "name": "CBDA",
+                        "pct": "0.00",
+                        "line": "CBDA 0.030"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.00",
+                        "line": "CBDV 0.030"
+                    },
+                    {
+                        "name": "CBDVA",
+                        "pct": "0.00",
+                        "line": "CBDVA 0.030"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.00",
+                        "line": "CBG 0.030 0.114 1.141"
+                    },
+                    {
+                        "name": "CBGA",
+                        "pct": "0.00",
+                        "line": "CBGA 0.030 0.513 SAIS"
+                    },
+                    {
+                        "name": "CBL",
+                        "pct": "0.00",
+                        "line": "CBL 0.030"
+                    },
+                    {
+                        "name": "CBLA",
+                        "pct": "0.00",
+                        "line": "CBLA 0.030"
+                    },
+                    {
+                        "name": "CBN",
+                        "pct": "0.00",
+                        "line": "CBN 0.030"
+                    },
+                    {
+                        "name": "CBNA",
+                        "pct": "0.00",
+                        "line": "CBNA 0.030"
+                    },
+                    {
+                        "name": "CBT",
+                        "pct": "0.00",
+                        "line": "CBT 0.030"
+                    },
+                    {
+                        "name": "Δ-8-THC",
+                        "pct": "0.00",
+                        "line": "A8-THC 0.030"
+                    },
+                    {
+                        "name": "Δ-9-THC",
+                        "pct": "0.00",
+                        "line": "A9-THC 0.030 0.277 277.0"
+                    },
+                    {
+                        "name": "Δ-9-THCA",
+                        "pct": "0.00",
+                        "line": "A9-THCA-A 0.030 20.381 203.810"
+                    },
+                    {
+                        "name": "THCV",
+                        "pct": "0.00",
+                        "line": "A9-THCV 0.030"
+                    },
+                    {
+                        "name": "THCVA",
+                        "pct": "0.00",
+                        "line": "A9-THCVA 0.030"
+                    },
+                    {
+                        "name": "9R-HHC",
+                        "pct": "0.00",
+                        "line": "9R-HHC 0.030"
+                    },
+                    {
+                        "name": "9S-HHC",
+                        "pct": "0.00",
+                        "line": "9S-HHC 0.030"
+                    }
+                ]
+            }
+        },
+        {
+            "config": {
+                "tesseract": {
                     "tessedit_pageseg_mode": 4,
                     "presets": [
                         "bazaar"
@@ -16,43 +2428,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -73,8 +2455,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -83,8 +2470,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -103,6 +2505,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -111,6 +2523,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -126,6 +2543,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -192,6 +2614,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -202,14 +2634,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -235,11 +2687,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -336,12 +2783,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {
@@ -383,43 +2830,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -440,8 +2857,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -450,8 +2872,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -470,6 +2907,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -478,6 +2925,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -493,6 +2945,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -559,6 +3016,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -569,14 +3036,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -602,11 +3089,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -703,12 +3185,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {
@@ -750,43 +3232,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -807,8 +3259,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -817,8 +3274,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -837,6 +3309,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -845,6 +3327,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -860,6 +3347,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -926,6 +3418,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -936,14 +3438,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -969,11 +3491,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -1070,12 +3587,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {
@@ -1117,43 +3634,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -1174,8 +3661,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -1184,8 +3676,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -1204,6 +3711,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -1212,6 +3729,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -1227,6 +3749,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -1293,6 +3820,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -1303,14 +3840,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -1336,11 +3893,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -1437,12 +3989,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {
@@ -1484,43 +4036,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -1541,8 +4063,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -1551,8 +4078,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -1571,6 +4113,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -1579,6 +4131,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -1594,6 +4151,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -1660,6 +4222,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -1670,14 +4242,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -1703,11 +4295,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -1804,12 +4391,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {
@@ -1851,43 +4438,13 @@
                 "terpenes": [],
                 "cannabinoids": [
                     {
-                        "name": "CBDA",
-                        "pct": "0.00",
-                        "line": "CBDA <LoQ <LoQ"
-                    },
-                    {
                         "name": "CBGA",
                         "pct": "0.00",
                         "line": "CBGA 0.338 3.38"
                     },
                     {
-                        "name": "CBG",
-                        "pct": "0.00",
-                        "line": "CBG <LoQ <LoQ"
-                    },
-                    {
-                        "name": "CBD",
-                        "pct": "0.00",
-                        "line": "CBD <LOQ <LOQ"
-                    },
-                    {
-                        "name": "THCV",
-                        "pct": "0.00",
-                        "line": "THCV <LOQ <LOQ"
-                    },
-                    {
-                        "name": "CBN",
-                        "pct": "0.00",
-                        "line": "CBN <LoQ <LOQ"
-                    },
-                    {
-                        "name": "CBC",
-                        "pct": "0.00",
-                        "line": "CBC <LOQ <LOQ"
-                    },
-                    {
                         "name": "Δ-9-THCA",
-                        "pct": "17.30",
+                        "pct": "0.00",
                         "line": "THCA 17.3 173.0"
                     }
                 ]
@@ -1908,8 +4465,13 @@
             "result": {
                 "terpenes": [
                     {
+                        "name": "Bisabolol",
+                        "pct": "0.00",
+                        "line": "aBisabolol 0750 3000 ND ND PA"
+                    },
+                    {
                         "name": "Humulene",
-                        "pct": "2.39",
+                        "pct": "0.00",
                         "line": "a-Humulene 0750 3.000 2386.165 2386 WN"
                     },
                     {
@@ -1918,8 +4480,23 @@
                         "line": "a-Pinene. 0750 3000 2122122 2122 -"
                     },
                     {
+                        "name": "Terpinene",
+                        "pct": "0.00",
+                        "line": "a-Terpinene 0750 3000 oq <oQ ."
+                    },
+                    {
+                        "name": "Eucalyptol",
+                        "pct": "0.00",
+                        "line": "1,8 Cineole 0750 3000 oq  <0q Cipnamon"
+                    },
+                    {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "B-Caryophyllene 0750 3.000 7173671 7.474 EEE"
+                    },
+                    {
                         "name": "Myrcene",
-                        "pct": "10.84",
+                        "pct": "0.00",
                         "line": "B-Myrcene 0750 3000 10843228 10843 EEE"
                     },
                     {
@@ -1938,6 +4515,16 @@
                         "line": "Carene 0750 3000 ND ND"
                     },
                     {
+                        "name": "Caryophyllene",
+                        "pct": "0.00",
+                        "line": "Caryophyliene Oxide 3000 3000 3000 0003"
+                    },
+                    {
+                        "name": "Citral",
+                        "pct": "0.00",
+                        "line": "Citeal 0750 3000 ND ND Hops"
+                    },
+                    {
                         "name": "Dihydrocarveol",
                         "pct": "0.00",
                         "line": "Dihydrocarveol 0750 3000 ND ND"
@@ -1946,6 +4533,11 @@
                         "name": "Fenchone",
                         "pct": "0.00",
                         "line": "Fenchone 0750 3000 4739 0035"
+                    },
+                    {
+                        "name": "Terpinolene",
+                        "pct": "0.00",
+                        "line": "Y-Terpinene 0750 3000 dog  <oq"
                     },
                     {
                         "name": "Limonene",
@@ -1961,6 +4553,11 @@
                         "name": "Menthol",
                         "pct": "0.00",
                         "line": "Menthol 0750 3000 ND ND"
+                    },
+                    {
+                        "name": "Nerolidol",
+                        "pct": "0.00",
+                        "line": "Neroldol 0750 3000 ND ND S"
                     },
                     {
                         "name": "Ocimene",
@@ -2027,6 +4624,16 @@
                         "line": "A-9-Tetrahydrocannabivarinic Acid A-9-THCVA 00442 00664 0092 0s20"
                     },
                     {
+                        "name": "R-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "R-A-10-Tetrahydrocannabinol R-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "S-Δ-10-THC",
+                        "pct": "0.04",
+                        "line": "S-A-10-Tetrahydrocannabinol S-A-10-THC 0.0442 0.0664 ND ND"
+                    },
+                    {
                         "name": "9R-HHC",
                         "pct": "0.04",
                         "line": "9R-Hexahydrocannabinol 9R-HHC 0.0442 0.0664 ND ND"
@@ -2037,14 +4644,34 @@
                         "line": "9S-Hexahydrocannabinol 95-HHC 0.0442 0.0664 ND ND"
                     },
                     {
-                        "name": "THCV",
+                        "name": "THCO",
+                        "pct": "0.04",
+                        "line": "Tetrahydrocannabinol Acetate THCO 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDV",
+                        "pct": "0.04",
+                        "line": "Cannabidivarin CBDV 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBDVA",
                         "pct": "0.04",
                         "line": "Cannabidivarinic Acid CBDVA 0.0442 0.0664 ND ND"
+                    },
+                    {
+                        "name": "CBD",
+                        "pct": "0.04",
+                        "line": "Cannabidiol CBD 0.0442 0.0664 ND ND"
                     },
                     {
                         "name": "CBDA",
                         "pct": "0.03",
                         "line": "Cannabidiolic Acid CBDA 0.0327 0.0664 <LoQ <LoQ"
+                    },
+                    {
+                        "name": "CBG",
+                        "pct": "0.07",
+                        "line": "Cannabigerol CBG 0.0442 0.0664 0071 0.708"
                     },
                     {
                         "name": "CBGA",
@@ -2070,11 +4697,6 @@
                         "name": "CBCA",
                         "pct": "0.15",
                         "line": "Cannabichromenic Acid CBCA 0.0442 0.0664 0.153 1531"
-                    },
-                    {
-                        "name": "Δ-9-THC",
-                        "pct": "0.00",
-                        "line": "THCO potency analysis does not designate quantitative specificity of A-8-THCO and A-9-THCO isomers"
                     }
                 ]
             }
@@ -2171,12 +4793,12 @@
                     },
                     {
                         "name": "Δ-9-THC",
-                        "pct": "0.28",
+                        "pct": "0.00",
                         "line": "A9-THC 0.030 0.277 277.0"
                     },
                     {
                         "name": "Δ-9-THCA",
-                        "pct": "20.38",
+                        "pct": "0.00",
                         "line": "A9-THCA-A 0.030 20.381 203.810"
                     },
                     {

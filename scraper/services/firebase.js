@@ -474,7 +474,7 @@ async function saveStats(stats, config = {}) {
   await statsRef.set(statsData);
 }
 
-async function getTestResults() {
+async function getTestResults(batchId) {
   const testsRef = db.collection('tests');
   const snapshot = await testsRef.get();
 
@@ -482,7 +482,9 @@ async function getTestResults() {
 
   snapshot.forEach(doc => {
     const test = doc.data();
-    tests.push(test);
+    if (test.batchId === batchId) {
+      tests.push(test);
+    }
   });
 
   return tests;

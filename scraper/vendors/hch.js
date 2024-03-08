@@ -1,7 +1,6 @@
 const axios = require('../services/rateLimitedAxios.js');
 const cheerio = require('cheerio');
 const { normalizeVariantName, normalizeProductTitle } = require('../services/strings.js')
-const { recognize } = require('../services/ocr.js');
 const fs = require('fs');
 const { transcribeAssay } = require('../services/cortex.js');
 const { terpeneNameList, cannabinoidNameList } = require('../services/memory');

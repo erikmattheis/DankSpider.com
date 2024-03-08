@@ -6,7 +6,7 @@ async function makeStats(batchId, p = null) {
 
   if (!p) {
     //products = await await getProductsByBatchId(batchId);
-    products = await getTestResults();
+    products = await getTestResults(batchId);
     // add vendor to each product
 
     products = products.map(p => {
