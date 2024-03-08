@@ -16,6 +16,13 @@ export default {
 </script>
 
 <style>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.1s ease !important;
+}
 
+.v-enter, .v-leave-to {
+  opacity: 0;
+}
   
 </style>

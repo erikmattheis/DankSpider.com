@@ -40,7 +40,7 @@ async function getImageBuffer(url) {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
     const value = Buffer.from(response.data, 'binary');
     const lastModified = response.headers['last-modified'];
-    console.log('Got image buffer', url, value.length);
+    console.log('Got image buffer', url, value?.length);
     return { value, lastModified };
   } catch (error) {
     logger.error(`Error getting image buffer: ${error.message}`, { url });

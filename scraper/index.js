@@ -24,8 +24,8 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = '2024-03-07c'
-const numProductsToSave = 5;
+const batchId = '2024-03-08a'
+const numProductsToSave = 555;
 
 const vendors = [
   { name: 'Arete', service: arete },
@@ -63,7 +63,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await doTest(batchId);
 
