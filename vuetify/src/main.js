@@ -18,13 +18,13 @@ const app = createApp(App)
 
 registerPlugins(app)
 
-import CardList from '@/components/CardList.vue'
+import SortedProducts from '@/components/SortedProducts.vue'
 import ResultsTable from '@/components/ResultsTable.vue'
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: CardList },
+        { path: '/', component: SortedProducts },
         { path: '/ResultsTable', component: ResultsTable },
     ],
 })
