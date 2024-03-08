@@ -23,6 +23,10 @@
                             Tessedit Pageseg Mode</a>   
                         </th>
                         <th class="text-left">
+                            <a href="#" @click.prevent="sort('time')">
+                            Time</a>
+                        </th>
+                        <th class="text-left">
                             <a href="#" @click.prevent="sort('config.gm.sharpen')">
                             Sharpen</a>
                         </th>
@@ -38,7 +42,8 @@
                         <td>{{ item.result?.cannabinoids?.length }}</td>
                         <td>{{ item.result?.terpenes?.length }}</td>
                         <td>{{ item.config?.tesseract.tessedit_pageseg_mode }}</td>
-                        <td>{{ item.config?.tesseract.tessedit_pageseg_mode }}</td>
+                        <td>{{ item.config?.tesseract.p }}</td>
+                        <td>{{ item.time }}</td>
                         <td>{{ item.config?.gm?.sharpen }}</td>
                         <td>{{ item.config?.gm?.resize }}</td>
                     </tr>

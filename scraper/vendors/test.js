@@ -61,10 +61,10 @@ async function doTest(batchId) {
         const end = performance.now();
         const time = ((end - start) / 1000).toFixed(2);
         console.log(`Mode: ${mode} Preset: ${preset} Image: ${image} Time: ${time}s`);
-        console.log(JSON.stringify({ config, image, result }, null, 2));
+        console.log(JSON.stringify({ config, image, result, time }, null, 2));
         // saveTest(result, image, config);
         await saveTest(result, image, config, batchId, time);
-        results.push({ config, image, result, batchId, time });
+        results.push({ config, image, result, batchId, time, preset, mode });
 
       }
     }

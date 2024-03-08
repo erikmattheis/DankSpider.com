@@ -24,7 +24,7 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = '2024-03-07b'
+const batchId = '2024-03-07c'
 const numProductsToSave = 5;
 
 const vendors = [
