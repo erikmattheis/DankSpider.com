@@ -14,7 +14,7 @@ async function readProductImage(image, config) {
     return buffer
   }
 
-  const raw = await recognize(buffer.value, config.tesseract);
+  const raw = await recognize(buffer?.value, config.tesseract);
 
   if (!raw) {
     console.log('no text found', image);

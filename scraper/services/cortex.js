@@ -62,7 +62,7 @@ function lineToChemicalObject(line, vendor) {
   const misspelledWord = findMisspelling(cleanedLine, vendor);
 
   // console.log('recognizedString', recognizedString)
-  console.log(`if ${cleanedLine} starts with ${misspelledWord}`)
+  // console.log(`if ${cleanedLine} starts with ${misspelledWord}`)
   if (!misspelledWord || misspelledWord === 'Unknown') {
     if (!unknowns.includes(cleanedLine) && linePasses(cleanedLine)) {
       fs.appendFileSync('./temp/unknownlines.txt', `${vendor} | ${completeLine}\n`)

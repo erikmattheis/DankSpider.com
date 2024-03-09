@@ -63,7 +63,7 @@ async function getPrestonProductInfo(product) {
 
 
       const buffer = await readImage(image, product.url);
-      const raw = await recognize(buffer.value, product.url);
+      const raw = await recognize(buffer?.value, product.url);
 
       if (!raw) {
         console.log('no text found', image);

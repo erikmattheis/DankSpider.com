@@ -22,6 +22,7 @@ async function readImage(url, options = {}) {
 
     try {
       await fileCachedBuffer(url, buffer.value);
+      return buffer;
     }
     catch (error) {
       console.log('Error writing to fileCachedBuffer', error);

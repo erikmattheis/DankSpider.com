@@ -28,7 +28,7 @@ const batchId = '2024-03-08a'
 const numProductsToSave = 555;
 
 const vendors = [
-  { name: 'Arete', service: arete },
+  /* { name: 'Arete', service: arete },*/
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },

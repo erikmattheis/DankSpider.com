@@ -92,7 +92,7 @@ async function getProduct(url) {
       }
 
       const buffer = await readImage(image, url);
-      const raw = await recognize(buffer.value, url);
+      const raw = await recognize(buffer?.value, url);
 
       if (!raw) {
         console.log('no text found', image);

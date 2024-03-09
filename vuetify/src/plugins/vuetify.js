@@ -16,4 +16,15 @@ export default createVuetify({
   theme: {
     defaultTheme: 'dark'
   },
+
+  global: {
+    ripple: false,
+    elevation: 2,
+    icons: 'md', // Use 'md' for Material Design Icons,
+    // 'fa' for Font Awesome 4 icons
+  },
+
+
+
+
 })

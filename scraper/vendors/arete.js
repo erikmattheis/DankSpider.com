@@ -77,7 +77,7 @@ async function parseSingleProduct(html, url) {
     const image = imgStr?.startsWith('//') ? `https:${imgStr}` : imgStr
 
     const buffer = await readImage(image, url);
-    const raw = await recognize(buffer.value, url);
+    const raw = await recognize(buffer?.value, url);
 
     if (new Date(buffer.lastModified) > new Date(lastModified)) {
       lastModified = buffer.lastModified;

@@ -5,7 +5,7 @@ const { createWorker, OEM, PSM } = require('tesseract.js');
 const logger = require('../services/logger.js');
 
 // Initialize Tesseract worker at the start to reuse throughout the application
-let worker 
+let worker
 
 async function initWorker(options = {}) {
 
@@ -31,6 +31,10 @@ const opt = {
 }
 
 async function recognize(buffer, url, options = opt, worker = null) {
+  if (!buffer) {
+    return null;
+  }
+
   console.log('Recognizing:', buffer?.length, typeof buffer);
 
   if (!worker) {

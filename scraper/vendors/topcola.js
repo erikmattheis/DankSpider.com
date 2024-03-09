@@ -85,7 +85,7 @@ async function getAvailableLeafProducts(id, vendor, numProductsToSave = 1000) {
           for (const image of images) {
 
             const buffer = await readImage(image, productUrl);
-            raw = await recognize(buffer.value, productUrl);
+            raw = await recognize(buffer?.value, productUrl);
 
             if (!raw) {
               console.log('no text found', image);

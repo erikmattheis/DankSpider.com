@@ -50,7 +50,7 @@ async function getCachedBuffer(url) {
       lastModified = fs.statSync(filePath)?.mtime;
       value = fs.readFileSync(filePath);
     }
-    console.log('cached buffer len', value.length, lastModified);
+    console.log('cached buffer len', value?.length, lastModified);
     return {
       value,
       lastModified
