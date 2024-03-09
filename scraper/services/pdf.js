@@ -19,6 +19,15 @@ async function readPDFs(pdfs, vendor) {
 }
 
 function fixText(str) {
+  const regex = /\d+\.\d{3}|\d+/g;
+
+  // Check if the input only contains numbers and spaces
+  if (/^[\d\s.]+$/.test(input)) {
+    // If so, return the input as is
+    return str
+  }
+
+
   let fixedText = insertSpaces(str);
   fixedText = fixedText.replace(" -", "-");
   return fixedText;

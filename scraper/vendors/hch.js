@@ -100,10 +100,10 @@ async function getProduct(url, numProductsToSave = 1000) {
   });
 
   let allAssays = await getAssays();
-  allAssays = allAssays.filter(a => a.vendor === 'HCF');
+  allAssays = allAssays.filter(a => a.vendor === 'HCH');
 
   const assay = allAssays.find(p => {
-    const condition = p.name === title && p.vendor === 'PPM';
+    const condition = p.name === title && p.vendor === 'HCH';
     return condition;
   });
 

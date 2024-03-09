@@ -31,6 +31,7 @@ const opt = {
 }
 
 async function recognize(buffer, url, options = opt, worker = null) {
+
   if (!buffer) {
     return null;
   }
