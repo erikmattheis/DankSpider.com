@@ -14,15 +14,15 @@
           </v-row>
           <v-list dense>
             <v-item-group>
-              <v-list-item v-for="(cannabinoid, index) in item.cannabinoids" :key="index">
+              <v-list-item role="listitem" v-for="(cannabinoid, index) in item.cannabinoids" :key="index">
                   <div>{{ cannabinoid.pct }}</div>
-                  <v-progress-linear :model-value="cannabinoid.pct * 10" color="green" height="25"><span class="text-body-2 smaller">{{ cannabinoid.name }}</span></v-progress-linear>
+                  <v-progress-linear role="progressbar" :aria-valuenow="terpene.pct * 10" :model-value="cannabinoid.pct * 10" color="green" height="25"><span class="text-body-2 smaller">{{ cannabinoid.name }}</span></v-progress-linear>
               </v-list-item>
             </v-item-group>
             <v-item-group>
-              <v-list-item v-for="(terpene, index) in item.terpenes" :key="index">
+              <v-list-item role="listitem" v-for="(terpene, index) in item.terpenes" :key="index">
                   <div>{{ terpene.pct }}</div>
-                  <v-progress-linear :model-value="terpene.pct * 10" color="pink" height="25"><span class="text-body-2 smaller">{{ terpene.name }}</span></v-progress-linear>
+                  <v-progress-linear role="progressbar" :aria-valuenow="terpene.pct * 10" :model-value="terpene.pct * 10" color="pink" height="25"><span class="text-body-2 smaller">{{ terpene.name }}</span></v-progress-linear>
               </v-list-item>
             </v-item-group>
           </v-list>

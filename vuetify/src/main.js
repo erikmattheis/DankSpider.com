@@ -13,6 +13,15 @@ import App from './App.vue'
 
 // Composables
 import { createApp } from 'vue'
+import { createVike } from 'vike'
+
+// Create vike
+const vike = createVike({
+    routes: [
+        { path: '/', component: SortedProducts },
+        { path: '/ResultsTable', component: ResultsTable },
+    ],
+})
 
 const app = createApp(App)
 

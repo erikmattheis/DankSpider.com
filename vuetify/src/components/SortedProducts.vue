@@ -1,6 +1,6 @@
 <template>
-  <ProductFilters @set-cannabinoid-order="setCannabinoidOrder" @set-terpene-order="setTerpeneOrder"/>
-  <CardList :cannabinoid-order="cannabinoidOrder" :terpene-order="terpeneOrder"/>
+  <ProductFilters @set-cannabinoid-order="setCannabinoidOrder" @set-terpene-order="setTerpeneOrder" :terpene-names="terpeneNames"/>
+  <CardList @set-terpene-names="setTerpeneNames" @set-cannabinoid-names="setCannabinoidNames":cannabinoid-order="cannabinoidOrder" :terpene-order="terpeneOrder"/>
 </template>
 
 <script>
@@ -25,6 +25,12 @@ export default {
     },
     setTerpeneOrder(terpeneOrder) {
       this.terpeneOrder = terpeneOrder;
+    },
+    setCannabinoidNames(cannabinoidNames) {
+      this.cannabinoidNames = cannabinoidNames;
+    },
+    setTerpeneNames(terpeneNames) {
+      this.terpeneNames = terpeneNames;
     }
     // get the selected cannabinoid
     // get the selected terpene

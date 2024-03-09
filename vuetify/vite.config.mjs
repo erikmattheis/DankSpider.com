@@ -6,9 +6,13 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+import vike from 'vike/plugin'
+
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/',
   build: {
     rollupOptions: {
       external: ['vuetify/lib'],
@@ -20,6 +24,7 @@ export default defineConfig({
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify(),
+    vike({ prerender: true }),
     //Components(),
   ],
   define: { 'process.env': {} },
