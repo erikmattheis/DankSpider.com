@@ -8,8 +8,6 @@ import { fileURLToPath, URL } from 'node:url'
 
 import vike from 'vike/plugin'
 
-
-
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
