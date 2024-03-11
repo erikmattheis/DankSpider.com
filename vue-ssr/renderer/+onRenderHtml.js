@@ -3,7 +3,7 @@ import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import { createApp } from './app'
 import logoUrl from './logo.svg'
 
-export { render }
+export { render as onRenderHtml }
 
 async function render(pageContext) {
   const app = createApp(pageContext)
