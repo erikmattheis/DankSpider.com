@@ -1,14 +1,47 @@
 <template>
-  <h1>Welcome</h1>
-  <p>This page is rendered to HTML and interactive.</p>
-  <br />
-  <p>
-    <Counter />
-  </p>
+  <ProductFilters @set-cannabinoid-order="setCannabinoidOrder" @set-terpene-order="setTerpeneOrder" :terpene-names="terpeneNames" :cannabinoid-names="cannabinoidNames"/>
+  <ProductsList @set-terpene-names="setTerpeneNames" @set-cannabinoid-names="setCannabinoidNames":cannabinoid-order="cannabinoidOrder" :terpene-order="terpeneOrder"/>
 </template>
 
 <script>
-import Counter from './Counter.vue'
-const components = { Counter }
-export default { components, data: () => ({}) }
+import ProductsList from './ProductsList.vue';
+import ProductFilters from './ProductsFilter.vue';
+
+
+export default {
+  name: 'SortedProducts',
+  data: () => ({
+    items: [],
+    cannabinoidNames: [],
+    cannabinoidOrder: [],
+    terpeneNames: [],
+    terpeneOrder: [],
+  }),
+  components: {
+    ProductsList,
+    ProductFilters,
+  },
+  methods: {
+    setCannabinoidOrder(cannabinoidOrder) {
+      console.log('out', cannabinoidOrder)
+      this.cannabinoidOrder = cannabinoidOrder;
+    },
+    setTerpeneOrder(terpeneOrder) {
+      this.terpeneOrder = terpeneOrder;
+    },
+    setCannabinoidNames(cannabinoidNames) {
+      this.cannabinoidNames = cannabinoidNames;
+    },
+    setTerpeneNames(terpeneNames) {
+      this.terpeneNames = terpeneNames;
+    }
+  }
+
+}
+
 </script>
+
+<style>
+
+  
+</style>

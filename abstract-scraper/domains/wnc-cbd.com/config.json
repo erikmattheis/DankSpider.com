@@ -1,0 +1,37 @@
+{
+    "vendor": "WNC",
+    "domain": "wnc-cbd.com",
+    "localDirectory": "wnc-cbd.com",
+    "startUrl": "https://wnc-cbd.com/categories/high-thca.html?_bc_fsnf=1&Flower%20Size[]=3.5g&Flower%20Size[]=14g%20(small/minis)&Flower%20Size[]=7g&Flower%20Size[]=28g%20(small/minis)&sort=newest",
+    "selectors": {
+        "productContainer": ".productView",
+        "productTitle": "",
+        "productLink": "a.card-figure__link",
+        "variantContainer": "div.form-field[data-product-attribute=\"set-rectangle\"] label.form-option",
+        "image": "img.productView-image--default",
+        "srcset": "img.lazyload[data-srcset]",
+        "bcDataScript": "script:contains(\"var BCData\")",
+        "properties": [
+            {
+                "name": "title",
+                "selector": "h1.productView-title",
+                "type": "text",
+                "multiple": false
+            },
+            {
+                "name": "variants",
+                "selector": "div.form-field[data-product-attribute=\"set-rectangle\"] label.form-option",
+                "type": "text",
+                "multiple": true
+            },
+            {
+                "name": "images",
+                "selector": "figure.productView-image img",
+                "type": "srcset",
+            },
+            {
+                "name": "title",
+                "selector": "h1.productView-title"
+            },
+        ]
+    }
