@@ -43,6 +43,10 @@ export default {
     };
   },
   props: {
+    pageContext: {
+      type: Object,
+      required: true,
+    },
     cannabinoidOrder: {
       type: Array,
       default: () => [],
@@ -50,24 +54,24 @@ export default {
     terpeneOrder: {
       type: Array,
       default: () => [],
-    },
+    }
   },
   watch: {
     cannabinoidOrder: function (newVal, oldVal) {
-        this.items = this.items.sort((a, b) => {
-        const aCannabinoid = a.cannabinoids?.find(c => c.name === newVal[0]);
-        const bCannabinoid = b.cannabinoids?.find(c => c.name === newVal[0]);
-        return Number(aCannabinoid ? aCannabinoid.pct : 0) - Number(bCannabinoid ? bCannabinoid.pct : 0);
-        });
+      this.items = this.items.sort((a, b) => {
+      const aCannabinoid = a.cannabinoids?.find(c => c.name === newVal[0]);
+      const bCannabinoid = b.cannabinoids?.find(c => c.name === newVal[0]);
+      return Number(aCannabinoid ? aCannabinoid.pct : 0) - Number(bCannabinoid ? bCannabinoid.pct : 0);
+      });
     },
     terpeneOrder: function (newVal, oldVal) {
-        this.items = this.items.sort((a, b) => {
-        const aTerpene = a.terpenes?.find(c => c.name === newVal[0]);
-        const bTerpene = b.terpenes?.find(c => c.name === newVal[0]);
-        return Number(aTerpene ? aTerpene.pct : 0) - Number(bTerpene ? bTerpene.pct : 0);
-        });
+      this.items = this.items.sort((a, b) => {
+      const aTerpene = a.terpenes?.find(c => c.name === newVal[0]);
+      const bTerpene = b.terpenes?.find(c => c.name === newVal[0]);
+      return Number(aTerpene ? aTerpene.pct : 0) - Number(bTerpene ? bTerpene.pct : 0);
+      });
     },
- },
+  },
   methods: {
     // get the selected cannabinoid
     // get the selected terpene
