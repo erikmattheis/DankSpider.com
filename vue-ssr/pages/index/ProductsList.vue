@@ -1,17 +1,15 @@
 <template>
-  <v-container fluid>cannabinoidOrder: {{ cannabinoidOrder }} terpeneOrder: {{ terpeneOrder }}  
+  <v-container fluid>
     <v-row>
       <v-col cols="12" sm="12" md="6" lg="4" v-for="(item, index) in items" :key="index">
         <v-card>
-          <v-row>
-            <v-col>
-              <a :href="item.url">
-                <v-img height="200" :src="item.image" alt="Placeholder" />
-                <v-card-title> {{ item.title }} </v-card-title>
-                <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
-              </a>
-            </v-col>
-          </v-row>
+
+          <a :href="item.url">
+            <v-img height="200" :src="item.image" alt="Placeholder" />
+            <v-card-title> {{ item.title }} </v-card-title>
+            <v-card-subtitle> {{ item.vendor }} </v-card-subtitle>
+          </a>
+
           <v-list dense>
             <v-item-group>
               <v-list-item role="listitem" v-for="(cannabinoid, index) in item.cannabinoids" :key="index">
@@ -33,20 +31,19 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'ProductsList',
   data() {
     return {
-      items: [],
+      items: this.pageContext.items,
     };
   },
-  props: {
-    pageContext: {
+  pageContext: {
       type: Object,
       required: true,
     },
+  props: {
     cannabinoidOrder: {
       type: Array,
       default: () => [],
