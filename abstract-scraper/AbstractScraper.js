@@ -2,6 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const config = require("./domains/wnc-cbd.com/config.json");
 const fs = require("fs");
+const puppeteer = require("puppeteer");
 
 function saveResponse(response, directory, fileName) {
   fs.writeFile(`./domains/${directory}/${fileName}.html`, response, (err) => {
@@ -18,7 +19,21 @@ function saveProducts(products) {
   console.log(products);
 }
 
-const puppeteer = require("puppeteer");
+async function headlessBrowser(html = "<h1>Hello, world!</h1>") {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.setContent(html);
+
+  const h1Text = await page.evaluate(
+    () => document.querySelector("h1").innerText,
+  );
+  console.log(h1Text); // Outputs: 'Hello, world!'
+
+  await browser.close();
+}
+
+headlessBrowser();
 
 function extractElementDetail($, element, detail) {
   if (detail === "text") {
@@ -28,7 +43,7 @@ function extractElementDetail($, element, detail) {
   }
 }
 
-async function scrapeData() {
+async function get() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("http://example.com");
@@ -49,10 +64,8 @@ async function scrapeData() {
   await browser.close();
 }
 
-scrapeData();
-
-async function scrapePage(url) {
-  let productLinks = [];
+async function getProductsLinks(url) {
+  let urls = [];
   let currentPageUrl = url;
 
   while (currentPageUrl) {
@@ -61,11 +74,10 @@ async function scrapePage(url) {
 
     saveResponse(response.data, config.localDirectory, "products");
 
-    // Collect product links from the current page
-    $(config.selectors.productLink).each((_, element) => {
+    $(config.selectors.url).each((_, element) => {
       const productLink = $(element).attr("href");
       console.log(productLink);
-      productLinks.push(productLink);
+      urls.push(productLink);
     });
 
     // Attempt to find the next page URL
@@ -75,7 +87,7 @@ async function scrapePage(url) {
       : null;
   }
 
-  return productLinks;
+  return urls;
 }
 
 function extractProduct($, element) {
@@ -104,28 +116,27 @@ function extractProduct($, element) {
   return product;
 }
 
-async function getProductDetails(url) {
-  const { selectors } = config;
+async function getProductDetails(config) {
+  const response = await axios.get(config.url);
 
-  const response = await axios.get(url);
   const $ = cheerio.load(response.data);
 
   saveResponse(response.data, config.localDirectory, "product");
 
   const product = extractProduct($, selectors.productContainer);
 
-  saveProducts(product);
+  saveProduct(product);
 }
 
 async function scrape() {
-  const productLinks = await scrapePage(config.startUrl);
-  const productDetails = [];
+  const urls = await getProductsLinks(config);
+  const products = [];
 
-  for (const productLink of productLinks) {
+  for (const url of urls) {
     console.log(`Scraping product details from ${productLink}`);
     const details = await getProductDetails(productLink);
     if (details) {
-      productDetails.push(details);
+      products.push(details);
     }
   }
   // Save or process the collected product detail

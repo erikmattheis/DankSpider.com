@@ -3,35 +3,72 @@
     "domain": "wnc-cbd.com",
     "localDirectory": "wnc-cbd.com",
     "startUrl": "https://wnc-cbd.com/categories/high-thca.html?_bc_fsnf=1&Flower%20Size[]=3.5g&Flower%20Size[]=14g%20(small/minis)&Flower%20Size[]=7g&Flower%20Size[]=28g%20(small/minis)&sort=newest",
-    "selectors": {
-        "productContainer": ".productView",
-        "productTitle": "",
-        "productLink": "a.card-figure__link",
-        "variantContainer": "div.form-field[data-product-attribute=\"set-rectangle\"] label.form-option",
-        "image": "img.productView-image--default",
-        "srcset": "img.lazyload[data-srcset]",
-        "bcDataScript": "script:contains(\"var BCData\")",
-        "properties": [
-            {
-                "name": "title",
-                "selector": "h1.productView-title",
-                "type": "text",
-                "multiple": false
-            },
-            {
-                "name": "variants",
-                "selector": "div.form-field[data-product-attribute=\"set-rectangle\"] label.form-option",
-                "type": "text",
-                "multiple": true
-            },
-            {
-                "name": "images",
-                "selector": "figure.productView-image img",
-                "type": "srcset",
-            },
-            {
-                "name": "title",
-                "selector": "h1.productView-title"
-            },
-        ]
-    }
+    "finalUrl": "",
+    "selectors": [{
+        "name": "url",
+        "selector": ".card-figure__link",
+        "type": "attribute",
+        "attribute": "href",
+        "multiple": false
+    },
+    {
+        "name": "title",
+        "type": "text",
+        "selector": "h1.productView-title",
+        "multiple": false
+    },
+    {
+        "name": "assayImages",
+        "type": "srcset",
+        "selector": "img.lazyload[data-srcset]",
+        "multiple": true
+    },
+    {
+        "name": "variants",
+        "type": "text",
+        "selector": "div.form-field[data-product-attribute=\"set-rectangle\"] label.form-option",
+        "multiple": true
+    },
+    {
+        "name": "prices",
+        "selector": "span.productView-price",
+        "type": "text",
+        "multiple": true
+    },
+    {
+        "name": "description",
+        "selector": "div.productView-description",
+        "type": "html",
+        "multiple": false
+    },
+    {
+        "name": "lastUptated",
+        "selector": "h1.productView-title",
+        "type": "text",
+        "multiple": false
+    },
+    {
+        "name":"prices",
+        "selector": "span.productView-price",
+        "type": "text",
+        "multiple": true
+    },
+        {
+        "name": "html",
+        "selector": "div.productView-description",
+        "type": "html",
+        "multiple": false
+    },
+    {
+        "name": "lastUptated",
+        "selector": "div.productView-description",
+        "type": "html",
+        "multiple": false
+    },
+    {
+        "name": "description",
+        "selector": "div.productView-description",
+        "type": "html",
+        "multiple": false
+    }]
+}
