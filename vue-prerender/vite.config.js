@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue'
+import md from 'unplugin-vue-markdown/vite'
 import vike from 'vike/plugin'
 
 const config = {
@@ -8,8 +9,11 @@ const config = {
   },
   plugins: [
     vike(),
-    vue()
-  ],
+    vue({
+      include: [/\.vue$/, /\.md$/]
+    }),
+    md({})
+  ]
 }
 
 export default config

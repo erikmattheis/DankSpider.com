@@ -3,8 +3,8 @@ import PageLayout from './PageLayout.vue'
 
 //import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import * as components from 'vuetify/lib/components/index.mjs'
+import * as directives from 'vuetify/lib/directives/index.mjs'
 
 const vuetify = createVuetify({
   components,
@@ -20,6 +20,7 @@ export function createApp() {
 
   return { app }
 }
+
 
 
 

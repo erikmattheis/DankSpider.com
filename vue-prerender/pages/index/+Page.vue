@@ -5,14 +5,16 @@
 </template>
 
 <script>
-import ProductsList from './ProductsList.vue';
+import { usePageContext } from 'vike-vue/usePageContext'
 import ProductsFilters from './ProductsFilters.vue';
+import ProductsList from './ProductsList.vue';
+
 
 export default {
   name: 'SortedProducts',
   components: {
-    ProductsList,
     ProductsFilters,
+    ProductsList
   },
   data() {
     return {
@@ -23,8 +25,10 @@ export default {
       terpeneOrder: [],
     }
   },
-  created() {
+  mounted() {
    // this.products = Object.keys(this);
+   const pageContext = usePageContext()
+   this.products = pageContext.products
   },
   methods: {
     setCannabinoidOrder(cannabinoidOrder) {

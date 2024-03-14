@@ -8,6 +8,7 @@ export async function onBeforePrerender({ pageProps, pageContext }) {
 
   try {
     const response = await axios.get('/data/products.json');
+    console.log('response:', response);
     products = response.data?.products || [];
 
     console.log('Fetched products:', products.length);
