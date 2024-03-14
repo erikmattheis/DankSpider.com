@@ -6,7 +6,7 @@ import logoUrl from './logo.svg'
 export { render as onRenderHtml }
 
 async function render(pageContext) {
-  const app = createApp(pageContext)
+  const { app } = createApp(pageContext)
 
   // We make `pageContext.routeParams` available in all components as `$routeParams`
   // (e.g. `$routeParams.movieId` for a Route String `/movie/:movieId`).
