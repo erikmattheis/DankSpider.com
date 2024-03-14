@@ -1,30 +1,25 @@
 import { createSSRApp, h } from 'vue'
 import PageLayout from './PageLayout.vue'
-//import vuetify from './vuetify'
 
-export { createApp }
+//import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-function createApp(pageContext) {
-  const { Page, pageProps } = pageContext
-  //console.log('pageContext:', pageContext)
-  const PageWithLayout = {
-    render() {
-      return h(
-        PageLayout,
-        {},
-        {
-          default() {
-            return h(Page, pageProps || {})
-          }
-        }
-      )
-    }
-  }
+const vuetify = createVuetify({
+  components,
+  directives,
+})
 
-  const app = createSSRApp(PageWithLayout)
+export function createApp() {
+  const app = createSSRApp({
+    render: () => h(PageLayout),
+  })
 
-  //app.use(vuetify)
+  app.use(vuetify)
 
-
-  return app
+  return { app }
 }
+
+
+
