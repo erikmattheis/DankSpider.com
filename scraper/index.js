@@ -24,15 +24,15 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = '2024-03-08a'
+const batchId = '2024-03-12a'
 const numProductsToSave = 555;
 
 const vendors = [
-  /* { name: 'Arete', service: arete },*/
+  /* { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },
+  { name: 'TopCola', service: topcola },*/
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
@@ -63,7 +63,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await doTest(batchId);
 
@@ -92,26 +92,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   const red = {}
 
   for (let i = 0; i < products.length; i++) {
-    /*
-    if (products[i].cannabinoids?.length) {
-      console.log(products[i].cannabinoids[0].pct, products[i].cannabinoids[0].pct)
-    }
-    if (products[i].terpenes?.length) {
-      console.log(products[i].terpoenes[0].pct, products[i].tepenes[0].pct)
-    }
-    */
-    /*
-     if (!products[i].cannabinoids?.length && !products[i].terpenes?.length) {
-       console.log(`At all ${products[i].title} ${products[i].vendor}`)
-       fs.appendFileSync('./temp/no-cannabinoids-no-terpenes.txt', `${products[i].title} ${products[i].vendor}\n`)
-       continue;
-     }
-     if (!products[i].cannabinoids?.some(c => c.pct > 0) && !products[i].terpenes?.some(t => t.pct > 0)) {
-       console.log(`Values ${products[i].title} ${products[i].vendor}`)
-       fs.appendFileSync('./temp/no-cannabinoid-values-no-terpene-values.txt', `${products[i].title} ${products[i].vendor}\n`)
-       continue;
-     }
-     */
     const vendor = products[i].vendor
     if (!red[vendor]) {
       red[products[i].vendor] = {
@@ -123,14 +103,6 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
     if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
       products[i].cannabinoids = products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.09)
-      /*
-      products[i].cannabinoids = products[i].cannabinoids.map(c => {
-        if (parseFloat(c.pct) > 50) {
-          c.pct = (parseFloat(c.pct) / 10).toFixed(2);
-        }
-        return c;
-      });
-      */
       red[vendor].numWithCannabinoidAssays += 1
     }
 
@@ -149,41 +121,38 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
     }
     result.push(products[i])
   }
-  /*
-    // remove cannabinoids and terpenes that have pct < 0.08
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].cannabinoids) {
-        result[i].cannabinoids = result[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.08)
-      }
-      if (result[i].terpenes) {
-        result[i].terpenes = result[i].terpenes.filter(t => parseFloat(t.pct) > 0.08)
-      }
-    }
-  */
 
-  const chemicals = new Set();
+  const cannabinoids = new Set();
+  const terpenes = new Set();
+  const variants = new Set();
 
   result.forEach(product => {
     product.cannabinoids?.forEach(cannabinoid => {
-      console.log(cannabinoid?.name)
       if (cannabinoid && cannabinoid.name) {
-
-        chemicals.add(cannabinoid.name);
+        cannabinoids.add(cannabinoid.name);
       }
     });
 
     product.terpenes?.forEach(terpene => {
       if (terpene && terpene.name) {
-        chemicals.add(terpene.name);
+        terpenes.add(terpene.name);
+      }
+    });
+
+    product.variants?.forEach(variant => {
+      if (variants && variant.name) {
+        variant.add(variant.name);
       }
     });
   });
 
-  console.log('unique chemicals', Array.from(chemicals).length, 'num products', result.length);
+
   const updatedAt = new Date().toISOString()
 
-  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
-  fs.writeFileSync('../vuetify/src/assets/data/products.json', JSON.stringify({ products: result, updatedAt }))
+  fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
+  fs.writeFileSync('../vuetify/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
+  fs.writeFileSync('../vue-ssr/public/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
+
 
   logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }

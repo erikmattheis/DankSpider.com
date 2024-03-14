@@ -1,25 +1,30 @@
+<!-- +Page.vue -->
 <template>
-  <ProductFilters @set-cannabinoid-order="setCannabinoidOrder" @set-terpene-order="setTerpeneOrder" :terpene-names="terpeneNames" :cannabinoid-names="cannabinoidNames"/>
-  <ProductsList @set-terpene-names="setTerpeneNames" @set-cannabinoid-names="setCannabinoidNames":cannabinoid-order="cannabinoidOrder" :terpene-order="terpeneOrder"/>
+  <ProductsFilters @set-cannabinoid-order="setCannabinoidOrder" @set-terpene-order="setTerpeneOrder" :terpene-names="terpeneNames" :cannabinoid-names="cannabinoidNames"/>
+  <ProductsList @set-terpene-names="setTerpeneNames" @set-cannabinoid-names="setCannabinoidNames" :cannabinoid-order="cannabinoidOrder" :terpene-order="terpeneOrder" :products="products"/>
 </template>
 
 <script>
 import ProductsList from './ProductsList.vue';
-import ProductFilters from './ProductsFilter.vue';
-
+import ProductsFilters from './ProductsFilters.vue';
 
 export default {
   name: 'SortedProducts',
-  data: () => ({
-    items: [],
-    cannabinoidNames: [],
-    cannabinoidOrder: [],
-    terpeneNames: [],
-    terpeneOrder: [],
-  }),
   components: {
     ProductsList,
-    ProductFilters,
+    ProductsFilters,
+  },
+  data() {
+    return {
+      products: [],
+      cannabinoidNames: [],
+      cannabinoidOrder: [],
+      terpeneNames: [],
+      terpeneOrder: [],
+    }
+  },
+  created() {
+   // this.products = Object.keys(this);
   },
   methods: {
     setCannabinoidOrder(cannabinoidOrder) {
@@ -36,12 +41,5 @@ export default {
       this.terpeneNames = terpeneNames;
     }
   }
-
 }
-
 </script>
-
-<style>
-
-  
-</style>

@@ -1,14 +1,27 @@
-import axios from 'axios';
+// +Page.server.js
 
-export async function addPageContext(pageContext) {
-  const response = await axios.get('/assets/data');
-  const items = response.data;
+export async function onBeforePrerender({ pageProps, pageContext }) {
+
+  console.log('onBeforeRender', { pageProps, pageContext })
+
+  let products;
+
+  try {
+    const response = await axios.get('/data/products.json');
+    products = response.data?.products || [];
+
+    console.log('Fetched products:', products.length);
 
   return {
-    // Pass the items to the pageContext
-    pageContext: {
-      ...pageContext,
-      items,
-    },
-  };
+      pageContext: {
+        products,
+      },
+    };
+  } catch (error) {
+    return {
+      pageProps: { // Make sure to return an error state or handle accordingly
+        error: 'Failed to fetch data',
+      },
+    };
+  }
 }

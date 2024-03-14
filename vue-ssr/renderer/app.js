@@ -1,11 +1,12 @@
 import { createSSRApp, h } from 'vue'
 import PageLayout from './PageLayout.vue'
-import vuetify from './vuetify'
+//import vuetify from './vuetify'
 
 export { createApp }
 
 function createApp(pageContext) {
   const { Page, pageProps } = pageContext
+  //console.log('pageContext:', pageContext)
   const PageWithLayout = {
     render() {
       return h(
@@ -22,7 +23,7 @@ function createApp(pageContext) {
 
   const app = createSSRApp(PageWithLayout)
 
-  app.use(vuetify)
+  //app.use(vuetify)
 
 
   return app
