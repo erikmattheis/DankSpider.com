@@ -16,7 +16,7 @@ function saveResponse(response, directory, fileName) {
 
 function saveProducts(products) {
   // Save the products to a database, file, etc.
-  console.log(products);
+  //console.log(products);
 }
 
 async function headlessBrowser(html = "<h1>Hello, world!</h1>") {
@@ -59,8 +59,6 @@ async function get() {
     return document.querySelector(selector).innerText;
   }, "valueSelector");
 
-  console.log(value);
-
   await browser.close();
 }
 
@@ -76,7 +74,7 @@ async function getProductsLinks(url) {
 
     $(config.selectors.url).each((_, element) => {
       const productLink = $(element).attr("href");
-      console.log(productLink);
+
       urls.push(productLink);
     });
 
@@ -95,9 +93,9 @@ function extractProduct($, element) {
   const product = {};
   console.log("looking for", selectors.productTitle);
   product.title = $(element).find(selectors.productTitle).text().trim();
-  console.log(product.title);
+
   product.image = $(element).find(selectors.image).attr("src");
-  console.log(product.image);
+
   product.properties = [];
   for (const property of selectors.properties)
     $(element)
@@ -129,11 +127,11 @@ async function getProductDetails(config) {
 }
 
 async function scrape() {
+  console.log("ok");
   const urls = await getProductsLinks(config);
   const products = [];
 
   for (const url of urls) {
-    console.log(`Scraping product details from ${productLink}`);
     const details = await getProductDetails(productLink);
     if (details) {
       products.push(details);

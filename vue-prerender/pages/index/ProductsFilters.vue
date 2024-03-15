@@ -51,7 +51,7 @@ export default {
     }),
     watch: {
         selectedCannabinoid: function (newVal, oldVal) {
-            console.log(newVal)
+            window?.console.log(newVal)
             this.$emit('set-cannabinoid-order', [newVal])
         },
         selectedTerpene: function (newVal, oldVal) {

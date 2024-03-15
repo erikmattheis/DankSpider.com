@@ -2,10 +2,14 @@ import { renderToString } from '@vue/server-renderer'
 import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import { createApp } from './app'
 import logoUrl from './logo.svg'
+import logger from '../services/logger'
 
 export { render as onRenderHtml }
 
 async function render(pageContext) {
+
+  logger.info('onRenderHtml')
+
   const { app } = createApp(pageContext)
 
   // We make `pageContext.routeParams` available in all components as `$routeParams`

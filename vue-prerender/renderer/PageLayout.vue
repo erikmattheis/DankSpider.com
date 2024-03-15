@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <v-container>
       <div class="layout">
         <div class="navigation">
           <a href="/" class="logo">
@@ -11,9 +10,21 @@
         </div>
         <div class="content"><slot /></div>
       </div>
-    </v-container>
   </v-app>
 </template>
+
+<script>
+
+export default {
+  name: 'Page',
+  props: {
+    title: {
+      type: String,
+      default: 'Page Title',
+    },
+  },
+};
+</script>
 
 <style>
 body {
