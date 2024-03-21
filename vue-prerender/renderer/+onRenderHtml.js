@@ -8,8 +8,6 @@ export { render as onRenderHtml }
 
 async function render(pageContext) {
 
-  logger.info('onRenderHtml')
-
   const { app } = createApp(pageContext)
 
   // We make `pageContext.routeParams` available in all components as `$routeParams`

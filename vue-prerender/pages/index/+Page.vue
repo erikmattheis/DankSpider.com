@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { usePageContext } from 'vike-vue/usePageContext'
 import ProductsFilters from './ProductsFilters.vue';
 import ProductsList from './ProductsList.vue';
 
@@ -20,26 +19,21 @@ export default {
   },
   data() {
     return {
-      products: [],
       cannabinoidNames: [],
       cannabinoidOrder: [],
       terpeneNames: [],
       terpeneOrder: [],
     }
   },
-  created() {
-    console.log('this', this)
+  asyncData: {
+    // This will be replaced with the actual data returned by the `data` function
+    products: []
   },
-  mounted() {
-    console.log('this', this)
-   // this.products = Object.keys(this);
-   const pageContext = usePageContext()
-   this.products = pageContext.products;
+  created() {
+    logger.info('products', this.products)
+    window.console.log('products', this.products) 
   },
   methods: {
-    trace(event) {
-      window?.console.log('event', event)
-    },
     setCannabinoidOrder(cannabinoidOrder) {
       window?.console.log('out', cannabinoidOrder)
       this.cannabinoidOrder = cannabinoidOrder;

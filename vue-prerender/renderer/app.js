@@ -9,6 +9,7 @@ import * as directives from 'vuetify/lib/directives/index.mjs'
 const vuetify = createVuetify({
   components,
   directives,
+  ssr:true
 })
 
 export function createApp() {

@@ -151,8 +151,7 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
 
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
   fs.writeFileSync('../vuetify/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
-  fs.writeFileSync('../vue-ssr/public/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
-
+  fs.writeFileSync('../vue-prerender/public/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
 
   logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }
