@@ -24,15 +24,15 @@ const { doTest } = require("./vendors/test.js");
 const test = require("./vendors/test.js");
 
 //const batchId = '4000sharp1.5'
-const batchId = '2024-03-12a'
+const batchId = '2024-03-21a'
 const numProductsToSave = 555;
 
 const vendors = [
-  /* { name: 'Arete', service: arete },
+  { name: 'Arete', service: arete },
   { name: 'drGanja', service: drGanja },
   { name: 'WNC', service: wnc },
   { name: 'Preston', service: preston },
-  { name: 'TopCola', service: topcola },*/
+  { name: 'TopCola', service: topcola },
   { name: 'EHH', service: ehh },
   { name: 'HCH', service: hch },
   { name: 'HCF', service: hcf },
@@ -63,7 +63,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await copyAndDeleteProducts([batchId]);
 
-  //await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
+  await scrapers.run(batchId, vendor, vendorList, numProductsToSave)
 
   //await doTest(batchId);
 
@@ -71,7 +71,7 @@ async function run(batchId, vendor, vendorList, numProductsToSave) {
 
   //await recalculateChemicalValues()
 
-  await makeProductsFile()
+  await makeProductsFile2()
 
   //await makeStats(batchId)
 
@@ -152,6 +152,68 @@ async function makeProductsFile(vendor, limit, useDevCollection) {
   fs.writeFileSync('../app/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
   fs.writeFileSync('../vuetify/src/assets/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
   fs.writeFileSync('../vue-prerender/public/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
+
+  logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
+}
+
+async function makeProductsFile2(vendor, limit, useDevCollection) {
+  console.log('makeProductsFile2')
+  let products = await getAllProducts()
+
+  let result = [];
+
+  const red = {}
+
+  for (let i = 0; i < products.length; i++) {
+    const vendor = products[i].vendor
+    if (!red[vendor]) {
+      red[products[i].vendor] = {
+        numWithCannabinoidAssays: 0,
+        numWithTerpeneAssays: 0,
+        numWithVariants: 0,
+      }
+    }
+
+    if (!products[i].attributes) {
+      products[i].attributes = []
+    }
+
+    if (products[i].cannabinoids && products[i].cannabinoids.length > 0) {
+      products[i].attributes.push({
+        name: 'Cannabinoids',
+        value: products[i].cannabinoids.filter(c => parseFloat(c.pct) > 0.09),
+        type: 'array of objects'
+      });
+    }
+
+    if (products[i].terpenes && products[i].terpenes.length > 0) {
+      products[i].attributes.push({
+        name: 'Terpenes',
+        value: products[i].terpenes.filter(c => parseFloat(c.pct) > 0.09),
+        type: 'array of objects'
+      });
+    }
+
+    if (products[i].variants && products[i].variants.length > 0) {
+      products[i].attributes.push({
+        name: 'Variants',
+        // just copy the whole thing for now
+        value: JSON.parse(JSON.stringify(products[i].variants)),
+        type: 'array of strings'
+      });
+    }
+    
+
+    result.push(products[i])
+  }
+
+  const cannabinoids = new Set();
+  const terpenes = new Set();
+  const variants = new Set();
+
+  const updatedAt = new Date().toISOString()
+
+  fs.writeFileSync('../dank-nuxt/public/data/products.json', JSON.stringify({ products: result, cannabinoids, terpenes, variants, updatedAt }))
 
   logger.log({ level: 'info', message: `Wrote ${result.length} products to products.json` });
 }

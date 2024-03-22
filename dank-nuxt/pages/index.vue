@@ -4,3 +4,8 @@
         <ProductsList />
     </div>
 </template>
+
+<script>
+
+
+</script>
